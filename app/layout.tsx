@@ -18,13 +18,11 @@ export default function RootLayout(props: React.PropsWithChildren) {
     <Providers>
       <PrimeReactProvider>
         <html lang="en">
-          <body>
+          <body className="m-0 inline">
             <section>
               <header>
-                <div className="flex flex-column">
-                  <div className="flex-1 h-4rem bg-primary font-bold text-center p-4 ">
-                    <MenuBar />
-                  </div>
+                <div className="flex-1 bg-primary font-bold text-center p-4 ">
+                  <MenuBar />
                 </div>
               </header>
 

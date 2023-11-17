@@ -73,16 +73,32 @@ export default function BasicDemo() {
     />
   );
 
+  //  const caption = (item) => {
+  //    return (
+  //      <React.Fragment>
+  //        <div className="text-xl mb-2 font-bold">{item.title}</div>
+  //        <p className="text-white">{item.alt}</p>
+  //      </React.Fragment>
+  //    );
+  //  };
+
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
-      <div className="card flex justify-content-center">
-        <Image
-          src="https://st4.depositphotos.com/1015390/38880/i/450/depositphotos_388808316-stock-photo-wavy-abstract-smooth-colors-background.jpg"
-          alt="Image"
-          width="1649"
-          height="773"
+      {/* <div className="card">
+        <Galleria
+          value={images}
+          responsiveOptions={responsiveOptions}
+          numVisible={5}
+          item={itemTemplate}
+          thumbnail={thumbnailTemplate}
+          caption={caption}
+          style={{ maxWidth: "640px" }}
         />
-      </div>
+      </div> */}
+      <Image
+        width="1670"
+        src="https://the-post-assets.sgp1.digitaloceanspaces.com/2021/06/Gumihonew-1896x800.jpg"
+      ></Image>
 
       <div className="flex flex-row justify-content-center">
         <div className="card">
@@ -100,6 +116,7 @@ export default function BasicDemo() {
         />
       </div> */}
       </div>
+
       <div className="flex flex-column justify-content-center align-items-center gap-2">
         <div className="flex flex-row justify-content-between">
           <h2>About</h2>

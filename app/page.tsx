@@ -1,13 +1,10 @@
+"use client";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import { Image } from "primereact/image";
 import { serie, serie1, serie2 } from "@/lib/models/serie.model";
 import { actor, actor1, actor2 } from "@/lib/models/actor.model";
-import {
-  imageIndex,
-  imageIndex02,
-  imageIndex03,
-} from "@/lib/models/images.model";
+import { IndexImage, indexImages } from "@/lib/models/images.model";
 import { Carousel } from "primereact/carousel";
 
 // import { ProductService } from "./service/ProductService";
@@ -31,35 +28,8 @@ export default function IndexPage() {
     },
   ];
 
-  const productTemplate = (imageIndex: any) => {
-    return (
-      <div className="border-1 surface-border border-round m-2 text-center py-5 px-3">
-        <div className="mb-3">
-          <Image
-            src={imageIndex.url}
-            alt={imageIndex.name}
-            className="w-6 shadow-2"
-          />
-        </div>
-        <div className="mb-3">
-          <Image
-            src={imageIndex02.url}
-            alt={imageIndex.name}
-            className="w-6 shadow-2"
-          />
-        </div>
-        <div className="mb-3">
-          <Image
-            src={imageIndex03.url}
-            alt={imageIndex.name}
-            className="w-6 shadow-2"
-          />
-        </div>
-        <div>
-          <h4 className="mb-1">{imageIndex.name}</h4>
-        </div>
-      </div>
-    );
+  const imageTemplate = (indexImage: IndexImage) => {
+    return <Image src={indexImage.url} alt={indexImage.name} width="1670" />;
   };
 
   const header = (src: string) => <Image src={src}> </Image>;
@@ -73,22 +43,15 @@ export default function IndexPage() {
   );
 
   return (
-    <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
-      <div className="flex align-items-center justify-content-center h-4rem bg-primary font-bold border-round m-2 card">
-        <div className="card">
-          <Carousel
-            value={imageIndex}
-            numVisible={3}
-            numScroll={3}
-            itemTemplate={productTemplate}
-          />
-        </div>
-
-        <Image
-          src="https://st4.depositphotos.com/1015390/38880/i/450/depositphotos_388808316-stock-photo-wavy-abstract-smooth-colors-background.jpg"
-          alt="Image"
-          width="1649"
-          height="773"
+    <div>
+      <div>
+        <Carousel
+          value={indexImages}
+          numVisible={1}
+          numScroll={1}
+          itemTemplate={imageTemplate}
+          responsiveOptions={responsiveOptions}
+          showNavigators={false}
         />
       </div>
       <div className="flex flex-row justify-content-between gap-6">
@@ -206,7 +169,3 @@ export default function IndexPage() {
     </div>
   );
 }
-
-export const metadata = {
-  title: "Korean Series Wiki",
-};
