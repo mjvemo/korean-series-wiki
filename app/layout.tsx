@@ -10,7 +10,7 @@ import "./styles/globals.css";
 
 import { PrimeReactProvider } from "primereact/api";
 
-import { MenuBar } from "./components/MenuBar";
+import { MenuBar } from "../lib/components/MenuBar";
 import Link from "next/link";
 
 export default function RootLayout(props: React.PropsWithChildren) {

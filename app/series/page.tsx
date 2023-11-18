@@ -1,181 +1,192 @@
 "use client";
 
-import { TabMenu } from "primereact/tabmenu";
 import React, { useState, useEffect } from "react";
-import { Galleria } from "primereact/galleria";
 import { Image } from "primereact/image";
-import { serie } from "@/lib/models/serie.model";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
+import Link from "next/link";
+import { serie, serie1, serie2 } from "@/lib/models/serie.model";
+import { Footer } from "@/lib/components/Footer";
 
 export default function BasicDemo() {
-  const items = [
-    { label: "About", icon: "pi pi-fw pi-home" },
-    { label: "Seasons", icon: "pi pi-fw pi-calendar" },
-    { label: "Cast", icon: "pi pi-fw pi-pencil" },
-    { label: "Awards", icon: "pi pi-fw pi-file" },
-  ];
+  const header = (src: string) => <Image src={src}> </Image>;
 
-  // const [images, setImages] = useState(null);
-  // const responsiveOptions = [
-  //   {
-  //     breakpoint: "991px",
-  //     numVisible: 4,
-  //   },
-  //   {
-  //     breakpoint: "767px",
-  //     numVisible: 3,
-  //   },
-  //   {
-  //     breakpoint: "575px",
-  //     numVisible: 1,
-  //   },
-  // ];
-
-  // useEffect(() => {
-  //   PhotoService.getImages().then((data) => setImages(data));
-  // }, []);
-
-  // const itemTemplate = (item) => {
-  //   return (
-  //     <img
-  //       src={item.itemImageSrc}
-  //       alt={item.alt}
-  //       style={{ width: "100%", display: "block" }}
-  //     />
-  //   );
-  // };
-
-  // const thumbnailTemplate = (item) => {
-  //   return (
-  //     <img
-  //       src={item.thumbnailImageSrc}
-  //       alt={item.alt}
-  //       style={{ display: "block" }}
-  //     />
-  //   );
-  // };
-
-  // const caption = (item) => {
-  //   return (
-  //     <React.Fragment>
-  //       <div className="text-xl mb-2 font-bold">{item.title}</div>
-  //       <p className="text-white">{item.alt}</p>
-  //     </React.Fragment>
-  //   );
-  // };
-
-  const header = (
-    <img
-      alt="Card"
-      src="https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/03/16/6231339ee2a8f37ae025032e.webp"
-      width="400"
-    />
+  const footer = (
+    <div className="flex flex-row justify-content-center">
+      <Button icon="pi pi-pencil" text></Button>
+      <Button icon="pi pi-trash" text></Button>
+    </div>
   );
-
-  //  const caption = (item) => {
-  //    return (
-  //      <React.Fragment>
-  //        <div className="text-xl mb-2 font-bold">{item.title}</div>
-  //        <p className="text-white">{item.alt}</p>
-  //      </React.Fragment>
-  //    );
-  //  };
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
-      {/* <div className="card">
-        <Galleria
-          value={images}
-          responsiveOptions={responsiveOptions}
-          numVisible={5}
-          item={itemTemplate}
-          thumbnail={thumbnailTemplate}
-          caption={caption}
-          style={{ maxWidth: "640px" }}
-        />
-      </div> */}
       <Image
         width="1670"
         src="https://the-post-assets.sgp1.digitaloceanspaces.com/2021/06/Gumihonew-1896x800.jpg"
       ></Image>
-
-      <div className="flex flex-row justify-content-center">
-        <div className="card">
-          <TabMenu model={items} />
+      <div className="flex flex-row gap-2">
+        <Link href="/series/create">
+          <Button
+            label="Añadir Nuevo"
+            icon="pi pi-plus"
+            size="small"
+            outlined
+          ></Button>
+        </Link>
+      </div>
+      <div className="flex flex-row justify-content-between gap-6">
+        <h2>Top 10 Series</h2>
+      </div>
+      <div className="flex align-items-start justify-content-center gap-4">
+        {" "}
+        <div className="card flex-auto flex-order-0">
+          <Card
+            title={serie.name}
+            subTitle={serie.releaseDate}
+            footer={footer}
+            header={header(serie.url)}
+            className="md:w-25rem"
+          >
+            <p className="m-0">{serie.description}</p>
+          </Card>
         </div>
-        {/* <div className="card">
-        <Galleria
-          value={images}
-          responsiveOptions={responsiveOptions}
-          numVisible={5}
-          item={itemTemplate}
-          thumbnail={thumbnailTemplate}
-          caption={caption}
-          style={{ maxWidth: "640px" }}
-        />
-      </div> */}
-      </div>
-
-      <div className="flex flex-column justify-content-center align-items-center gap-2">
-        <div className="flex flex-row justify-content-between">
-          <h2>About</h2>
-          <Button text icon="pi pi-pencil"></Button>
+        <div className="card flex-auto flex-order-1">
+          <Card
+            title={serie1.name}
+            subTitle={serie1.releaseDate}
+            footer={footer}
+            header={header(serie1.url)}
+            className="md:w-25rem"
+          >
+            <p className="m-0">{serie1.description}</p>
+          </Card>
         </div>
-        <p>{serie.description}</p>
+        <div className="card flex-auto flex-order-2">
+          <Card
+            title={serie2.name}
+            subTitle={serie2.releaseDate}
+            footer={footer}
+            header={header(serie2.url)}
+            className="md:w-25rem"
+          >
+            <p className="m-0">{serie2.description}</p>
+          </Card>
+        </div>
+        <div className="card flex-auto flex-order-3">
+          <Card
+            title={serie2.name}
+            subTitle={serie2.releaseDate}
+            footer={footer}
+            header={header(serie2.url)}
+            className="md:w-25rem"
+          >
+            <p className="m-0">{serie2.description}</p>
+          </Card>
+        </div>
       </div>
-      <Button
-        className="flex flex-column-reverse justify-content-center gap-2"
-        text
-        icon="pi pi-angle-down"
-      >
-        Read more
-      </Button>
-      <h2>News</h2>
-      <div className="flex flex-wrap column-gap-4 row-gap-6">
-        <Card subTitle={serie.releaseDate} className="md:w-25rem">
-          <img
-            alt="Card"
-            src="https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/03/16/6231339ee2a8f37ae025032e.webp"
-            width="120"
-          />
-        </Card>
-        <Card subTitle={serie.releaseDate} className="md:w-25rem">
-          <img
-            alt="Card"
-            src="https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/03/16/6231339ee2a8f37ae025032e.webp"
-            width="120"
-          />
-        </Card>
-        <Card subTitle={serie.releaseDate} className="md:w-25rem">
-          <img
-            alt="Card"
-            src="https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/03/16/6231339ee2a8f37ae025032e.webp"
-            width="120"
-          />
-        </Card>
-        <Card subTitle={serie.releaseDate} className="md:w-25rem">
-          <img
-            alt="Card"
-            src="https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/03/16/6231339ee2a8f37ae025032e.webp"
-            width="120"
-          />
-        </Card>
-        <Card subTitle={serie.releaseDate} className="md:w-25rem">
-          <img
-            alt="Card"
-            src="https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/03/16/6231339ee2a8f37ae025032e.webp"
-            width="120"
-          />
-        </Card>
-        <Card subTitle={serie.releaseDate} className="md:w-25rem">
-          <img
-            alt="Card"
-            src="https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/03/16/6231339ee2a8f37ae025032e.webp"
-            width="120"
-          />
-        </Card>
+      <div className="flex flex-row justify-content-between gap-6">
+        <h2>Latest Release</h2>
       </div>
+      <div className="flex align-items-start justify-content-center gap-2">
+        {" "}
+        <div className="card flex-auto flex-order-0">
+          <Card
+            title={serie.name}
+            subTitle={serie.releaseDate}
+            footer={footer}
+            header={header(serie.url)}
+            className="md:w-25rem"
+          >
+            <p className="m-0">{serie.description}</p>
+          </Card>
+        </div>
+        <div className="card flex-auto flex-order-1">
+          <Card
+            title={serie1.name}
+            subTitle={serie1.releaseDate}
+            footer={footer}
+            header={header(serie1.url)}
+            className="md:w-25rem"
+          >
+            <p className="m-0">{serie1.description}</p>
+          </Card>
+        </div>
+        <div className="card flex-auto flex-order-2">
+          <Card
+            title={serie2.name}
+            subTitle={serie2.releaseDate}
+            footer={footer}
+            header={header(serie2.url)}
+            className="md:w-25rem"
+          >
+            <p className="m-0">{serie2.description}</p>
+          </Card>
+        </div>
+        <div className="card flex-auto flex-order-3">
+          <Card
+            title={serie2.name}
+            subTitle={serie2.releaseDate}
+            footer={footer}
+            header={header(serie2.url)}
+            className="md:w-25rem"
+          >
+            <p className="m-0">{serie2.description}</p>
+          </Card>
+        </div>
+      </div>
+      <div className="flex flex-row justify-content-between gap-6">
+        <h2>Latest Release</h2>
+      </div>
+      <div className="flex align-items-start justify-content-center gap-2">
+        {" "}
+        <div className="card flex-auto flex-order-0">
+          <Card
+            title={serie.name}
+            subTitle={serie.releaseDate}
+            footer={footer}
+            header={header(serie.url)}
+            className="md:w-25rem"
+          >
+            <p className="m-0">{serie.description}</p>
+          </Card>
+        </div>
+        <div className="card flex-auto flex-order-1">
+          <Card
+            title={serie1.name}
+            subTitle={serie1.releaseDate}
+            footer={footer}
+            header={header(serie1.url)}
+            className="md:w-25rem"
+          >
+            <p className="m-0">{serie1.description}</p>
+          </Card>
+        </div>
+        <div className="card flex-auto flex-order-2">
+          <Card
+            title={serie2.name}
+            subTitle={serie2.releaseDate}
+            footer={footer}
+            header={header(serie2.url)}
+            className="md:w-25rem"
+          >
+            <p className="m-0">{serie2.description}</p>
+          </Card>
+        </div>
+        <div className="card flex-auto flex-order-3">
+          <Card
+            title={serie2.name}
+            subTitle={serie2.releaseDate}
+            footer={footer}
+            header={header(serie2.url)}
+            className="md:w-25rem"
+          >
+            <p className="m-0">{serie2.description}</p>
+          </Card>
+        </div>
+      </div>
+      <footer className="flex flex-row justify-content-center gap-6 h-4rem font-bold">
+        <Footer />
+      </footer>
     </div>
   );
 }
