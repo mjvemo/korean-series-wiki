@@ -35,3 +35,12 @@ export const serie2: Serie = {
     "Una mirada nostálgica al año 1988. La vida de cinco familias que viven en la misma calle en un barrio de Seúl.",
   url: "https://1.vikiplatform.com/c/26576c/Reply-1988_1560x872_modified_1.jpg?x=b",
 };
+
+export const serie3: Serie = {
+  id: "8cfecd07-06a8-4b8b-a040-a9a6d6357b93",
+  name: "Reply 1988",
+  releaseDate: 2016,
+  description:
+    "Una mirada nostálgica al año 1988. La vida de cinco familias que viven en la misma calle en un barrio de Seúl.",
+  url: "https://1.vikiplatform.com/c/26576c/Reply-1988_1560x872_modified_1.jpg?x=b",
+};

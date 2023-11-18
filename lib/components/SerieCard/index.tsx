@@ -1,9 +1,13 @@
 import { Card } from "primereact/card";
-import { serie, serie1, serie2 } from "@/lib/models/serie.model";
+import { Serie } from "@/lib/models/serie.model";
 import { Button } from "primereact/button";
 import { Image } from "primereact/image";
 
-export function Cards() {
+export interface CardProps {
+  serie: Serie;
+}
+
+export function SerieCard({ serie }: CardProps) {
   const header = (src: string) => <Image src={src}> </Image>;
 
   const footer = (

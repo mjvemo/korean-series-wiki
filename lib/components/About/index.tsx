@@ -4,16 +4,17 @@ import { Image } from "primereact/image";
 import { useState } from "react";
 import { serie } from "@/lib/models/serie.model";
 import { InputTextarea } from "primereact/inputtextarea";
+import { ChangeEvent } from "react";
 
 export function About() {
   const [description, setDescription] = useState("");
   const [textarea, setTextarea] = useState("");
 
-  function handleOnChangeDescription(e: any) {
+  function handleOnChangeDescription(e: ChangeEvent<HTMLInputElement>) {
     setDescription(e.target.value);
   }
 
-  function hsndleOnChangeTextarea(e: any) {
+  function handleOnChangeTextarea(e: ChangeEvent<HTMLTextAreaElement>) {
     setTextarea(e.target.value);
   }
 
@@ -33,7 +34,7 @@ export function About() {
           <span className="p-float-label">
             <InputTextarea
               value={textarea}
-              onChange={hsndleOnChangeTextarea}
+              onChange={handleOnChangeTextarea}
               autoResize
             ></InputTextarea>
           </span>

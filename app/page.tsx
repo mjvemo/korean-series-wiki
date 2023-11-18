@@ -7,7 +7,8 @@ import { actor, actor1, actor2 } from "@/lib/models/actor.model";
 import { IndexImage, indexImages } from "@/lib/models/images.model";
 import { Carousel } from "primereact/carousel";
 import { Footer } from "@/lib/components/Footer";
-import { Cards } from "@/lib/components/Cards";
+import { SerieCard } from "@/lib/components/SerieCard";
+import Link from "next/link";
 
 // import { ProductService } from "./service/ProductService";
 
@@ -34,15 +35,7 @@ export default function IndexPage() {
     return <Image src={indexImage.url} alt={indexImage.name} width="1670" />;
   };
 
-  const header = (src: string) => <Image src={src}> </Image>;
-  const headerActor = (src: string) => <Image src={src}> </Image>;
-
-  const footer = (
-    <div className="flex flex-row justify-content-center">
-      <Button icon="pi pi-pencil" text></Button>
-      <Button icon="pi pi-trash" text></Button>
-    </div>
-  );
+  const listOfCards = [serie, serie1, serie2];
 
   return (
     <div>
@@ -56,61 +49,42 @@ export default function IndexPage() {
           showNavigators={false}
         />
       </div>
+
       <div className="flex flex-row justify-content-between gap-6">
         <h2>Top 10 Series</h2>
+        <div className="flex flex-row gap-4">
+          <Link href="/series/create">
+            <Button
+              label="Añadir Nuevo"
+              icon="pi pi-plus"
+              size="small"
+              outlined
+            ></Button>
+          </Link>
+        </div>
       </div>
-
       <div className="flex align-items-start justify-content-center gap-4">
-        <Cards></Cards>
+        {listOfCards.map((serie) => (
+          <SerieCard key={serie.id} serie={serie} />
+        ))}
       </div>
       <div className="flex flex-row justify-content-between gap-6">
         <h2>Top 10 Actors</h2>
-        <div className="flex flex-row gap-2">
-          <Button
-            label="Añadir Nuevo"
-            icon="pi pi-plus"
-            size="small"
-            outlined
-          ></Button>
-          <Button icon="pi pi-list" size="large" text></Button>
+        <div className="flex flex-row gap-4">
+          <Link href="/series/create">
+            <Button
+              label="Añadir Nuevo"
+              icon="pi pi-plus"
+              size="small"
+              outlined
+            ></Button>
+          </Link>
         </div>
       </div>
-
       <div className="flex align-items-start justify-content-center gap-4">
-        {" "}
-        <div className="card flex-auto flex-order-0">
-          <Card
-            title={actor.name}
-            subTitle={actor.age}
-            footer={footer}
-            header={headerActor(actor.url)}
-            className="md:w-25rem"
-          >
-            <p className="m-0">{actor.agency}</p>
-          </Card>
-        </div>
-        <div className="card flex-auto flex-order-1">
-          <Card
-            title={actor1.name}
-            subTitle={actor1.age}
-            footer={footer}
-            header={headerActor(actor1.url)}
-            className="md:w-25rem"
-          >
-            <p className="m-0">{actor1.agency}</p>
-          </Card>
-        </div>
-        <div className="card flex-auto flex-order-2">
-          <Card
-            title={actor2.name}
-            subTitle={actor2.age}
-            footer={footer}
-            header={headerActor(actor2.url)}
-            className="md:w-25rem"
-          >
-            <p className="m-0">{actor2.agency}</p>
-          </Card>
-        </div>
+        {listOfCards.map((serie) => (
+          <SerieCard key={serie.id} serie={serie} />
+        ))}
       </div>
       <footer className="flex flex-row justify-content-center gap-6 h-4rem font-bold">
         <Footer />
