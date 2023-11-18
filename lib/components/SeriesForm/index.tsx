@@ -37,16 +37,14 @@ export function SerieForm() {
   }
   return (
     <div>
-      <div>
+      <div className="">
         <InputText
           value={imageUrl}
           onChange={handleOnChangeUrl}
           placeholder="Image Url"
-          className="p-inputtext-lg"
         />
       </div>
       <div className="flex flex-row flex-wrap pt-2 gap-2">
-        <label htmlFor="username">Name</label>
         <InputText
           value={name}
           onChange={handleOnChangeName}
