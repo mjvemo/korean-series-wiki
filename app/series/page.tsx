@@ -7,10 +7,31 @@ import { Footer } from "@/lib/components/Footer";
 import { SerieCard } from "@/lib/components/SerieCard";
 import { serie, serie1, serie2, serie3 } from "@/lib/models/serie.model";
 
+import { useEffect } from "react";
+
+import {
+  getSeriesAsync,
+  selectSeries,
+  useDispatch,
+  useSelector,
+} from "@/lib/redux";
+
 export default function BasicDemo() {
   const listOfCards = [serie, serie1, serie2, serie3];
+  const dispatch = useDispatch();
+  const series = useSelector(selectSeries);
+
+  useEffect(() => {
+    dispatch(getSeriesAsync());
+  }, []);
+
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
+      {series.map((serie) => (
+        <div key={serie.id}>
+          {serie.id} - {serie.name}
+        </div>
+      ))}
       <Image
         width="1670"
         src="https://the-post-assets.sgp1.digitaloceanspaces.com/2021/06/Gumihonew-1896x800.jpg"
