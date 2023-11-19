@@ -17,8 +17,11 @@ export default function (props: ComponentProps) {
   const { id } = props.params;
 
   const items = [
-    { label: "About", icon: "pi pi-fw pi-home", url: "./components/about" },
-    { label: "Seasons", icon: "pi pi-fw pi-calendar" },
+    { label: "About", icon: "pi pi-fw pi-home" },
+    {
+      label: "Seasons",
+      icon: "pi pi-fw pi-calendar",
+    },
     { label: "Cast", icon: "pi pi-fw pi-pencil" },
     { label: "Awards", icon: "pi pi-fw pi-file" },
   ];

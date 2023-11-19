@@ -1,17 +1,21 @@
 "use client";
 import { InputNumber, InputNumberChangeEvent } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import { ChangeEvent } from "react";
 import { Rating, RatingChangeEvent } from "primereact/rating";
-import { Nullable } from "primereact/ts-helpers";
+import { Calendar } from "primereact/calendar";
+import { FormEvent } from "primereact/ts-helpers";
 
 export function SerieForm() {
   const [imageUrl, setImageUrl] = useState("");
   const [name, setName] = useState("");
-  const [year, setYear] = useState(0);
+  const [year, setYear] = useState(new Date());
   const [pg, setPg] = useState("");
   const [rate, setRate] = useState(0);
+  const [genre, setGenre] = useState("");
+  const [director, setDirector] = useState("");
+  const [directedBy, setDirectedBy] = useState("");
 
   function handleOnChangeUrl(e: ChangeEvent<HTMLInputElement>) {
     setImageUrl(e.target.value);
@@ -20,9 +24,12 @@ export function SerieForm() {
   function handleOnChangeName(e: ChangeEvent<HTMLInputElement>) {
     setName(e.target.value);
   }
-  function handleOnChangeYear(e: InputNumberChangeEvent) {
-    const num = Number(e.value);
-    setYear(num);
+  function handleOnChangeYear(
+    event: FormEvent<Date, SyntheticEvent<Element, Event>>
+  ) {
+    if (event.value) {
+      setYear(event.value);
+    }
   }
   function handleOnChangePg(e: ChangeEvent<HTMLInputElement>) {
     setPg(e.target.value);
@@ -35,6 +42,16 @@ export function SerieForm() {
       setRate(0);
     }
   }
+  function handleOnChangeGenre(e: ChangeEvent<HTMLInputElement>) {
+    setGenre(e.target.value);
+  }
+  function handleOnChangeDirector(e: ChangeEvent<HTMLInputElement>) {
+    setDirector(e.target.value);
+  }
+  function handleOnChangeDirectedBy(e: ChangeEvent<HTMLInputElement>) {
+    setDirectedBy(e.target.value);
+  }
+
   return (
     <div>
       <div className="">
@@ -50,10 +67,11 @@ export function SerieForm() {
           onChange={handleOnChangeName}
           placeholder="Name"
         />
-        <InputNumber
+        <Calendar
           value={year}
           onChange={handleOnChangeYear}
-          placeholder="Year"
+          view="year"
+          dateFormat="yy"
         />
       </div>
       <div className="flex flex-row flex-wrap pt-2 gap-2">
@@ -63,22 +81,22 @@ export function SerieForm() {
       <h3>Production</h3>
       <div className="flex flex-row flex-wrap">
         <InputText
-          value={imageUrl}
-          onChange={handleOnChangeUrl}
+          value={genre}
+          onChange={handleOnChangeGenre}
           placeholder="Genre"
         />
       </div>
       <div className="flex flex-row flex-wrap pt-2">
         <InputText
-          value={imageUrl}
-          onChange={handleOnChangeUrl}
+          value={director}
+          onChange={handleOnChangeDirector}
           placeholder="Director"
         />
       </div>
       <div className="flex flex-row flex-wrap pt-2">
         <InputText
-          value={imageUrl}
-          onChange={handleOnChangeUrl}
+          value={directedBy}
+          onChange={handleOnChangeDirectedBy}
           placeholder="Directed By"
         />
       </div>

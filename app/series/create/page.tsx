@@ -2,16 +2,13 @@
 import { Image } from "primereact/image";
 import { SerieForm } from "@/lib/components/SeriesForm";
 import { About } from "@/lib/components/About";
-import { TabMenu } from "primereact/tabmenu";
+import { Season } from "@/lib/components/Season";
+import { Cast } from "@/lib/components/Cast";
+import { Award } from "@/lib/components/Award";
 import { Button } from "primereact/button";
+import { TabView, TabPanel } from "primereact/tabview";
 
 export default function Page() {
-  const items = [
-    { label: "About", icon: "pi pi-fw pi-home", url: "/series" },
-    { label: "Seasons", icon: "pi pi-fw pi-calendar" },
-    { label: "Cast", icon: "pi pi-fw pi-pencil" },
-    { label: "Awards", icon: "pi pi-fw pi-file" },
-  ];
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6 p-5">
       <div className="flex align-items-start justify-content-center gap-4">
@@ -24,13 +21,23 @@ export default function Page() {
         <SerieForm />
       </div>
       <div>
-        <div className="flex flex-row justify-content-center">
-          <div className="card">
-            <TabMenu model={items} />
+        <div className="flex justify-content-center">
+          <div className="card justify-content-center">
+            <TabView>
+              <TabPanel header="About" className="m-0">
+                <About />
+              </TabPanel>
+              <TabPanel header="Seasons" className="m-0">
+                <Season />
+              </TabPanel>
+              <TabPanel header="Cast" className="m-0">
+                <Cast />
+              </TabPanel>
+              <TabPanel header="Awards" className="m-0">
+                <Award />
+              </TabPanel>
+            </TabView>
           </div>
-        </div>
-        <div>
-          <About />
         </div>
       </div>
       <div className="flex flex-row gap-4 justify-content-end p-6">
