@@ -7,6 +7,7 @@ import { Cast } from "@/lib/components/Cast";
 import { Award } from "@/lib/components/Award";
 import { Button } from "primereact/button";
 import { TabView, TabPanel } from "primereact/tabview";
+import { Series } from "@/lib/components/Series";
 
 export default function Page() {
   return (
@@ -27,10 +28,7 @@ export default function Page() {
               <About />
             </TabPanel>
             <TabPanel header="Seasons" className="m-0">
-              <Season />
-            </TabPanel>
-            <TabPanel header="Cast" className="m-0">
-              <Cast />
+              <Series />
             </TabPanel>
             <TabPanel header="Awards" className="m-0">
               <Award />
@@ -45,17 +43,3 @@ export default function Page() {
     </div>
   );
 }
-
-//
-/** Create Page Components
- * upload image
- * form
- * ========================
- * news cards
- * ========================
- * series cards
- * ========================
- * actor cards
- * ========================
- * datatable awards
- */

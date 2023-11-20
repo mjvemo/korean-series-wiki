@@ -7,6 +7,8 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { ChangeEvent } from "react";
 import { Calendar } from "primereact/calendar";
 import { FormEvent } from "primereact/ts-helpers";
+import { Button } from "primereact/button";
+import { Divider } from "primereact/divider";
 
 export function About() {
   const [description, setDescription] = useState("");
@@ -34,7 +36,7 @@ export function About() {
   }
 
   return (
-    <div className="flex flex-row justify-content-center gap-6">
+    <div className="flex flex-column  gap-6">
       <div className="flex flex-column justify-content-start pt-2">
         <h1>Synopsis</h1>
         <span className="p-float-label">
@@ -43,18 +45,19 @@ export function About() {
             onChange={handleOnChangeDescription}
             autoResize
             rows={16}
-            cols={30}
+            cols={90}
           ></InputTextarea>
         </span>
       </div>
+      <Divider />
       <div className="flex flex-column">
-        <div className="flex align-items-center justify-content-center">
+        <div className="flex align-items-center ">
           <div className="flex flex-row gap-4 align-items-center">
             <div className="flex flex-column">
               <h1>News</h1>
               <Image
-                width="650"
-                src="https://lh3.googleusercontent.com/TIgMsEJR5zyOOpY0c_u2nH1kliF6kjwJTy0HbZ2BHUCSHeoOAAvco-8Vw3TAMSaypSlooKr2Xv2koHnu5OE43bQivgahMePdrv5Wv4Oai0dH5BQO=w780-nu-rj-l80-e365"
+                width="225"
+                src="https://movieplayer.net-cdn.it/t/images/2022/03/21/business-proposal-poster_jpg_400x0_crop_q85.jpg"
                 preview
               ></Image>
             </div>
@@ -80,8 +83,7 @@ export function About() {
                 cols={30}
               ></InputTextarea>
             </div>
-
-            <div className="flex flex-column gap-2"></div>
+            <Button icon="pi pi-plus" outlined></Button>
           </div>
         </div>
       </div>

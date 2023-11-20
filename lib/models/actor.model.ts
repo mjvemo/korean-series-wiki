@@ -29,3 +29,11 @@ export const actor2: Actor = {
   agency: "JyP",
   url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc9GYfGbGxLVoahYtbpJcg4vfM5j-CnfGDQA&usqp=CAU",
 };
+
+export const actor3: Actor = {
+  id: "8cfecd07-06a8-4b8b-a040-a9a6d6357b95",
+  name: "Suzy",
+  age: 29,
+  agency: "JyP",
+  url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc9GYfGbGxLVoahYtbpJcg4vfM5j-CnfGDQA&usqp=CAU",
+};

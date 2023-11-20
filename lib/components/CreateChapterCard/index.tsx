@@ -5,7 +5,7 @@ import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { ChangeEvent, useState } from "react";
 
-export function ChapterCard() {
+export function CreateChapterCard() {
   const [chapter, setChapter] = useState("");
   const [description, setDescription] = useState("");
 

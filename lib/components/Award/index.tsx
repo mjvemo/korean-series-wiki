@@ -1,7 +1,13 @@
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
-import { DataTableInputs } from "../DataTableInputs";
+import { CreateAwardForm } from "../CreateAwardFrom";
+import { Button } from "primereact/button";
 
 export function Award() {
-  return <DataTableInputs />;
+  return (
+    <div>
+      <CreateAwardForm />
+      <Button icon="pi pi-plus" outlined></Button>
+    </div>
+  );
 }

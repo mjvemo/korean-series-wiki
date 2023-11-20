@@ -5,7 +5,7 @@ import { InputNumber } from "primereact/inputnumber";
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { FormEvent } from "primereact/ts-helpers";
 
-export function DataTableInputs() {
+export function CreateAwardForm() {
   const [year, setYear] = useState(new Date());
   const [category, setCategory] = useState("");
   const [award, setAward] = useState("");
@@ -29,7 +29,7 @@ export function DataTableInputs() {
   }
 
   return (
-    <div className="flex align-items-center justify-content-center">
+    <div className="flex align-items-center">
       <div className="flex flex-row gap-4 align-items-center">
         <div className="flex flex-column">
           <div className="flex flex-row gap-4">

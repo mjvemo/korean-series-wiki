@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { Dropdown } from "primereact/dropdown";
-import { ChapterCard } from "../ChapterCard";
+import { CreateChapterCard } from "../CreateChapterCard";
+import { Button } from "primereact/button";
 
 export function Season() {
   const [selectedCity, setSelectedCity] = useState(null);
@@ -24,16 +25,8 @@ export function Season() {
         className="w-full md:w-14rem"
       />
       <div className="flex flex-row gap-2 align-items-start justify-content-start pt-4 py-4">
-        <ChapterCard />
-        <ChapterCard />
-        <ChapterCard />
-        <ChapterCard />
-      </div>
-      <div className="flex flex-row gap-2 align-items-start justify-content-start pt-4 py-4">
-        <ChapterCard />
-        <ChapterCard />
-        <ChapterCard />
-        <ChapterCard />
+        <CreateChapterCard />
+        <Button icon="pi pi-plus" outlined></Button>
       </div>
     </div>
   );
