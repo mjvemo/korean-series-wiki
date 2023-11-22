@@ -1,6 +1,6 @@
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
-import { CreateAwardForm } from "../CreateAwardFrom";
+import { CreateAwardForm } from "../CreateAwardForm";
 import { Button } from "primereact/button";
 
 export function Award() {

@@ -24,7 +24,7 @@ export default function (props: ComponentProps) {
       ></Image>
       <div className="flex flex-column">
         <div className="flex flex-row gap-4">
-          <Link href="/series/create">
+          <Link href="actor/create">
             <Button
               label="Añadir Nuevo"
               icon="pi pi-plus"

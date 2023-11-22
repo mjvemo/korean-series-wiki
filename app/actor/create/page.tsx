@@ -27,7 +27,7 @@ export default function Page() {
             <TabPanel header="About" className="m-0">
               <About />
             </TabPanel>
-            <TabPanel header="Seasons" className="m-0">
+            <TabPanel header="Series" className="m-0">
               <Series />
             </TabPanel>
             <TabPanel header="Awards" className="m-0">
