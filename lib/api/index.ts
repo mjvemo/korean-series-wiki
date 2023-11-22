@@ -2,6 +2,9 @@ import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { CreateSerieRequestDTO } from "./dtos/create-serie-request.dto";
 import { SerieDTO } from "./dtos/serie.dto";
 import { UpdateSerieRequestDTO } from "./dtos/update-serie-request.dto";
+import { CreateActorRequestDTO } from "./dtos/create-actor-request.dto";
+import { UpdateActorRequestDTO } from "./dtos/update-actor-request.dto";
+import { ActorDTO } from "./dtos/actor.dto";
 
 const API_BASE_URL = process.env.API_BASE_URL || "http://127.0.0.1:3002";
 export class ApiClient {
@@ -39,12 +42,34 @@ export class ApiClient {
 
   updateSerie(id: string, data: UpdateSerieRequestDTO): Promise<SerieDTO> {
     const url = `/series/${id}`;
-    return this.request({ url, method: 'PATCH', data });
+    return this.request({ url, method: "PATCH", data });
   }
 
   deleteSerie(id: string): Promise<SerieDTO> {
     const url = `/series/${id}`;
-    return this.request({ url, method: 'DELETE' });
+    return this.request({ url, method: "DELETE" });
+  }
+
+  getActors(): Promise<ActorDTO[]> {
+    const url = "/actor";
+    return this.request({ url });
+  }
+  createActor(data: CreateActorRequestDTO): Promise<ActorDTO> {
+    const url = `/actor`;
+    return this.request({ url, data, method: "POST" });
+  }
+  getActor(id: string): Promise<ActorDTO> {
+    const url = `/actor/${id}`;
+    return this.request({ url });
+  }
+  updateActor(id: string, data: UpdateActorRequestDTO): Promise<ActorDTO> {
+    const url = `/actor/${id}`;
+    return this.request({ url, method: "PATCH", data });
+  }
+
+  deleteActor(id: string): Promise<ActorDTO> {
+    const url = `/actor/${id}`;
+    return this.request({ url, method: "DELETE" });
   }
 }
 

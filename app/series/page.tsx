@@ -7,7 +7,7 @@ import { Footer } from "@/lib/components/Footer";
 import { SerieCard } from "@/lib/components/SerieCard";
 import { serie, serie1, serie2, serie3 } from "@/lib/models/serie.model";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import {
   getSeriesAsync,
@@ -21,6 +21,7 @@ export default function BasicDemo() {
   const dispatch = useDispatch();
   const series = useSelector(selectSeries);
 
+  // LifeCycle - OnMount - First Time the component is rendered in the html/ui
   useEffect(() => {
     dispatch(getSeriesAsync());
   }, []);

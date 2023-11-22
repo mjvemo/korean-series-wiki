@@ -9,12 +9,27 @@ import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import { About } from "@/lib/components/About";
 
+import {
+  useDispatch,
+  getSerieByIdAsync,
+  useSelector,
+  selectActiveSerie,
+} from "@/lib/redux";
+
 export interface ComponentProps {
   params: { id: string };
 }
 
 export default function (props: ComponentProps) {
   const { id } = props.params;
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getSerieByIdAsync(id));
+  }, []);
+
+  const activeSerie = useSelector(selectActiveSerie);
 
   const items = [
     { label: "About", icon: "pi pi-fw pi-home" },
@@ -36,6 +51,14 @@ export default function (props: ComponentProps) {
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
+      {activeSerie && (
+        <div>
+          <div>id: {activeSerie.id}</div>
+          <div>name: {activeSerie.name}</div>
+          <div>directedBy: {activeSerie.directedBy}</div>
+          <div>releasedAt: {activeSerie.releasedAt}</div>
+        </div>
+      )}
       <Image
         width="1670"
         src="https://the-post-assets.sgp1.digitaloceanspaces.com/2021/06/Gumihonew-1896x800.jpg"

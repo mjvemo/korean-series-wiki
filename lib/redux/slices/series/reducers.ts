@@ -7,11 +7,38 @@ export const getSeriesFulfilledCaseReducer: CaseReducer<
   PayloadAction<SerieDTO[]>
 > = (state, action) => {
   state.items = action.payload;
-  state.status = 'idle';
+  state.status = "idle";
 };
 
 export const getSeriesPendingCaseReducer: CaseReducer<SerieState, any> = (
   state
 ) => {
   state.status = "loading";
+};
+
+export const getSerieByIdFulfilledCaseReducer: CaseReducer<
+  SerieState,
+  PayloadAction<SerieDTO>
+> = (state, action) => {
+  state.active = action.payload;
+  state.status = "idle";
+};
+
+export const getSerieByIdPendingCaseReducer: CaseReducer<SerieState, any> = (
+  state
+) => {
+  state.status = "loading";
+};
+
+export const getSerieByIdRejectedCaseReducer: CaseReducer<SerieState, any> = (
+  state
+) => {
+  state.status = "failed";
+};
+
+export const addSerieReducer: CaseReducer<
+  SerieState,
+  PayloadAction<SerieDTO>
+> = (state, action) => {
+  state.items.push(action.payload);
 };

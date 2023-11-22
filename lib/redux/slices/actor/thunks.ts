@@ -2,8 +2,8 @@ import client from "@/lib/api";
 import { createAppAsyncThunk } from "../../createAppAsyncThunk";
 
 export enum ActionType {
-  GET_SERIES = "series/getSeries",
-  GET_SERIE_BY_ID = "series/getSerieById",
+  GET_ACTOR = "actor/getActor",
+  GET_ACTOR_BY_ID = "actor/getActorById",
 }
 
 // {
@@ -11,8 +11,8 @@ export enum ActionType {
 //   payload: [{}]
 // }
 
-export const getSeriesAsync = createAppAsyncThunk(ActionType.GET_SERIES, () => {
-  return client.getSeries();
+export const getActorAsync = createAppAsyncThunk(ActionType.GET_ACTOR, () => {
+  return client.getActor();
 });
 
 // {
@@ -26,9 +26,9 @@ export const getSeriesAsync = createAppAsyncThunk(ActionType.GET_SERIES, () => {
 // sync - cosas que pasan en linea -> una despues de la otra
 // async - cosas que pasan al mismo tiempo -> hay que esperar una respuesta
 
-export const getSerieByIdAsync = createAppAsyncThunk(
-  ActionType.GET_SERIE_BY_ID,
+export const getActorByIdAsync = createAppAsyncThunk(
+  ActionType.GET_ACTOR_BY_ID,
   (id: string) => {
-    return client.getSerie(id);
+    return client.getActor(id);
   }
 );
