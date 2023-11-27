@@ -1,107 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
-import { InputNumber } from "primereact/inputnumber";
-import { Dropdown } from "primereact/dropdown";
-import { Tag } from "primereact/tag";
-import { useDispatch, useSelector } from "react-redux";
-import { getActorsByIdAsync } from "@/lib/redux/slices/actors/thunks";
-import { selectActiveActor } from "@/lib/redux/slices/actors/selectors";
-import { Nullable } from "primereact/ts-helpers";
-export interface ComponentProps {
-  params: { id: string };
-}
+import { useSelector } from "react-redux";
+import { getActorsAsync } from "@/lib/redux/slices/actors/thunks";
+import { selectActors } from "@/lib/redux/slices/actors/selectors";
+import { useDispatch } from "@/lib/redux";
 
-export default function RowEditingDemo(props: ComponentProps) {
-  const { id } = props.params;
-  const [actors, setActors] = useState(null);
-  const [statuses] = useState(["INSTOCK", "LOWSTOCK", "OUTOFSTOCK"]);
-
+export default function RowEditingDemo() {
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getActorsByIdAsync(id));
-  // }, []);
+  useEffect(() => {
+    dispatch(getActorsAsync()); // dispatch = AnyAction
+  }, []);
 
-  const activeActor = useSelector(selectActiveActor);
+  const allActors = useSelector(selectActors);
 
-  // const onRowEditComplete = (e: { newData: any; index: any }) => {
-  //   actors;
-  //   let _actors = [...activeActor];
-  //   let { newData, index } = e;
-
-  //   _actors[index] = newData;
-
-  //   setActors(_actors);
-  // };
-
-  const textEditor = (options: {
-    value: string | undefined;
-    editorCallback: (arg0: string) => void;
-  }) => {
-    return (
-      <InputText
-        type="text"
-        value={options.value}
-        onChange={(e) => options.editorCallback(e.target.value)}
-      />
-    );
-  };
-
-  const statusEditor = (options: {
-    value: any;
-    editorCallback: (arg0: any) => void;
-  }) => {
-    return (
-      <Dropdown
-        value={options.value}
-        options={statuses}
-        onChange={(e) => options.editorCallback(e.value)}
-        placeholder="Select a Status"
-        itemTemplate={(option) => {
-          return <Tag value={option}></Tag>;
-        }}
-      />
-    );
-  };
-
-  const priceEditor = (options: {
-    value: number | null | undefined;
-    editorCallback: (arg0: Nullable<number | null>) => void;
-  }) => {
-    return (
-      <InputNumber
-        value={options.value}
-        onValueChange={(e) => options.editorCallback(e.value)}
-        mode="currency"
-        currency="USD"
-        locale="en-US"
-      />
-    );
-  };
-
-  const statusBodyTemplate = (rowData: {
-    inventoryStatus:
-      | string
-      | number
-      | boolean
-      | React.ReactElement<any, string | React.JSXElementConstructor<any>>
-      | Iterable<React.ReactNode>
-      | React.ReactPortal
-      | React.PromiseLikeOfReactNode
-      | null
-      | undefined;
-  }) => {
-    return <Tag value={rowData.inventoryStatus}></Tag>;
-  };
-
-  const priceBodyTemplate = (rowData: { price: number | bigint }) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(rowData.price);
-  };
   const renderHeader = () => {
     return (
       <span className="p-input-icon-left">
@@ -115,48 +29,42 @@ export default function RowEditingDemo(props: ComponentProps) {
     );
   };
   const header = renderHeader();
+  console.log(allActors);
   return (
     <div className="card  p-4">
       <DataTable
-        // value={actor}
-        editMode="row"
+        value={allActors}
+        // editMode="row"
+        pageLinkSize={1}
         dataKey="id"
         header={header}
         paginator
+        rows={10}
         // onRowEditComplete={onRowEditComplete}
         tableStyle={{ minWidth: "50rem" }}
       >
+        <Column field="name" header="Name" style={{ width: "20%" }}></Column>
         <Column
-          field="name"
-          header="Name"
-          // editor={(options) => textEditor(options)}
-          style={{ width: "20%" }}
-        ></Column>
-        <Column
-          field="inventoryStatus"
+          field="age"
           header="Age"
-          body={statusBodyTemplate}
           // editor={(options) => statusEditor(options)}
           style={{ width: "20%" }}
         ></Column>
         <Column
-          field="price"
+          field="agency"
           header="Agency"
-          body={priceBodyTemplate}
           // editor={(options) => priceEditor(options)}
           style={{ width: "20%" }}
         ></Column>
         <Column
-          field="price"
+          field="education"
           header="Education"
-          body={priceBodyTemplate}
           // editor={(options) => priceEditor(options)}
           style={{ width: "20%" }}
         ></Column>
         <Column
-          field="price"
+          field="active"
           header="Active"
-          body={priceBodyTemplate}
           // editor={(options) => priceEditor(options)}
           style={{ width: "20%" }}
         ></Column>

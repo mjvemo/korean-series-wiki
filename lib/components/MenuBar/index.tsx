@@ -13,7 +13,7 @@ export const items = [
   {
     label: "Actor",
     icon: "pi pi-fw pi-user",
-    url: "/actor",
+    url: "/actors",
   },
 
   {

@@ -1,5 +1,7 @@
 export interface ActorDTO {
-  items: [];
-  active?: true;
-  status?: string;
+  id: string;
+  name: string;
+  age: number;
+  agency: string;
+  url: string;
 }
