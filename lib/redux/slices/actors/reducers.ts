@@ -1,9 +1,8 @@
 import { ActorDTO } from "@/lib/api/dtos/actor.dto";
-
 import { CaseReducer, type PayloadAction } from "@reduxjs/toolkit";
 import { ActorState } from "./state";
 
-export const getActorFulfilledCaseReducer: CaseReducer<
+export const getActorsFulfilledCaseReducer: CaseReducer<
   ActorState,
   PayloadAction<ActorDTO[]>
 > = (state, action) => {
@@ -11,27 +10,32 @@ export const getActorFulfilledCaseReducer: CaseReducer<
   state.status = "idle";
 };
 
-export const getActorPendingCaseReducer: CaseReducer<ActorState, any> = (
+export const getActorsPendingCaseReducer: CaseReducer<ActorState, any> = (
   state
 ) => {
   state.status = "loading";
 };
 
-export const getActorByIdFulfilledCaseReducer: CaseReducer<
+export const getActorsByIdFulfilledCaseReducer: CaseReducer<
   ActorState,
   PayloadAction<ActorDTO>
 > = (state, action) => {
   state.active = action.payload;
   state.status = "idle";
 };
+export const getActorRejectedCaseReducer: CaseReducer<ActorState, any> = (
+  state
+) => {
+  state.status = "failed";
+};
 
-export const getActorByIdPendingCaseReducer: CaseReducer<ActorState, any> = (
+export const getActorsByIdPendingCaseReducer: CaseReducer<ActorState, any> = (
   state
 ) => {
   state.status = "loading";
 };
 
-export const getActorByIdRejectedCaseReducer: CaseReducer<ActorState, any> = (
+export const getActorsByIdRejectedCaseReducer: CaseReducer<ActorState, any> = (
   state
 ) => {
   state.status = "failed";

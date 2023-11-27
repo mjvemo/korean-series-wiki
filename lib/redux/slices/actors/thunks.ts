@@ -2,8 +2,8 @@ import client from "@/lib/api";
 import { createAppAsyncThunk } from "../../createAppAsyncThunk";
 
 export enum ActionType {
-  GET_ACTOR = "actor/getActor",
-  GET_ACTOR_BY_ID = "actor/getActorById",
+  GET_ACTORS = "actors/getActors",
+  GET_ACTOR_BY_ID = "actors/getActorById",
 }
 
 // {
@@ -11,8 +11,8 @@ export enum ActionType {
 //   payload: [{}]
 // }
 
-export const getActorAsync = createAppAsyncThunk(ActionType.GET_ACTOR, () => {
-  return client.getActor();
+export const getActorsAsync = createAppAsyncThunk(ActionType.GET_ACTORS, () => {
+  return client.getActors();
 });
 
 // {
@@ -26,7 +26,7 @@ export const getActorAsync = createAppAsyncThunk(ActionType.GET_ACTOR, () => {
 // sync - cosas que pasan en linea -> una despues de la otra
 // async - cosas que pasan al mismo tiempo -> hay que esperar una respuesta
 
-export const getActorByIdAsync = createAppAsyncThunk(
+export const getActorsByIdAsync = createAppAsyncThunk(
   ActionType.GET_ACTOR_BY_ID,
   (id: string) => {
     return client.getActor(id);

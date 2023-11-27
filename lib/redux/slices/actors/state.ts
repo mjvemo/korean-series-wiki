@@ -1,5 +1,4 @@
 import { ActorDTO } from "@/lib/api/dtos/actor.dto";
-import { SerieDTO } from "@/lib/api/dtos/serie.dto";
 
 export interface ActorState {
   items: ActorDTO[];
@@ -7,7 +6,7 @@ export interface ActorState {
   status: "idle" | "loading" | "failed";
 }
 
-export const initialState: ActorDTO = {
+export const initialState: ActorState = {
   items: [],
   status: "idle",
 };

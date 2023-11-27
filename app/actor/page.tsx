@@ -1,5 +1,6 @@
 "use client";
 import { ActorCard } from "@/lib/components/ActorCard";
+import ActorsList from "@/lib/components/ActorsList";
 import CardCarousel from "@/lib/components/CardCarousel";
 import { actor, actor1, actor2, actor3 } from "@/lib/models/actor.model";
 import Link from "next/link";
@@ -34,10 +35,13 @@ export default function (props: ComponentProps) {
           </Link>
         </div>
         <h1 className="p-4">Top 10 actors</h1>
-        <div className="flex align-items-start justify-content-center gap-4">
+        {/* <div className="flex align-items-start justify-content-center gap-4">
           {listOfActor.map((actor) => (
             <ActorCard key={actor.id} actor={actor} />
           ))}
+        </div> */}
+        <div>
+          <ActorsList />
         </div>
       </div>
     </div>

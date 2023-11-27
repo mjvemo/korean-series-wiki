@@ -51,24 +51,24 @@ export class ApiClient {
   }
 
   getActors(): Promise<ActorDTO[]> {
-    const url = "/actor";
+    const url = "/actors";
     return this.request({ url });
   }
   createActor(data: CreateActorRequestDTO): Promise<ActorDTO> {
-    const url = `/actor`;
+    const url = `/actors`;
     return this.request({ url, data, method: "POST" });
   }
   getActor(id: string): Promise<ActorDTO> {
-    const url = `/actor/${id}`;
+    const url = `/actors/${id}`;
     return this.request({ url });
   }
   updateActor(id: string, data: UpdateActorRequestDTO): Promise<ActorDTO> {
-    const url = `/actor/${id}`;
+    const url = `/actors/${id}`;
     return this.request({ url, method: "PATCH", data });
   }
 
   deleteActor(id: string): Promise<ActorDTO> {
-    const url = `/actor/${id}`;
+    const url = `/actors/${id}`;
     return this.request({ url, method: "DELETE" });
   }
 }

@@ -15,6 +15,7 @@ import {
   useDispatch,
   useSelector,
 } from "@/lib/redux";
+import SeriesList from "@/lib/components/SeriesList";
 
 export default function BasicDemo() {
   const listOfCards = [serie, serie1, serie2, serie3];
@@ -46,6 +47,9 @@ export default function BasicDemo() {
             outlined
           ></Button>
         </Link>
+      </div>
+      <div>
+        <SeriesList />
       </div>
       <div>
         <div className="flex flex-row justify-content-between gap-6">
