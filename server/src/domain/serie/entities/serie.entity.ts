@@ -28,11 +28,11 @@ const schema = new Schema<ISerie>({
   directedBy: { type: String, required: true },
   studio: { type: String, required: true },
   image: { type: String, required: true },
-  // seasons: [{type: Schema.Types.UUID, ref: 'Season'}]
-  // cast: [{type: Schema.Types.UUID, ref: 'Actor'}]
-  // news: [{type: Schema.Types.UUID, ref: 'New'}]
-  // awards: [{type: Schema.Types.UUID, ref: 'Award'}]
-  // nominations: [{type: Schema.Types.UUID, ref: 'Award'}]
+  seasons: [{type: Schema.Types.UUID, ref: 'Season'}],
+  cast: [{type: Schema.Types.UUID, ref: 'Actor'}],
+  news: [{type: Schema.Types.UUID, ref: 'New'}],
+  awards: [{type: Schema.Types.UUID, ref: 'Award'}],
+  nominations: [{type: Schema.Types.UUID, ref: 'Award'}],
   releasedAt: { type: String, required: true },
   createdAt: { type: String, required: true },
   updatedAt: { type: String, required: false },

@@ -63,7 +63,7 @@ export class CreateSerieRequestDTO implements CreateSerieRequestProps {
   readonly releasedAt: string;
 
   constructor(props: CreateSerieRequestProps) {
-    const ajv = new Ajv();
+    const ajv = new Ajv({allErrors: true})
     const validate = ajv.compile(schema);
 
     validate(props);
