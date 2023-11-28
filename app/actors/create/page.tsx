@@ -8,6 +8,7 @@ import { Award } from "@/lib/components/Award";
 import { Button } from "primereact/button";
 import { TabView, TabPanel } from "primereact/tabview";
 import { Series } from "@/lib/components/Series";
+import { ActorsForm } from "@/lib/components/ActorsForm";
 
 export default function Page() {
   return (
@@ -19,7 +20,7 @@ export default function Page() {
           width="700"
           preview
         />
-        <SerieForm />
+        <ActorsForm />
       </div>
       <div>
         <div className="card justify-content-center">

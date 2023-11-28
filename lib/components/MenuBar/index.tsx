@@ -6,12 +6,12 @@ import Image from "next/image";
 
 export const items = [
   {
-    label: "Serie",
+    label: "Series",
     icon: "pi pi-fw pi-desktop",
     url: "/series",
   },
   {
-    label: "Actor",
+    label: "Actors",
     icon: "pi pi-fw pi-user",
     url: "/actors",
   },

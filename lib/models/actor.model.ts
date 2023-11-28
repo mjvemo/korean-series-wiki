@@ -4,7 +4,7 @@ export interface Actor {
   age: number;
   agency: string;
   education: string;
-  active: number;
+  active: string;
   url: string;
 }
 
@@ -14,8 +14,8 @@ export const actor: Actor = {
   age: 27,
   agency: "Jellyfish",
   education: "Hanyang Women's University",
-  active: 5,
-  url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZbQrqX3vdHO55lXC6H_DMiJ66unbRhzHX8w&usqp=CAU",
+  active: "10 years",
+  url: "https://styles.redditmedia.com/t5_9lasnh/styles/communityIcon_57w491jm4vtb1.png",
 };
 
 export const actor1: Actor = {
@@ -24,8 +24,8 @@ export const actor1: Actor = {
   age: 30,
   agency: "Kakao",
   education: "Hanyang Women's University",
-  active: 2,
-  url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFeb5J5I1n0OgH0B447DVFOy3g2dCZwVq3wg&usqp=CAU",
+  active: "2 years",
+  url: "https://b.thumbs.redditmedia.com/miApLhkUhU5stSAkydIsKYKLKqWubRZl316lFBeqaBQ.png",
 };
 
 export const actor2: Actor = {
@@ -34,28 +34,28 @@ export const actor2: Actor = {
   age: 29,
   agency: "JyP",
   education: "Hanyang Women's University",
-  active: 3,
-  url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc9GYfGbGxLVoahYtbpJcg4vfM5j-CnfGDQA&usqp=CAU",
+  active: "3 years",
+  url: "https://image.enjoymovie.net/kJ35VS0zN-tUc1lqVvOXi_Bba-I=/256x256/smart/core/p/6XpGaGjEW7.jpg",
 };
 
 export const actor3: Actor = {
-  id: "8cfecd07-06a8-4b8b-a040-a9a6d6357b95",
-  name: "Suzy",
-  age: 29,
-  agency: "JyP",
+  id: "8cfecd07-06a8-4b8b-a040-a9a6d6357b93",
+  name: "Segeong",
+  age: 27,
+  agency: "Jellyfish",
   education: "Hanyang Women's University",
-  active: 5,
-  url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc9GYfGbGxLVoahYtbpJcg4vfM5j-CnfGDQA&usqp=CAU",
+  active: "5 years",
+  url: "https://styles.redditmedia.com/t5_9lasnh/styles/communityIcon_57w491jm4vtb1.png",
 };
 
 export const actor4: Actor = {
-  id: "8cfecd07-06a8-4b8b-a040-a9a6d6357b95",
-  name: "Suzy",
-  age: 29,
-  agency: "JyP",
+  id: "8cfecd07-06a8-4b8b-a040-a9a6d6357b94",
+  name: "IU",
+  age: 30,
+  agency: "Kakao",
   education: "Hanyang Women's University",
-  active: 10,
-  url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc9GYfGbGxLVoahYtbpJcg4vfM5j-CnfGDQA&usqp=CAU",
+  active: "4 years",
+  url: "https://b.thumbs.redditmedia.com/miApLhkUhU5stSAkydIsKYKLKqWubRZl316lFBeqaBQ.png",
 };
 
 export const actor5: Actor = {
@@ -64,16 +64,16 @@ export const actor5: Actor = {
   age: 29,
   agency: "JyP",
   education: "Hanyang Women's University",
-  active: 5,
-  url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc9GYfGbGxLVoahYtbpJcg4vfM5j-CnfGDQA&usqp=CAU",
+  active: "7 years",
+  url: "https://image.enjoymovie.net/kJ35VS0zN-tUc1lqVvOXi_Bba-I=/256x256/smart/core/p/6XpGaGjEW7.jpg",
 };
 
 export const actor6: Actor = {
-  id: "8cfecd07-06a8-4b8b-a040-a9a6d6357b95",
-  name: "Suzy",
-  age: 29,
-  agency: "JyP",
+  id: "8cfecd07-06a8-4b8b-a040-a9a6d6357b93",
+  name: "Segeong",
+  age: 27,
+  agency: "Jellyfish",
   education: "Hanyang Women's University",
-  active: 0,
-  url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc9GYfGbGxLVoahYtbpJcg4vfM5j-CnfGDQA&usqp=CAU",
+  active: "8 years",
+  url: "https://styles.redditmedia.com/t5_9lasnh/styles/communityIcon_57w491jm4vtb1.png",
 };

@@ -3,17 +3,16 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { useSelector } from "react-redux";
-import { getActorsAsync } from "@/lib/redux/slices/actors/thunks";
 import { selectActors } from "@/lib/redux/slices/actors/selectors";
 import { useDispatch } from "@/lib/redux";
-import { Image } from "primereact/image";
 import { classNames } from "primereact/utils";
 import { FilterMatchMode, FilterOperator } from "primereact/api";
+import { Avatar } from "primereact/avatar";
 export default function RowEditingDemo() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getActorsAsync());
+    // dispatch(getActorsAsync());
   }, []);
 
   const allActors = useSelector(selectActors);
@@ -37,21 +36,30 @@ export default function RowEditingDemo() {
 
   const renderHeader = () => {
     return (
-      <span className="p-input-icon-left">
-        <InputText
-          placeholder="Search"
-          value={globalFilterValue}
-          onChange={onGlobalFilterChange}
-          type="text"
-          className="p-inputtext-sm"
-          // unstyled
-        />{" "}
-      </span>
+      <div className="flex justify-content-end">
+        <span className="p-input-icon-left">
+          <InputText
+            placeholder="Search"
+            value={globalFilterValue}
+            onChange={onGlobalFilterChange}
+            type="text"
+            className="p-inputtext-xl justify-content-end"
+            // unstyled
+          />{" "}
+        </span>
+      </div>
     );
   };
   const imageBodyTemplate = (allActors: { url: string | undefined }) => {
     return (
-      <Image src={allActors.url} alt={allActors.url} width="100" preview />
+      <Avatar
+        image={allActors.url}
+        label="V"
+        size="xlarge"
+        style={{ backgroundColor: "#2196F3", color: "#ffffff" }}
+        shape="circle"
+      />
+      // <Image src={allActors.url} alt={allActors.url} width="100" preview />
     );
   };
 
@@ -70,36 +78,62 @@ export default function RowEditingDemo() {
   const header = renderHeader();
   console.log(allActors);
   return (
-    <div className="card  p-4">
+    <div className="card justify-content-center p-4">
       <DataTable
         value={allActors}
         pageLinkSize={5}
         dataKey="id"
         header={header}
         paginator
+        stripedRows
+        sortMode="multiple"
+        removableSort
         rows={10}
         filters={filters}
         globalFilterFields={["name", "age", "agency", "active"]}
         tableStyle={{ minWidth: "50rem" }}
       >
-        <Column header="Image" body={imageBodyTemplate}></Column>
-        <Column field="name" header="Name" style={{ width: "20%" }}></Column>
-        <Column field="age" header="Age" style={{ width: "20%" }}></Column>
+        <Column
+          header="Image"
+          body={imageBodyTemplate}
+          sortable
+          style={{ width: "20%" }}
+        ></Column>
+        <Column
+          field="name"
+          header="Name"
+          style={{ width: "20%" }}
+          sortable
+        ></Column>
+        <Column
+          field="age"
+          header="Age"
+          style={{ width: "20%" }}
+          sortable
+        ></Column>
         <Column
           field="agency"
           header="Agency"
           style={{ width: "20%" }}
+          sortable
         ></Column>
         <Column
           field="education"
           header="Education"
           style={{ width: "20%" }}
+          sortable
         ></Column>
         <Column
           field="active"
           header="Active"
           body={activeBodyTemplate}
           style={{ width: "20%" }}
+          sortable
+        ></Column>
+        <Column
+          rowEditor
+          headerStyle={{ width: "10%", minWidth: "8rem" }}
+          bodyStyle={{ textAlign: "center" }}
         ></Column>
         <Column
           rowEditor

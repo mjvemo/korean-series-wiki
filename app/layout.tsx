@@ -3,7 +3,8 @@
 import { Providers } from "@/lib/providers";
 
 /* Instruments */
-import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/themes/soho-light/theme.css";
+// import "primereact/resources/themes/lara-dark-purple/theme.css";
 import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 import "./styles/globals.css";

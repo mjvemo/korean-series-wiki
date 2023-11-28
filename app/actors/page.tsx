@@ -24,17 +24,12 @@ export default function (props: ComponentProps) {
         src="https://the-post-assets.sgp1.digitaloceanspaces.com/2021/05/Gumiho-1896x800.jpg"
       ></Image>
       <div className="flex flex-column">
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row justify-content-end size-xl  gap-4 m-4">
           <Link href="actor/create">
-            <Button
-              label="Añadir Nuevo"
-              icon="pi pi-plus"
-              size="small"
-              outlined
-            ></Button>
+            <Button label="Añadir Nuevo" icon="pi pi-plus" outlined></Button>
           </Link>
         </div>
-        <h1 className="p-4">Top 10 actors</h1>
+        <h1 className="p-2 m-4">All Actors</h1>
         {/* <div className="flex align-items-start justify-content-center gap-4">
           {listOfActor.map((actor) => (
             <ActorCard key={actor.id} actor={actor} />
