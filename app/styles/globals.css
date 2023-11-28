@@ -6,3 +6,7 @@
 input.customTxtWidth150px {
   width: 350px !important;
 }
+
+.p-inputext {
+  width: 300px;
+}

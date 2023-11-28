@@ -1,5 +1,13 @@
 import { ActorDTO } from "@/lib/api/dtos/actor.dto";
-import { actor, actor1, actor2 } from "../../../models/actor.model";
+import {
+  actor,
+  actor1,
+  actor2,
+  actor3,
+  actor4,
+  actor5,
+  actor6,
+} from "../../../models/actor.model";
 
 export interface ActorState {
   items: ActorDTO[];
@@ -8,6 +16,6 @@ export interface ActorState {
 }
 
 export const initialState: ActorState = {
-  items: [actor, actor1, actor2],
+  items: [actor, actor1, actor2, actor3, actor4, actor5, actor6],
   status: "idle",
 };
