@@ -21,7 +21,7 @@ export class ActorMapper {
 
   static toDomain(entity: HydratedDocument<IActor>): Actor {
     return Actor.create({
-      id: entity._id as unknown as string,
+      id: entity._id.toString(),
       name: entity.name,
       bornAt: entity.bornAt,
       agency: entity.agency,
