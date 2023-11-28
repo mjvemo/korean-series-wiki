@@ -15,6 +15,7 @@ export function About() {
   const [textarea, setTextarea] = useState("");
   const [image, setImage] = useState("");
   const [year, setYear] = useState(new Date());
+  const [tittle, setTittle] = useState("");
 
   function handleOnChangeDescription(e: ChangeEvent<HTMLTextAreaElement>) {
     setDescription(e.target.value);
@@ -34,10 +35,13 @@ export function About() {
       setYear(event.value);
     }
   }
+  function handleOnChangeTittle(event: ChangeEvent<HTMLInputElement>) {
+    setTittle(event.target.value);
+  }
 
   return (
-    <div className="flex flex-column  gap-6">
-      <div className="flex flex-column justify-content-start pt-2">
+    <div className="flex flex-row justify-content-center gap-6">
+      <div className="flex flex-column align-items-center justify-content-center pt-2">
         <h1>Synopsis</h1>
         <span className="p-float-label">
           <InputTextarea
@@ -45,27 +49,36 @@ export function About() {
             onChange={handleOnChangeDescription}
             autoResize
             rows={16}
-            cols={90}
+            cols={50}
           ></InputTextarea>
         </span>
       </div>
-      <Divider />
+      <Divider layout="vertical" />
       <div className="flex flex-column">
         <div className="flex align-items-center ">
           <div className="flex flex-row gap-4 align-items-center">
-            <div className="flex flex-column">
+            <div className="flex flex-column justify-content-center">
               <h1>News</h1>
               <Image
-                width="225"
-                src="https://movieplayer.net-cdn.it/t/images/2022/03/21/business-proposal-poster_jpg_400x0_crop_q85.jpg"
+                width="520"
+                src="https://6.soompi.io/wp-content/uploads/image/e742c985be3548939200ae2dcde1d21d/dummy.jpeg?s=900x600&e=t"
                 preview
               ></Image>
             </div>
-            <div className="flex flex-column gap-2 align-items-start pt-6 px-4">
+            <div className="flex flex-column gap-3 align-items-start pt-6 px-4">
               <label>Image Url</label>
               <InputText
                 value={image}
                 onChange={handleOnChangeImage}
+                className="w-full"
+                placeholder="image url"
+              ></InputText>
+              <label>Tittle</label>
+              <InputText
+                value={tittle}
+                onChange={handleOnChangeTittle}
+                className="w-full"
+                placeholder="tittle"
               ></InputText>
               <label>Year</label>
               <Calendar
@@ -73,6 +86,7 @@ export function About() {
                 onChange={handleOnChangeYear}
                 view="year"
                 dateFormat="yy"
+                placeholder="year"
               />
               <label>Description</label>
               <InputTextarea
@@ -81,9 +95,9 @@ export function About() {
                 autoResize
                 rows={8}
                 cols={30}
+                className="w-full"
               ></InputTextarea>
             </div>
-            <Button icon="pi pi-plus" outlined></Button>
           </div>
         </div>
       </div>

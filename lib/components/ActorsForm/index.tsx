@@ -11,12 +11,10 @@ export function ActorsForm() {
   const [imageUrl, setImageUrl] = useState("");
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
-  const [pg, setPg] = useState("");
   const [rate, setRate] = useState(0);
   const [education, setEducation] = useState("");
   const [agency, setAgency] = useState("");
-  const [active, setActive] = useState("");
-  const [year, setYear] = useState(new Date());
+  const [yearActive, setYearActive] = useState(new Date());
 
   function handleOnChangeUrl(e: ChangeEvent<HTMLInputElement>) {
     setImageUrl(e.target.value);
@@ -24,10 +22,6 @@ export function ActorsForm() {
 
   function handleOnChangeName(e: ChangeEvent<HTMLInputElement>) {
     setName(e.target.value);
-  }
-
-  function handleOnChangePg(e: ChangeEvent<HTMLInputElement>) {
-    setPg(e.target.value);
   }
 
   function handleOnChangeRate(e: RatingChangeEvent) {
@@ -48,65 +42,76 @@ export function ActorsForm() {
   function handleOnChangeDirectedBy(e: ChangeEvent<HTMLInputElement>) {
     setAgency(e.target.value);
   }
-  function handleOnChangeYear(
+  function handleOnChangeYearActive(
     event: FormEvent<Date, SyntheticEvent<Element, Event>>
   ) {
     if (event.value) {
-      setYear(event.value);
+      setYearActive(event.value);
     }
   }
 
   return (
-    <div>
-      <div className="">
-        <InputText
-          value={imageUrl}
-          onChange={handleOnChangeUrl}
-          placeholder="Image Url"
-        />
-      </div>
-      <div className="flex flex-row flex-wrap pt-2 gap-2">
-        <InputText
-          value={name}
-          onChange={handleOnChangeName}
-          placeholder="Name"
-        />
-      </div>
-      <div className="flex flex-row flex-wrap pt-2 gap-2">
-        <InputNumber
-          value={age}
-          onChange={handleOnChangeAge}
-          placeholder="Age"
-        />
-      </div>
-      <div className="flex flex-row flex-wrap pt-2 gap-2">
-        <InputText value={pg} onChange={handleOnChangePg} placeholder="PG" />
-        <Rating value={rate} onChange={handleOnChangeRate} cancel={false} />
-      </div>
-      <h3>Production</h3>
-      <div className="flex flex-row flex-wrap pt-2">
-        <InputText
-          value={education}
-          onChange={handleOnChangeEducation}
-          placeholder="Education"
-        />
-      </div>
-      <div className="flex flex-row flex-wrap pt-2">
-        <InputText
-          value={agency}
-          onChange={handleOnChangeDirectedBy}
-          placeholder="Agency"
-        />
-      </div>
+    <div className="flex align-items-center">
+      <div className="flex flex-row gap-3 align-items-center">
+        <div className="flex flex-column">
+          <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
+            <label>Image Url</label>
+            <InputText
+              value={imageUrl}
+              onChange={handleOnChangeUrl}
+              placeholder="image url"
+              className="w-full"
+            />
+          </div>
+          <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3 w-full">
+            <label>Name</label>
+            <InputText
+              value={name}
+              onChange={handleOnChangeName}
+              placeholder="name"
+              className="w-full"
+            />
+          </div>
+          <div className="flex flex-row gap-4">
+            <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
+              <label>Age</label>
+              <InputNumber
+                value={age}
+                onChange={handleOnChangeAge}
+                placeholder="age"
+              />
+            </div>
+            <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
+              <label>Education</label>
+              <InputText
+                value={education}
+                onChange={handleOnChangeEducation}
+                placeholder="education"
+              />
+            </div>
+          </div>
+          <div className="flex flex-row gap-4">
+            <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
+              <label>Agency</label>
+              <InputText
+                value={agency}
+                onChange={handleOnChangeDirectedBy}
+                placeholder="agency"
+              />
+            </div>
 
-      <div className="flex flex-row flex-wrap pt-2">
-        <Calendar
-          value={year}
-          onChange={handleOnChangeYear}
-          view="year"
-          dateFormat="yy"
-          placeholder="active years"
-        />
+            <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
+              <label>Active Since</label>
+              <Calendar
+                value={yearActive}
+                onChange={handleOnChangeYearActive}
+                view="year"
+                dateFormat="yy"
+                placeholder="active since"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

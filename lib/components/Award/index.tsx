@@ -1,13 +1,9 @@
-import { Column } from "primereact/column";
-import { DataTable } from "primereact/datatable";
 import { CreateAwardForm } from "../CreateAwardForm";
-import { Button } from "primereact/button";
 
 export function Award() {
   return (
-    <div>
+    <div className="flex flex-row justify-content-center mt-6">
       <CreateAwardForm />
-      <Button icon="pi pi-plus" outlined></Button>
     </div>
   );
 }
