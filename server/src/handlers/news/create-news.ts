@@ -1,11 +1,11 @@
 import {Request, Response} from 'express';
-import useCase from '../../use-cases/seasons/create-season/create-season.use-case';
-import { CreateSerieRequestDTO } from '../../use-cases/seasons/create-season/create-season-request.dto';
+import useCase from '../../use-cases/news/create-news/create-news.use-case';
+import { CreateNewsRequestDTO } from '../../use-cases/news/create-news/create-news-request.dto';
 
 export default async function handler(req: Request, res: Response) {
 
   try {
-    const request = new CreateSerieRequestDTO(req.body);
+    const request = new CreateNewsRequestDTO(req.body);
 
     const response = await useCase.create(request);
     return res.status(201).json(response);
