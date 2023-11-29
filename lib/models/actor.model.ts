@@ -40,8 +40,8 @@ export const actor2: Actor = {
 
 export const actor3: Actor = {
   id: "8cfecd07-06a8-4b8b-a040-a9a6d6357b93",
-  name: "Segeong",
-  age: 27,
+  name: "A",
+  age: 23,
   agency: "Jellyfish",
   education: "Hanyang Women's University",
   active: "5 years",
@@ -50,8 +50,8 @@ export const actor3: Actor = {
 
 export const actor4: Actor = {
   id: "8cfecd07-06a8-4b8b-a040-a9a6d6357b94",
-  name: "IU",
-  age: 30,
+  name: "B",
+  age: 32,
   agency: "Kakao",
   education: "Hanyang Women's University",
   active: "4 years",
@@ -60,8 +60,8 @@ export const actor4: Actor = {
 
 export const actor5: Actor = {
   id: "8cfecd07-06a8-4b8b-a040-a9a6d6357b95",
-  name: "Suzy",
-  age: 29,
+  name: "C",
+  age: 26,
   agency: "JyP",
   education: "Hanyang Women's University",
   active: "7 years",
@@ -70,8 +70,8 @@ export const actor5: Actor = {
 
 export const actor6: Actor = {
   id: "8cfecd07-06a8-4b8b-a040-a9a6d6357b93",
-  name: "Segeong",
-  age: 27,
+  name: "D",
+  age: 22,
   agency: "Jellyfish",
   education: "Hanyang Women's University",
   active: "8 years",

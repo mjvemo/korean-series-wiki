@@ -37,6 +37,15 @@ export function CreateAwardForm() {
     <div className="flex align-items-center">
       <div className="flex flex-row gap-4 align-items-center">
         <div className="flex flex-column">
+          <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
+            <label>Prize Name</label>
+            <InputText
+              value={award}
+              onChange={handleOnChangeAward}
+              placeholder="prize name"
+              className="w-full "
+            ></InputText>
+          </div>{" "}
           <div className="flex flex-row gap-4">
             <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
               <label>Year</label>
@@ -55,15 +64,6 @@ export function CreateAwardForm() {
               ></InputText>
             </div>
           </div>
-          <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
-            <label>Award Name</label>
-            <InputText
-              value={award}
-              onChange={handleOnChangeAward}
-              placeholder="award name"
-              className="w-full "
-            ></InputText>
-          </div>{" "}
           <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
             <label htmlFor="award-result">Select a Result</label>
             <Dropdown

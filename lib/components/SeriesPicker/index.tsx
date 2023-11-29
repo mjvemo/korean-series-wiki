@@ -1,113 +1,176 @@
-import React, { useState, useEffect } from "react";
-import { DataTable } from "primereact/datatable";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  DataTable,
+  DataTableSelectEvent,
+  DataTableUnselectEvent,
+} from "primereact/datatable";
 import { Column } from "primereact/column";
-import { Button } from "primereact/button";
-import { Rating } from "primereact/rating";
-import { Tag } from "primereact/tag";
-import { useDispatch, useSelector } from "react-redux";
-import { getSeriesAsync, selectSeries } from "@/lib/redux";
+import { InputText } from "primereact/inputtext";
+import { useSelector } from "react-redux";
+import { selectActors } from "@/lib/redux/slices/actors/selectors";
+import { useDispatch } from "@/lib/redux";
+import { classNames } from "primereact/utils";
+import { FilterMatchMode, FilterOperator } from "primereact/api";
+import { Avatar } from "primereact/avatar";
+import { Toast } from "primereact/toast";
+import { initialState } from "@/lib/redux/slices/series/state";
+export default function RowEditingDemo() {
+  // const dispatch = useDispatch();
 
-export default function TemplateDemo() {
-  const [products, setProducts] = useState([]);
-  const dispatch = useDispatch();
-  const series = useSelector(selectSeries);
+  useEffect(() => {
+    // dispatch(getActorsAsync());
+  }, []);
 
-  //   useEffect(() => {
-  //     dispatch(getSeriesAsync());
-  //   }, []);
+  const allActors = useSelector(selectActors);
+  const [globalFilterValue, setGlobalFilterValue] = useState("");
+  const [filters, setFilters] = useState({
+    global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    age: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    agency: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    active: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  });
+  const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    let _filters = { ...filters };
 
-  const formatCurrency = (value: {
-    toLocaleString: (
-      arg0: string,
-      arg1: { style: string; currency: string }
-    ) => any;
-  }) => {
-    return value.toLocaleString("en-US", {
-      style: "currency",
-      currency: "USD",
+    // @ts-ignore
+    _filters["global"].value = value;
+    setFilters(_filters);
+    setGlobalFilterValue(value);
+  };
+
+  const toast = useRef<Toast>(null);
+
+  const onRowSelect = (event: DataTableSelectEvent) => {
+    toast.current?.show({
+      severity: "info",
+      summary: "Product Selected",
+      detail: `Name: ${event.data.name}`,
+      life: 3000,
     });
   };
 
-  const imageBodyTemplate = (serie: any) => {
+  const onRowUnselect = (event: DataTableUnselectEvent) => {
+    toast.current?.show({
+      severity: "warn",
+      summary: "Product Unselected",
+      detail: `Name: ${event.data.name}`,
+      life: 3000,
+    });
+  };
+
+  const renderHeader = () => {
     return (
-      <img
-        src={`https://primefaces.org/cdn/primereact/images/product/${serie.image}`}
-        alt={serie.image}
-        className="w-6rem shadow-2 border-round"
-      />
-    );
-  };
-
-  const priceBodyTemplate = (serie: any) => {
-    return formatCurrency(serie.price);
-  };
-
-  const ratingBodyTemplate = (serie: any) => {
-    return <Rating value={serie.rating} readOnly cancel={false} />;
-  };
-
-  const statusBodyTemplate = (serie: any) => {
-    return (
-      <Tag value={serie.inventoryStatus} severity={getSeverity(serie)}></Tag>
-    );
-  };
-
-  const getSeverity = (serie: any) => {
-    switch (serie.inventoryStatus) {
-      case "INSTOCK":
-        return "success";
-
-      case "LOWSTOCK":
-        return "warning";
-
-      case "OUTOFSTOCK":
-        return "danger";
-
-      default:
-        return null;
-    }
-  };
-
-  const header = (
-    <div className="flex flex-wrap align-items-center justify-content-between gap-2">
-      <span className="text-xl text-900 font-bold">Products</span>
-      <Button icon="pi pi-refresh" rounded raised />
-    </div>
-  );
-  const footer = `In total there are ${
-    products ? products.length : 0
-  } products.`;
-
-  return (
-    <div>
-      {series.map((serie) => (
-        <div key={serie.id}>
-          {serie.id} - {serie.name}
-        </div>
-      ))}
-      <div className="card">
-        <DataTable
-          value={products}
-          header={header}
-          footer={footer}
-          tableStyle={{ minWidth: "60rem" }}
-        >
-          <Column field="name" header="Name"></Column>
-          <Column header="Image" body={imageBodyTemplate}></Column>
-          <Column
-            field="price"
-            header="Price"
-            body={priceBodyTemplate}
-          ></Column>
-          <Column field="category" header="Category"></Column>
-          <Column
-            field="rating"
-            header="Reviews"
-            body={ratingBodyTemplate}
-          ></Column>
-          <Column header="Status" body={statusBodyTemplate}></Column>
-        </DataTable>
+      <div className="flex justify-content-end">
+        <span className="p-input-icon-left">
+          <InputText
+            placeholder="Search"
+            value={globalFilterValue}
+            onChange={onGlobalFilterChange}
+            type="text"
+            className="p-inputtext-xl justify-content-end"
+            // unstyled
+          />{" "}
+        </span>
       </div>
+    );
+  };
+  const imageBodyTemplate = (allActors: { url: string | undefined }) => {
+    return (
+      <Avatar
+        image={allActors.url}
+        label="V"
+        size="xlarge"
+        style={{ backgroundColor: "#2196F3", color: "#ffffff" }}
+        shape="circle"
+      />
+      // <Image src={allActors.url} alt={allActors.url} width="100" preview />
+    );
+  };
+
+  const activeBodyTemplate = (allActors: any) => {
+    const stockClassName = classNames(
+      "border-circle w-2rem h-2rem inline-flex font-bold justify-content-center align-items-center text-sm",
+      {
+        "bg-red-100 text-red-900": allActors.active === 0,
+        "bg-blue-100 text-blue-900":
+          allActors.active > 0 && allActors.active <= 10,
+        "bg-teal-100 text-teal-900": allActors.acttive >= 10,
+      }
+    );
+    return <div className={stockClassName}>{allActors.active}</div>;
+  };
+  const header = renderHeader();
+  console.log(allActors);
+  return (
+    <div className="card justify-content-center p-4">
+      <Toast ref={toast} />
+      <DataTable
+        value={allActors}
+        pageLinkSize={5}
+        dataKey="id"
+        header={header}
+        paginator
+        stripedRows
+        sortMode="multiple"
+        removableSort
+        rows={10}
+        filters={filters}
+        globalFilterFields={["name", "age", "agency", "active"]}
+        tableStyle={{ minWidth: "50rem" }}
+        onRowSelect={onRowSelect}
+        onRowUnselect={onRowUnselect}
+        metaKeySelection={false}
+      >
+        <Column
+          header="Image"
+          body={imageBodyTemplate}
+          sortable
+          style={{ width: "20%" }}
+        ></Column>
+        <Column
+          field="name"
+          header="Name"
+          style={{ width: "20%" }}
+          sortable
+        ></Column>
+        <Column
+          field="age"
+          header="Age"
+          style={{ width: "20%" }}
+          sortable
+        ></Column>
+        <Column
+          field="agency"
+          header="Agency"
+          style={{ width: "20%" }}
+          sortable
+        ></Column>
+        <Column
+          field="education"
+          header="Education"
+          style={{ width: "20%" }}
+          sortable
+        ></Column>
+        <Column
+          field="active"
+          header="Active"
+          body={activeBodyTemplate}
+          style={{ width: "20%" }}
+          sortable
+        ></Column>
+        <Column
+          rowEditor
+          headerStyle={{ width: "10%", minWidth: "8rem" }}
+          bodyStyle={{ textAlign: "center" }}
+        ></Column>
+        <Column
+          rowEditor
+          headerStyle={{ width: "10%", minWidth: "8rem" }}
+          bodyStyle={{ textAlign: "center" }}
+        ></Column>
+      </DataTable>
     </div>
   );
 }
