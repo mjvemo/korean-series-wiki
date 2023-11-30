@@ -108,6 +108,7 @@ export default function RowEditingDemo() {
       <Toast ref={toast} />
       <DataTable
         value={allActors}
+        selectionMode="single"
         pageLinkSize={5}
         dataKey="id"
         header={header}
