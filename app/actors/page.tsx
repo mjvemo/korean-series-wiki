@@ -1,11 +1,8 @@
 "use client";
-import { ActorCard } from "@/lib/components/ActorCard";
 import ActorsList from "@/lib/components/ActorsList";
-import CardCarousel from "@/lib/components/CardCarousel";
 import { actor, actor1, actor2, actor3 } from "@/lib/models/actor.model";
 import Link from "next/link";
 import { Button } from "primereact/button";
-import { Carousel } from "primereact/carousel";
 import { Image } from "primereact/image";
 
 export interface ComponentProps {
@@ -25,7 +22,7 @@ export default function (props: ComponentProps) {
       ></Image>
       <div className="flex flex-column">
         <div className="flex flex-row justify-content-end size-xl  gap-4 m-4">
-          <Link href="actor/create">
+          <Link href="actors/create">
             <Button label="Añadir Nuevo" icon="pi pi-plus" outlined></Button>
           </Link>
         </div>

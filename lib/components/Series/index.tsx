@@ -1,20 +1,18 @@
 import SeriesPicker from "../SeriesPicker";
-import { SerieForm } from "../SeriesForm";
 import { Image } from "primereact/image";
+import { Card } from "primereact/card";
+import { actor } from "@/lib/models/actor.model";
+import { Avatar } from "primereact/avatar";
+import { useSelector } from "react-redux";
+import { selectActors } from "@/lib/redux/slices/actors";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
 
 export function Series() {
   return (
     <div className="flex flex-row align-items-start justify-content-start mt-6">
       <SeriesPicker />
-      <div className="gap-6">
-        <Image
-          width="520"
-          src="https://6.soompi.io/wp-content/uploads/image/e742c985be3548939200ae2dcde1d21d/dummy.jpeg?s=900x600&e=t"
-          preview
-          className="pt-4 pb-4"
-        />
-        <SerieForm />
-      </div>
+      {}
     </div>
   );
 }
