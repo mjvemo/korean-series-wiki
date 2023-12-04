@@ -1,9 +1,11 @@
 import client from "@/lib/api";
 import { createAppAsyncThunk } from "../../createAppAsyncThunk";
+import { CreateSerieRequestDTO } from "@/server/src/use-cases/series/create-serie/create-serie-request.dto";
 
 export enum ActionType {
   GET_SERIES = "series/getSeries",
   GET_SERIE_BY_ID = "series/getSerieById",
+  CREATE_SERIE = "series/createSerie",
 }
 
 // {
@@ -30,5 +32,12 @@ export const getSerieByIdAsync = createAppAsyncThunk(
   ActionType.GET_SERIE_BY_ID,
   (id: string) => {
     return client.getSerie(id);
+  }
+);
+
+export const createSerieAsync = createAppAsyncThunk(
+  ActionType.CREATE_SERIE,
+  (data: CreateSerieRequestDTO) => {
+    return client.createSerie(data);
   }
 );

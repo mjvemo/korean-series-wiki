@@ -5,7 +5,7 @@ import { SyntheticEvent, useEffect, useState } from "react";
 import { ChangeEvent } from "react";
 import { Rating, RatingChangeEvent } from "primereact/rating";
 import { Calendar } from "primereact/calendar";
-import { useFormik, FormikValues, FormikHelpers } from "formik";
+import { useFormik, FormikValues, FormikHelpers, withFormik } from "formik";
 import { object, string, number, date } from "yup";
 import { classNames } from "primereact/utils";
 import { Image } from "primereact/image";
@@ -71,12 +71,6 @@ export function ActorsForm() {
       <small className="p-error">&nbsp;</small>
     );
   };
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getSeriesAsync());
-  }, []);
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6 p-5">
@@ -200,15 +194,6 @@ export function ActorsForm() {
               </div>
             </div>
           </div>
-          <div className="flex flex-row gap-4 justify-content-end p-6">
-            <Button
-              type="submit"
-              label="Save"
-              icon="pi pi-check"
-              size="large"
-            ></Button>
-            <Button label="Cancel" icon="pi pi-times" size="large"></Button>
-          </div>
         </form>
       </div>
       <div>
@@ -237,4 +222,7 @@ export function ActorsForm() {
       </div>
     </div>
   );
+}
+function setSubmitting(arg0: boolean) {
+  throw new Error("Function not implemented.");
 }

@@ -1,104 +1,243 @@
 "use client";
-import { InputNumber, InputNumberChangeEvent } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
-import { SyntheticEvent, useState } from "react";
-import { ChangeEvent } from "react";
-import { Rating, RatingChangeEvent } from "primereact/rating";
+import { Rating } from "primereact/rating";
 import { Calendar } from "primereact/calendar";
-import { FormEvent } from "primereact/ts-helpers";
+import { string, object, number } from "yup";
+import { FormikHelpers, useFormik } from "formik";
+import { useDispatch } from "react-redux";
+import { classNames } from "primereact/utils";
+import { Image } from "primereact/image";
+import { TabPanel, TabView } from "primereact/tabview";
+import { About } from "../About";
+import { Season } from "../Season";
+import { Cast } from "../Cast";
+import { Award } from "../Award";
+import { Button } from "primereact/button";
+import { Divider } from "primereact/divider";
+
+interface SerieFormPayload {
+  imageUrl: string;
+  name: string;
+  year: string | null;
+  pg: string;
+  rate: number | undefined;
+  genre: string;
+  director: string;
+  directedBy: string;
+}
+
+const formSchema = object({
+  imageUrl: string().url("Invalid Format").required("Required"),
+  name: string().required("Name Required"),
+  year: number().required("Age Required"),
+  pg: string(),
+  rate: number().required("Age Required"),
+  genre: string().required("Required"),
+  directedBy: string(),
+});
 
 export function SerieForm() {
-  const [imageUrl, setImageUrl] = useState("");
-  const [name, setName] = useState("");
-  const [year, setYear] = useState(new Date());
-  const [pg, setPg] = useState("");
-  const [rate, setRate] = useState(0);
-  const [genre, setGenre] = useState("");
-  const [director, setDirector] = useState("");
-  const [directedBy, setDirectedBy] = useState("");
+  const initialValues: SerieFormPayload = {
+    imageUrl: "",
+    name: "",
+    year: null,
+    pg: "",
+    rate: undefined,
+    genre: "",
+    director: "",
+    directedBy: "",
+  };
 
-  function handleOnChangeUrl(e: ChangeEvent<HTMLInputElement>) {
-    setImageUrl(e.target.value);
-  }
+  const onFormSubmit = (
+    values: SerieFormPayload,
+    actions: FormikHelpers<SerieFormPayload>
+  ) => {
+    console.log(values);
 
-  function handleOnChangeName(e: ChangeEvent<HTMLInputElement>) {
-    setName(e.target.value);
-  }
-  function handleOnChangeYear(
-    event: FormEvent<Date, SyntheticEvent<Element, Event>>
-  ) {
-    if (event.value) {
-      setYear(event.value);
-    }
-  }
-  function handleOnChangePg(e: ChangeEvent<HTMLInputElement>) {
-    setPg(e.target.value);
-  }
+    actions.resetForm();
+  };
 
-  function handleOnChangeRate(e: RatingChangeEvent) {
-    if (typeof e.value === "number") {
-      setRate(e.value);
-    } else {
-      setRate(0);
-    }
-  }
-  function handleOnChangeGenre(e: ChangeEvent<HTMLInputElement>) {
-    setGenre(e.target.value);
-  }
-  function handleOnChangeDirector(e: ChangeEvent<HTMLInputElement>) {
-    setDirector(e.target.value);
-  }
-  function handleOnChangeDirectedBy(e: ChangeEvent<HTMLInputElement>) {
-    setDirectedBy(e.target.value);
-  }
+  const formik = useFormik({
+    initialValues,
+    onSubmit: onFormSubmit,
+    validationSchema: formSchema,
+  });
+  const isFormFieldInvalid = (name: keyof SerieFormPayload) =>
+    !!(formik.touched[name] && formik.errors[name]);
+
+  const getFormErrorMessage = (name: keyof SerieFormPayload) => {
+    return isFormFieldInvalid(name) ? (
+      <small className="p-error">{formik.errors[name] as string}</small>
+    ) : (
+      <small className="p-error">&nbsp;</small>
+    );
+  };
+
+  const dispatch = useDispatch();
 
   return (
-    <div>
-      <div className="">
-        <InputText
-          value={imageUrl}
-          onChange={handleOnChangeUrl}
-          placeholder="Image Url"
-        />
+    <div className="flex flex-column justify-content-center flex-wrap row-gap-6 p-5">
+      <div>
+        <h1>Add New Serie</h1>
       </div>
-      <div className="flex flex-row flex-wrap pt-2 gap-2">
-        <InputText
-          value={name}
-          onChange={handleOnChangeName}
-          placeholder="Name"
+      <div className="flex flex-row align-items-center justify-content-center gap-6">
+        <Image
+          src="https://6.soompi.io/wp-content/uploads/image/e742c985be3548939200ae2dcde1d21d/dummy.jpeg?s=900x600&e=t"
+          alt="Image"
+          width="650"
+          preview
         />
-        <Calendar
-          value={year}
-          onChange={handleOnChangeYear}
-          view="year"
-          dateFormat="yy"
-        />
+        <form onSubmit={formik.handleSubmit}>
+          {JSON.stringify(formik, null, 2)}
+          <div className="flex align-items-center">
+            <div className="flex flex-row gap-3 align-items-center">
+              <div className="flex flex-column">
+                <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
+                  <label>Image Url</label>
+                  <InputText
+                    name="imageUrl"
+                    id="imageUrl"
+                    value={formik.values.imageUrl}
+                    onChange={formik.handleChange}
+                    placeholder="image url"
+                    onBlur={formik.handleBlur}
+                    className={classNames({
+                      "p-invalid": isFormFieldInvalid("imageUrl"),
+                      "w-full": true,
+                    })}
+                  />
+                </div>
+                {getFormErrorMessage("imageUrl")}
+                <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3 w-full">
+                  <label>Name</label>
+                  <InputText
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    placeholder="Name"
+                    onBlur={formik.handleBlur}
+                    className={classNames({
+                      "p-invalid": isFormFieldInvalid("name"),
+                      "w-full": true,
+                    })}
+                  />
+                  {getFormErrorMessage("name")}
+                  <label>Calendar</label>
+                  <Calendar
+                    value={
+                      formik.values.year ? new Date(formik.values.year) : null
+                    }
+                    onChange={formik.handleChange}
+                    view="year"
+                    dateFormat="yy"
+                    onBlur={formik.handleBlur}
+                    className={classNames({
+                      "p-invalid": isFormFieldInvalid("year"),
+                      "w-full": true,
+                    })}
+                  />
+                </div>
+                {getFormErrorMessage("year")}
+                <div className="flex flex-row flex-wrap pt-2 gap-2">
+                  <div className="flex flex-column gap-2">
+                    <label>PG</label>
+                    <InputText
+                      value={formik.values.pg}
+                      onChange={formik.handleChange}
+                      placeholder="PG"
+                      onBlur={formik.handleBlur}
+                      className={classNames({
+                        "p-invalid": isFormFieldInvalid("pg"),
+                      })}
+                    />
+                  </div>
+                  {getFormErrorMessage("pg")}
+                  <div className="flex flex-column gap-3">
+                    <label>Rate</label>
+                    <Rating
+                      value={formik.values.rate}
+                      onChange={formik.handleChange}
+                      cancel={false}
+                    />
+                  </div>
+                </div>
+                {getFormErrorMessage("rate")}
+                <div>
+                  <Divider className="p-4" />
+                  <h3>Production</h3>
+                  <div className="flex flex-column gap-2">
+                    <label>Genre</label>
+                    <InputText
+                      value={formik.values.genre}
+                      onChange={formik.handleChange}
+                      placeholder="Genre"
+                      onBlur={formik.handleBlur}
+                      className={classNames({
+                        "p-invalid": isFormFieldInvalid("genre"),
+                        "w-full": true,
+                      })}
+                    />
+                  </div>
+                  {getFormErrorMessage("genre")}
+                  <div className="flex flex-column gap-2">
+                    <label>Director</label>
+                    <InputText
+                      value={formik.values.director}
+                      onChange={formik.handleChange}
+                      placeholder="Director"
+                      onBlur={formik.handleBlur}
+                      className={classNames({
+                        "p-invalid": isFormFieldInvalid("director"),
+                        "w-full": true,
+                      })}
+                    />
+                  </div>
+                  {getFormErrorMessage("director")}
+                  <div className="flex flex-column gap-2">
+                    <label>Directed By</label>
+                    <InputText
+                      value={formik.values.directedBy}
+                      onChange={formik.handleChange}
+                      placeholder="Directed By"
+                      onBlur={formik.handleBlur}
+                      className={classNames({
+                        "p-invalid": isFormFieldInvalid("directedBy"),
+                        "w-full": true,
+                      })}
+                    />
+                  </div>
+                  {getFormErrorMessage("directedBy")}
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
-      <div className="flex flex-row flex-wrap pt-2 gap-2">
-        <InputText value={pg} onChange={handleOnChangePg} placeholder="PG" />
-        <Rating value={rate} onChange={handleOnChangeRate} cancel={false} />
+      <div>
+        <div className="card ">
+          <TabView>
+            <TabPanel header="About" className="m-0">
+              <About />
+            </TabPanel>
+            <TabPanel header="Seasons" className="m-0">
+              <Season />
+            </TabPanel>
+            <TabPanel header="Cast" className="m-0">
+              <Cast />
+            </TabPanel>
+            <TabPanel header="Awards" className="m-0">
+              <Award />
+            </TabPanel>
+          </TabView>
+        </div>
       </div>
-      <h3>Production</h3>
-      <div className="flex flex-row flex-wrap">
-        <InputText
-          value={genre}
-          onChange={handleOnChangeGenre}
-          placeholder="Genre"
-        />
-      </div>
-      <div className="flex flex-row flex-wrap pt-2">
-        <InputText
-          value={director}
-          onChange={handleOnChangeDirector}
-          placeholder="Director"
-        />
-      </div>
-      <div className="flex flex-row flex-wrap pt-2">
-        <InputText
-          value={directedBy}
-          onChange={handleOnChangeDirectedBy}
-          placeholder="Directed By"
-        />
+      <div className="flex flex-row gap-4 justify-content-end p-6">
+        <Button
+          type="submit"
+          label="Save"
+          icon="pi pi-check"
+          size="large"
+        ></Button>
+        <Button label="Cancel" icon="pi pi-times" size="large"></Button>
       </div>
     </div>
   );
