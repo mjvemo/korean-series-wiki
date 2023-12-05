@@ -90,7 +90,7 @@ export function CreateChapterForm() {
               ></InputText>
             </div>
 
-            {getFormErrorMessage("imageUrl")}
+            {getFormErrorMessage("chapterName")}
             <div className="flex flex-column gap-3 align-items-start justify-content-start py-2">
               <label>Description</label>
               <InputTextarea

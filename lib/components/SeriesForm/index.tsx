@@ -14,6 +14,7 @@ import { Cast } from "../Cast";
 import { Award } from "../Award";
 import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
+import { InputNumber } from "primereact/inputnumber";
 
 interface SerieFormPayload {
   imageUrl: string;
@@ -29,9 +30,9 @@ interface SerieFormPayload {
 const formSchema = object({
   imageUrl: string().url("Invalid Format").required("Required"),
   name: string().required("Name Required"),
-  year: number().required("Age Required"),
+  year: number().required("Year Required"),
   pg: string(),
-  rate: number().required("Age Required"),
+  rate: number(),
   genre: string().required("Required"),
   directedBy: string(),
 });
@@ -111,9 +112,11 @@ export function SerieForm() {
                 <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3 w-full">
                   <label>Name</label>
                   <InputText
+                    name="name"
+                    id="name"
                     value={formik.values.name}
                     onChange={formik.handleChange}
-                    placeholder="Name"
+                    placeholder="name"
                     onBlur={formik.handleBlur}
                     className={classNames({
                       "p-invalid": isFormFieldInvalid("name"),
@@ -121,8 +124,10 @@ export function SerieForm() {
                     })}
                   />
                   {getFormErrorMessage("name")}
-                  <label>Calendar</label>
+                  <label>Year</label>
                   <Calendar
+                    name="year"
+                    id="year"
                     value={
                       formik.values.year ? new Date(formik.values.year) : null
                     }
@@ -141,9 +146,11 @@ export function SerieForm() {
                   <div className="flex flex-column gap-2">
                     <label>PG</label>
                     <InputText
+                      name="pg"
+                      id="pg"
                       value={formik.values.pg}
                       onChange={formik.handleChange}
-                      placeholder="PG"
+                      placeholder="pg"
                       onBlur={formik.handleBlur}
                       className={classNames({
                         "p-invalid": isFormFieldInvalid("pg"),
@@ -151,12 +158,19 @@ export function SerieForm() {
                     />
                   </div>
                   {getFormErrorMessage("pg")}
-                  <div className="flex flex-column gap-3">
+                  <div className="flex flex-column gap-2">
                     <label>Rate</label>
-                    <Rating
+                    <InputNumber
+                      name="rate"
+                      id="rate"
                       value={formik.values.rate}
                       onChange={formik.handleChange}
-                      cancel={false}
+                      placeholder="rate"
+                      onBlur={formik.handleBlur}
+                      className={classNames({
+                        "p-invalid": isFormFieldInvalid("rate"),
+                        "w-full": true,
+                      })}
                     />
                   </div>
                 </div>
@@ -167,9 +181,11 @@ export function SerieForm() {
                   <div className="flex flex-column gap-2">
                     <label>Genre</label>
                     <InputText
+                      name="genre"
+                      id="genre"
                       value={formik.values.genre}
                       onChange={formik.handleChange}
-                      placeholder="Genre"
+                      placeholder="genre"
                       onBlur={formik.handleBlur}
                       className={classNames({
                         "p-invalid": isFormFieldInvalid("genre"),
@@ -181,9 +197,11 @@ export function SerieForm() {
                   <div className="flex flex-column gap-2">
                     <label>Director</label>
                     <InputText
+                      name="director"
+                      id="director"
                       value={formik.values.director}
                       onChange={formik.handleChange}
-                      placeholder="Director"
+                      placeholder="director"
                       onBlur={formik.handleBlur}
                       className={classNames({
                         "p-invalid": isFormFieldInvalid("director"),
@@ -195,9 +213,11 @@ export function SerieForm() {
                   <div className="flex flex-column gap-2">
                     <label>Directed By</label>
                     <InputText
+                      name="directedBy"
+                      id="directedBy"
                       value={formik.values.directedBy}
                       onChange={formik.handleChange}
-                      placeholder="Directed By"
+                      placeholder="directed By"
                       onBlur={formik.handleBlur}
                       className={classNames({
                         "p-invalid": isFormFieldInvalid("directedBy"),

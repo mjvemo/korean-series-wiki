@@ -3,9 +3,7 @@ import { FormikHelpers, useFormik } from "formik";
 import { Image } from "primereact/image";
 import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
-import { ChangeEvent, useState } from "react";
 import { string, object, number } from "yup";
-import { Calendar } from "primereact/calendar";
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import { InputNumber } from "primereact/inputnumber";
 
@@ -18,8 +16,9 @@ interface AwardFormPayload {
 
 const formSchema = object({
   imageUrl: string().url("Invalid Format").required("Required"),
-  year: number().required("chapter name Required"),
-  category: string(),
+  prize: string().required("prize name Required"),
+  year: number().required("year Required"),
+  category: string().required("category required"),
 });
 export function CreateAwardForm() {
   const initialValues: AwardFormPayload = {
@@ -96,7 +95,7 @@ export function CreateAwardForm() {
                     "md: w-14rem": true,
                   })}
                 />
-                {getFormErrorMessage("category")}
+                {getFormErrorMessage("year")}
               </div>
               <div className="flex flex-column gap-3 align-items-start justify-content-start pt-3 py-2 ">
                 <label>Category</label>
@@ -113,7 +112,7 @@ export function CreateAwardForm() {
                     "md: w-14rem": true,
                   })}
                 />
-                {getFormErrorMessage("prize")}
+                {getFormErrorMessage("category")}
               </div>
             </div>
 
@@ -134,6 +133,7 @@ export function CreateAwardForm() {
                   "md: w-14rem": true,
                 })}
               />
+              {getFormErrorMessage("result")}
             </div>
           </div>{" "}
         </div>
