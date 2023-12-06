@@ -1,7 +1,10 @@
 export interface CreateActorRequestDTO {
+  imageUrl: string;
   name: string;
   age: number;
-  image: string;
+  education: string;
+  agency: string;
+  yearsActive: string;
   series: string[];
   news: string[];
   awards: string[];

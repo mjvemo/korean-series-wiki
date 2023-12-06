@@ -1,7 +1,7 @@
 "use client";
 import { InputNumber, InputNumberChangeEvent } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
-import { SyntheticEvent, useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState, useRef } from "react";
 import { ChangeEvent } from "react";
 import { Rating, RatingChangeEvent } from "primereact/rating";
 import { Calendar } from "primereact/calendar";
@@ -10,7 +10,13 @@ import { object, string, number, date } from "yup";
 import { classNames } from "primereact/utils";
 import { Image } from "primereact/image";
 import { Button } from "primereact/button";
-import { getSeriesAsync, useDispatch } from "@/lib/redux";
+import {
+  createActorAsync,
+  useDispatch,
+  useSelector,
+  selectActiveActor,
+  selectActorRequestStatus,
+} from "@/lib/redux";
 import { SerieForm } from "@/lib/components/SeriesForm";
 import { About } from "@/lib/components/About";
 import { Season } from "@/lib/components/Season";
@@ -18,26 +24,39 @@ import { Cast } from "@/lib/components/Cast";
 import { Award } from "@/lib/components/Award";
 import { TabView, TabPanel } from "primereact/tabview";
 import { Series } from "@/lib/components/Series";
+import { ActorsFormPayload } from "@/lib/models/actor.model";
+import { actorFormToCreateActorRequest } from "@/lib/utils/form-mappers";
+import { useRouter } from "next/navigation";
 
-interface ActorsFormPayload {
-  imageUrl: string;
-  name: string;
-  age: number | null;
-  education: string;
-  agency: string;
-  yearsActive: string | null;
-}
-
-const formSchema = object({
+const formSchema = object<ActorsFormPayload>({
   imageUrl: string().url("Invalid Format").required("Required"),
   name: string().required("Name Required"),
   age: number().required("Age Required"),
-  education: string(),
+  education: string().required("Education Required"),
   agency: string().required("Required"),
   yearsActive: string().required("Years Required"),
 });
 
 export function ActorsForm() {
+  const router = useRouter();
+  // dispatch
+  const dispatch = useDispatch();
+  const actor = useSelector(selectActiveActor);
+  const status = useSelector(selectActorRequestStatus);
+
+  // const created = useRef<boolean>(false);
+
+  useEffect(() => {
+    console.log("RUNNING USE EFFECT");
+    if (actor) {
+      router.push(`/actors/${actor.id}`);
+    }
+  }, [status]);
+
+  // if (actor) {
+  //   created.current = true;
+  // }
+
   const initialValues: ActorsFormPayload = {
     imageUrl: "",
     name: "",
@@ -45,6 +64,10 @@ export function ActorsForm() {
     education: "",
     agency: "",
     yearsActive: null,
+    series: [],
+    news: [],
+    awards: [],
+    nominations: [],
   };
 
   const onFormSubmit = (
@@ -53,7 +76,10 @@ export function ActorsForm() {
   ) => {
     console.log(values);
 
-    actions.resetForm();
+    const createActorRequest = actorFormToCreateActorRequest(values);
+    dispatch(createActorAsync(createActorRequest));
+
+    actions.setSubmitting(true);
   };
 
   const formik = useFormik({
@@ -61,6 +87,7 @@ export function ActorsForm() {
     onSubmit: onFormSubmit,
     validationSchema: formSchema,
   });
+
   const isFormFieldInvalid = (name: keyof ActorsFormPayload) =>
     !!(formik.touched[name] && formik.errors[name]);
 
@@ -80,7 +107,14 @@ export function ActorsForm() {
       <div className="flex flex-row align-items-center justify-content-center gap-6">
         <Image src={formik.values.imageUrl} alt="Image" width="650" preview />
         <form onSubmit={formik.handleSubmit}>
+          <>
+            --- Formik State <br></br>
+          </>
           {JSON.stringify(formik, null, 2)}
+          <>
+            <br></br> --- Actor <br></br>
+          </>
+          {JSON.stringify(actor || {}, null, 2)}
           <div className="flex align-items-center">
             <div className="flex flex-row gap-3 align-items-center">
               <div className="flex flex-column">
@@ -194,6 +228,15 @@ export function ActorsForm() {
               </div>
             </div>
           </div>
+          <div className="flex flex-row gap-4 justify-content-end p-6">
+            <Button
+              type="submit"
+              label="Save"
+              icon="pi pi-check"
+              size="large"
+            ></Button>
+            <Button label="Cancel" icon="pi pi-times" size="large"></Button>
+          </div>
         </form>
       </div>
       <div>
@@ -210,15 +253,6 @@ export function ActorsForm() {
             </TabPanel>
           </TabView>
         </div>
-      </div>
-      <div className="flex flex-row gap-4 justify-content-end p-6">
-        <Button
-          type="submit"
-          label="Save"
-          icon="pi pi-check"
-          size="large"
-        ></Button>
-        <Button label="Cancel" icon="pi pi-times" size="large"></Button>
       </div>
     </div>
   );

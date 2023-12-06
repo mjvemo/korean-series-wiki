@@ -8,6 +8,19 @@ export interface Actor {
   url: string;
 }
 
+export interface ActorsFormPayload {
+  imageUrl: string;
+  name: string;
+  age: number | null;
+  education: string;
+  agency: string;
+  yearsActive: string | null;
+  series: string[];
+  news: string[];
+  awards: string[];
+  nominations: string[];
+}
+
 export const actor: Actor = {
   id: "8cfecd07-06a8-4b8b-a040-a9a6d6357b93",
   name: "Segeong",

@@ -47,3 +47,23 @@ export const addActorReducer: CaseReducer<
 > = (state, action) => {
   state.items.push(action.payload);
 };
+
+export const createActorFulfilledCaseReducer: CaseReducer<
+  ActorState,
+  PayloadAction<ActorDTO>
+> = (state, action) => {
+  state.active = action.payload;
+  state.status = "idle";
+};
+
+export const createActorPendingCaseReducer: CaseReducer<ActorState, any> = (
+  state
+) => {
+  state.status = "loading";
+};
+
+export const createActorRejectedCaseReducer: CaseReducer<ActorState, any> = (
+  state
+) => {
+  state.status = "failed";
+};

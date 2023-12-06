@@ -1,7 +1,9 @@
 export interface ActorDTO {
   id: string;
+  imageUrl: string;
   name: string;
   age: number;
+  education: string;
   agency: string;
-  url: string;
+  yearsActive: string;
 }

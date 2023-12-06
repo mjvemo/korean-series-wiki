@@ -31,7 +31,3 @@ export const seriesSlice = createSlice({
       .addCase(getSerieByIdAsync.rejected, getSerieByIdRejectedCaseReducer);
   },
 });
-
-const actions = seriesSlice.actions;
-
-export { actions };

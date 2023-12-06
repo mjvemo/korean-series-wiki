@@ -16,6 +16,7 @@ export interface ActorState {
 }
 
 export const initialState: ActorState = {
-  items: [actor, actor1, actor2, actor3, actor4, actor5, actor6],
+  items: [],
+  // items: [actor, actor1, actor2, actor3, actor4, actor5, actor6],
   status: "idle",
 };

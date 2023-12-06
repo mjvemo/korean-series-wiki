@@ -1,9 +1,11 @@
 import client from "@/lib/api";
 import { createAppAsyncThunk } from "../../createAppAsyncThunk";
+import { CreateActorRequestDTO } from "@/lib/api/dtos/create-actor-request.dto";
 
-export enum ActionType {
+enum ActionType {
   GET_ACTORS = "actors/getActors",
   GET_ACTOR_BY_ID = "actors/getActorById",
+  CREATE_ACTOR = "actors/createActor",
 }
 
 // {
@@ -30,5 +32,12 @@ export const getActorsByIdAsync = createAppAsyncThunk(
   ActionType.GET_ACTOR_BY_ID,
   (id: string) => {
     return client.getActor(id);
+  }
+);
+
+export const createActorAsync = createAppAsyncThunk(
+  ActionType.CREATE_ACTOR,
+  (data: CreateActorRequestDTO) => {
+    return client.createActor(data);
   }
 );

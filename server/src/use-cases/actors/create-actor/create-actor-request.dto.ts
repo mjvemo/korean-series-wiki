@@ -3,9 +3,11 @@ import { SchemaValidationError } from "../../../errors/schema-validation.error";
 
 export interface CreateActorRequestProps {
   name: string;
-  bornAt: string;
+  age: number;
   agency: string;
-  url: string;
+  imageUrl: string;
+  yearsActive: string;
+  education: string;
   series: string[];
   news: string[];
   awards: string[];
@@ -16,9 +18,11 @@ const schema: JSONSchemaType<CreateActorRequestProps> = {
   type: "object",
   properties: {
     name: { type: "string" },
-    bornAt: { type: "string" },
+    age: { type: "number" },
     agency: { type: "string" },
-    url: { type: "string" },
+    imageUrl: { type: "string" },
+    yearsActive: { type: "string" },
+    education: { type: "string" },
     series: { type: "array", items: { type: "string" } },
     news: { type: "array", items: { type: "string" } },
     awards: { type: "array", items: { type: "string" } },
@@ -26,9 +30,11 @@ const schema: JSONSchemaType<CreateActorRequestProps> = {
   },
   required: [
     "name",
-    "bornAt",
+    "age",
     "agency",
-    "url",
+    "imageUrl",
+    "yearsActive",
+    "education",
     "series",
     "news",
     "awards",
@@ -39,16 +45,18 @@ const schema: JSONSchemaType<CreateActorRequestProps> = {
 
 export class CreateActorRequestDTO implements CreateActorRequestProps {
   public readonly name: string;
-  public readonly bornAt: string;
+  public readonly age: number;
   public readonly agency: string;
-  public readonly url: string;
+  public readonly imageUrl: string;
+  public readonly yearsActive: string;
+  public readonly education: string;
   public readonly series: string[];
   public readonly news: string[];
   public readonly awards: string[];
   public readonly nominations: string[];
 
   constructor(props: CreateActorRequestProps) {
-    const ajv = new Ajv({allErrors: true});
+    const ajv = new Ajv({ allErrors: true });
     const validate = ajv.compile(schema);
 
     validate(props);
@@ -61,9 +69,11 @@ export class CreateActorRequestDTO implements CreateActorRequestProps {
     }
 
     this.name = props.name;
-    this.bornAt = props.bornAt;
+    this.age = props.age;
     this.agency = props.agency;
-    this.url = props.url;
+    this.imageUrl = props.imageUrl;
+    this.yearsActive = props.yearsActive;
+    this.education = props.education;
     this.series = props.series;
     this.news = props.news;
     this.awards = props.awards;

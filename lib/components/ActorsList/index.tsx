@@ -4,15 +4,15 @@ import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { useSelector } from "react-redux";
 import { selectActors } from "@/lib/redux/slices/actors/selectors";
-import { useDispatch } from "@/lib/redux";
+import { useDispatch, getActorsAsync } from "@/lib/redux";
 import { classNames } from "primereact/utils";
 import { FilterMatchMode, FilterOperator } from "primereact/api";
 import { Avatar } from "primereact/avatar";
 export default function RowEditingDemo() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(getActorsAsync());
+    dispatch(getActorsAsync());
   }, []);
 
   const allActors = useSelector(selectActors);
@@ -50,10 +50,10 @@ export default function RowEditingDemo() {
       </div>
     );
   };
-  const imageBodyTemplate = (allActors: { url: string | undefined }) => {
+  const imageBodyTemplate = (allActors: { imageUrl: string | undefined }) => {
     return (
       <Avatar
-        image={allActors.url}
+        image={allActors.imageUrl}
         label="V"
         size="xlarge"
         style={{ backgroundColor: "#2196F3", color: "#ffffff" }}

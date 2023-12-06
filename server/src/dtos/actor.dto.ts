@@ -1,9 +1,11 @@
 export interface ActorDTO {
   id: string;
   name: string;
-  bornAt: string;
+  age: number;
   agency: string;
-  url: string;
+  imageUrl: string;
+  education: string;
+  yearsActive: string;
   series: string[];
   news: string[];
   awards: string[];
