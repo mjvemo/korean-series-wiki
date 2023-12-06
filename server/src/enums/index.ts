@@ -7,8 +7,23 @@ export enum DomainEntity {
 }
 
 export enum Resource {
+  actors = '/actors',
+  actor = '/actors/:id',
+
+  actorsBySerieId = '/series/:serieId/actors',
+
+  awards = '/awards',
+  award = '/awards/:id',
+
+  chapters = '/chapters',
+  chapter = '/chapters/:id',
+
+  news = '/news',
+  new = '/news/:id',
+
+  seasons = '/seasons',
+  season = '/seasons/:id',
+
   series = '/series',
   serie = '/series/:id',
-  actors = '/actors',
-  actor = '/actors/:id'
 }

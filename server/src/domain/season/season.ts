@@ -24,7 +24,7 @@ export interface CreateSeasonProps {
 
 export interface UpdateSeasonProps {
   serie?: string;
-  chapters?: string;
+  chapters?: string[];
   name?: string;
   releasedAt?: string;
 }

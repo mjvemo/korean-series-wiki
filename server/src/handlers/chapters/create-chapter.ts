@@ -1,11 +1,11 @@
-import { Request, Response } from 'express';
-import { CreateSerieRequestDTO } from '../../use-cases/series/create-serie/create-serie-request.dto';
-import useCase from '../../use-cases/series/create-serie/create-serie.use-case';
+import {Request, Response} from 'express';
+import useCase from '../../use-cases/chapters/create-chapter/create-chapter.use-case';
+import { CreateChapterRequestDTO } from '../../use-cases/chapters/create-chapter/create-chapter-request.dto';
 
 export default async function handler(req: Request, res: Response) {
 
   try {
-    const request = new CreateSerieRequestDTO(req.body);
+    const request = new CreateChapterRequestDTO(req.body);
 
     const response = await useCase.create(request);
     return res.status(201).json(response);
