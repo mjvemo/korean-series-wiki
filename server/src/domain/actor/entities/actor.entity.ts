@@ -7,10 +7,10 @@ export interface IActor {
   bornAt: string;
   agency: string;
   url: string;
-  series: Schema.Types.UUID[];
-  news: Schema.Types.UUID[];
-  awards: Schema.Types.UUID[];
-  nominations: Schema.Types.UUID[];
+  series: string[];
+  news: string[];
+  awards: string[];
+  nominations: string[];
   createdAt: string;
   updatedAt?: string;
 }

@@ -1,6 +1,6 @@
-import {Request, Response} from 'express';
-import useCase from '../../use-cases/seasons/create-season/create-season.use-case';
-import { CreateSerieRequestDTO } from '../../use-cases/seasons/create-season/create-season-request.dto';
+import { Request, Response } from 'express';
+import { CreateSerieRequestDTO } from '../../use-cases/series/create-serie/create-serie-request.dto';
+import useCase from '../../use-cases/series/create-serie/create-serie.use-case';
 
 export default async function handler(req: Request, res: Response) {
 

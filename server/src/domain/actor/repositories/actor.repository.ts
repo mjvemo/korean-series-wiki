@@ -1,7 +1,10 @@
+import { isHydrated } from "../../../utils/mongoose";
 import { isNil } from "lodash";
-import ActorEntity from "../entities/actor.entity";
-import { ActorMapper } from "../mappers/actor.mapper";
+import { SerieMapper } from "../../serie/mappers/serie.mapper";
+import { Serie } from "../../serie/serie";
 import { Actor } from "../actor";
+import ActorEntity, { IActor } from "../entities/actor.entity";
+import { ActorMapper } from "../mappers/actor.mapper";
 
 export class ActorRepository {
   async save(actor: Actor) {
@@ -32,6 +35,18 @@ export class ActorRepository {
   async findAll(): Promise<Actor[]> {
     const response = await ActorEntity.find();
     return response.map((entity) => ActorMapper.toDomain(entity));
+  }
+
+  async findBySerie(serie: Serie): Promise<Actor[]> {
+    const serieEntity = SerieMapper.toEntity(serie);
+
+    await serieEntity.populate(["cast"]);
+
+    if (isHydrated<IActor>(serieEntity.cast)) {
+      return serieEntity.cast.map((actor) => ActorMapper.toDomain(actor));
+    }
+
+    return [];
   }
 }
 

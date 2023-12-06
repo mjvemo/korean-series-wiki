@@ -7,6 +7,8 @@ import deleteActor from "./actors/delete-actor";
 import getActor from "./actors/get-actor";
 import updateActor from "./actors/update-actor";
 
+import getActorsBySerieId from './actors/get-actors-by-serie-id';
+
 import getAwards from "./awards/get-awards";
 import createAward from "./awards/create-award";
 import deleteAward from "./awards/delete-award";
@@ -44,6 +46,7 @@ export function register(app: Application) {
   app.get(Resource.actor, getActor);
   app.patch(Resource.actor, updateActor);
   app.delete(Resource.actor, deleteActor);
+  app.get(Resource.actorsBySerieId, getActorsBySerieId);
 
   // awards
   app.get(Resource.awards, getAwards);

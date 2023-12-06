@@ -10,6 +10,8 @@ export enum Resource {
   actors = '/actors',
   actor = '/actors/:id',
 
+  actorsBySerieId = '/series/:serieId/actors',
+
   awards = '/awards',
   award = '/awards/:id',
 

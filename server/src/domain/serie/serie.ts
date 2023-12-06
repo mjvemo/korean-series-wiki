@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto";
-import { isNil } from "lodash";
+import { isNil, uniq } from "lodash";
 import { SerieDTO } from "../../dtos/serie.dto";
 
 export interface SerieProps {
@@ -190,6 +190,10 @@ export class Serie {
       ? this._releasedAt
       : props.releasedAt;
     this._updatedAt = new Date().toISOString();
+  }
+
+  addActor(id: string) {
+    this._cast = uniq([...this.cast, id]);
   }
 
   serialize(): SerieDTO {
