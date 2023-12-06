@@ -1,16 +1,17 @@
 "use client";
 import { FormikHelpers, useFormik } from "formik";
+import { Dropdown } from "primereact/dropdown";
 import { Image } from "primereact/image";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { classNames } from "primereact/utils";
-import { ChangeEvent, useState } from "react";
-import { string, object, number } from "yup";
+import { string, object } from "yup";
 
 interface ChapterFormPayload {
   imageUrl: string;
   chapterName: string;
   chapterDescription: string;
+  selectedSeason: null;
 }
 
 const formSchema = object({
@@ -23,6 +24,7 @@ export function CreateChapterForm() {
     imageUrl: "",
     chapterName: "",
     chapterDescription: "",
+    selectedSeason: null,
   };
 
   const onFormSubmit = (
@@ -49,10 +51,36 @@ export function CreateChapterForm() {
       <small className="p-error">&nbsp;</small>
     );
   };
+
+  const season = Array.from({ length: 100 }).map((_, i) => ({
+    label: `Season ${i}`,
+    value: i,
+  }));
+
   return (
-    <div className="flex flex-row align-items-center justify-content-start gap-4">
-      <Image src={formik.values.imageUrl} alt="Image" width="650" preview />
+    <div>
+      {" "}
+      <div className="flex flex-row align-items-center justify-content-start gap-4"></div>
       <form onSubmit={formik.handleSubmit}>
+        <Dropdown
+          name="seasons"
+          inputId="seasons"
+          value={formik.values.selectedSeason}
+          onChange={(e) => {
+            formik.setFieldValue("seasons", e.value);
+          }}
+          options={season}
+          placeholder="Select a Season"
+          onBlur={formik.handleBlur}
+          className={classNames({
+            "p-invalid": isFormFieldInvalid("selectedSeason"),
+            "w-full md:w-14rem": true,
+          })}
+          virtualScrollerOptions={{ itemSize: 38 }}
+        />
+
+        <Image src={formik.values.imageUrl} alt="Image" width="650" preview />
+
         <div className="flex align-items-center">
           <div className="flex flex-column gap-3">
             <div className="flex flex-column"></div>

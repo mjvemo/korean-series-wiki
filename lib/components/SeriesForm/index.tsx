@@ -2,7 +2,7 @@
 import { InputText } from "primereact/inputtext";
 import { Rating } from "primereact/rating";
 import { Calendar } from "primereact/calendar";
-import { string, object, number } from "yup";
+import { string, object, number, date } from "yup";
 import { FormikHelpers, useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { classNames } from "primereact/utils";
@@ -30,7 +30,7 @@ interface SerieFormPayload {
 const formSchema = object({
   imageUrl: string().url("Invalid Format").required("Required"),
   name: string().required("Name Required"),
-  year: number().required("Year Required"),
+  year: date().required("Year Required"),
   pg: string(),
   rate: number(),
   genre: string().required("Required"),
@@ -82,12 +82,7 @@ export function SerieForm() {
         <h1>Add New Serie</h1>
       </div>
       <div className="flex flex-row align-items-center justify-content-center gap-6">
-        <Image
-          src="https://6.soompi.io/wp-content/uploads/image/e742c985be3548939200ae2dcde1d21d/dummy.jpeg?s=900x600&e=t"
-          alt="Image"
-          width="650"
-          preview
-        />
+        <Image src={formik.values.imageUrl} alt="Image" width="750" preview />
         <form onSubmit={formik.handleSubmit}>
           {JSON.stringify(formik, null, 2)}
           <div className="flex align-items-center">
@@ -233,7 +228,7 @@ export function SerieForm() {
         </form>
       </div>
       <div>
-        <div className="card ">
+        <div className="card">
           <TabView>
             <TabPanel header="About" className="m-0">
               <About />
