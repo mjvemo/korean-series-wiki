@@ -5,6 +5,14 @@ import { UpdateSerieRequestDTO } from "./dtos/update-serie-request.dto";
 import { CreateActorRequestDTO } from "./dtos/create-actor-request.dto";
 import { UpdateActorRequestDTO } from "./dtos/update-actor-request.dto";
 import { ActorDTO } from "./dtos/actor.dto";
+import { CreateAwardsRequestDTO } from "./dtos/create-awards-request-dto";
+import createAward from "@/server/src/handlers/awards/create-award";
+import {
+  getAwards,
+  getAwardsbyId,
+  createAwardAsync,
+} from "../redux/slices/awards";
+import { AwardsDTO } from "./dtos/awards.dto";
 
 const API_BASE_URL = process.env.API_BASE_URL || "http://127.0.0.1:3002";
 export class ApiClient {
@@ -73,6 +81,11 @@ export class ApiClient {
   }
 }
 
+//================== Awards ==================
+
 const client = new ApiClient();
 
 export default client;
+// function getAwardsById(id: any, string: any) {
+//   throw new Error("Function not implemented.");
+// }

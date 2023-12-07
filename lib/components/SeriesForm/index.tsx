@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 import { classNames } from "primereact/utils";
 import { Image } from "primereact/image";
 import { TabPanel, TabView } from "primereact/tabview";
-import { About } from "../About";
 import { Season } from "../Season";
 import { Cast } from "../Cast";
 import { Award } from "../Award";
@@ -225,14 +224,20 @@ export function SerieForm() {
               </div>
             </div>
           </div>
+          <div className="flex flex-row gap-4 justify-content-end p-6">
+            <Button
+              type="submit"
+              label="Save"
+              icon="pi pi-check"
+              size="large"
+            ></Button>
+            <Button label="Cancel" icon="pi pi-times" size="large"></Button>
+          </div>
         </form>
       </div>
       <div>
         <div className="card">
           <TabView>
-            <TabPanel header="About" className="m-0">
-              <About />
-            </TabPanel>
             <TabPanel header="Seasons" className="m-0">
               <Season />
             </TabPanel>
@@ -244,15 +249,6 @@ export function SerieForm() {
             </TabPanel>
           </TabView>
         </div>
-      </div>
-      <div className="flex flex-row gap-4 justify-content-end p-6">
-        <Button
-          type="submit"
-          label="Save"
-          icon="pi pi-check"
-          size="large"
-        ></Button>
-        <Button label="Cancel" icon="pi pi-times" size="large"></Button>
       </div>
     </div>
   );

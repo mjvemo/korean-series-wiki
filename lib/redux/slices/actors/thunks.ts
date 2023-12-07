@@ -6,6 +6,8 @@ enum ActionType {
   GET_ACTORS = "actors/getActors",
   GET_ACTOR_BY_ID = "actors/getActorById",
   CREATE_ACTOR = "actors/createActor",
+  CREATE_AWARD = "awards/createAward",
+  GET_AWARDS_BY_ID = "awards/getAwardsById",
 }
 
 // {

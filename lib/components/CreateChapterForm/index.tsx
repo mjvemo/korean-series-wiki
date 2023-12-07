@@ -1,10 +1,11 @@
 "use client";
 import { FormikHelpers, useFormik } from "formik";
-import { Dropdown } from "primereact/dropdown";
+import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import { Image } from "primereact/image";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { classNames } from "primereact/utils";
+import { useState } from "react";
 import { string, object } from "yup";
 
 interface ChapterFormPayload {
@@ -51,11 +52,13 @@ export function CreateChapterForm() {
       <small className="p-error">&nbsp;</small>
     );
   };
-
-  const season = Array.from({ length: 100 }).map((_, i) => ({
-    label: `Season ${i}`,
-    value: i,
-  }));
+  const seasons = [
+    { name: "Season 1" },
+    { name: "Season 2" },
+    { name: "Season 3" },
+    { name: "Season 4" },
+    { name: "Season 5" },
+  ];
 
   return (
     <div>
@@ -63,22 +66,22 @@ export function CreateChapterForm() {
       <div className="flex flex-row align-items-center justify-content-start gap-4"></div>
       <form onSubmit={formik.handleSubmit}>
         <Dropdown
+          inputId="season"
           name="seasons"
-          inputId="seasons"
           value={formik.values.selectedSeason}
-          onChange={(e) => {
-            formik.setFieldValue("seasons", e.value);
-          }}
-          options={season}
+          options={seasons}
+          optionLabel="name"
           placeholder="Select a Season"
-          onBlur={formik.handleBlur}
           className={classNames({
             "p-invalid": isFormFieldInvalid("selectedSeason"),
-            "w-full md:w-14rem": true,
+            "w-full": true,
+            "md: w-14rem": true,
           })}
-          virtualScrollerOptions={{ itemSize: 38 }}
+          onChange={(e) => {
+            formik.setFieldValue("selectedSeason", e.value);
+          }}
         />
-
+        {getFormErrorMessage("selectedSeason")}
         <Image src={formik.values.imageUrl} alt="Image" width="650" preview />
 
         <div className="flex align-items-center">

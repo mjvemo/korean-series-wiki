@@ -1,4 +1,4 @@
-import { Card } from "primereact/card";
+"use client";
 import { InputText } from "primereact/inputtext";
 import { Image } from "primereact/image";
 import { InputTextarea } from "primereact/inputtextarea";
@@ -20,7 +20,7 @@ const formSchema = object({
   year: string().required("Year Required"),
   description: string(),
 });
-export function About() {
+export default function Page() {
   const initialValues: ChapterFormPayload = {
     imageUrl: "",
     tittle: "",

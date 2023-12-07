@@ -18,7 +18,6 @@ import {
   selectActorRequestStatus,
 } from "@/lib/redux";
 import { SerieForm } from "@/lib/components/SeriesForm";
-import { About } from "@/lib/components/About";
 import { Season } from "@/lib/components/Season";
 import { Cast } from "@/lib/components/Cast";
 import { Award } from "@/lib/components/Award";
@@ -44,18 +43,11 @@ export function ActorsForm() {
   const actor = useSelector(selectActiveActor);
   const status = useSelector(selectActorRequestStatus);
 
-  // const created = useRef<boolean>(false);
-
   useEffect(() => {
-    console.log("RUNNING USE EFFECT");
     if (actor) {
       router.push(`/actors/${actor.id}`);
     }
   }, [status]);
-
-  // if (actor) {
-  //   created.current = true;
-  // }
 
   const initialValues: ActorsFormPayload = {
     imageUrl: "",
@@ -74,8 +66,6 @@ export function ActorsForm() {
     values: ActorsFormPayload,
     actions: FormikHelpers<ActorsFormPayload>
   ) => {
-    console.log(values);
-
     const createActorRequest = actorFormToCreateActorRequest(values);
     dispatch(createActorAsync(createActorRequest));
 
@@ -242,9 +232,7 @@ export function ActorsForm() {
       <div>
         <div className="card justify-content-center">
           <TabView>
-            <TabPanel header="About" className="m-0">
-              <About />
-            </TabPanel>
+            <TabPanel header="About" className="m-0"></TabPanel>
             <TabPanel header="Series" className="m-0">
               <Series />
             </TabPanel>
