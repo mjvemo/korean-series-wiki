@@ -1,18 +1,20 @@
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { CreateSerieRequestDTO } from "./dtos/create-serie-request.dto";
 import { SerieDTO } from "./dtos/serie.dto";
+import { NewsDTO } from "./dtos/news.dto";
 import { UpdateSerieRequestDTO } from "./dtos/update-serie-request.dto";
 import { CreateActorRequestDTO } from "./dtos/create-actor-request.dto";
 import { UpdateActorRequestDTO } from "./dtos/update-actor-request.dto";
 import { ActorDTO } from "./dtos/actor.dto";
 import { CreateAwardsRequestDTO } from "./dtos/create-awards-request-dto";
-import createAward from "@/server/src/handlers/awards/create-award";
-import {
-  getAwards,
-  getAwardsbyId,
-  createAwardAsync,
-} from "../redux/slices/awards";
-import { AwardsDTO } from "./dtos/awards.dto";
+import { CreateNewsRequestDTO } from "@/server/src/use-cases/news/create-news/create-news-request.dto";
+
+// import {
+//   getAwards,
+//   getAwardsbyId,
+//   createAwardAsync,
+// } from "../redux/slices/awards";
+// import { NewsDTO } from "./dtos/awards.dto";
 
 const API_BASE_URL = process.env.API_BASE_URL || "http://127.0.0.1:3002";
 export class ApiClient {
@@ -82,6 +84,58 @@ export class ApiClient {
 }
 
 //================== Awards ==================
+
+// createAward(data: CreateAwardsRequestDTO): Promise<NewsDTO> {
+//     const url = `/awards`;
+//     return this.request({ url, data, method: "POST" });
+//   }
+
+//  getAwards(): Promise<NewsDTO[]> {
+//     const url = "/awards";
+//     return this.request({ url });
+//   }
+
+// getAwardsById(id: string): Promise<NewsDTO> {
+//     const url = `/awards/${id}`;
+//     return this.request({ url });
+//   }
+
+// updateAward(id: string, data: UpdateAwardsRequestDTO): Promise<NewsDTO> {
+//     const url = `/awards/${id}`;
+//     return this.request({ url, method: "PATCH", data });
+//   }
+
+// deleteAward(id: string): Promise<NewsDTO> {
+//   const url = `/awards/${id}`;
+//   return this.request({ url, method: "DELETE" });
+// }
+
+//================== News ==================
+
+// createNews(data: CreateNewsRequestDTO): Promise<NewsDTO> {
+//     const url = `/news`;
+//     return this.request({ url, data, method: "POST" });
+//   }
+
+//  getNews(): Promise<NewsDTO[]> {
+//     const url = "/news";
+//     return this.request({ url });
+//   }
+
+// getNewsById(id: string): Promise<NewsDTO> {
+//     const url = `/news/${id}`;
+//     return this.request({ url });
+//   }
+
+// updateNews(id: string, data: UpdateNewsRequestDTO): Promise<NewsDTO> {
+//     const url = `/news/${id}`;
+//     return this.request({ url, method: "PATCH", data });
+//   }
+
+// deleteNews(id: string): Promise<NewsDTO> {
+//   const url = `/news/${id}`;
+//   return this.request({ url, method: "DELETE" });
+// }
 
 const client = new ApiClient();
 
