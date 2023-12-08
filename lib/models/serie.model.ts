@@ -1,3 +1,6 @@
+import { AwardDTO } from "@/server/src/dtos/award.dto";
+import { ActorDTO } from "../api/dtos/actor.dto";
+import { NewsDTO } from "../api/dtos/news.dto";
 import { Actor } from "./actor.model";
 import { Image } from "primereact/image";
 
@@ -7,6 +10,22 @@ export interface Serie {
   releaseDate: number;
   description: string;
   url: string;
+}
+
+export interface SerieFormPayload {
+  imageUrl: string;
+  name: string;
+  pg: string;
+  year: null;
+  rate: number;
+  genre: string;
+  director: string;
+  studio: string;
+  seasons: [];
+  cast: ActorDTO[];
+  news: NewsDTO[];
+  awards: AwardDTO[];
+  nominations: [];
 }
 
 export const serie: Serie = {

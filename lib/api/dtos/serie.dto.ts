@@ -1,7 +1,7 @@
 export interface SerieDTO {
   id: string;
   name: string;
-  rating: number;
+  rate: number;
   pg: string;
   image: string;
   directedBy: string;

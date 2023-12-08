@@ -1,6 +1,6 @@
 import client from "@/lib/api";
 import { createAppAsyncThunk } from "../../createAppAsyncThunk";
-import { CreateSerieRequestDTO } from "@/server/src/use-cases/series/create-serie/create-serie-request.dto";
+import { CreateSerieRequestDTO } from "../../../api/dtos/create-serie-request.dto";
 
 enum ActionType {
   GET_SERIES = "series/getSeries",

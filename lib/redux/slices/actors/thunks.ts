@@ -5,6 +5,7 @@ import { CreateActorRequestDTO } from "@/lib/api/dtos/create-actor-request.dto";
 enum ActionType {
   GET_ACTORS = "actors/getActors",
   GET_ACTOR_BY_ID = "actors/getActorById",
+  GET_ACTORS_BY_SERIE_ID = "actors/getActorsBySeriesId",
   CREATE_ACTOR = "actors/createActor",
   CREATE_AWARD = "awards/createAward",
   GET_AWARDS_BY_ID = "awards/getAwardsById",
@@ -34,6 +35,13 @@ export const getActorsByIdAsync = createAppAsyncThunk(
   ActionType.GET_ACTOR_BY_ID,
   (id: string) => {
     return client.getActor(id);
+  }
+);
+
+export const getActorsBySerieIdAsync = createAppAsyncThunk(
+  ActionType.GET_ACTORS_BY_SERIE_ID,
+  (id: string) => {
+    return client.getActorsBySerieId(id);
   }
 );
 

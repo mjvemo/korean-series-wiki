@@ -12,6 +12,7 @@ import { classNames } from "primereact/utils";
 import { FilterMatchMode } from "primereact/api";
 import { Avatar } from "primereact/avatar";
 import { Toast } from "primereact/toast";
+
 export default function RowEditingDemo() {
   // const dispatch = useDispatch();
 
@@ -19,7 +20,7 @@ export default function RowEditingDemo() {
     // dispatch(getActorsAsync());
   }, []);
 
-  const allActors = useSelector(selectActors);
+  const allNews = useSelector(selectActors);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -74,38 +75,37 @@ export default function RowEditingDemo() {
       </div>
     );
   };
-  const imageBodyTemplate = (allActors: { url: string | undefined }) => {
+  const imageBodyTemplate = (allNews: { url: string | undefined }) => {
     return (
       <Avatar
-        image={allActors.url}
+        image={allNews.url}
         label="V"
         size="xlarge"
         style={{ backgroundColor: "#2196F3", color: "#ffffff" }}
         shape="circle"
       />
-      // <Image src={allActors.url} alt={allActors.url} width="100" preview />
+      // <Image src={allNews.url} alt={allNews.url} width="100" preview />
     );
   };
 
-  const activeBodyTemplate = (allActors: any) => {
+  const activeBodyTemplate = (allNews: any) => {
     const stockClassName = classNames(
       "border-circle w-2rem h-2rem inline-flex font-bold justify-content-center align-items-center text-sm",
       {
-        "bg-red-100 text-red-900": allActors.active === 0,
-        "bg-blue-100 text-blue-900":
-          allActors.active > 0 && allActors.active <= 10,
-        "bg-teal-100 text-teal-900": allActors.acttive >= 10,
+        "bg-red-100 text-red-900": allNews.active === 0,
+        "bg-blue-100 text-blue-900": allNews.active > 0 && allNews.active <= 10,
+        "bg-teal-100 text-teal-900": allNews.acttive >= 10,
       }
     );
-    return <div className={stockClassName}>{allActors.active}</div>;
+    return <div className={stockClassName}>{allNews.active}</div>;
   };
   const header = renderHeader();
-  console.log(allActors);
+  console.log(allNews);
   return (
     <div className="card justify-content-center p-4">
       <Toast ref={toast} />
       <DataTable
-        value={allActors}
+        value={allNews}
         selectionMode="single"
         pageLinkSize={5}
         dataKey="id"
@@ -135,30 +135,18 @@ export default function RowEditingDemo() {
           sortable
         ></Column>
         <Column
-          field="age"
-          header="Age"
+          field="year"
+          header="Year"
           style={{ width: "20%" }}
           sortable
         ></Column>
         <Column
-          field="agency"
-          header="Agency"
+          field="description"
+          header="description"
           style={{ width: "20%" }}
           sortable
         ></Column>
-        <Column
-          field="education"
-          header="Education"
-          style={{ width: "20%" }}
-          sortable
-        ></Column>
-        <Column
-          field="active"
-          header="Active"
-          body={activeBodyTemplate}
-          style={{ width: "20%" }}
-          sortable
-        ></Column>
+
         <Column
           rowEditor
           headerStyle={{ width: "10%", minWidth: "8rem" }}

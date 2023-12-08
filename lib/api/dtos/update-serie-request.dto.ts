@@ -1,6 +1,6 @@
 export interface UpdateSerieRequestDTO {
   name?: string;
-  rating?: number;
+  rate?: number;
   pg?: string;
   image?: string;
   directedBy?: string;

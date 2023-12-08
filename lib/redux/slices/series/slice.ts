@@ -1,7 +1,7 @@
 /* Core */
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./state";
-import { getSeriesAsync, getSerieByIdAsync } from "./thunks";
+import { getSeriesAsync, getSerieByIdAsync, createSerieAsync } from "./thunks";
 import {
   getSeriesFulfilledCaseReducer,
   getSeriesPendingCaseReducer,
@@ -9,7 +9,11 @@ import {
   getSerieByIdPendingCaseReducer,
   getSerieByIdRejectedCaseReducer,
   addSerieReducer,
+  createSerieFulfilledCaseReducer,
+  createSeriePendingCaseReducer,
+  createSerieRejectedCaseReducer,
 } from "./reducers";
+import { CreateSerieUseCase } from "@/server/src/use-cases/series/create-serie/create-serie.use-case";
 
 export const seriesSlice = createSlice({
   name: "series",
@@ -28,6 +32,10 @@ export const seriesSlice = createSlice({
       // GetSerieById
       .addCase(getSerieByIdAsync.pending, getSerieByIdPendingCaseReducer)
       .addCase(getSerieByIdAsync.fulfilled, getSerieByIdFulfilledCaseReducer)
-      .addCase(getSerieByIdAsync.rejected, getSerieByIdRejectedCaseReducer);
+      .addCase(getSerieByIdAsync.rejected, getSerieByIdRejectedCaseReducer)
+      // CreateSerie
+      .addCase(createSerieAsync.pending, createSeriePendingCaseReducer)
+      .addCase(createSerieAsync.fulfilled, createSerieFulfilledCaseReducer)
+      .addCase(createSerieAsync.rejected, createSerieRejectedCaseReducer);
   },
 });

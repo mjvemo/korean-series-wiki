@@ -1,10 +1,8 @@
 "use client";
 import { InputText } from "primereact/inputtext";
-import { Rating } from "primereact/rating";
 import { Calendar } from "primereact/calendar";
 import { string, object, number, date } from "yup";
-import { FormikHelpers, useFormik } from "formik";
-import { useDispatch } from "react-redux";
+import { FormikHelpers, useFormik, FormikContext } from "formik";
 import { classNames } from "primereact/utils";
 import { Image } from "primereact/image";
 import { TabPanel, TabView } from "primereact/tabview";
@@ -14,17 +12,19 @@ import { Award } from "../Award";
 import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
 import { InputNumber } from "primereact/inputnumber";
-
-interface SerieFormPayload {
-  imageUrl: string;
-  name: string;
-  year: string | null;
-  pg: string;
-  rate: number | undefined;
-  genre: string;
-  director: string;
-  directedBy: string;
-}
+import { useRouter } from "next/navigation";
+import {
+  createSerieAsync,
+  selectActiveSerie,
+  selectSerieRequestStatus,
+  useDispatch,
+  useSelector,
+} from "@/lib/redux";
+import { useEffect } from "react";
+import { serieFormToCreateSerieRequest } from "@/lib/utils/form-mappers";
+import { SerieFormPayload } from "@/lib/models/serie.model";
+import { Rating } from "primereact/rating";
+import ActorsListFormSelector from "../ActorsListFormSelector";
 
 const formSchema = object({
   imageUrl: string().url("Invalid Format").required("Required"),
@@ -42,19 +42,27 @@ export function SerieForm() {
     name: "",
     year: null,
     pg: "",
-    rate: undefined,
+    rate: 0,
     genre: "",
     director: "",
-    directedBy: "",
+    studio: "",
+    seasons: [],
+    cast: [],
+    news: [],
+    awards: [],
+    nominations: [],
   };
 
   const onFormSubmit = (
     values: SerieFormPayload,
     actions: FormikHelpers<SerieFormPayload>
   ) => {
-    console.log(values);
+    const createSerieRequest = serieFormToCreateSerieRequest(values);
+    dispatch(createSerieAsync(createSerieRequest));
 
-    actions.resetForm();
+    actions.setSubmitting(true);
+
+    // actions.resetForm();
   };
 
   const formik = useFormik({
@@ -73,7 +81,16 @@ export function SerieForm() {
     );
   };
 
+  const router = useRouter();
   const dispatch = useDispatch();
+  const serie = useSelector(selectActiveSerie);
+  const status = useSelector(selectSerieRequestStatus);
+
+  useEffect(() => {
+    if (serie) {
+      router.push(`/series/${serie.id}`);
+    }
+  }, [status]);
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6 p-5">
@@ -83,7 +100,14 @@ export function SerieForm() {
       <div className="flex flex-row align-items-center justify-content-center gap-6">
         <Image src={formik.values.imageUrl} alt="Image" width="750" preview />
         <form onSubmit={formik.handleSubmit}>
+          <>
+            --- Formik State <br></br>
+          </>
           {JSON.stringify(formik, null, 2)}
+          <>
+            <br></br> --- Serie <br></br>
+          </>
+          {JSON.stringify(serie || {}, null, 2)}
           <div className="flex align-items-center">
             <div className="flex flex-row gap-3 align-items-center">
               <div className="flex flex-column">
@@ -154,7 +178,7 @@ export function SerieForm() {
                   {getFormErrorMessage("pg")}
                   <div className="flex flex-column gap-2">
                     <label>Rate</label>
-                    <InputNumber
+                    <Rating
                       name="rate"
                       id="rate"
                       value={formik.values.rate}
@@ -205,21 +229,21 @@ export function SerieForm() {
                   </div>
                   {getFormErrorMessage("director")}
                   <div className="flex flex-column gap-2">
-                    <label>Directed By</label>
+                    <label>Studio</label>
                     <InputText
-                      name="directedBy"
-                      id="directedBy"
-                      value={formik.values.directedBy}
+                      name="studio"
+                      id="studio"
+                      value={formik.values.studio}
                       onChange={formik.handleChange}
                       placeholder="directed By"
                       onBlur={formik.handleBlur}
                       className={classNames({
-                        "p-invalid": isFormFieldInvalid("directedBy"),
+                        "p-invalid": isFormFieldInvalid("studio"),
                         "w-full": true,
                       })}
                     />
                   </div>
-                  {getFormErrorMessage("directedBy")}
+                  {getFormErrorMessage("studio")}
                 </div>
               </div>
             </div>
@@ -233,22 +257,24 @@ export function SerieForm() {
             ></Button>
             <Button label="Cancel" icon="pi pi-times" size="large"></Button>
           </div>
+          <div>
+            <div className="card">
+              <FormikContext.Provider value={formik}>
+                <TabView>
+                  <TabPanel header="Seasons" className="m-0">
+                    <Season />
+                  </TabPanel>
+                  <TabPanel header="Cast" className="m-0">
+                    <ActorsListFormSelector />
+                  </TabPanel>
+                  <TabPanel header="Awards" className="m-0">
+                    <Award />
+                  </TabPanel>
+                </TabView>
+              </FormikContext.Provider>
+            </div>
+          </div>
         </form>
-      </div>
-      <div>
-        <div className="card">
-          <TabView>
-            <TabPanel header="Seasons" className="m-0">
-              <Season />
-            </TabPanel>
-            <TabPanel header="Cast" className="m-0">
-              <Cast />
-            </TabPanel>
-            <TabPanel header="Awards" className="m-0">
-              <Award />
-            </TabPanel>
-          </TabView>
-        </div>
       </div>
     </div>
   );

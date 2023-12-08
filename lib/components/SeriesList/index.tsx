@@ -4,34 +4,39 @@ import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { Rating } from "primereact/rating";
 import { Tag } from "primereact/tag";
-import { useDispatch, useSelector } from "react-redux";
-import { getSeriesAsync, selectSeries } from "@/lib/redux";
+import {
+  useDispatch,
+  useSelector,
+  getSeriesAsync,
+  selectSeries,
+} from "@/lib/redux";
+
+import Link from "next/link";
 
 export default function TemplateDemo() {
-  const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
   const series = useSelector(selectSeries);
 
-  //   useEffect(() => {
-  //     dispatch(getSeriesAsync());
-  //   }, []);
+  useEffect(() => {
+    dispatch(getSeriesAsync());
+  }, []);
 
-  const formatCurrency = (value: {
-    toLocaleString: (
-      arg0: string,
-      arg1: { style: string; currency: string }
-    ) => any;
-  }) => {
-    return value.toLocaleString("en-US", {
-      style: "currency",
-      currency: "USD",
-    });
-  };
+  // const formatCurrency = (value: {
+  //   toLocaleString: (
+  //     arg0: string,
+  //     arg1: { style: string; currency: string }
+  //   ) => any;
+  // }) => {
+  //   return value.toLocaleString("en-US", {
+  //     style: "currency",
+  //     currency: "USD",
+  //   });
+  // };
 
   const imageBodyTemplate = (serie: any) => {
     return (
       <img
-        src={`https://primefaces.org/cdn/primereact/images/product/${serie.image}`}
+        src={serie.image}
         alt={serie.image}
         className="w-6rem shadow-2 border-round"
       />
@@ -39,7 +44,7 @@ export default function TemplateDemo() {
   };
 
   const priceBodyTemplate = (serie: any) => {
-    return formatCurrency(serie.price);
+    return <div>{serie.price}</div>;
   };
 
   const ratingBodyTemplate = (serie: any) => {
@@ -50,6 +55,10 @@ export default function TemplateDemo() {
     return (
       <Tag value={serie.inventoryStatus} severity={getSeverity(serie)}></Tag>
     );
+  };
+
+  const nameBodyTemplate = (serie: any) => {
+    return <Link href={`/series/${serie.id}`}>{serie.name}</Link>;
   };
 
   const getSeverity = (serie: any) => {
@@ -74,30 +83,21 @@ export default function TemplateDemo() {
       <Button icon="pi pi-refresh" rounded raised />
     </div>
   );
-  const footer = `In total there are ${
-    products ? products.length : 0
-  } products.`;
 
   return (
     <div>
-      {series.map((serie) => (
-        <div key={serie.id}>
-          {serie.id} - {serie.name}
-        </div>
-      ))}
       <div className="card">
         <DataTable
-          value={products}
+          value={series}
           header={header}
-          footer={footer}
           tableStyle={{ minWidth: "60rem" }}
         >
-          <Column field="name" header="Name"></Column>
           <Column header="Image" body={imageBodyTemplate}></Column>
+          <Column field="name" body={nameBodyTemplate} header="Name"></Column>
           <Column
             field="price"
-            header="Price"
             body={priceBodyTemplate}
+            header="Price"
           ></Column>
           <Column field="category" header="Category"></Column>
           <Column

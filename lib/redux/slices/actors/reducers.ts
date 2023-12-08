@@ -41,6 +41,28 @@ export const getActorsByIdRejectedCaseReducer: CaseReducer<ActorState, any> = (
   state.status = "failed";
 };
 
+export const getActorsBySerieIdFullfieldCaseReducer: CaseReducer<
+  ActorState,
+  PayloadAction<ActorDTO[]>
+> = (state, action) => {
+  state.items = action.payload;
+  state.status = "idle";
+};
+
+export const getActorsBySerieIdPendingCaseReducer: CaseReducer<
+  ActorState,
+  any
+> = (state) => {
+  state.status = "loading";
+};
+
+export const getActorsBySerieIdRejectedCaseReducer: CaseReducer<
+  ActorState,
+  any
+> = (state) => {
+  state.status = "failed";
+};
+
 export const addActorReducer: CaseReducer<
   ActorState,
   PayloadAction<ActorDTO>

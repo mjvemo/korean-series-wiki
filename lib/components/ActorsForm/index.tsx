@@ -26,6 +26,8 @@ import { Series } from "@/lib/components/Series";
 import { ActorsFormPayload } from "@/lib/models/actor.model";
 import { actorFormToCreateActorRequest } from "@/lib/utils/form-mappers";
 import { useRouter } from "next/navigation";
+import NewsListSelector from "../NewsListSelector";
+import { InputTextarea } from "primereact/inputtextarea";
 
 const formSchema = object<ActorsFormPayload>({
   imageUrl: string().url("Invalid Format").required("Required"),
@@ -34,6 +36,7 @@ const formSchema = object<ActorsFormPayload>({
   education: string().required("Education Required"),
   agency: string().required("Required"),
   yearsActive: string().required("Years Required"),
+  about: string().required("About Required"),
 });
 
 export function ActorsForm() {
@@ -56,6 +59,7 @@ export function ActorsForm() {
     education: "",
     agency: "",
     yearsActive: null,
+    about: "",
     series: [],
     news: [],
     awards: [],
@@ -215,6 +219,22 @@ export function ActorsForm() {
                     {getFormErrorMessage("yearsActive")}
                   </div>
                 </div>
+                <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
+                  <label>About</label>
+                  <InputTextarea
+                    name="about"
+                    id="about"
+                    value={formik.values.about}
+                    onChange={formik.handleChange}
+                    placeholder="about"
+                    onBlur={formik.handleBlur}
+                    className={classNames({
+                      "p-invalid": isFormFieldInvalid("about"),
+                      "w-full": true,
+                    })}
+                  />
+                  {getFormErrorMessage("about")}
+                </div>
               </div>
             </div>
           </div>
@@ -232,7 +252,9 @@ export function ActorsForm() {
       <div>
         <div className="card justify-content-center">
           <TabView>
-            <TabPanel header="About" className="m-0"></TabPanel>
+            <TabPanel header="News" className="m-0">
+              <NewsListSelector />
+            </TabPanel>
             <TabPanel header="Series" className="m-0">
               <Series />
             </TabPanel>

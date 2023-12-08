@@ -7,13 +7,14 @@ import { Image } from "primereact/image";
 import { serie } from "@/lib/models/serie.model";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
-import { About } from "@/lib/components/About";
 
 import {
   useDispatch,
   getSerieByIdAsync,
   useSelector,
   selectActiveSerie,
+  getActorsBySerieIdAsync,
+  selectActors,
 } from "@/lib/redux";
 
 export interface ComponentProps {
@@ -27,9 +28,11 @@ export default function (props: ComponentProps) {
 
   useEffect(() => {
     dispatch(getSerieByIdAsync(id));
+    dispatch(getActorsBySerieIdAsync(id));
   }, []);
 
   const activeSerie = useSelector(selectActiveSerie);
+  const cast = useSelector(selectActors);
 
   const items = [
     { label: "About", icon: "pi pi-fw pi-home" },
@@ -57,6 +60,7 @@ export default function (props: ComponentProps) {
           <div>name: {activeSerie.name}</div>
           <div>directedBy: {activeSerie.directedBy}</div>
           <div>releasedAt: {activeSerie.releasedAt}</div>
+          <div>cast: {JSON.stringify(cast, null, 2)}</div>
         </div>
       )}
       <Image

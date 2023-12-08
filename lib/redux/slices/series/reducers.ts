@@ -42,3 +42,23 @@ export const addSerieReducer: CaseReducer<
 > = (state, action) => {
   state.items.push(action.payload);
 };
+
+export const createSerieFulfilledCaseReducer: CaseReducer<
+  SerieState,
+  PayloadAction<SerieDTO>
+> = (state, action) => {
+  state.active = action.payload;
+  state.status = "idle";
+};
+
+export const createSeriePendingCaseReducer: CaseReducer<SerieState, any> = (
+  state
+) => {
+  state.status = "loading";
+};
+
+export const createSerieRejectedCaseReducer: CaseReducer<SerieState, any> = (
+  state
+) => {
+  state.status = "failed";
+};

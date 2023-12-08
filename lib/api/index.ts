@@ -64,6 +64,12 @@ export class ApiClient {
     const url = "/actors";
     return this.request({ url });
   }
+
+  getActorsBySerieId(id: string): Promise<ActorDTO[]> {
+    const url = `/series/${id}/actors`;
+    return this.request({ url });
+  }
+
   createActor(data: CreateActorRequestDTO): Promise<ActorDTO> {
     const url = `/actors`;
     return this.request({ url, data, method: "POST" });

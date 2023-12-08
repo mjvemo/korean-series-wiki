@@ -1,3 +1,8 @@
+import { AwardDTO } from "@/server/src/dtos/award.dto";
+import { ActorDTO } from "../api/dtos/actor.dto";
+import { NewsDTO } from "../api/dtos/news.dto";
+import { SerieDTO } from "../api/dtos/serie.dto";
+
 export interface Actor {
   id: string;
   name: string;
@@ -15,9 +20,10 @@ export interface ActorsFormPayload {
   education: string;
   agency: string;
   yearsActive: string | null;
-  series: string[];
-  news: string[];
-  awards: string[];
+  about: string;
+  series: SerieDTO[];
+  news: NewsDTO[];
+  awards: AwardDTO[];
   nominations: string[];
 }
 

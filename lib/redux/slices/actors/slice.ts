@@ -1,7 +1,12 @@
 /* Core */
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./state";
-import { createActorAsync, getActorsAsync, getActorsByIdAsync } from "./thunks";
+import {
+  createActorAsync,
+  getActorsAsync,
+  getActorsByIdAsync,
+  getActorsBySerieIdAsync,
+} from "./thunks";
 import {
   getActorsFulfilledCaseReducer,
   getActorsPendingCaseReducer,
@@ -13,6 +18,9 @@ import {
   createActorPendingCaseReducer,
   createActorFulfilledCaseReducer,
   createActorRejectedCaseReducer,
+  getActorsBySerieIdPendingCaseReducer,
+  getActorsBySerieIdFullfieldCaseReducer,
+  getActorsBySerieIdRejectedCaseReducer,
 } from "./reducers";
 
 export const actorsSlice = createSlice({
@@ -39,6 +47,21 @@ export const actorsSlice = createSlice({
       // CreateActor
       .addCase(createActorAsync.pending, createActorPendingCaseReducer)
       .addCase(createActorAsync.fulfilled, createActorFulfilledCaseReducer)
-      .addCase(createActorAsync.rejected, createActorRejectedCaseReducer);
+      .addCase(createActorAsync.rejected, createActorRejectedCaseReducer)
+
+      // GetActorsBySerieId
+
+      .addCase(
+        getActorsBySerieIdAsync.pending,
+        getActorsBySerieIdPendingCaseReducer
+      )
+      .addCase(
+        getActorsBySerieIdAsync.fulfilled,
+        getActorsBySerieIdFullfieldCaseReducer
+      )
+      .addCase(
+        getActorsBySerieIdAsync.rejected,
+        getActorsBySerieIdRejectedCaseReducer
+      );
   },
 });

@@ -16,6 +16,7 @@ import {
   useSelector,
 } from "@/lib/redux";
 import SeriesList from "@/lib/components/SeriesList";
+import SeriesListFormSelector from "@/lib/components/SeriesListFormSelector";
 
 export default function BasicDemo() {
   const listOfCards = [serie, serie1, serie2, serie3];
@@ -29,11 +30,6 @@ export default function BasicDemo() {
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
-      {series.map((serie) => (
-        <div key={serie.id}>
-          {serie.id} - {serie.name}
-        </div>
-      ))}
       <Image
         width="1670"
         src="https://the-post-assets.sgp1.digitaloceanspaces.com/2021/06/Gumihonew-1896x800.jpg"
@@ -50,6 +46,7 @@ export default function BasicDemo() {
       </div>
       <div>
         <SeriesList />
+        <SeriesListFormSelector />
       </div>
       <div>
         <div className="flex flex-row justify-content-between gap-6">
