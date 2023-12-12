@@ -1,7 +1,9 @@
-import { ActorsFormPayload, actor } from "@/lib/models/actor.model";
+import { ActorsFormPayload } from "@/lib/models/actor.model";
 import { SerieFormPayload } from "@/lib/models/serie.model";
 import { CreateActorRequestDTO } from "@/lib/api/dtos/create-actor-request.dto";
 import { CreateSerieRequestDTO } from "../api/dtos/create-serie-request.dto";
+import { CreateAwardRequestDTO } from "@/server/src/use-cases/awards/create-award/create-award-request.dto";
+import { AwardFormPayload } from "../models/award.model";
 
 export function actorFormToCreateActorRequest(
   values: ActorsFormPayload
@@ -36,5 +38,16 @@ export function serieFormToCreateSerieRequest(
     news: [], // values.news,
     awards: [], // values.awards,
     nominations: [], // values.nominations,
+  };
+}
+
+export function awardFormToCreateAwardRequest(
+  values: AwardFormPayload
+): CreateAwardRequestDTO {
+  return {
+    year: values.year || 0,
+    category: values.category,
+    name: values.name,
+    result: values.result,
   };
 }

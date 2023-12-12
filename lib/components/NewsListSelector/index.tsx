@@ -13,7 +13,7 @@ import { FilterMatchMode } from "primereact/api";
 import { Avatar } from "primereact/avatar";
 import { Toast } from "primereact/toast";
 
-export default function RowEditingDemo() {
+export default function NewsListSelector() {
   // const dispatch = useDispatch();
 
   useEffect(() => {

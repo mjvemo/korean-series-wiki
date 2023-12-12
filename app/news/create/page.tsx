@@ -6,6 +6,7 @@ import { Calendar } from "primereact/calendar";
 import { object, string, number, date } from "yup";
 import { FormikHelpers, useFormik } from "formik";
 import { classNames } from "primereact/utils";
+import { Footer } from "@/lib/components/Footer";
 
 interface ChapterFormPayload {
   imageUrl: string;
@@ -134,6 +135,9 @@ export default function Page() {
           </div>
         </div>
       </form>
+      <footer className="flex flex-row justify-content-center gap-6 h-4rem font-bold">
+        <Footer />
+      </footer>
     </div>
   );
 }

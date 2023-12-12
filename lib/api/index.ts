@@ -8,6 +8,9 @@ import { UpdateActorRequestDTO } from "./dtos/update-actor-request.dto";
 import { ActorDTO } from "./dtos/actor.dto";
 import { CreateAwardsRequestDTO } from "./dtos/create-awards-request-dto";
 import { CreateNewsRequestDTO } from "@/server/src/use-cases/news/create-news/create-news-request.dto";
+import createAward from "@/server/src/handlers/awards/create-award";
+import { CreateAwardRequestDTO } from "@/server/src/use-cases/awards/create-award/create-award-request.dto";
+import { AwardDTO } from "@/server/src/dtos/award.dto";
 
 // import {
 //   getAwards,
@@ -18,6 +21,9 @@ import { CreateNewsRequestDTO } from "@/server/src/use-cases/news/create-news/cr
 
 const API_BASE_URL = process.env.API_BASE_URL || "http://127.0.0.1:3002";
 export class ApiClient {
+  createAward(data: CreateAwardsRequestDTO): any {
+    throw new Error("Method not implemented.");
+  }
   private instance = axios.create({
     baseURL: API_BASE_URL,
   });
@@ -90,8 +96,7 @@ export class ApiClient {
 }
 
 //================== Awards ==================
-
-// createAward(data: CreateAwardsRequestDTO): Promise<NewsDTO> {
+// createAward(data: CreateAwardRequestDTO): Promise<AwardDTO> {
 //     const url = `/awards`;
 //     return this.request({ url, data, method: "POST" });
 //   }
@@ -146,6 +151,6 @@ export class ApiClient {
 const client = new ApiClient();
 
 export default client;
-// function getAwardsById(id: any, string: any) {
-//   throw new Error("Function not implemented.");
-// }
+function getAwardsById(id: any, string: any) {
+  throw new Error("Function not implemented.");
+}

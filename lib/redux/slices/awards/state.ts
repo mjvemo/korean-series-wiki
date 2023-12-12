@@ -14,4 +14,5 @@ export const initialState: AwardsDTO = {
   result: "",
   items: [],
   status: "idle",
+  active: undefined,
 };

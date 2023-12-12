@@ -13,12 +13,12 @@ export const createAwardAsync = createAppAsyncThunk(
     return client.createAward(data);
   }
 );
-export const getAwards = createAppAsyncThunk(ActionType.GET_AWARDS, () => {
-  return client.getAwards();
-});
-export const getAwardsbyId = createAppAsyncThunk(
-  ActionType.GET_AWARDS_BY_ID,
-  () => {
-    return client.getAwards();
-  }
-);
+// export const getAwards = createAppAsyncThunk(ActionType.GET_AWARDS, () => {
+//   return client.getAwards();
+// });
+// export const getAwardsbyId = createAppAsyncThunk(
+//   ActionType.GET_AWARDS_BY_ID,
+//   () => {
+//     return client.getAwards();
+//   }
+// );
