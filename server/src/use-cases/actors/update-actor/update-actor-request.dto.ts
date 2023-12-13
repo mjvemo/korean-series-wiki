@@ -9,6 +9,7 @@ export interface UpdateActorRequestProps {
   series?: string[];
   yearsActive?: string;
   education?: string;
+  biography?: string;
   news?: string[];
   awards?: string[];
   nominations?: string[];
@@ -23,6 +24,7 @@ const schema: JSONSchemaType<UpdateActorRequestProps> = {
     imageUrl: { type: "string", nullable: true },
     yearsActive: { type: "string", nullable: true },
     education: { type: "string", nullable: true },
+    biography: { type: "string", nullable: true },
     series: { type: "array", items: { type: "string" }, nullable: true },
     news: { type: "array", items: { type: "string" }, nullable: true },
     awards: { type: "array", items: { type: "string" }, nullable: true },
@@ -39,6 +41,7 @@ export class UpdateActorRequestDTO implements UpdateActorRequestProps {
   public readonly imageUrl?: string;
   public readonly yearsActive?: string;
   public readonly education?: string;
+  public readonly biography?: string;
   public readonly series?: string[];
   public readonly news?: string[];
   public readonly awards?: string[];
@@ -63,6 +66,7 @@ export class UpdateActorRequestDTO implements UpdateActorRequestProps {
     this.imageUrl = props.imageUrl;
     this.yearsActive = props.yearsActive;
     this.education = props.education;
+    this.biography = props.biography;
     this.series = props.series;
     this.news = props.news;
     this.awards = props.awards;

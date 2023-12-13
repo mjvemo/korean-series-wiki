@@ -62,3 +62,25 @@ export const createSerieRejectedCaseReducer: CaseReducer<SerieState, any> = (
 ) => {
   state.status = "failed";
 };
+
+export const getSeriesByActorIdFulfilledCaseReducer: CaseReducer<
+  SerieState,
+  PayloadAction<SerieDTO[]>
+> = (state, action) => {
+  state.items = action.payload;
+  state.status = "idle";
+};
+
+export const getSeriesByActorIdPendingCaseReducer: CaseReducer<
+  SerieState,
+  any
+> = (state) => {
+  state.status = "loading";
+};
+
+export const getSeriesByActorIdRejectedCaseReducer: CaseReducer<
+  SerieState,
+  any
+> = (state) => {
+  state.status = "failed";
+};

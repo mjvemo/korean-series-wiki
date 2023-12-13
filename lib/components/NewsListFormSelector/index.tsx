@@ -103,62 +103,97 @@ export default function NewsListSelector() {
   const header = renderHeader();
   console.log(allNews);
   return (
-    <div className="card justify-content-center p-4">
-      <Toast ref={toast} />
-      <DataTable
-        value={allNews}
-        selectionMode="single"
-        pageLinkSize={5}
-        dataKey="id"
-        header={header}
-        paginator
-        stripedRows
-        sortMode="multiple"
-        removableSort
-        rows={10}
-        filters={filters}
-        globalFilterFields={["name", "age", "agency", "active"]}
-        tableStyle={{ minWidth: "50rem" }}
-        onRowSelect={onRowSelect}
-        onRowUnselect={onRowUnselect}
-        metaKeySelection={false}
-      >
-        <Column
-          header="Image"
-          body={imageBodyTemplate}
-          sortable
-          style={{ width: "20%" }}
-        ></Column>
-        <Column
-          field="name"
-          header="Name"
-          style={{ width: "20%" }}
-          sortable
-        ></Column>
-        <Column
-          field="year"
-          header="Year"
-          style={{ width: "20%" }}
-          sortable
-        ></Column>
-        <Column
-          field="description"
-          header="description"
-          style={{ width: "20%" }}
-          sortable
-        ></Column>
+    <div className="flex flex-row gap-2">
+      <div className="card justify-content-center p-4">
+        <Toast ref={toast} />
+        <DataTable
+          value={allNews}
+          selectionMode="single"
+          pageLinkSize={5}
+          dataKey="id"
+          header={header}
+          paginator
+          stripedRows
+          sortMode="multiple"
+          removableSort
+          rows={10}
+          filters={filters}
+          globalFilterFields={["name", "age", "agency", "active"]}
+          tableStyle={{ minWidth: "50rem" }}
+          onRowSelect={onRowSelect}
+          onRowUnselect={onRowUnselect}
+          metaKeySelection={false}
+        >
+          <Column
+            header="Image"
+            body={imageBodyTemplate}
+            sortable
+            style={{ width: "20%" }}
+          ></Column>
+          <Column
+            field="name"
+            header="Name"
+            style={{ width: "20%" }}
+            sortable
+          ></Column>
+          <Column
+            field="year"
+            header="Year"
+            style={{ width: "20%" }}
+            sortable
+          ></Column>
+          <Column
+            field="description"
+            header="description"
+            style={{ width: "20%" }}
+            sortable
+          ></Column>
 
-        <Column
-          rowEditor
-          headerStyle={{ width: "10%", minWidth: "8rem" }}
-          bodyStyle={{ textAlign: "center" }}
-        ></Column>
-        <Column
-          rowEditor
-          headerStyle={{ width: "10%", minWidth: "8rem" }}
-          bodyStyle={{ textAlign: "center" }}
-        ></Column>
-      </DataTable>
+          <Column
+            rowEditor
+            headerStyle={{ width: "10%", minWidth: "8rem" }}
+            bodyStyle={{ textAlign: "center" }}
+          ></Column>
+          <Column
+            rowEditor
+            headerStyle={{ width: "10%", minWidth: "8rem" }}
+            bodyStyle={{ textAlign: "center" }}
+          ></Column>
+        </DataTable>
+      </div>
+      <div className="card justify-content-center p-4">
+        <DataTable
+          value={allNews}
+          pageLinkSize={5}
+          dataKey="id"
+          stripedRows
+          rows={10}
+          tableStyle={{ minWidth: "50rem" }}
+        >
+          <Column
+            header="Image"
+            body={imageBodyTemplate}
+            style={{ width: "20%" }}
+          ></Column>
+          <Column field="name" header="Name" style={{ width: "20%" }}></Column>
+          <Column field="age" header="Age" style={{ width: "20%" }}></Column>
+          <Column
+            field="agency"
+            header="Agency"
+            style={{ width: "20%" }}
+          ></Column>
+          <Column
+            field="education"
+            header="Education"
+            style={{ width: "20%" }}
+          ></Column>
+          <Column
+            field="yearsActive"
+            header="Active"
+            style={{ width: "20%" }}
+          ></Column>
+        </DataTable>
+      </div>
     </div>
   );
 }

@@ -8,6 +8,7 @@ export interface CreateSerieRequestProps {
   image: string;
   directedBy: string;
   studio: string;
+  genre: string;
   seasons: string[];
   cast: string[];
   news: string[];
@@ -25,6 +26,7 @@ const schema: JSONSchemaType<CreateSerieRequestProps> = {
     cast: { type: "array", items: { type: "string" } },
     pg: { type: "string" },
     image: { type: "string" },
+    genre: { type: "string" },
     directedBy: { type: "string" },
     studio: { type: "string" },
     news: { type: "array", items: { type: "string" } },
@@ -41,6 +43,7 @@ const schema: JSONSchemaType<CreateSerieRequestProps> = {
     "pg",
     "directedBy",
     "studio",
+    "genre",
     "news",
     "awards",
     "nominations",
@@ -55,6 +58,7 @@ export class CreateSerieRequestDTO implements CreateSerieRequestProps {
   readonly image: string;
   readonly directedBy: string;
   readonly studio: string;
+  readonly genre: string;
   readonly seasons: string[];
   readonly cast: string[];
   readonly news: string[];
@@ -63,7 +67,7 @@ export class CreateSerieRequestDTO implements CreateSerieRequestProps {
   readonly releasedAt: string;
 
   constructor(props: CreateSerieRequestProps) {
-    const ajv = new Ajv({allErrors: true})
+    const ajv = new Ajv({ allErrors: true });
     const validate = ajv.compile(schema);
 
     validate(props);
@@ -83,6 +87,7 @@ export class CreateSerieRequestDTO implements CreateSerieRequestProps {
     this.image = props.image;
     this.directedBy = props.directedBy;
     this.studio = props.studio;
+    this.genre = props.genre;
     this.news = props.news;
     this.awards = props.awards;
     this.nominations = props.nominations;

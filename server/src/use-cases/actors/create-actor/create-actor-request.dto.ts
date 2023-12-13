@@ -8,6 +8,7 @@ export interface CreateActorRequestProps {
   imageUrl: string;
   yearsActive: string;
   education: string;
+  biography: string;
   series: string[];
   news: string[];
   awards: string[];
@@ -23,6 +24,7 @@ const schema: JSONSchemaType<CreateActorRequestProps> = {
     imageUrl: { type: "string" },
     yearsActive: { type: "string" },
     education: { type: "string" },
+    biography: { type: "string" },
     series: { type: "array", items: { type: "string" } },
     news: { type: "array", items: { type: "string" } },
     awards: { type: "array", items: { type: "string" } },
@@ -35,6 +37,7 @@ const schema: JSONSchemaType<CreateActorRequestProps> = {
     "imageUrl",
     "yearsActive",
     "education",
+    "biography",
     "series",
     "news",
     "awards",
@@ -50,6 +53,7 @@ export class CreateActorRequestDTO implements CreateActorRequestProps {
   public readonly imageUrl: string;
   public readonly yearsActive: string;
   public readonly education: string;
+  public readonly biography: string;
   public readonly series: string[];
   public readonly news: string[];
   public readonly awards: string[];
@@ -74,6 +78,7 @@ export class CreateActorRequestDTO implements CreateActorRequestProps {
     this.imageUrl = props.imageUrl;
     this.yearsActive = props.yearsActive;
     this.education = props.education;
+    this.biography = props.biography;
     this.series = props.series;
     this.news = props.news;
     this.awards = props.awards;

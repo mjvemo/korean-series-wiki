@@ -99,6 +99,11 @@ export class ApiClient {
     const url = `/actors/${id}`;
     return this.request({ url, method: "DELETE" });
   }
+
+  getSeriesByActorId(id: string): Promise<SerieDTO[]> {
+    const url = `/actors/${id}/series`;
+    return this.request({ url, method: "GET" });
+  }
 }
 
 // ================== Awards ==================

@@ -5,6 +5,7 @@ export interface CreateActorRequestDTO {
   education: string;
   agency: string;
   yearsActive: string;
+  biography: string;
   series: string[];
   news: string[];
   awards: string[];

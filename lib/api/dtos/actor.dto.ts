@@ -6,4 +6,5 @@ export interface ActorDTO {
   education: string;
   agency: string;
   yearsActive: string;
+  biography: string;
 }

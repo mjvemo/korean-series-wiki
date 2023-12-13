@@ -6,13 +6,12 @@ import {
 } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
-import { selectActors } from "@/lib/redux/slices/actors/selectors";
 import { classNames } from "primereact/utils";
 import { FilterMatchMode } from "primereact/api";
 import { Avatar } from "primereact/avatar";
 import { Toast } from "primereact/toast";
 import { useFormikContext } from "formik";
-import { selectAwards, useDispatch, useSelector } from "@/lib/redux";
+import { selectAwards, useSelector } from "@/lib/redux";
 import { AwardDTO } from "@/lib/api/dtos/award.dto";
 import { Button } from "primereact/button";
 import { AwardFormPayload } from "@/lib/models/award.model";
@@ -226,7 +225,7 @@ export default function AwardsListFormSelector() {
       </div>
       <div className="card justify-content-center p-4">
         <DataTable
-          value={formik.values.awards}
+          value={allAwards}
           pageLinkSize={5}
           dataKey="id"
           stripedRows

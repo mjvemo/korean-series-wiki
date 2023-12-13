@@ -5,6 +5,7 @@ export interface CreateSerieRequestDTO {
   image: string;
   directedBy: string;
   studio: string;
+  genre: string;
   seasons: string[];
   cast: string[];
   news: string[];

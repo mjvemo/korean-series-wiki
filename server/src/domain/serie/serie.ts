@@ -8,6 +8,7 @@ export interface SerieProps {
   rating: number;
   pg: string;
   image: string;
+  genre: string;
   directedBy: string;
   studio: string;
   seasons: string[];
@@ -26,6 +27,7 @@ export interface CreateSerieProps {
   rating: number;
   pg: string;
   image: string;
+  genre: string;
   directedBy: string;
   studio: string;
   seasons: string[];
@@ -44,6 +46,7 @@ export interface UpdateSerieProps {
   pg?: string;
   image?: string;
   directedBy?: string;
+  genre?: string;
   studio?: string;
   seasons?: string[];
   cast?: string[];
@@ -59,6 +62,7 @@ export class Serie {
   private _rating: number;
   private _pg: string;
   private _image: string;
+  private _genre: string;
   private _directedBy: string;
   private _studio: string;
   private _seasons: string[];
@@ -96,6 +100,10 @@ export class Serie {
 
   get image() {
     return this._image;
+  }
+
+  get genre() {
+    return this._genre;
   }
 
   get directedBy() {
@@ -138,6 +146,7 @@ export class Serie {
     this._cast = props.cast;
     this._pg = props.pg;
     this._image = props.image;
+    this._genre = props.genre;
     this._directedBy = props.directedBy;
     this._studio = props.studio;
     this._news = props.news;
@@ -159,6 +168,7 @@ export class Serie {
       cast: props.cast,
       pg: props.pg,
       image: props.image,
+      genre: props.genre,
       directedBy: props.directedBy,
       studio: props.studio,
       news: props.news,
@@ -175,6 +185,7 @@ export class Serie {
     this._rating = isNil(props.rating) ? this._rating : props.rating;
     this._pg = isNil(props.pg) ? this._pg : props.pg;
     this._image = isNil(props.image) ? this._image : props.image;
+    this._genre = isNil(props.genre) ? this._genre : props.genre;
     this._directedBy = isNil(props.directedBy)
       ? this._directedBy
       : props.directedBy;
@@ -205,6 +216,7 @@ export class Serie {
       image: this.image,
       directedBy: this.directedBy,
       studio: this.studio,
+      genre: this.genre,
       seasons: this.seasons,
       cast: this.cast,
       news: this.news,

@@ -4,6 +4,7 @@ export interface SerieDTO {
   rate: number;
   pg: string;
   image: string;
+  genre: string;
   directedBy: string;
   studio: string;
   seasons: string[];

@@ -6,6 +6,7 @@ export interface ActorDTO {
   imageUrl: string;
   education: string;
   yearsActive: string;
+  biography: string;
   series: string[];
   news: string[];
   awards: string[];

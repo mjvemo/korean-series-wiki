@@ -8,6 +8,7 @@ export interface UpdateSerieRequestProps {
   image?: string;
   directedBy?: string;
   studio?: string;
+  genre?: string;
   seasons?: string[];
   cast?: string[];
   news?: string[];
@@ -25,6 +26,7 @@ const schema: JSONSchemaType<UpdateSerieRequestProps> = {
     cast: { type: "array", nullable: true, items: { type: "string" } },
     pg: { type: "string", nullable: true },
     image: { type: "string", nullable: true },
+    genre: { type: "string", nullable: true },
     directedBy: { type: "string", nullable: true },
     studio: { type: "string", nullable: true },
     news: { type: "array", nullable: true, items: { type: "string" } },
@@ -43,6 +45,7 @@ export class UpdateSerieRequestDTO implements UpdateSerieRequestProps {
   readonly image?: string;
   readonly directedBy?: string;
   readonly studio?: string;
+  readonly genre?: string;
   readonly seasons?: string[];
   readonly cast?: string[];
   readonly news?: string[];
@@ -51,7 +54,7 @@ export class UpdateSerieRequestDTO implements UpdateSerieRequestProps {
   readonly releasedAt?: string;
 
   constructor(props: UpdateSerieRequestProps) {
-    const ajv = new Ajv({allErrors: true})
+    const ajv = new Ajv({ allErrors: true });
     const validate = ajv.compile(schema);
 
     validate(props);
@@ -69,6 +72,7 @@ export class UpdateSerieRequestDTO implements UpdateSerieRequestProps {
     this.cast = props.cast;
     this.pg = props.pg;
     this.image = props.image;
+    this.genre = props.genre;
     this.directedBy = props.directedBy;
     this.studio = props.studio;
     this.news = props.news;

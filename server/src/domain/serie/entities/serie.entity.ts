@@ -7,6 +7,7 @@ export interface ISerie {
   name: string;
   rating: number;
   pg: string;
+  genre: string;
   directedBy: string;
   studio: string;
   image: string;
@@ -28,6 +29,7 @@ const schema = new Schema<ISerie>({
   pg: { type: String, required: true },
   directedBy: { type: String, required: true },
   studio: { type: String, required: true },
+  genre: { type: String, required: true },
   image: { type: String, required: true },
   seasons: [{ type: Schema.Types.UUID, ref: "Season" }],
   cast: [{ type: Schema.Types.UUID, ref: "Actor" }],

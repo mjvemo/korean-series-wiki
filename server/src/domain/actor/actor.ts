@@ -9,6 +9,7 @@ export interface ActorProps {
   agency: string;
   imageUrl: string;
   education: string;
+  biography: string;
   yearsActive: string;
   series: string[];
   news: string[];
@@ -26,6 +27,7 @@ export interface CreateActorProps {
   imageUrl: string;
   education: string;
   yearsActive: string;
+  biography: string;
   series: string[];
   news: string[];
   awards: string[];
@@ -41,6 +43,7 @@ export interface UpdateActorProps {
   imageUrl?: string;
   education?: string;
   yearsActive?: string;
+  biography?: string;
   series?: string[];
   news?: string[];
   awards?: string[];
@@ -53,6 +56,7 @@ export class Actor {
   private _age: number;
   private _agency: string;
   private _education: string;
+  private _biography: string;
   private _imageUrl: string;
   private _yearsActive: string;
   private _series: string[];
@@ -90,6 +94,10 @@ export class Actor {
     return this._education;
   }
 
+  get biography() {
+    return this._biography;
+  }
+
   get series() {
     return this._series;
   }
@@ -121,6 +129,7 @@ export class Actor {
     this._agency = props.agency;
     this._imageUrl = props.imageUrl;
     this._education = props.education;
+    this._biography = props.biography;
     this._yearsActive = props.yearsActive;
     this._series = props.series;
     this._news = props.news;
@@ -140,6 +149,7 @@ export class Actor {
       agency: props.agency,
       imageUrl: props.imageUrl,
       education: props.education,
+      biography: props.biography,
       yearsActive: props.yearsActive,
       series: props.series,
       news: props.news,
@@ -158,6 +168,9 @@ export class Actor {
     this._education = isNil(props.education)
       ? this._education
       : props.education;
+    this._biography = isNil(props.biography)
+      ? this._biography
+      : props.biography;
     this._yearsActive = isNil(props.yearsActive)
       ? this._yearsActive
       : props.yearsActive;
@@ -183,6 +196,7 @@ export class Actor {
       imageUrl: this.imageUrl,
       education: this.education,
       yearsActive: this.yearsActive,
+      biography: this.biography,
       series: this.series,
       news: this.news,
       awards: this.awards,

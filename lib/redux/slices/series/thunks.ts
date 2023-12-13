@@ -6,6 +6,7 @@ enum ActionType {
   GET_SERIES = "series/getSeries",
   GET_SERIE_BY_ID = "series/getSerieById",
   CREATE_SERIE = "series/createSerie",
+  GET_SERIES_BY_ACTOR_ID = "series/getSeriesByActorId",
 }
 
 // {
@@ -39,5 +40,12 @@ export const createSerieAsync = createAppAsyncThunk(
   ActionType.CREATE_SERIE,
   (data: CreateSerieRequestDTO) => {
     return client.createSerie(data);
+  }
+);
+
+export const getSeriesByActorId = createAppAsyncThunk(
+  ActionType.GET_SERIES_BY_ACTOR_ID,
+  (id: string) => {
+    return client.getSeriesByActorId(id);
   }
 );

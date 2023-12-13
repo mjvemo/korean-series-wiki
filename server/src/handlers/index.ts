@@ -7,7 +7,7 @@ import deleteActor from "./actors/delete-actor";
 import getActor from "./actors/get-actor";
 import updateActor from "./actors/update-actor";
 
-import getActorsBySerieId from './actors/get-actors-by-serie-id';
+import getActorsBySerieId from "./actors/get-actors-by-serie-id";
 
 import getAwards from "./awards/get-awards";
 import createAward from "./awards/create-award";
@@ -38,6 +38,8 @@ import createSerie from "./series/create-serie";
 import deleteSerie from "./series/delete-serie";
 import getSerie from "./series/get-serie";
 import updateSerie from "./series/update-serie";
+
+import getSeriesByActorId from "./series/get-series-by-actor-id";
 
 export function register(app: Application) {
   // actors
@@ -82,4 +84,5 @@ export function register(app: Application) {
   app.get(Resource.serie, getSerie);
   app.patch(Resource.serie, updateSerie);
   app.delete(Resource.serie, deleteSerie);
+  app.get(Resource.seriesByActorId, getSeriesByActorId);
 }

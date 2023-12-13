@@ -1,7 +1,12 @@
 /* Core */
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./state";
-import { getSeriesAsync, getSerieByIdAsync, createSerieAsync } from "./thunks";
+import {
+  getSeriesAsync,
+  getSerieByIdAsync,
+  createSerieAsync,
+  getSeriesByActorId,
+} from "./thunks";
 import {
   getSeriesFulfilledCaseReducer,
   getSeriesPendingCaseReducer,
@@ -12,8 +17,12 @@ import {
   createSerieFulfilledCaseReducer,
   createSeriePendingCaseReducer,
   createSerieRejectedCaseReducer,
+  getSeriesByActorIdFulfilledCaseReducer,
+  getSeriesByActorIdPendingCaseReducer,
+  getSeriesByActorIdRejectedCaseReducer,
 } from "./reducers";
 import { CreateSerieUseCase } from "@/server/src/use-cases/series/create-serie/create-serie.use-case";
+import { flushSync } from "react-dom";
 
 export const seriesSlice = createSlice({
   name: "series",
@@ -36,6 +45,18 @@ export const seriesSlice = createSlice({
       // CreateSerie
       .addCase(createSerieAsync.pending, createSeriePendingCaseReducer)
       .addCase(createSerieAsync.fulfilled, createSerieFulfilledCaseReducer)
-      .addCase(createSerieAsync.rejected, createSerieRejectedCaseReducer);
+      .addCase(createSerieAsync.rejected, createSerieRejectedCaseReducer)
+
+      //GetSeriesByActorId
+
+      .addCase(
+        getSeriesByActorId.fulfilled,
+        getSeriesByActorIdFulfilledCaseReducer
+      )
+      .addCase(getSeriesByActorId.pending, getSeriesByActorIdPendingCaseReducer)
+      .addCase(
+        getSeriesByActorId.rejected,
+        getSeriesByActorIdRejectedCaseReducer
+      );
   },
 });
