@@ -1,6 +1,6 @@
 // import client from "@/lib/api";
 // import { createAppAsyncThunk } from "../../createAppAsyncThunk";
-// import { CreateNewsRequestDTO } from "@/server/src/use-cases/series/create-serie/create-serie-request.dto";
+// import { CreateNewsRequestDTO } from "@/server/src/use-cases/news/create-news/create-news-request.dto";
 
 // enum ActionType {
 //   GET_NEWS = "news/getNews",

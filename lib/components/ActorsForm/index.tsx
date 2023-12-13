@@ -26,7 +26,7 @@ import { Series } from "@/lib/components/Series";
 import { ActorsFormPayload } from "@/lib/models/actor.model";
 import { actorFormToCreateActorRequest } from "@/lib/utils/form-mappers";
 import { useRouter } from "next/navigation";
-import NewsListSelector from "../NewsListSelector";
+import NewsListSelector from "../NewsListFormSelector";
 import { InputTextarea } from "primereact/inputtextarea";
 
 const formSchema = object<ActorsFormPayload>({

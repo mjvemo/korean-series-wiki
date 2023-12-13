@@ -1,10 +1,10 @@
 import { CaseReducer, type PayloadAction } from "@reduxjs/toolkit";
-import { AwardsDTO } from "@/lib/api/dtos/awards.dto";
 import { AwardState } from "./state";
+import { AwardDTO } from "@/lib/api/dtos/award.dto";
 
 export const getAwardsFulfilledCaseReducer: CaseReducer<
   AwardState,
-  PayloadAction<AwardsDTO[]>
+  PayloadAction<AwardDTO[]>
 > = (state, action) => {
   state.items = action.payload;
   state.status = "idle";
@@ -15,6 +15,7 @@ export const getAwardsPendingCaseReducer: CaseReducer<AwardState, any> = (
 ) => {
   state.status = "loading";
 };
+
 export const getAwardsRejectedCaseReducer: CaseReducer<AwardState, any> = (
   state
 ) => {
@@ -23,7 +24,7 @@ export const getAwardsRejectedCaseReducer: CaseReducer<AwardState, any> = (
 
 export const getAwardsByIdFulfilledCaseReducer: CaseReducer<
   AwardState,
-  PayloadAction<AwardsDTO>
+  PayloadAction<AwardDTO>
 > = (state, action) => {
   state.active = action.payload;
   state.status = "idle";
@@ -43,14 +44,14 @@ export const getAwardsByIdRejectedCaseReducer: CaseReducer<AwardState, any> = (
 
 export const addAwardReducer: CaseReducer<
   AwardState,
-  PayloadAction<AwardsDTO>
+  PayloadAction<AwardDTO>
 > = (state, action) => {
   state.items.push(action.payload);
 };
 
 export const createAwardFulfilledCaseReducer: CaseReducer<
   AwardState,
-  PayloadAction<AwardsDTO>
+  PayloadAction<AwardDTO>
 > = (state, action) => {
   state.active = action.payload;
   state.status = "idle";

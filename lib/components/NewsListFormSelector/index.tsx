@@ -7,17 +7,18 @@ import {
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { useSelector } from "react-redux";
-import { selectActors } from "@/lib/redux/slices/actors/selectors";
+// import { selectNews} from "../../redux/slices/news/selectors";
 import { classNames } from "primereact/utils";
 import { FilterMatchMode } from "primereact/api";
 import { Avatar } from "primereact/avatar";
 import { Toast } from "primereact/toast";
+import { selectActors } from "@/lib/redux";
 
 export default function NewsListSelector() {
   // const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(getActorsAsync());
+    // dispatch(getNewssAsync());
   }, []);
 
   const allNews = useSelector(selectActors);
@@ -44,7 +45,7 @@ export default function NewsListSelector() {
   const onRowSelect = (event: DataTableSelectEvent) => {
     toast.current?.show({
       severity: "info",
-      summary: "Product Selected",
+      summary: "News Selected",
       detail: `Name: ${event.data.name}`,
       life: 3000,
     });
@@ -53,7 +54,7 @@ export default function NewsListSelector() {
   const onRowUnselect = (event: DataTableUnselectEvent) => {
     toast.current?.show({
       severity: "warn",
-      summary: "Product Unselected",
+      summary: "News Unselected",
       detail: `Name: ${event.data.name}`,
       life: 3000,
     });

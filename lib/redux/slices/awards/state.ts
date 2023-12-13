@@ -1,18 +1,12 @@
-import { AwardsDTO } from "@/lib/api/dtos/awards.dto";
+import { AwardDTO } from "@/lib/api/dtos/award.dto";
 
 export interface AwardState {
-  items: AwardsDTO[];
-  active?: AwardsDTO;
+  items: AwardDTO[];
+  active?: AwardDTO;
   status: "idle" | "loading" | "failed";
 }
 
-export const initialState: AwardsDTO = {
-  id: "",
-  prizeName: "",
-  year: 0,
-  category: "",
-  result: "",
+export const initialState: AwardState = {
   items: [],
   status: "idle",
-  active: undefined,
 };

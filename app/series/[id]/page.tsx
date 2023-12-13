@@ -16,6 +16,8 @@ import {
   getActorsBySerieIdAsync,
   selectActors,
 } from "@/lib/redux";
+import Link from "next/link";
+import { Footer } from "@/lib/components/Footer";
 
 export interface ComponentProps {
   params: { id: string };
@@ -34,105 +36,28 @@ export default function (props: ComponentProps) {
   const activeSerie = useSelector(selectActiveSerie);
   const cast = useSelector(selectActors);
 
-  const items = [
-    { label: "About", icon: "pi pi-fw pi-home" },
-    {
-      label: "Seasons",
-      icon: "pi pi-fw pi-calendar",
-    },
-    { label: "Cast", icon: "pi pi-fw pi-pencil" },
-    { label: "Awards", icon: "pi pi-fw pi-file" },
-  ];
-
-  const header = (
-    <img
-      alt="Card"
-      src="https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/03/16/6231339ee2a8f37ae025032e.webp"
-      width="400"
-    />
-  );
-
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
-      {activeSerie && (
-        <div>
-          <div>id: {activeSerie.id}</div>
-          <div>name: {activeSerie.name}</div>
-          <div>directedBy: {activeSerie.directedBy}</div>
-          <div>releasedAt: {activeSerie.releasedAt}</div>
-          <div>cast: {JSON.stringify(cast, null, 2)}</div>
-        </div>
-      )}
       <Image
         width="1670"
-        src="https://the-post-assets.sgp1.digitaloceanspaces.com/2021/06/Gumihonew-1896x800.jpg"
+        src="https://the-post-assets.sgp1.digitaloceanspaces.com/2021/05/Gumiho-1896x800.jpg"
       ></Image>
-
-      <div className="flex flex-row justify-content-center">
-        <div className="card">
-          <TabMenu model={items} />
+      <div className="flex flex-column">
+        <div className="flex flex-row justify-content-end size-xl  gap-4 m-4">
+          <Link href="actors/create">
+            <Button label="Añadir Nuevo" icon="pi pi-plus" outlined></Button>
+          </Link>
         </div>
+        <h1 className="p-2 m-4">1 Serie</h1>
+        {/* <div className="flex align-items-start justify-content-center gap-4">
+          {listOfActor.map((actor) => (
+            <ActorCard key={actor.id} actor={actor} />
+          ))}
+        </div> */}
       </div>
-
-      <div className="flex flex-column justify-content-center align-items-center gap-2">
-        <div className="flex flex-row justify-content-between">
-          <h2>About</h2>
-          <Button text icon="pi pi-pencil"></Button>
-        </div>
-        <p>{serie.description}</p>
-      </div>
-      <Button
-        className="flex flex-column-reverse justify-content-center gap-2"
-        text
-        icon="pi pi-angle-down"
-      >
-        Read more
-      </Button>
-      <h2>News</h2>
-      <div className="flex flex-wrap column-gap-4 row-gap-6">
-        <Card subTitle={serie.releaseDate} className="md:w-25rem">
-          <img
-            alt="Card"
-            src="https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/03/16/6231339ee2a8f37ae025032e.webp"
-            width="120"
-          />
-        </Card>
-        <Card subTitle={serie.releaseDate} className="md:w-25rem">
-          <img
-            alt="Card"
-            src="https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/03/16/6231339ee2a8f37ae025032e.webp"
-            width="120"
-          />
-        </Card>
-        <Card subTitle={serie.releaseDate} className="md:w-25rem">
-          <img
-            alt="Card"
-            src="https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/03/16/6231339ee2a8f37ae025032e.webp"
-            width="120"
-          />
-        </Card>
-        <Card subTitle={serie.releaseDate} className="md:w-25rem">
-          <img
-            alt="Card"
-            src="https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/03/16/6231339ee2a8f37ae025032e.webp"
-            width="120"
-          />
-        </Card>
-        <Card subTitle={serie.releaseDate} className="md:w-25rem">
-          <img
-            alt="Card"
-            src="https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/03/16/6231339ee2a8f37ae025032e.webp"
-            width="120"
-          />
-        </Card>
-        <Card subTitle={serie.releaseDate} className="md:w-25rem">
-          <img
-            alt="Card"
-            src="https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/03/16/6231339ee2a8f37ae025032e.webp"
-            width="120"
-          />
-        </Card>
-      </div>
+      <footer className="flex flex-row justify-content-center gap-6 h-4rem font-bold">
+        <Footer />
+      </footer>
     </div>
   );
 }

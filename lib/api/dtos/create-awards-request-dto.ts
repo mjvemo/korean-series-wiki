@@ -1,7 +1,5 @@
 export interface CreateAwardsRequestDTO {
-  id: string;
-  prizeName: string;
+  name: string;
   year: number;
   category: string;
-  result: string;
 }

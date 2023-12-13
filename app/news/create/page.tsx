@@ -55,7 +55,7 @@ export default function Page() {
   };
 
   return (
-    <div className="flex flex-row align-items-center justify-content-start gap-4">
+    <div className="flex flex-column align-items-center justify-content-start gap-4">
       <Image src={formik.values.imageUrl} alt="Image" width="650" preview />
       <form onSubmit={formik.handleSubmit}>
         <div className="flex align-items-center">

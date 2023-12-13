@@ -5,7 +5,6 @@ export interface CreateAwardRequestProps {
   name: string;
   year: number;
   category: string;
-  result: string | null;
 }
 
 const schema: JSONSchemaType<CreateAwardRequestProps> = {
@@ -14,9 +13,8 @@ const schema: JSONSchemaType<CreateAwardRequestProps> = {
     name: { type: "string" },
     year: { type: "number" },
     category: { type: "string" },
-    result: { type: "string" },
   },
-  required: ["name", "year", "category", "result"],
+  required: ["name", "year", "category"],
   additionalProperties: false,
 };
 
@@ -24,7 +22,6 @@ export class CreateAwardRequestDTO implements CreateAwardRequestProps {
   readonly name: string;
   readonly year: number;
   readonly category: string;
-  readonly result!: string | null;
 
   constructor(props: CreateAwardRequestProps) {
     const ajv = new Ajv({ allErrors: true });
@@ -42,6 +39,5 @@ export class CreateAwardRequestDTO implements CreateAwardRequestProps {
     this.name = props.name;
     this.year = props.year;
     this.category = props.category;
-    this.result = props.result;
   }
 }

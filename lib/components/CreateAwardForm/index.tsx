@@ -4,18 +4,17 @@ import { Image } from "primereact/image";
 import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
 import { string, object, number } from "yup";
-import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import { InputNumber } from "primereact/inputnumber";
 import { Button } from "primereact/button";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "@/lib/redux";
 import { awardFormToCreateAwardRequest } from "@/lib/utils/form-mappers";
-import { CreateAwardRequestDTO } from "@/server/src/use-cases/awards/create-award/create-award-request.dto";
+import { createAwardAsync } from "@/lib/redux";
 
 interface AwardFormPayload {
   name: string;
   year: number;
   category: string;
-  result: string;
+  awards: [];
 }
 
 const formSchema = object({
@@ -30,15 +29,15 @@ export function CreateAwardForm() {
     name: "",
     year: 0,
     category: "",
-    result: "",
+    awards: [],
   };
 
   const onFormSubmit = (
     values: AwardFormPayload,
     actions: FormikHelpers<AwardFormPayload>
   ) => {
-    const createAwardRequest = awardFormToCreateAwardRequest(values);
-    dispatch(createAwardsAsync(createAwardRequest));
+    const createAwardsRequest = awardFormToCreateAwardRequest(values);
+    dispatch(createAwardAsync(createAwardsRequest));
 
     actions.setSubmitting(true);
     actions.resetForm();
@@ -65,7 +64,7 @@ export function CreateAwardForm() {
   ];
 
   return (
-    <div className="flex align-items-center">
+    <div className="flex align-items-center justify-content-center">
       <div className="flex flex-row gap-4 align-items-start">
         <form>
           <div className="flex flex-column">
@@ -123,26 +122,6 @@ export function CreateAwardForm() {
                   {getFormErrorMessage("category")}
                 </div>
               </div>
-
-              <div className="flex flex-column gap-3 align-items-start justify-content-start pt-3 py-2 ">
-                <label>Select a result</label>
-                <Dropdown
-                  name="result"
-                  id="result"
-                  value={formik.values.result}
-                  onChange={formik.handleChange}
-                  options={results}
-                  optionLabel="result"
-                  placeholder="result"
-                  onBlur={formik.handleBlur}
-                  className={classNames({
-                    "p-invalid": isFormFieldInvalid("result"),
-                    "w-full": true,
-                    "md: w-14rem": true,
-                  })}
-                />
-                {getFormErrorMessage("result")}
-              </div>
             </div>{" "}
           </div>
           <div className="flex flex-row gap-4 justify-content-end p-6">
@@ -158,11 +137,4 @@ export function CreateAwardForm() {
       </div>
     </div>
   );
-}
-
-function setSubmitting(arg0: boolean) {
-  throw new Error("Function not implemented.");
-}
-function createAwardsAsync(createAwardRequest: CreateAwardRequestDTO): any {
-  throw new Error("Function not implemented.");
 }

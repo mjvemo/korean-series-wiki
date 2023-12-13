@@ -7,10 +7,7 @@ import { CreateActorRequestDTO } from "./dtos/create-actor-request.dto";
 import { UpdateActorRequestDTO } from "./dtos/update-actor-request.dto";
 import { ActorDTO } from "./dtos/actor.dto";
 import { CreateAwardsRequestDTO } from "./dtos/create-awards-request-dto";
-import { CreateNewsRequestDTO } from "@/server/src/use-cases/news/create-news/create-news-request.dto";
-import createAward from "@/server/src/handlers/awards/create-award";
-import { CreateAwardRequestDTO } from "@/server/src/use-cases/awards/create-award/create-award-request.dto";
-import { AwardDTO } from "@/server/src/dtos/award.dto";
+import { AwardDTO } from "./dtos/award.dto";
 
 // import {
 //   getAwards,
@@ -21,9 +18,6 @@ import { AwardDTO } from "@/server/src/dtos/award.dto";
 
 const API_BASE_URL = process.env.API_BASE_URL || "http://127.0.0.1:3002";
 export class ApiClient {
-  createAward(data: CreateAwardsRequestDTO): any {
-    throw new Error("Method not implemented.");
-  }
   private instance = axios.create({
     baseURL: API_BASE_URL,
   });
@@ -39,6 +33,18 @@ export class ApiClient {
 
       throw error;
     }
+  }
+
+  getAwards(): Promise<AwardDTO[]> {
+    throw new Error("Method not implemented.");
+  }
+
+  getAward(id: string): Promise<AwardDTO> {
+    throw new Error("Method not implemented.");
+  }
+
+  createAward(data: CreateAwardsRequestDTO): Promise<AwardDTO> {
+    throw new Error("Method not implemented.");
   }
 
   getSeries(): Promise<SerieDTO[]> {
@@ -95,7 +101,7 @@ export class ApiClient {
   }
 }
 
-//================== Awards ==================
+// ================== Awards ==================
 // createAward(data: CreateAwardRequestDTO): Promise<AwardDTO> {
 //     const url = `/awards`;
 //     return this.request({ url, data, method: "POST" });
@@ -121,7 +127,7 @@ export class ApiClient {
 //   return this.request({ url, method: "DELETE" });
 // }
 
-//================== News ==================
+// // ================== News ==================
 
 // createNews(data: CreateNewsRequestDTO): Promise<NewsDTO> {
 //     const url = `/news`;

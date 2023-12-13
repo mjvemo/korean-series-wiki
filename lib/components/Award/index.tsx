@@ -1,3 +1,9 @@
+import AwardsListFormSelector from "../AwardsListFormSelector";
+
 export function Award() {
-  return <div>{/* <!--> Awards List Component<!--> */}</div>;
+  return (
+    <div>
+      <AwardsListFormSelector />
+    </div>
+  );
 }
