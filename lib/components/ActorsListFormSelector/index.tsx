@@ -16,7 +16,6 @@ import { SerieFormPayload } from "@/lib/models/serie.model";
 import { getActorsAsync, useDispatch, useSelector } from "@/lib/redux";
 import { ActorDTO } from "@/lib/api/dtos/actor.dto";
 import { Button } from "primereact/button";
-import { Cast } from "../Cast";
 
 export default function ActorsListFormSelector() {
   const dispatch = useDispatch();
@@ -202,7 +201,7 @@ export default function ActorsListFormSelector() {
           ></Column>
           <Column
             field="yearsActive"
-            header="Active Since"
+            header="Active"
             body={activeBodyTemplate}
             style={{ width: "20%" }}
             sortable
@@ -212,16 +211,6 @@ export default function ActorsListFormSelector() {
             header="About"
             style={{ width: "20%" }}
             sortable
-          ></Column>
-          <Column
-            rowEditor
-            headerStyle={{ width: "10%", minWidth: "8rem" }}
-            bodyStyle={{ textAlign: "center" }}
-          ></Column>
-          <Column
-            rowEditor
-            headerStyle={{ width: "10%", minWidth: "8rem" }}
-            bodyStyle={{ textAlign: "center" }}
           ></Column>
         </DataTable>
       </div>
@@ -242,18 +231,24 @@ export default function ActorsListFormSelector() {
           <Column field="name" header="Name" style={{ width: "20%" }}></Column>
           <Column field="age" header="Age" style={{ width: "20%" }}></Column>
           <Column
-            field="agency"
-            header="Agency"
-            style={{ width: "20%" }}
-          ></Column>
-          <Column
             field="education"
             header="Education"
             style={{ width: "20%" }}
           ></Column>
           <Column
+            field="agency"
+            header="Agency"
+            style={{ width: "20%" }}
+          ></Column>
+
+          <Column
             field="yearsActive"
             header="Active"
+            style={{ width: "20%" }}
+          ></Column>
+          <Column
+            field="About"
+            header="About"
             style={{ width: "20%" }}
           ></Column>
           <Column

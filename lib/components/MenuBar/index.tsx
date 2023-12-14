@@ -15,6 +15,11 @@ export const items = [
     icon: "pi pi-fw pi-user",
     url: "/actors",
   },
+  {
+    label: "Awards",
+    icon: "pi pi-fw pi-gift",
+    url: "/awards",
+  },
 
   {
     label: "Category",

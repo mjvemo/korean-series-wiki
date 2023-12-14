@@ -1,42 +1,34 @@
 import React, { useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { useSelector } from "react-redux";
+import { selectActors } from "@/lib/redux/slices/actors/selectors";
+import { useDispatch, getActorsAsync, selectActiveActor } from "@/lib/redux";
 import Link from "next/link";
-import { ActorDTO } from "@/lib/api/dtos/actor.dto";
-import { useRouter } from "next/router";
 
-export interface ComponentProps {
-  data: ActorDTO[];
-}
+export default function ActorsListSelected() {
+  const dispatch = useDispatch();
 
-export default function ActorsList(props: ComponentProps) {
-  const router = useRouter();
-  //   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getActorsAsync());
+  }, []);
 
-  //   useEffect(() => {
-  //     dispatch(getActorsAsync());
-  //   }, []);
+  const allActors = useSelector(selectActors); //selectActiveActor
 
-  //   const allActors = useSelector(selectActors); //selectActiveActor
-
+  console.log(allActors);
   const nameBodyTemplate = (actor: any) => {
     return <Link href={`/actors/${actor.id}`}>{actor.name}</Link>;
-  };
-
-  const onRowSelect = (actor: any) => {
-    router.push(`/actors/${actor.id}`);
   };
 
   return (
     <div className="card justify-content-center p-4">
       <DataTable
-        value={props.data}
+        value={allActors}
         pageLinkSize={5}
         dataKey="id"
         stripedRows
         rows={10}
         tableStyle={{ minWidth: "50rem" }}
-        onRowSelect={onRowSelect}
       >
         <Column header="Image" style={{ width: "20%" }}></Column>
         <Column

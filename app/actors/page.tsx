@@ -1,5 +1,5 @@
 "use client";
-import ActorsList from "@/lib/components/ActorsList";
+import ActorsListSelected from "@/lib/components/ActorsListSelected";
 import { Footer } from "@/lib/components/Footer";
 import { actor, actor1, actor2, actor3 } from "@/lib/models/actor.model";
 import Link from "next/link";
@@ -34,7 +34,7 @@ export default function (props: ComponentProps) {
           ))}
         </div> */}
         <div>
-          <ActorsList />
+          <ActorsListSelected />
         </div>
       </div>
       <footer className="flex flex-row justify-content-center gap-6 h-4rem font-bold">

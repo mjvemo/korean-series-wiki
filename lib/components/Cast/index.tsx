@@ -1,4 +1,4 @@
-import ActorsListSelected from "../ActorsList";
+import ActorsListSelected from "../ActorsListSelected";
 import ActorsListFormSelector from "../ActorsListFormSelector";
 
 export function Cast() {

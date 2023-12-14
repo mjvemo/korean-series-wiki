@@ -6,9 +6,17 @@ import { classNames } from "primereact/utils";
 import { string, object, number } from "yup";
 import { InputNumber } from "primereact/inputnumber";
 import { Button } from "primereact/button";
-import { useDispatch } from "@/lib/redux";
+import {
+  selectActiveAward,
+  selectAwardsRequestStatus,
+  useDispatch,
+  useSelector,
+} from "@/lib/redux";
 import { awardFormToCreateAwardRequest } from "@/lib/utils/form-mappers";
 import { createAwardAsync } from "@/lib/redux";
+import { Calendar } from "primereact/calendar";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 interface AwardFormPayload {
   name: string;
@@ -23,8 +31,17 @@ const formSchema = object({
   year: number().required("year Required"),
   category: string().required("category required"),
 });
-export function CreateAwardForm() {
+export function AwardsForm() {
   const dispatch = useDispatch();
+  const router = useRouter();
+  const award = useSelector(selectActiveAward);
+  const status = useSelector(selectAwardsRequestStatus);
+  useEffect(() => {
+    if (award) {
+      router.push(`/awards/${award.id}`);
+    }
+  }, [status]);
+
   const initialValues: AwardFormPayload = {
     name: "",
     year: 0,
@@ -66,14 +83,15 @@ export function CreateAwardForm() {
   return (
     <div className="flex align-items-center justify-content-center">
       <div className="flex flex-row gap-4 align-items-start">
-        <form>
+        <form onSubmit={formik.handleSubmit}>
+          {JSON.stringify(formik, null, 2)}
           <div className="flex flex-column">
             <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
               <div className="flex flex-column gap-3 align-items-start justify-content-start pt-3 py-2 ">
                 <label>Prize Name</label>
                 <InputText
-                  name="prize"
-                  id="prize"
+                  name="name"
+                  id="name"
                   value={formik.values.name}
                   onChange={formik.handleChange}
                   placeholder="prize name"
@@ -87,13 +105,17 @@ export function CreateAwardForm() {
                 {getFormErrorMessage("name")}
               </div>
               <div className="flex flex-row gap-4">
-                <div className="flex flex-column gap-3 align-items-start justify-content-start pt-3 py-2 ">
+                <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
                   <label>Year</label>
-                  <InputNumber
-                    name="year"
-                    id="year"
-                    value={formik.values.year}
+                  <Calendar
+                    name="yearsActive"
+                    id="yearsActive"
+                    value={
+                      formik.values.year ? new Date(formik.values.year) : null
+                    }
                     onChange={formik.handleChange}
+                    view="year"
+                    dateFormat="yy"
                     placeholder="year"
                     onBlur={formik.handleBlur}
                     className={classNames({
