@@ -6,12 +6,9 @@ import { FormikHelpers, useFormik, FormikContext } from "formik";
 import { classNames } from "primereact/utils";
 import { Image } from "primereact/image";
 import { TabPanel, TabView } from "primereact/tabview";
-import { Season } from "../Season";
-import { Cast } from "../Cast";
 import { Award } from "../Award";
 import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
-import { InputNumber } from "primereact/inputnumber";
 import { useRouter } from "next/navigation";
 import {
   createSerieAsync,
@@ -97,7 +94,7 @@ export function SerieForm() {
       <div>
         <h1>Add New Serie</h1>
       </div>
-      <div className="flex flex-row align-items-center justify-content-center gap-6">
+      <div className="flex flex-column align-items-center justify-content-center gap-6">
         <Image src={formik.values.imageUrl} alt="Image" width="750" preview />
         <form onSubmit={formik.handleSubmit}>
           <>
@@ -261,9 +258,7 @@ export function SerieForm() {
             <div className="card">
               <FormikContext.Provider value={formik}>
                 <TabView>
-                  <TabPanel header="Seasons" className="m-0">
-                    <Season />
-                  </TabPanel>
+                  <TabPanel header="Seasons" className="m-0"></TabPanel>
                   <TabPanel header="Cast" className="m-0">
                     <ActorsListFormSelector />
                   </TabPanel>

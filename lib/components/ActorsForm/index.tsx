@@ -17,8 +17,6 @@ import {
   selectActiveActor,
   selectActorRequestStatus,
 } from "@/lib/redux";
-import { SerieForm } from "@/lib/components/SeriesForm";
-import { Season } from "@/lib/components/Season";
 import { Cast } from "@/lib/components/Cast";
 import { Award } from "@/lib/components/Award";
 import { TabView, TabPanel } from "primereact/tabview";

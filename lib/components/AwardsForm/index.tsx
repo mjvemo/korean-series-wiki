@@ -17,18 +17,11 @@ import { createAwardAsync } from "@/lib/redux";
 import { Calendar } from "primereact/calendar";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-
-interface AwardFormPayload {
-  name: string;
-  year: number;
-  category: string;
-  awards: [];
-}
+import { AwardFormPayload } from "@/lib/models/award.model";
 
 const formSchema = object({
-  imageUrl: string().url("Invalid Format").required("Required"),
-  prize: string().required("prize name Required"),
-  year: number().required("year Required"),
+  name: string().required("name Required"),
+  year: string().required("year Required"),
   category: string().required("category required"),
 });
 export function AwardsForm() {
@@ -46,7 +39,6 @@ export function AwardsForm() {
     name: "",
     year: 0,
     category: "",
-    awards: [],
   };
 
   const onFormSubmit = (
@@ -108,8 +100,8 @@ export function AwardsForm() {
                 <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
                   <label>Year</label>
                   <Calendar
-                    name="yearsActive"
-                    id="yearsActive"
+                    name="year"
+                    id="year"
                     value={
                       formik.values.year ? new Date(formik.values.year) : null
                     }

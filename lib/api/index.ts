@@ -8,6 +8,8 @@ import { UpdateActorRequestDTO } from "./dtos/update-actor-request.dto";
 import { ActorDTO } from "./dtos/actor.dto";
 import { CreateAwardsRequestDTO } from "./dtos/create-awards-request-dto";
 import { AwardDTO } from "./dtos/award.dto";
+import { SeasonDTO } from "@/lib/api/dtos/season.dto";
+import { CreateSeasonRequestDTO } from "@/lib/api/dtos/create-seasons-request.dto";
 
 // import {
 //   getAwards,
@@ -36,15 +38,18 @@ export class ApiClient {
   }
 
   getAwards(): Promise<AwardDTO[]> {
-    throw new Error("Method not implemented.");
+    const url = "/awards";
+    return this.request({ url });
   }
 
-  getAward(id: string): Promise<AwardDTO> {
-    throw new Error("Method not implemented.");
+  getAwardById(id: string): Promise<AwardDTO> {
+    const url = `/awards/${id}`;
+    return this.request({ url });
   }
 
   createAward(data: CreateAwardsRequestDTO): Promise<AwardDTO> {
-    throw new Error("Method not implemented.");
+    const url = "/awards";
+    return this.request({ url, data, method: "POST" });
   }
 
   getSeries(): Promise<SerieDTO[]> {
@@ -104,64 +109,86 @@ export class ApiClient {
     const url = `/actors/${id}/series`;
     return this.request({ url, method: "GET" });
   }
+
+  // ================== Awards ==================
+  // createAward(data: CreateAwardRequestDTO): Promise<AwardDTO> {
+  //     const url = `/awards`;
+  //     return this.request({ url, data, method: "POST" });
+  //   }
+
+  //  getAwards(): Promise<NewsDTO[]> {
+  //     const url = "/awards";
+  //     return this.request({ url });
+  //   }
+
+  // getAwardsById(id: string): Promise<NewsDTO> {
+  //     const url = `/awards/${id}`;
+  //     return this.request({ url });
+  //   }
+
+  // updateAward(id: string, data: UpdateAwardsRequestDTO): Promise<NewsDTO> {
+  //     const url = `/awards/${id}`;
+  //     return this.request({ url, method: "PATCH", data });
+  //   }
+
+  // deleteAward(id: string): Promise<NewsDTO> {
+  //   const url = `/awards/${id}`;
+  //   return this.request({ url, method: "DELETE" });
+  // }
+
+  // // ================== News ==================
+
+  // createNews(data: CreateNewsRequestDTO): Promise<NewsDTO> {
+  //     const url = `/news`;
+  //     return this.request({ url, data, method: "POST" });
+  //   }
+
+  //  getNews(): Promise<NewsDTO[]> {
+  //     const url = "/news";
+  //     return this.request({ url });
+  //   }
+
+  // getNewsById(id: string): Promise<NewsDTO> {
+  //     const url = `/news/${id}`;
+  //     return this.request({ url });
+  //   }
+
+  // updateNews(id: string, data: UpdateNewsRequestDTO): Promise<NewsDTO> {
+  //     const url = `/news/${id}`;
+  //     return this.request({ url, method: "PATCH", data });
+  //   }
+
+  // deleteNews(id: string): Promise<NewsDTO> {
+  //   const url = `/news/${id}`;
+  //   return this.request({ url, method: "DELETE" });
+  // }
+
+  getSeasons(): Promise<SeasonDTO[]> {
+    const url = "/seasons";
+    return this.request({ url });
+  }
+
+  getSeason(id: string): Promise<SerieDTO> {
+    const url = `/seasons/${id}`;
+    return this.request({ url });
+  }
+
+  getSeasonById(id: string): Promise<SeasonDTO> {
+    const url = `/seasons/${id}`;
+    return this.request({ url });
+  }
+
+  createSeason(data: CreateSeasonRequestDTO): Promise<SeasonDTO> {
+    const url = `/seasons`;
+    return this.request({ url, data, method: "POST" });
+  }
+
+  getSeasonsBySerieId(id: string): Promise<SeasonDTO[]> {
+    const url = `/series/${id}/seasons`;
+    return this.request({ url });
+  }
 }
-
-// ================== Awards ==================
-// createAward(data: CreateAwardRequestDTO): Promise<AwardDTO> {
-//     const url = `/awards`;
-//     return this.request({ url, data, method: "POST" });
-//   }
-
-//  getAwards(): Promise<NewsDTO[]> {
-//     const url = "/awards";
-//     return this.request({ url });
-//   }
-
-// getAwardsById(id: string): Promise<NewsDTO> {
-//     const url = `/awards/${id}`;
-//     return this.request({ url });
-//   }
-
-// updateAward(id: string, data: UpdateAwardsRequestDTO): Promise<NewsDTO> {
-//     const url = `/awards/${id}`;
-//     return this.request({ url, method: "PATCH", data });
-//   }
-
-// deleteAward(id: string): Promise<NewsDTO> {
-//   const url = `/awards/${id}`;
-//   return this.request({ url, method: "DELETE" });
-// }
-
-// // ================== News ==================
-
-// createNews(data: CreateNewsRequestDTO): Promise<NewsDTO> {
-//     const url = `/news`;
-//     return this.request({ url, data, method: "POST" });
-//   }
-
-//  getNews(): Promise<NewsDTO[]> {
-//     const url = "/news";
-//     return this.request({ url });
-//   }
-
-// getNewsById(id: string): Promise<NewsDTO> {
-//     const url = `/news/${id}`;
-//     return this.request({ url });
-//   }
-
-// updateNews(id: string, data: UpdateNewsRequestDTO): Promise<NewsDTO> {
-//     const url = `/news/${id}`;
-//     return this.request({ url, method: "PATCH", data });
-//   }
-
-// deleteNews(id: string): Promise<NewsDTO> {
-//   const url = `/news/${id}`;
-//   return this.request({ url, method: "DELETE" });
-// }
 
 const client = new ApiClient();
 
 export default client;
-function getAwardsById(id: any, string: any) {
-  throw new Error("Function not implemented.");
-}

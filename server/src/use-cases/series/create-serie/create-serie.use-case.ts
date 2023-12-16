@@ -27,7 +27,7 @@ export class CreateSerieUseCase {
 
         console.log(`Adding serie to actor ${serie.id} and ${actorId}`);
 
-        await this.actorRepo.save(actor);
+        await this.actorRepo.update(actor);
       }
     }
 

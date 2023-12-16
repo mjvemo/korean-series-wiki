@@ -7,6 +7,7 @@ enum ActionType {
   GET_AWARDS = "awards/getAwards",
   GET_AWARDS_BY_ID = "awards/getAwardsById",
 }
+
 export const createAwardAsync = createAppAsyncThunk(
   ActionType.CREATE_AWARD,
   (data: CreateAwardsRequestDTO) => {
@@ -21,6 +22,6 @@ export const getAwards = createAppAsyncThunk(ActionType.GET_AWARDS, () => {
 export const getAwardsById = createAppAsyncThunk(
   ActionType.GET_AWARDS_BY_ID,
   (id: string) => {
-    return client.getAward(id);
+    return client.getAwardById(id);
   }
 );

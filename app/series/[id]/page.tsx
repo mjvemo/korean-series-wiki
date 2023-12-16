@@ -5,9 +5,10 @@ import {
   useDispatch,
   getSerieByIdAsync,
   useSelector,
-  getActorsByIdAsync,
   selectActiveSerie,
-  selectSeries,
+  selectActors,
+  getActorsBySerieIdAsync,
+  selectSeasons,
 } from "@/lib/redux";
 import { TabPanel, TabView } from "primereact/tabview";
 import NewsListSelector from "@/lib/components/NewsListFormSelector";
@@ -15,6 +16,7 @@ import { Award } from "@/lib/components/Award";
 import { Footer } from "@/lib/components/Footer";
 import { IfNotNil } from "@/lib/components/utils/IfNotNil";
 import ActorsList from "@/lib/components/ActorsList";
+import { getSeasonsBySerieId } from "@/lib/redux/slices/seasons";
 
 export interface ComponentProps {
   params: { id: string };
@@ -27,11 +29,13 @@ export default function SeriesList(props: ComponentProps) {
 
   useEffect(() => {
     dispatch(getSerieByIdAsync(id));
-    dispatch(getActorsByIdAsync(id));
+    dispatch(getActorsBySerieIdAsync(id));
+    dispatch(getSeasonsBySerieId(id));
   }, []);
 
-  const series = useSelector(selectSeries);
+  const actors = useSelector(selectActors);
   const activeSerie = useSelector(selectActiveSerie);
+  const seasons = useSelector(selectSeasons);
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
@@ -51,18 +55,21 @@ export default function SeriesList(props: ComponentProps) {
                 </IfNotNil>
               </div>
             </TabPanel>
+            <TabPanel header="Seasons" className="m-0">
+              <h1>Seasons and chapters</h1>
+              {JSON.stringify(seasons, null, 2)}
+            </TabPanel>
             <TabPanel header="News" className="m-0">
               <NewsListSelector />
             </TabPanel>
             <TabPanel header="Cast" className="m-0">
-              <ActorsList data={[]} />
+              <ActorsList data={actors} />
             </TabPanel>
             <TabPanel header="Awards" className="m-0">
               <Award />
             </TabPanel>
           </TabView>
         </div>
-        <div className="card justify-content-center"></div>
       </div>
       <Footer />
     </div>

@@ -207,6 +207,10 @@ export class Serie {
     this._cast = uniq([...this.cast, id]);
   }
 
+  addSeason(id: string) {
+    this._seasons = uniq([...this.seasons, id]);
+  }
+
   serialize(): SerieDTO {
     return {
       id: this.id,

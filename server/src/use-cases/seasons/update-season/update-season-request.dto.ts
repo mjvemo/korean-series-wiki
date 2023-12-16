@@ -3,7 +3,11 @@ import { SchemaValidationError } from "../../../errors/schema-validation.error";
 
 export interface UpdateSeasonRequestProps {
   serie?: string;
-  chapters?: string[];
+  chapters?: {
+    name: string;
+    description: string;
+    releasedAt: string;
+  }[];
   name?: string;
   releasedAt?: string;
 }
@@ -13,7 +17,19 @@ const schema: JSONSchemaType<UpdateSeasonRequestProps> = {
   properties: {
     name: { type: "string", nullable: true },
     serie: { type: "string", nullable: true },
-    chapters: { type: "array", nullable: true, items: { type: "string" } },
+    chapters: {
+      type: "array",
+      nullable: true,
+      items: {
+        type: "object",
+        properties: {
+          name: { type: "string" },
+          description: { type: "string" },
+          releasedAt: { type: "string" },
+        },
+        required: ["name", "description", "releasedAt"],
+      },
+    },
     releasedAt: { type: "string", nullable: true },
   },
   required: [],
@@ -22,7 +38,11 @@ const schema: JSONSchemaType<UpdateSeasonRequestProps> = {
 
 export class UpdateSeasonRequestDTO implements UpdateSeasonRequestProps {
   readonly serie?: string;
-  readonly chapters?: string[];
+  readonly chapters?: {
+    name: string;
+    description: string;
+    releasedAt: string;
+  }[];
   readonly name?: string;
   readonly releasedAt?: string;
 

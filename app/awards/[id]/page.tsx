@@ -5,7 +5,7 @@ import { Button } from "primereact/button";
 
 import {
   useDispatch,
-  getActorsByIdAsync,
+  getActorByIdAsync,
   useSelector,
   selectActiveActor,
   getActorsBySerieIdAsync,
@@ -31,7 +31,7 @@ export default function (props: ComponentProps) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getActorsByIdAsync(id));
+    dispatch(getActorByIdAsync(id));
     dispatch(getSeriesByActorId(id));
   }, []);
 

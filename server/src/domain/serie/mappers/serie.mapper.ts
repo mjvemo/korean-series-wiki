@@ -29,7 +29,7 @@ export class SerieMapper {
       id: entity._id as unknown as string,
       name: entity.name,
       rating: entity.rating,
-      seasons: entity.seasons || [],
+      seasons: (entity.seasons || []) as string[],
       cast: (entity.cast || []) as string[],
       pg: entity.pg,
       image: entity.image,

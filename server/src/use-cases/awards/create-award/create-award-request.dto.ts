@@ -3,7 +3,7 @@ import { SchemaValidationError } from "../../../errors/schema-validation.error";
 
 export interface CreateAwardRequestProps {
   name: string;
-  year: number;
+  year: string;
   category: string;
 }
 
@@ -11,7 +11,7 @@ const schema: JSONSchemaType<CreateAwardRequestProps> = {
   type: "object",
   properties: {
     name: { type: "string" },
-    year: { type: "number" },
+    year: { type: "string" },
     category: { type: "string" },
   },
   required: ["name", "year", "category"],
@@ -20,7 +20,7 @@ const schema: JSONSchemaType<CreateAwardRequestProps> = {
 
 export class CreateAwardRequestDTO implements CreateAwardRequestProps {
   readonly name: string;
-  readonly year: number;
+  readonly year: string;
   readonly category: string;
 
   constructor(props: CreateAwardRequestProps) {

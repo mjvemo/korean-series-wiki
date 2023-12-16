@@ -5,7 +5,7 @@ import { AwardDTO } from "../../dtos/award.dto";
 export interface AwardProps {
   id: string;
   name: string;
-  year: number;
+  year: string;
   category: string;
   createdAt: string;
   updatedAt: string;
@@ -14,7 +14,7 @@ export interface AwardProps {
 export interface CreateAwardProps {
   id?: string;
   name: string;
-  year: number;
+  year: string;
   category: string;
   createdAt?: string;
   updatedAt?: string;
@@ -22,7 +22,7 @@ export interface CreateAwardProps {
 
 export interface UpdateAwardProps {
   name?: string;
-  year?: number;
+  year?: string;
   category?: string;
 }
 
@@ -30,7 +30,7 @@ export class Award {
   private _id: string;
   private _name: string;
 
-  private _year: number;
+  private _year: string;
   private _category: string;
 
   private _createdAt: string;

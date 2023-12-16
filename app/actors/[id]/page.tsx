@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 
 import {
   useDispatch,
-  getActorsByIdAsync,
+  getActorByIdAsync,
   useSelector,
   selectActiveActor,
   selectSeries,
@@ -27,7 +27,7 @@ export default function ActorsList(props: ComponentProps) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getActorsByIdAsync(id));
+    dispatch(getActorByIdAsync(id));
     dispatch(getSeriesByActorId(id));
   }, []);
 

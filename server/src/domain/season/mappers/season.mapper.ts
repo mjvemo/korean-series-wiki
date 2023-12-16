@@ -20,7 +20,7 @@ export class SeasonMapper {
       id: entity._id as unknown as string,
       name: entity.name,
       serie: entity.serie.toString(),
-      chapters: (entity.chapters || []).map(it => it.toString()),
+      chapters: entity.chapters,
       releasedAt: entity.releasedAt,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,

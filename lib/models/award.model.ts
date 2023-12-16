@@ -10,7 +10,6 @@ export interface AwardFormPayload {
   year: number;
   category: string;
   name: string;
-  awards: AwardDTO[];
 }
 
 export const award: Award = {

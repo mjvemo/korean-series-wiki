@@ -4,7 +4,7 @@ import { initialState } from "./state";
 import {
   createActorAsync,
   getActorsAsync,
-  getActorsByIdAsync,
+  getActorByIdAsync,
   getActorsBySerieIdAsync,
 } from "./thunks";
 import {
@@ -40,9 +40,9 @@ export const actorsSlice = createSlice({
       .addCase(getActorsAsync.rejected, getActorRejectedCaseReducer)
 
       // GetActorById
-      .addCase(getActorsByIdAsync.pending, getActorsByIdPendingCaseReducer)
-      .addCase(getActorsByIdAsync.fulfilled, getActorsByIdFulfilledCaseReducer)
-      .addCase(getActorsByIdAsync.rejected, getActorsByIdRejectedCaseReducer)
+      .addCase(getActorByIdAsync.pending, getActorsByIdPendingCaseReducer)
+      .addCase(getActorByIdAsync.fulfilled, getActorsByIdFulfilledCaseReducer)
+      .addCase(getActorByIdAsync.rejected, getActorsByIdRejectedCaseReducer)
 
       // CreateActor
       .addCase(createActorAsync.pending, createActorPendingCaseReducer)

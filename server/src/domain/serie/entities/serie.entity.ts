@@ -1,5 +1,6 @@
 import { HydratedDocument, Schema, model } from "mongoose";
 import { IActor } from "../../actor/entities/actor.entity";
+import { ISeason } from "../../season/entities/season.entity";
 
 // 1. Create an interface representing a document in MongoDB.
 export interface ISerie {
@@ -11,7 +12,7 @@ export interface ISerie {
   directedBy: string;
   studio: string;
   image: string;
-  seasons: string[];
+  seasons: string[] | HydratedDocument<ISeason>[];
   cast: string[] | HydratedDocument<IActor>[];
   news: string[];
   awards: string[];

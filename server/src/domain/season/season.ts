@@ -6,7 +6,11 @@ export interface SeasonProps {
   id: string;
   name?: string;
   serie: string;
-  chapters: string[];
+  chapters: {
+    name: string;
+    description: string;
+    releasedAt: string;
+  }[];
   releasedAt?: string;
   createdAt: string;
   updatedAt: string;
@@ -16,7 +20,11 @@ export interface CreateSeasonProps {
   id?: string;
   name?: string;
   serie: string;
-  chapters: string[];
+  chapters: {
+    name: string;
+    description: string;
+    releasedAt: string;
+  }[];
   releasedAt?: string;
   createdAt?: string;
   updatedAt?: string;
@@ -24,7 +32,11 @@ export interface CreateSeasonProps {
 
 export interface UpdateSeasonProps {
   serie?: string;
-  chapters?: string[];
+  chapters?: {
+    name: string;
+    description: string;
+    releasedAt: string;
+  }[];
   name?: string;
   releasedAt?: string;
 }
@@ -32,7 +44,11 @@ export interface UpdateSeasonProps {
 export class Season {
   private _id: string;
   private _serie: string;
-  private _chapters: string[];
+  private _chapters: {
+    name: string;
+    description: string;
+    releasedAt: string;
+  }[];
   private _name?: string;
   private _releasedAt?: string;
   private _createdAt: string;

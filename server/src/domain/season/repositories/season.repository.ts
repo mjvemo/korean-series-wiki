@@ -1,7 +1,10 @@
 import { isNil } from "lodash";
-import SeasonEntity from "../entities/season.entity";
+import SeasonEntity, { ISeason } from "../entities/season.entity";
 import { SeasonMapper } from "../mappers/season.mapper";
 import { Season } from "../season";
+import { Serie } from "../../serie/serie";
+import { SerieMapper } from "../../serie/mappers/serie.mapper";
+import { isHydrated } from "../../../utils/mongoose";
 
 export class SeasonRepository {
   async save(season: Season) {
@@ -32,6 +35,18 @@ export class SeasonRepository {
   async findAll(): Promise<Season[]> {
     const response = await SeasonEntity.find();
     return response.map((entity) => SeasonMapper.toDomain(entity));
+  }
+
+  async findBySerie(serie: Serie): Promise<Season[]> {
+    const serieEntity = SerieMapper.toEntity(serie);
+
+    await serieEntity.populate(["seasons"]);
+
+    if (isHydrated<ISeason>(serieEntity.seasons)) {
+      return serieEntity.seasons.map((season) => SeasonMapper.toDomain(season));
+    }
+
+    return [];
   }
 }
 

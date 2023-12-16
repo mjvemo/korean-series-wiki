@@ -33,6 +33,8 @@ import deleteSeason from "./seasons/delete-season";
 import getSeason from "./seasons/get-season";
 import updateSeason from "./seasons/update-season";
 
+import getSeasonsBySerieId from "./seasons/get-seasons-by-serie-id";
+
 import getSeries from "./series/get-series";
 import createSerie from "./series/create-serie";
 import deleteSerie from "./series/delete-serie";
@@ -72,11 +74,12 @@ export function register(app: Application) {
   app.patch(Resource.new, updateNews);
 
   // seasons
-  app.get(Resource.season, getSeasons);
-  app.post(Resource.season, createSeason);
-  app.delete(Resource.new, deleteSeason);
-  app.get(Resource.new, getSeason);
-  app.patch(Resource.new, updateSeason);
+  app.get(Resource.seasons, getSeasons);
+  app.post(Resource.seasons, createSeason);
+  app.delete(Resource.season, deleteSeason);
+  app.get(Resource.season, getSeason);
+  app.patch(Resource.season, updateSeason);
+  app.get(Resource.seasonsBySerieId, getSeasonsBySerieId);
 
   // series
   app.get(Resource.series, getSeries);

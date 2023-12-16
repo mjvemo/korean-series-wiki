@@ -4,7 +4,11 @@ import { Schema, model } from "mongoose";
 export interface ISeason {
   _id: Schema.Types.UUID;
   serie: Schema.Types.UUID;
-  chapters: Schema.Types.UUID[];
+  chapters: {
+    name: string;
+    description: string;
+    releasedAt: string;
+  }[];
   name?: string;
   releasedAt?: string;
   createdAt: string;
@@ -13,11 +17,26 @@ export interface ISeason {
 
 // 2. Create a Schema corresponding to the document interface.
 const schema = new Schema<ISeason>({
-  _id: {type: Schema.Types.UUID, required: true},
-  serie: [{type: Schema.Types.UUID, ref: 'Serie'}],
+  _id: { type: Schema.Types.UUID, required: true },
+  serie: [{ type: Schema.Types.UUID, ref: "Serie" }],
   name: { type: String, required: false },
   releasedAt: { type: String, required: false },
-  chapters: [{type: Schema.Types.UUID, ref: 'Chapter'}],
+  chapters: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      description: {
+        type: String,
+        required: true,
+      },
+      releasedAt: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
   createdAt: { type: String, required: true },
   updatedAt: { type: String, required: false },
 });

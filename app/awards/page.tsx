@@ -4,23 +4,25 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import Link from "next/link";
 import { AwardDTO } from "@/lib/api/dtos/award.dto";
-import { useRouter } from "next/navigation";
+
 import { Button } from "primereact/button";
+import AwardsList from "@/lib/components/AwardsList";
+import { useDispatch, selectAwards, useSelector, getAwards } from "@/lib/redux";
 
 export interface ComponentProps {
   data: AwardDTO[];
+  params: { id: string };
 }
 
 export default function Awards(props: ComponentProps) {
-  const router = useRouter();
+  const { id } = props.params;
+  const dispatch = useDispatch();
 
-  const nameBodyTemplate = (award: any) => {
-    return <Link href={`/awards/${award.id}`}>{award.name}</Link>;
-  };
+  useEffect(() => {
+    dispatch(getAwards());
+  }, []);
 
-  const onRowSelect = (award: any) => {
-    router.push(`/awards/${award.id}`);
-  };
+  const awards = useSelector(selectAwards);
 
   return (
     <div>
@@ -31,30 +33,7 @@ export default function Awards(props: ComponentProps) {
         </Link>
       </div>
       <div className="card justify-content-center p-4">
-        <DataTable
-          value={props.data}
-          pageLinkSize={5}
-          dataKey="id"
-          stripedRows
-          rows={10}
-          tableStyle={{ minWidth: "50rem" }}
-          onRowSelect={onRowSelect}
-        >
-          <Column header="Image" style={{ width: "20%" }}></Column>
-          <Column
-            field="name"
-            header="Prize Name"
-            body={nameBodyTemplate}
-            style={{ width: "20%" }}
-          ></Column>
-          <Column field="age" header="Age" style={{ width: "20%" }}></Column>
-          <Column field="year" header="Year" style={{ width: "20%" }}></Column>
-          <Column
-            field="category"
-            header="Category"
-            style={{ width: "20%" }}
-          ></Column>
-        </DataTable>
+        <AwardsList data={awards} />
       </div>
     </div>
   );

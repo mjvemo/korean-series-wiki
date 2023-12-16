@@ -24,6 +24,8 @@ export enum Resource {
   seasons = "/seasons",
   season = "/seasons/:id",
 
+  seasonsBySerieId = "/series/:serieId/seasons",
+
   series = "/series",
   serie = "/series/:id",
 

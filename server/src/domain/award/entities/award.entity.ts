@@ -4,7 +4,7 @@ import { Schema, model } from "mongoose";
 export interface IAward {
   _id: Schema.Types.UUID;
   name: string;
-  year: number;
+  year: string;
   category: string;
   createdAt: string;
   updatedAt?: string;
@@ -12,9 +12,9 @@ export interface IAward {
 
 // 2. Create a Schema corresponding to the document interface.
 const schema = new Schema<IAward>({
-  _id: {type: Schema.Types.UUID, required: true},
+  _id: { type: Schema.Types.UUID, required: true },
   name: { type: String, required: true },
-  year: { type: Number, required: true },
+  year: { type: String, required: true },
   category: { type: String, required: true },
   createdAt: { type: String, required: true },
   updatedAt: { type: String, required: false },
