@@ -15,10 +15,14 @@ import {
   useDispatch,
   useSelector,
 } from "@/lib/redux";
-import SeriesList from "@/lib/components/SeriesList";
-import SeriesListFormSelector from "@/lib/components/SeriesListFormSelector";
+import SeriesListSelected from "@/lib/components/SeriesListSelected";
 
-export default function BasicDemo() {
+export interface ComponentProps {
+  params: { id: string };
+}
+
+export default function ComponentProps(props: ComponentProps) {
+  const { id } = props.params;
   const listOfCards = [serie, serie1, serie2, serie3];
   const dispatch = useDispatch();
   const series = useSelector(selectSeries);
@@ -45,8 +49,9 @@ export default function BasicDemo() {
         </Link>
       </div>
       <div>
-        <SeriesList />
-        <SeriesListFormSelector />
+        {/* <SeriesList />
+        <SeriesListFormSelector /> */}
+        <SeriesListSelected />
       </div>
       <div>
         <div className="flex flex-row justify-content-between gap-6">

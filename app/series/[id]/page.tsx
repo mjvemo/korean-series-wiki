@@ -1,63 +1,70 @@
 "use client";
 
-import { TabMenu } from "primereact/tabmenu";
-import React, { useState, useEffect } from "react";
-import { Galleria } from "primereact/galleria";
-import { Image } from "primereact/image";
-import { serie } from "@/lib/models/serie.model";
-import { Card } from "primereact/card";
-import { Button } from "primereact/button";
-
+import React, { useEffect } from "react";
 import {
   useDispatch,
   getSerieByIdAsync,
   useSelector,
+  getActorsByIdAsync,
   selectActiveSerie,
-  getActorsBySerieIdAsync,
-  selectActors,
+  selectSeries,
 } from "@/lib/redux";
-import Link from "next/link";
+import { TabPanel, TabView } from "primereact/tabview";
+import NewsListSelector from "@/lib/components/NewsListFormSelector";
+import { Award } from "@/lib/components/Award";
 import { Footer } from "@/lib/components/Footer";
+import { IfNotNil } from "@/lib/components/utils/IfNotNil";
+import ActorsList from "@/lib/components/ActorsList";
 
 export interface ComponentProps {
   params: { id: string };
 }
 
-export default function (props: ComponentProps) {
+export default function SeriesList(props: ComponentProps) {
   const { id } = props.params;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getSerieByIdAsync(id));
-    dispatch(getActorsBySerieIdAsync(id));
+    dispatch(getActorsByIdAsync(id));
   }, []);
 
+  const series = useSelector(selectSeries);
   const activeSerie = useSelector(selectActiveSerie);
-  const cast = useSelector(selectActors);
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
-      <Image
-        width="1670"
-        src="https://the-post-assets.sgp1.digitaloceanspaces.com/2021/05/Gumiho-1896x800.jpg"
-      ></Image>
-      <div className="flex flex-column">
-        <div className="flex flex-row justify-content-end size-xl  gap-4 m-4">
-          <Link href="actors/create">
-            <Button label="Añadir Nuevo" icon="pi pi-plus" outlined></Button>
-          </Link>
+      <div className="flex flex-row justify-content-center">
+        <div className="card justify-content-center"></div>
+        <div className="card justify-content-center">
+          <TabView>
+            <TabPanel header="About" className="m-0">
+              <div className="">
+                <h1>Description</h1>
+                <IfNotNil data={activeSerie}>
+                  {({ data: serie }) => (
+                    <div>
+                      <div>{serie.description}</div>
+                    </div>
+                  )}
+                </IfNotNil>
+              </div>
+            </TabPanel>
+            <TabPanel header="News" className="m-0">
+              <NewsListSelector />
+            </TabPanel>
+            <TabPanel header="Cast" className="m-0">
+              <ActorsList data={[]} />
+            </TabPanel>
+            <TabPanel header="Awards" className="m-0">
+              <Award />
+            </TabPanel>
+          </TabView>
         </div>
-        <h1 className="p-2 m-4">1 Serie</h1>
-        {/* <div className="flex align-items-start justify-content-center gap-4">
-          {listOfActor.map((actor) => (
-            <ActorCard key={actor.id} actor={actor} />
-          ))}
-        </div> */}
+        <div className="card justify-content-center"></div>
       </div>
-      <footer className="flex flex-row justify-content-center gap-6 h-4rem font-bold">
-        <Footer />
-      </footer>
+      <Footer />
     </div>
   );
 }

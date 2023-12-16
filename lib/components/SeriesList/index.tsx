@@ -3,15 +3,6 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { Rating } from "primereact/rating";
-import { Tag } from "primereact/tag";
-import { classNames } from "primereact/utils";
-import {
-  useDispatch,
-  useSelector,
-  getSeriesAsync,
-  selectSeries,
-} from "@/lib/redux";
-
 import Link from "next/link";
 import { SerieDTO } from "@/lib/api/dtos/serie.dto";
 import { useRouter } from "next/navigation";
@@ -51,30 +42,30 @@ export default function SeriesList(props: ComponentProps) {
     );
   };
 
-  const priceBodyTemplate = (serie: any) => {
-    return <div>{serie.price}</div>;
-  };
-
   const ratingBodyTemplate = (serie: any) => {
     return <Rating value={serie.rating} readOnly cancel={false} />;
+  };
+
+  const nameBodyTemplate = (actor: any) => {
+    return <Link href={`/actors/${actor.id}`}>{actor.name}</Link>;
   };
 
   const onRowSelect = (serie: any) => {
     router.push(`/series/${serie.id}`);
   };
 
-  const activeBodyTemplate = (allSeries: any) => {
-    const stockClassName = classNames(
-      "border-circle w-2rem h-2rem inline-flex font-bold justify-content-center align-items-center text-sm",
-      {
-        "bg-red-100 text-red-900": allSeries.active === 0,
-        "bg-blue-100 text-blue-900":
-          allSeries.active > 0 && allSeries.active <= 10,
-        "bg-teal-100 text-teal-900": allSeries.acttive >= 10,
-      }
-    );
-    return <div className={stockClassName}>{allSeries.active}</div>;
-  };
+  // const activeBodyTemplate = (allSeries: any) => {
+  //   const stockClassName = classNames(
+  //     "border-circle w-2rem h-2rem inline-flex font-bold justify-content-center align-items-center text-sm",
+  //     {
+  //       "bg-red-100 text-red-900": allSeries.active === 0,
+  //       "bg-blue-100 text-blue-900":
+  //         allSeries.active > 0 && allSeries.active <= 10,
+  //       "bg-teal-100 text-teal-900": allSeries.acttive >= 10,
+  //     }
+  //   );
+  //   return <div className={stockClassName}>{allSeries.active}</div>;
+  // };
 
   const header = (
     <div className="flex flex-wrap align-items-center justify-content-between gap-2">
@@ -113,6 +104,7 @@ export default function SeriesList(props: ComponentProps) {
             header="Name"
             style={{ width: "20%" }}
             sortable
+            body={nameBodyTemplate}
           ></Column>
           <Column
             field="releasedAt"

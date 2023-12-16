@@ -1,18 +1,22 @@
 "use client";
 
 import React, { useEffect } from "react";
+import { Button } from "primereact/button";
 
 import {
   useDispatch,
   getActorsByIdAsync,
   useSelector,
   selectActiveActor,
+  getActorsBySerieIdAsync,
+  selectActors,
   selectSeries,
   getSeriesByActorId,
 } from "@/lib/redux";
 import { TabPanel, TabView } from "primereact/tabview";
 import NewsListSelector from "@/lib/components/NewsListFormSelector";
 import { Award } from "@/lib/components/Award";
+import { Series } from "@/lib/components/Series";
 import { Footer } from "@/lib/components/Footer";
 import { IfNotNil } from "@/lib/components/utils/IfNotNil";
 import SeriesList from "@/lib/components/SeriesList";
@@ -21,7 +25,7 @@ export interface ComponentProps {
   params: { id: string };
 }
 
-export default function ActorsList(props: ComponentProps) {
+export default function (props: ComponentProps) {
   const { id } = props.params;
 
   const dispatch = useDispatch();
@@ -33,6 +37,7 @@ export default function ActorsList(props: ComponentProps) {
 
   const series = useSelector(selectSeries);
   const activeActor = useSelector(selectActiveActor);
+  const cast = useSelector(selectActors);
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">

@@ -7,6 +7,7 @@ export interface SerieDTO {
   genre: string;
   directedBy: string;
   studio: string;
+  description: string;
   seasons: string[];
   cast: string[];
   news: string[];

@@ -3,7 +3,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import Link from "next/link";
 import { ActorDTO } from "@/lib/api/dtos/actor.dto";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export interface ComponentProps {
   data: ActorDTO[];
