@@ -38,7 +38,26 @@ export default function SeriesListSelected() {
           style={{ width: "20%" }}
         ></Column>
         <Column field="age" header="Age" style={{ width: "20%" }}></Column>
-        <Column field="year" header="Year" style={{ width: "20%" }}></Column>
+        <Column
+          field="education"
+          header="Education"
+          style={{ width: "20%" }}
+        ></Column>
+        <Column
+          field="agency"
+          header="Agency"
+          style={{ width: "20%" }}
+        ></Column>
+        <Column
+          field="yearsActive"
+          header="Active"
+          style={{ width: "20%" }}
+        ></Column>
+        <Column
+          field="description"
+          header="Description"
+          style={{ width: "20%" }}
+        ></Column>
       </DataTable>
     </div>
   );

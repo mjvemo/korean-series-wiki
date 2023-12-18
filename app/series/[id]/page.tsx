@@ -17,6 +17,9 @@ import { Footer } from "@/lib/components/Footer";
 import { IfNotNil } from "@/lib/components/utils/IfNotNil";
 import ActorsList from "@/lib/components/ActorsList";
 import { getSeasonsBySerieId } from "@/lib/redux/slices/seasons";
+import { SerieCard } from "@/lib/components/SerieCard";
+import { serie } from "@/lib/models/serie.model";
+import SeasonsList from "@/lib/components/SeasonsList";
 
 export interface ComponentProps {
   params: { id: string };
@@ -56,6 +59,7 @@ export default function SeriesList(props: ComponentProps) {
               </div>
             </TabPanel>
             <TabPanel header="Seasons" className="m-0">
+              <SeasonsList data={seasons} />
               <h1>Seasons and chapters</h1>
               {JSON.stringify(seasons, null, 2)}
             </TabPanel>

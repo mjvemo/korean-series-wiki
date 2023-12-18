@@ -54,14 +54,9 @@ export default function ActorsListSelected() {
           style={{ width: "20%" }}
         ></Column>
         <Column
-          rowEditor
-          headerStyle={{ width: "10%", minWidth: "8rem" }}
-          bodyStyle={{ textAlign: "center" }}
-        ></Column>
-        <Column
-          rowEditor
-          headerStyle={{ width: "10%", minWidth: "8rem" }}
-          bodyStyle={{ textAlign: "center" }}
+          field="about"
+          header="Biography"
+          style={{ width: "20%" }}
         ></Column>
       </DataTable>
     </div>
