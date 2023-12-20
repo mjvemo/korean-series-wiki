@@ -42,39 +42,35 @@ export default function SeriesList(props: ComponentProps) {
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
-      <div className="flex flex-row justify-content-center">
-        <div className="card justify-content-center"></div>
-        <div className="card justify-content-center">
-          <TabView>
-            <TabPanel header="About" className="m-0">
-              <div className="">
-                <h1>Description</h1>
-                <IfNotNil data={activeSerie}>
-                  {({ data: serie }) => (
-                    <div>
-                      <div>{serie.description}</div>
-                    </div>
-                  )}
-                </IfNotNil>
-              </div>
-            </TabPanel>
-            <TabPanel header="Seasons" className="m-0">
-              <SeasonsList data={seasons} />
-              <h1>Seasons and chapters</h1>
-              {JSON.stringify(seasons, null, 2)}
-            </TabPanel>
-            <TabPanel header="News" className="m-0">
-              <NewsListSelector />
-            </TabPanel>
-            <TabPanel header="Cast" className="m-0">
-              <ActorsList data={actors} />
-            </TabPanel>
-            <TabPanel header="Awards" className="m-0">
-              <Award />
-            </TabPanel>
-          </TabView>
-        </div>
+      <div className="flex flex-row justify-content-start">
+        <TabView>
+          <TabPanel header="About" className="m-0">
+            <div className="">
+              <h1>Description</h1>
+              <IfNotNil data={activeSerie}>
+                {({ data: serie }) => (
+                  <div>
+                    <div>{serie.description}</div>
+                  </div>
+                )}
+              </IfNotNil>
+            </div>
+          </TabPanel>
+          <TabPanel header="Seasons" className="m-0">
+            <SeasonsList data={seasons} />
+          </TabPanel>
+          <TabPanel header="News" className="m-0">
+            <NewsListSelector />
+          </TabPanel>
+          <TabPanel header="Cast" className="m-0">
+            <ActorsList data={actors} />
+          </TabPanel>
+          <TabPanel header="Awards" className="m-0">
+            <Award />
+          </TabPanel>
+        </TabView>
       </div>
+
       <Footer />
     </div>
   );

@@ -1,4 +1,3 @@
-import { ChapterForm } from "@/lib/components/ChapterForm";
 import { SeasonsForm } from "@/lib/components/SeasonsForm";
 
 interface ComponentProps {

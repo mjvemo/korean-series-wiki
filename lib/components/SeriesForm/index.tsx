@@ -22,15 +22,17 @@ import { serieFormToCreateSerieRequest } from "@/lib/utils/form-mappers";
 import { SerieFormPayload } from "@/lib/models/serie.model";
 import { Rating } from "primereact/rating";
 import ActorsListFormSelector from "../ActorsListFormSelector";
+import { InputTextarea } from "primereact/inputtextarea";
 
 const formSchema = object({
   imageUrl: string().url("Invalid Format").required("Required"),
   name: string().required("Name Required"),
   year: date().required("Year Required"),
-  pg: string(),
-  rate: number(),
+  pg: string().required("Required"),
+  rate: number().required("Required"),
   genre: string().required("Required"),
-  directedBy: string(),
+  directedBy: string().required("Required"),
+  description: string().required("Description Required"),
 });
 
 export function SerieForm() {
@@ -43,6 +45,7 @@ export function SerieForm() {
     genre: "",
     director: "",
     studio: "",
+    // add description in server
     seasons: [],
     cast: [],
     news: [],
@@ -241,6 +244,22 @@ export function SerieForm() {
                     />
                   </div>
                   {getFormErrorMessage("studio")}
+                  {/* <div className="flex flex-column gap-2">
+                    <label>Description</label>
+                    <InputTextarea
+                      name="description"
+                      id="description"
+                      value={formik.values.description} // description
+                      onChange={formik.handleChange}
+                      placeholder="description"
+                      onBlur={formik.handleBlur}
+                      className={classNames({
+                        "p-invalid": isFormFieldInvalid("description"),
+                        "w-full": true,
+                      })}
+                    />
+                  </div>
+                  {getFormErrorMessage("description")} */}
                 </div>
               </div>
             </div>

@@ -16,6 +16,7 @@ import {
   useSelector,
   selectActiveActor,
   selectActorRequestStatus,
+  selectActiveSerie,
 } from "@/lib/redux";
 import { Cast } from "@/lib/components/Cast";
 import { Award } from "@/lib/components/Award";
@@ -26,6 +27,9 @@ import { actorFormToCreateActorRequest } from "@/lib/utils/form-mappers";
 import { useRouter } from "next/navigation";
 import NewsListSelector from "../NewsListFormSelector";
 import { InputTextarea } from "primereact/inputtextarea";
+import SeriesList from "../SeriesList";
+import SeriesListFormSelector from "../SeriesListFormSelector";
+import { SerieDTO } from "@/lib/api/dtos/serie.dto";
 
 const formSchema = object<ActorsFormPayload>({
   imageUrl: string().url("Invalid Format").required("Required"),
@@ -43,6 +47,7 @@ export function ActorsForm() {
   const dispatch = useDispatch();
   const actor = useSelector(selectActiveActor);
   const status = useSelector(selectActorRequestStatus);
+  const series = useSelector(selectActiveSerie);
 
   useEffect(() => {
     if (actor) {

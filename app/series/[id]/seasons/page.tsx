@@ -9,5 +9,9 @@ export interface ComponentProps {
 
 export default function Page() {
   const seasons = useSelector(selectSeasons);
-  return <SeasonsList data={seasons} />;
+  return (
+    <div>
+      <SeasonsList data={seasons} />
+    </div>
+  );
 }

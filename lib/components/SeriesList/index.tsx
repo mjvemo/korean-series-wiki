@@ -46,8 +46,8 @@ export default function SeriesList(props: ComponentProps) {
     return <Rating value={serie.rating} readOnly cancel={false} />;
   };
 
-  const nameBodyTemplate = (actor: any) => {
-    return <Link href={`/actors/${actor.id}`}>{actor.name}</Link>;
+  const nameBodyTemplate = (serie: any) => {
+    return <Link href={`/series/${serie.id}`}>{serie.name}</Link>;
   };
 
   const onRowSelect = (serie: any) => {
@@ -140,6 +140,12 @@ export default function SeriesList(props: ComponentProps) {
           <Column
             field="studio"
             header="Studio"
+            style={{ width: "20%" }}
+            sortable
+          ></Column>
+          <Column
+            field="description"
+            header="Description"
             style={{ width: "20%" }}
             sortable
           ></Column>

@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import { useDispatch, getSeriesAsync } from "@/lib/redux";
 import { selectSeries } from "@/lib/redux/slices/series/selectors";
 import Link from "next/link";
+import { Rating } from "primereact/rating";
+import router from "next/router";
 
 export default function SeriesListSelected() {
   const dispatch = useDispatch();
@@ -20,6 +22,24 @@ export default function SeriesListSelected() {
     return <Link href={`/series/${serie.id}`}>{serie.name}</Link>;
   };
 
+  const imageBodyTemplate = (serie: any) => {
+    return (
+      <img
+        src={serie.image}
+        alt={serie.image}
+        className="w-6rem shadow-2 border-round"
+      />
+    );
+  };
+
+  const ratingBodyTemplate = (serie: any) => {
+    return <Rating value={serie.rating} readOnly cancel={false} />;
+  };
+
+  const onRowSelect = (serie: any) => {
+    router.push(`/series/${serie.id}`);
+  };
+
   return (
     <div className="card justify-content-center p-4">
       <DataTable
@@ -30,33 +50,61 @@ export default function SeriesListSelected() {
         rows={10}
         tableStyle={{ minWidth: "50rem" }}
       >
-        <Column header="Image" style={{ width: "20%" }}></Column>
+        <Column
+          header="Image"
+          body={imageBodyTemplate}
+          sortable
+          style={{ width: "20%" }}
+        ></Column>
         <Column
           field="name"
           header="Name"
+          style={{ width: "20%" }}
+          sortable
           body={nameBodyTemplate}
-          style={{ width: "20%" }}
-        ></Column>
-        <Column field="age" header="Age" style={{ width: "20%" }}></Column>
-        <Column
-          field="education"
-          header="Education"
-          style={{ width: "20%" }}
         ></Column>
         <Column
-          field="agency"
-          header="Agency"
+          field="releasedAt"
+          header="ReleasedAt"
           style={{ width: "20%" }}
+          sortable
         ></Column>
         <Column
-          field="yearsActive"
-          header="Active"
+          field="pg"
+          header="PG"
           style={{ width: "20%" }}
+          sortable
+        ></Column>
+        <Column
+          field="rating"
+          header="Rating"
+          body={ratingBodyTemplate}
+          style={{ width: "20%" }}
+          sortable
+        ></Column>
+        <Column
+          field="genre"
+          header="Genre"
+          style={{ width: "20%" }}
+          sortable
+        ></Column>
+        <Column
+          field="directedBy"
+          header="Director"
+          style={{ width: "20%" }}
+          sortable
+        ></Column>
+        <Column
+          field="studio"
+          header="Studio"
+          style={{ width: "20%" }}
+          sortable
         ></Column>
         <Column
           field="description"
           header="Description"
           style={{ width: "20%" }}
+          sortable
         ></Column>
       </DataTable>
     </div>

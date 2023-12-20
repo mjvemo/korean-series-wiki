@@ -1,10 +1,8 @@
 "use client";
 import { FormikHelpers, useFormik } from "formik";
-import { Image } from "primereact/image";
 import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
 import { string, object, number } from "yup";
-import { InputNumber } from "primereact/inputnumber";
 import { Button } from "primereact/button";
 import {
   selectActiveAward,
@@ -67,10 +65,6 @@ export function AwardsForm() {
       <small className="p-error">&nbsp;</small>
     );
   };
-  const results = [
-    { name: "Nominated", code: "N" },
-    { name: "Winner", code: "W" },
-  ];
 
   return (
     <div className="flex align-items-center justify-content-center">

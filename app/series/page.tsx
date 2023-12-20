@@ -16,6 +16,7 @@ import {
   useSelector,
 } from "@/lib/redux";
 import SeriesListSelected from "@/lib/components/SeriesListSelected";
+import SeriesList from "@/lib/components/SeriesList";
 
 export interface ComponentProps {
   params: { id: string };
@@ -51,6 +52,7 @@ export default function ComponentProps(props: ComponentProps) {
       <div>
         {/* <SeriesList />
         <SeriesListFormSelector /> */}
+        <SeriesList data={series} />
         <SeriesListSelected />
       </div>
       <div>

@@ -14,8 +14,10 @@ import {
   selectActiveSeason,
   selectSeasonRequestStatus,
 } from "@/lib/redux/slices/seasons";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { seasonFromtoCreateSeasonRequest } from "@/lib/utils/form-mappers";
+import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
+import Link from "next/link";
 
 interface ComponentProps {
   id: string;
@@ -92,30 +94,61 @@ export function SeasonsForm(props: ComponentProps) {
     ]);
   }
   console.log({ chapters, props });
+
+  const [selectedCity, setSelectedCity] = useState(null);
+
+  const onSelectOption = (season: any) => {
+    return <Link href={`/seasons/${season.id}`}>{season.name}</Link>;
+  };
+
+  function handleOnChange(event: DropdownChangeEvent) {
+    setSelectedCity(event.value);
+  }
+  const seasons = [
+    { name: "Season 1" },
+    { name: "Season 2" },
+    { name: "Season 3" },
+    { name: "Season 4" },
+    { name: "Season 5" },
+  ];
+
   return (
-    <form onSubmit={formik.handleSubmit}>
-      {chapters.map((chapter, index) => (
-        <ChapterForm
-          key={index}
-          value={chapter}
-          errors={errors[index] as FormikErrors<ChapterFormPayload>}
-          touched={touched[index]}
-          index={index}
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          onDelete={handleDelete}
+    <div className="flex flex-column">
+      <h1 className="p-2 m-4">Seasons</h1>
+      <div className="flex flex-column justify-content-start size-xl  gap-4 m-4">
+        <Dropdown
+          value={selectedCity}
+          onChange={onSelectOption}
+          options={seasons}
+          optionLabel="name"
+          placeholder="Select a Season"
+          className="w-full md:w-14rem"
         />
-      ))}
-      <Button onClick={onAddChapterClick}>Add Chapter</Button>
-      <div className="flex flex-row gap-4 justify-content-end p-6">
-        <Button
-          type="submit"
-          label="Save"
-          icon="pi pi-check"
-          size="large"
-        ></Button>
-        <Button label="Cancel" icon="pi pi-times" size="large"></Button>
       </div>
-    </form>
+      <form onSubmit={formik.handleSubmit}>
+        {chapters.map((chapter, index) => (
+          <ChapterForm
+            key={index}
+            value={chapter}
+            errors={errors[index] as FormikErrors<ChapterFormPayload>}
+            touched={touched[index]}
+            index={index}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            onDelete={handleDelete}
+          />
+        ))}
+        <Button onClick={onAddChapterClick}>Add Chapter</Button>
+        <div className="flex flex-row gap-4 justify-content-end p-6">
+          <Button
+            type="submit"
+            label="Save"
+            icon="pi pi-check"
+            size="large"
+          ></Button>
+          <Button label="Cancel" icon="pi pi-times" size="large"></Button>
+        </div>
+      </form>
+    </div>
   );
 }

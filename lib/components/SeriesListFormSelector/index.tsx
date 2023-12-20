@@ -127,29 +127,6 @@ export default function SeriesListFormSelector() {
     return <div className={stockClassName}>{allSeries.active}</div>;
   };
 
-  const actionTemplate = (data: SerieDTO) => {
-    return (
-      <Button
-        icon="pi pi-times"
-        outlined
-        onClick={() => {
-          const { series } = formik.values;
-          formik.setFieldValue(
-            "series",
-            series.filter((serie: any) => serie.id !== data.id)
-          );
-
-          toast.current?.show({
-            severity: "info",
-            summary: "serie removed",
-            detail: `Name: ${data.name}`,
-            life: 3000,
-          });
-        }}
-      ></Button>
-    );
-  };
-
   const header = renderHeader();
   console.log(allSeries);
   return (
@@ -226,44 +203,6 @@ export default function SeriesListFormSelector() {
             rowEditor
             headerStyle={{ width: "10%", minWidth: "8rem" }}
             bodyStyle={{ textAlign: "center" }}
-          ></Column>
-        </DataTable>
-      </div>
-      <div className="card justify-content-center p-4">
-        <DataTable
-          value={allSeries}
-          pageLinkSize={5}
-          dataKey="id"
-          stripedRows
-          rows={10}
-          tableStyle={{ minWidth: "50rem" }}
-        >
-          <Column
-            header="Image"
-            body={imageBodyTemplate}
-            style={{ width: "20%" }}
-          ></Column>
-          <Column field="name" header="Name" style={{ width: "20%" }}></Column>
-          <Column field="age" header="Age" style={{ width: "20%" }}></Column>
-          <Column
-            field="agency"
-            header="Agency"
-            style={{ width: "20%" }}
-          ></Column>
-          <Column
-            field="education"
-            header="Education"
-            style={{ width: "20%" }}
-          ></Column>
-          <Column
-            field="yearsActive"
-            header="Active"
-            style={{ width: "20%" }}
-          ></Column>
-          <Column
-            header="Action"
-            body={actionTemplate}
-            style={{ width: "20%" }}
           ></Column>
         </DataTable>
       </div>
