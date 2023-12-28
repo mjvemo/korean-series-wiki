@@ -8,6 +8,7 @@ export interface SerieProps {
   rating: number;
   pg: string;
   image: string;
+  description: string;
   genre: string;
   directedBy: string;
   studio: string;
@@ -27,6 +28,7 @@ export interface CreateSerieProps {
   rating: number;
   pg: string;
   image: string;
+  description: string;
   genre: string;
   directedBy: string;
   studio: string;
@@ -45,6 +47,7 @@ export interface UpdateSerieProps {
   rating?: number;
   pg?: string;
   image?: string;
+  description?: string;
   directedBy?: string;
   genre?: string;
   studio?: string;
@@ -62,6 +65,7 @@ export class Serie {
   private _rating: number;
   private _pg: string;
   private _image: string;
+  private _description: string;
   private _genre: string;
   private _directedBy: string;
   private _studio: string;
@@ -100,6 +104,10 @@ export class Serie {
 
   get image() {
     return this._image;
+  }
+
+  get description() {
+    return this._description;
   }
 
   get genre() {
@@ -146,6 +154,7 @@ export class Serie {
     this._cast = props.cast;
     this._pg = props.pg;
     this._image = props.image;
+    this._description = props.description;
     this._genre = props.genre;
     this._directedBy = props.directedBy;
     this._studio = props.studio;
@@ -168,6 +177,7 @@ export class Serie {
       cast: props.cast,
       pg: props.pg,
       image: props.image,
+      description: props.description,
       genre: props.genre,
       directedBy: props.directedBy,
       studio: props.studio,
@@ -185,6 +195,9 @@ export class Serie {
     this._rating = isNil(props.rating) ? this._rating : props.rating;
     this._pg = isNil(props.pg) ? this._pg : props.pg;
     this._image = isNil(props.image) ? this._image : props.image;
+    this._description = isNil(props.description)
+      ? this._description
+      : props.description;
     this._genre = isNil(props.genre) ? this._genre : props.genre;
     this._directedBy = isNil(props.directedBy)
       ? this._directedBy
@@ -218,6 +231,7 @@ export class Serie {
       rating: this.rating,
       pg: this.pg,
       image: this.image,
+      description: this.description,
       directedBy: this.directedBy,
       studio: this.studio,
       genre: this.genre,

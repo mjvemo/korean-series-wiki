@@ -10,6 +10,8 @@ import { CreateAwardsRequestDTO } from "./dtos/create-awards-request-dto";
 import { AwardDTO } from "./dtos/award.dto";
 import { SeasonDTO } from "@/lib/api/dtos/season.dto";
 import { CreateSeasonRequestDTO } from "@/lib/api/dtos/create-seasons-request.dto";
+import { CreateNewsRequestDTO } from "@/lib/api/dtos/create-news-request.dto";
+import { UpdateNewsRequestDTO } from "@/lib/api/dtos/update-news-request.dto";
 
 // import {
 //   getAwards,
@@ -136,32 +138,41 @@ export class ApiClient {
   //   return this.request({ url, method: "DELETE" });
   // }
 
-  // // ================== News ==================
+  getAwardsByActorId(id: string): Promise<AwardDTO[]> {
+    const url = `/actors/${id}/awards`;
+    return this.request({ url, method: "GET" });
+  }
 
-  // createNews(data: CreateNewsRequestDTO): Promise<NewsDTO> {
-  //     const url = `/news`;
-  //     return this.request({ url, data, method: "POST" });
-  //   }
+  // ================== News ==================
 
-  //  getNews(): Promise<NewsDTO[]> {
-  //     const url = "/news";
-  //     return this.request({ url });
-  //   }
+  createNews(data: CreateNewsRequestDTO): Promise<NewsDTO> {
+    const url = `/news`;
+    return this.request({ url, data, method: "POST" });
+  }
 
-  // getNewsById(id: string): Promise<NewsDTO> {
-  //     const url = `/news/${id}`;
-  //     return this.request({ url });
-  //   }
+  getNews(): Promise<NewsDTO[]> {
+    const url = "/news";
+    return this.request({ url });
+  }
 
-  // updateNews(id: string, data: UpdateNewsRequestDTO): Promise<NewsDTO> {
-  //     const url = `/news/${id}`;
-  //     return this.request({ url, method: "PATCH", data });
-  //   }
+  getNewsById(id: string): Promise<NewsDTO> {
+    const url = `/news/${id}`;
+    return this.request({ url });
+  }
+  getNewsByActorId(id: string): Promise<SeasonDTO[]> {
+    const url = `/actors/${id}/news`;
+    return this.request({ url });
+  }
 
-  // deleteNews(id: string): Promise<NewsDTO> {
-  //   const url = `/news/${id}`;
-  //   return this.request({ url, method: "DELETE" });
-  // }
+  updateNews(id: string, data: UpdateNewsRequestDTO): Promise<NewsDTO> {
+    const url = `/news/${id}`;
+    return this.request({ url, method: "PATCH", data });
+  }
+
+  deleteNews(id: string): Promise<NewsDTO> {
+    const url = `/news/${id}`;
+    return this.request({ url, method: "DELETE" });
+  }
 
   getSeasons(): Promise<SeasonDTO[]> {
     const url = "/seasons";

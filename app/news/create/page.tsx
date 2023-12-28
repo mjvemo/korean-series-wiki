@@ -7,12 +7,18 @@ import { object, string, number, date } from "yup";
 import { FormikHelpers, useFormik } from "formik";
 import { classNames } from "primereact/utils";
 import { Footer } from "@/lib/components/Footer";
+import { NewsDTO } from "@/lib/models/news.model";
 
-interface ChapterFormPayload {
+interface NewsFormPayload {
   imageUrl: string;
   tittle: string;
   year: string | null;
   description: string;
+}
+
+export interface ComponentProps {
+  data: NewsDTO[];
+  params: { id: string };
 }
 
 const formSchema = object({
@@ -22,7 +28,7 @@ const formSchema = object({
   description: string(),
 });
 export default function Page() {
-  const initialValues: ChapterFormPayload = {
+  const initialValues: NewsFormPayload = {
     imageUrl: "",
     tittle: "",
     year: null,
@@ -30,8 +36,8 @@ export default function Page() {
   };
 
   const onFormSubmit = (
-    values: ChapterFormPayload,
-    actions: FormikHelpers<ChapterFormPayload>
+    values: NewsFormPayload,
+    actions: FormikHelpers<NewsFormPayload>
   ) => {
     console.log(values);
 
@@ -43,10 +49,10 @@ export default function Page() {
     onSubmit: onFormSubmit,
     validationSchema: formSchema,
   });
-  const isFormFieldInvalid = (name: keyof ChapterFormPayload) =>
+  const isFormFieldInvalid = (name: keyof NewsFormPayload) =>
     !!(formik.touched[name] && formik.errors[name]);
 
-  const getFormErrorMessage = (name: keyof ChapterFormPayload) => {
+  const getFormErrorMessage = (name: keyof NewsFormPayload) => {
     return isFormFieldInvalid(name) ? (
       <small className="p-error">{formik.errors[name] as string}</small>
     ) : (

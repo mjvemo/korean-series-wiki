@@ -6,6 +6,7 @@ enum ActionType {
   CREATE_AWARD = "awards/createAward",
   GET_AWARDS = "awards/getAwards",
   GET_AWARDS_BY_ID = "awards/getAwardsById",
+  GET_AWARDS_BY_ACTOR_ID = "awards/getAwardsByActorId",
 }
 
 export const createAwardAsync = createAppAsyncThunk(
@@ -15,13 +16,20 @@ export const createAwardAsync = createAppAsyncThunk(
   }
 );
 
-export const getAwards = createAppAsyncThunk(ActionType.GET_AWARDS, () => {
+export const getAwardsAsync = createAppAsyncThunk(ActionType.GET_AWARDS, () => {
   return client.getAwards();
 });
 
-export const getAwardsById = createAppAsyncThunk(
+export const getAwardByIdAsync = createAppAsyncThunk(
   ActionType.GET_AWARDS_BY_ID,
   (id: string) => {
     return client.getAwardById(id);
+  }
+);
+
+export const getAwardsByActorIdAsync = createAppAsyncThunk(
+  ActionType.GET_AWARDS_BY_ACTOR_ID,
+  (id: string) => {
+    return client.getAwardsByActorId(id);
   }
 );

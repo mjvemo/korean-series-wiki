@@ -4,20 +4,32 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SeasonDTO } from "@/lib/api/dtos/season.dto";
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
-import { selectActiveSeason, selectSeasons, useSelector } from "@/lib/redux";
+import {
+  getSeasonsBySerieId,
+  selectActiveSeason,
+  selectSeasons,
+  useSelector,
+} from "@/lib/redux";
 import { SerieCard } from "../SerieCard";
 import { SeasonsForm } from "../SeasonsForm";
 import { SeasonsChapters } from "../SeasonsChapters/indext";
+import { useDispatch } from "@/lib/redux";
 
 export interface ComponentProps {
-  data: SeasonDTO[];
+  serieId: string;
 }
 
 // View Page
 
 export default function SeasonsList(props: ComponentProps) {
   const router = useRouter();
-  const season = useSelector(selectActiveSeason);
+  const seasons = useSelector(selectSeasons);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getSeasonsBySerieId(props.serieId));
+  }, []);
 
   const footer = (
     <div className="flex flex-row justify-content-center">
@@ -25,22 +37,12 @@ export default function SeasonsList(props: ComponentProps) {
       <Button icon="pi pi-trash" text></Button>
     </div>
   );
-  // const seasonsOptions = [
-  //   { name: "Season 1" },
-  //   { name: "Season 2" },
-  //   { name: "Season 3" },
-  //   { name: "Season 4" },
-  //   { name: "Season 5" },
-  // ];
 
-  const seasonsOptions = [
-    "Season 1",
-    "Season 2",
-    "Season 3",
-    "Season 4",
-    "Season 5",
-  ];
-  const [selected, setSelected] = useState(null);
+  const seasonsOptions = seasons.map((_, index) => ({
+    label: `Season ${index + 1}`,
+    value: index,
+  }));
+  const [selected, setSelected] = useState(0);
 
   const onSelectOption = (season: any) => {
     return <Link href={`/seasons/${season.id}`}>{season.name}</Link>;
@@ -48,13 +50,15 @@ export default function SeasonsList(props: ComponentProps) {
 
   function handleOnChange(event: DropdownChangeEvent) {
     setSelected(event.value);
+    console.log(event);
   }
 
+  const season = seasons[selected];
   return (
     <div>
       <div className="flex justify-content-between align-items-center gap-4 m-4">
-        <h1 className="justify-content-center p-2">Season</h1>
-        <Link href="seasons/create">
+        <h1 className="justify-content-center p-2">Seasons</h1>
+        <Link href={`${props.serieId}/seasons/create`}>
           <Button label="Add Season" icon="pi pi-plus" outlined></Button>
         </Link>
       </div>
@@ -63,13 +67,16 @@ export default function SeasonsList(props: ComponentProps) {
           value={selected}
           onChange={handleOnChange}
           options={seasonsOptions}
-          optionLabel="name"
+          optionLabel="label"
           placeholder="Select a Season"
           className="w-full md:w-14rem"
         />
       </div>
       <div />
-      {selected === seasonsOptions[0] ? <SeasonsChapters /> : null}
+      {season &&
+        season.chapters.map((chapter, index) => {
+          return <SeasonsChapters key={index} data={chapter} />;
+        })}
     </div>
   );
 }

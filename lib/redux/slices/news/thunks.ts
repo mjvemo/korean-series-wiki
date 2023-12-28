@@ -1,43 +1,51 @@
-// import client from "@/lib/api";
-// import { createAppAsyncThunk } from "../../createAppAsyncThunk";
-// import { CreateNewsRequestDTO } from "@/server/src/use-cases/news/create-news/create-news-request.dto";
+import client from "@/lib/api";
+import { createAppAsyncThunk } from "../../createAppAsyncThunk";
+import { CreateNewsRequestDTO } from "@/lib/api/dtos/create-news-request.dto";
 
-// enum ActionType {
-//   GET_NEWS = "news/getNews",
-//   GET_NEWS_BY_ID = "news/getNewsById",
-//   CREATE_NEWS = "news/createNews",
+enum ActionType {
+  GET_NEWS = "news/getNews",
+  GET_NEWS_BY_ID = "news/getNewsById",
+  CREATE_NEWS = "news/createNews",
+  GET_NEWS_BY_ACTOR_ID = "news/getNewsByActorId",
+}
+
+// {
+//   type: 'series/getSeries',
+//   payload: [{}]
 // }
 
-// // {
-// //   type: 'series/getSeries',
-// //   payload: [{}]
-// // }
+export const getNewsAsync = createAppAsyncThunk(ActionType.GET_NEWS, () => {
+  return client.getNews();
+});
 
-// export const getNewsAsync = createAppAsyncThunk(ActionType.GET_NEWS, () => {
-//   return client.getNews();
-// });
-
-// // {
-// //   type: 'series/getSerieById/[pending | rejected | fulfilled]',
-// //   payload: {
-// //     id: 'UUID',
-// //     ...
-// //   }
-// // }
-
-// // sync - cosas que pasan en linea -> una despues de la otra
-// // async - cosas que pasan al mismo tiempo -> hay que esperar una respuesta
-
-// export const getNewsByIdAsync = createAppAsyncThunk(
-//   ActionType.GET_NEWS_BY_ID,
-//   (id: string) => {
-//     return client.getNews(id);
+// {
+//   type: 'series/getSerieById/[pending | rejected | fulfilled]',
+//   payload: {
+//     id: 'UUID',
+//     ...
 //   }
-// );
+// }
 
-// export const createNewsAsync = createAppAsyncThunk(
-//   ActionType.CREATE_NEWS,
-//   (data: CreateNewsRequestDTO) => {
-//     return client.createNews(data);
-//   }
-// );
+// sync - cosas que pasan en linea -> una despues de la otra
+// async - cosas que pasan al mismo tiempo -> hay que esperar una respuesta
+
+export const getNewsByIdAsync = createAppAsyncThunk(
+  ActionType.GET_NEWS_BY_ID,
+  (id: string) => {
+    return client.getNewsById(id);
+  }
+);
+
+export const createNewsAsync = createAppAsyncThunk(
+  ActionType.CREATE_NEWS,
+  (data: CreateNewsRequestDTO) => {
+    return client.createNews(data);
+  }
+);
+
+export const getNewsByActorIdAsync = createAppAsyncThunk(
+  ActionType.GET_NEWS_BY_ACTOR_ID,
+  (id: string) => {
+    return client.getAwardsByActorId(id);
+  }
+);

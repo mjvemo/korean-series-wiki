@@ -1,4 +1,4 @@
-export interface NewsDTO {
+export interface CreateNewsRequestDTO {
   id: string;
   imageUrl: string;
   name: string;

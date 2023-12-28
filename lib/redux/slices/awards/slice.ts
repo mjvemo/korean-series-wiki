@@ -1,7 +1,12 @@
 /* Core */
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./state";
-import { createAwardAsync, getAwards, getAwardsById } from "./thunks";
+import {
+  createAwardAsync,
+  getAwardsAsync,
+  getAwardsByActorIdAsync,
+  getAwardByIdAsync,
+} from "./thunks";
 import {
   getAwardsFulfilledCaseReducer,
   getAwardsPendingCaseReducer,
@@ -13,6 +18,9 @@ import {
   createAwardPendingCaseReducer,
   createAwardFulfilledCaseReducer,
   createAwardRejectedCaseReducer,
+  getAwardsByActorIdFullfieldCaseReducer,
+  getAwardsByActorIdPendingCaseReducer,
+  getAwardsByActorIdRejectedCaseReducer,
 } from "./reducers";
 
 export const awardsSlice = createSlice({
@@ -27,18 +35,32 @@ export const awardsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // GetAwards
-      .addCase(getAwards.pending, getAwardsPendingCaseReducer)
-      .addCase(getAwards.fulfilled, getAwardsFulfilledCaseReducer)
-      .addCase(getAwards.rejected, getAwardsRejectedCaseReducer)
+      .addCase(getAwardsAsync.pending, getAwardsPendingCaseReducer)
+      .addCase(getAwardsAsync.fulfilled, getAwardsFulfilledCaseReducer)
+      .addCase(getAwardsAsync.rejected, getAwardsRejectedCaseReducer)
 
       // GetAwardById
-      .addCase(getAwardsById.pending, getAwardsByIdPendingCaseReducer)
-      .addCase(getAwardsById.fulfilled, getAwardsByIdFulfilledCaseReducer)
-      .addCase(getAwardsById.rejected, getAwardsByIdRejectedCaseReducer)
+      .addCase(getAwardByIdAsync.pending, getAwardsByIdPendingCaseReducer)
+      .addCase(getAwardByIdAsync.fulfilled, getAwardsByIdFulfilledCaseReducer)
+      .addCase(getAwardByIdAsync.rejected, getAwardsByIdRejectedCaseReducer)
 
       // CreateAward
       .addCase(createAwardAsync.pending, createAwardPendingCaseReducer)
       .addCase(createAwardAsync.fulfilled, createAwardFulfilledCaseReducer)
-      .addCase(createAwardAsync.rejected, createAwardRejectedCaseReducer);
+      .addCase(createAwardAsync.rejected, createAwardRejectedCaseReducer)
+
+      // GetAwardByActorId
+      .addCase(
+        getAwardsByActorIdAsync.pending,
+        getAwardsByActorIdPendingCaseReducer
+      )
+      .addCase(
+        getAwardsByActorIdAsync.fulfilled,
+        getAwardsByActorIdFullfieldCaseReducer
+      )
+      .addCase(
+        getAwardsByActorIdAsync.rejected,
+        getAwardsByActorIdRejectedCaseReducer
+      );
   },
 });

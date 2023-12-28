@@ -68,3 +68,25 @@ export const createAwardRejectedCaseReducer: CaseReducer<AwardState, any> = (
 ) => {
   state.status = "failed";
 };
+
+export const getAwardsByActorIdFullfieldCaseReducer: CaseReducer<
+  AwardState,
+  PayloadAction<AwardDTO[]>
+> = (state, action) => {
+  state.items = action.payload;
+  state.status = "idle";
+};
+
+export const getAwardsByActorIdPendingCaseReducer: CaseReducer<
+  AwardState,
+  any
+> = (state) => {
+  state.status = "loading";
+};
+
+export const getAwardsByActorIdRejectedCaseReducer: CaseReducer<
+  AwardState,
+  any
+> = (state) => {
+  state.status = "failed";
+};

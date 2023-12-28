@@ -15,6 +15,8 @@ export enum Resource {
   awards = "/awards",
   award = "/awards/:id",
 
+  awardsByActorId = "/actors/:actorId/awards",
+
   chapters = "/chapters",
   chapter = "/chapters/:id",
 

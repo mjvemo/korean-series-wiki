@@ -7,7 +7,12 @@ import { AwardDTO } from "@/lib/api/dtos/award.dto";
 
 import { Button } from "primereact/button";
 import AwardsList from "@/lib/components/AwardsList";
-import { useDispatch, selectAwards, useSelector, getAwards } from "@/lib/redux";
+import {
+  useDispatch,
+  selectAwards,
+  useSelector,
+  getAwardsAsync,
+} from "@/lib/redux";
 
 export interface ComponentProps {
   data: AwardDTO[];
@@ -19,7 +24,7 @@ export default function Awards(props: ComponentProps) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAwards());
+    dispatch(getAwardsAsync());
   }, []);
 
   const awards = useSelector(selectAwards);

@@ -15,6 +15,8 @@ import deleteAward from "./awards/delete-award";
 import getAward from "./awards/get-award";
 import updateAward from "./awards/update-award";
 
+import getAwardsByActorId from "./awards/get-awards-by-actor-id";
+
 import getChapters from "./chapters/get-chapter";
 import createChapter from "./chapters/create-chapter";
 import deleteChapter from "./chapters/delete-chapter";
@@ -58,6 +60,7 @@ export function register(app: Application) {
   app.delete(Resource.award, deleteAward);
   app.get(Resource.award, getAward);
   app.patch(Resource.award, updateAward);
+  app.get(Resource.awardsByActorId, getAwardsByActorId);
 
   // chapters
   app.get(Resource.chapters, getChapters);

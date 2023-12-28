@@ -6,6 +6,7 @@ export interface UpdateSerieRequestProps {
   rating?: number;
   pg?: string;
   image?: string;
+  description?: string;
   directedBy?: string;
   studio?: string;
   genre?: string;
@@ -26,6 +27,7 @@ const schema: JSONSchemaType<UpdateSerieRequestProps> = {
     cast: { type: "array", nullable: true, items: { type: "string" } },
     pg: { type: "string", nullable: true },
     image: { type: "string", nullable: true },
+    description: { type: "string", nullable: true },
     genre: { type: "string", nullable: true },
     directedBy: { type: "string", nullable: true },
     studio: { type: "string", nullable: true },
@@ -43,6 +45,7 @@ export class UpdateSerieRequestDTO implements UpdateSerieRequestProps {
   readonly rating?: number;
   readonly pg?: string;
   readonly image?: string;
+  readonly description?: string;
   readonly directedBy?: string;
   readonly studio?: string;
   readonly genre?: string;
@@ -72,6 +75,7 @@ export class UpdateSerieRequestDTO implements UpdateSerieRequestProps {
     this.cast = props.cast;
     this.pg = props.pg;
     this.image = props.image;
+    this.description = props.description;
     this.genre = props.genre;
     this.directedBy = props.directedBy;
     this.studio = props.studio;

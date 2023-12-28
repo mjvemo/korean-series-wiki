@@ -1,5 +1,5 @@
-// import type { ReduxState } from "@/lib/redux";
+import type { ReduxState } from "@/lib/redux";
 
-// export const selectNews = (state: ReduxState) => state.news.items;
+export const selectNews = (state: ReduxState) => state.news.items;
 
-// export const selectActiveNews = (state: ReduxState) => state.news.active;
+export const selectActiveNews = (state: ReduxState) => state.news.active;

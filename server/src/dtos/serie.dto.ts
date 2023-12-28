@@ -4,6 +4,7 @@ export interface SerieDTO {
   rating: number;
   pg: string;
   image: string;
+  description: string;
   directedBy: string;
   studio: string;
   genre: string;

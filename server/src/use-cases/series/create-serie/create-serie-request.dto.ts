@@ -6,6 +6,7 @@ export interface CreateSerieRequestProps {
   rating: number;
   pg: string;
   image: string;
+  description: string;
   directedBy: string;
   studio: string;
   genre: string;
@@ -25,6 +26,7 @@ const schema: JSONSchemaType<CreateSerieRequestProps> = {
     seasons: { type: "array", items: { type: "string" } },
     cast: { type: "array", items: { type: "string" } },
     pg: { type: "string" },
+    description: { type: "string" },
     image: { type: "string" },
     genre: { type: "string" },
     directedBy: { type: "string" },
@@ -43,6 +45,8 @@ const schema: JSONSchemaType<CreateSerieRequestProps> = {
     "pg",
     "directedBy",
     "studio",
+    "image",
+    "description",
     "genre",
     "news",
     "awards",
@@ -56,6 +60,7 @@ export class CreateSerieRequestDTO implements CreateSerieRequestProps {
   readonly rating: number;
   readonly pg: string;
   readonly image: string;
+  readonly description: string;
   readonly directedBy: string;
   readonly studio: string;
   readonly genre: string;
@@ -85,6 +90,7 @@ export class CreateSerieRequestDTO implements CreateSerieRequestProps {
     this.cast = props.cast;
     this.pg = props.pg;
     this.image = props.image;
+    this.description = props.description;
     this.directedBy = props.directedBy;
     this.studio = props.studio;
     this.genre = props.genre;

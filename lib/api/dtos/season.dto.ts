@@ -1,4 +1,7 @@
+import { ChapterDTO } from "./chapter.dto";
+
 export interface SeasonDTO {
   id: string;
-  chapters: { name: string; releaseAt: string; description: string }[];
+  chapters: ChapterDTO[];
+  serie: string;
 }

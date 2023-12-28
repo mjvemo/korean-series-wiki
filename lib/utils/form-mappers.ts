@@ -20,7 +20,7 @@ export function actorFormToCreateActorRequest(
     biography: values.about,
     series: values.series.map(({ id }) => id),
     news: [],
-    awards: [],
+    awards: values.awards.map(({ id }) => id),
     nominations: values.nominations,
   };
 }
@@ -35,7 +35,8 @@ export function serieFormToCreateSerieRequest(
     pg: values.pg,
     genre: values.genre,
     studio: values.studio,
-    directedBy: values.director,
+    directedBy: values.directedBy,
+    description: values.description,
     seasons: values.seasons,
     cast: values.cast.map(({ id }) => id),
     releasedAt: values.year || "",

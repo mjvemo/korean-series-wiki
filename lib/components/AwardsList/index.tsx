@@ -11,7 +11,7 @@ export interface ComponentProps {
   data: AwardDTO[];
 }
 
-export default function SeriesList(props: ComponentProps) {
+export default function AwardsList(props: ComponentProps) {
   const router = useRouter();
 
   const nameBodyTemplate = (award: any) => {

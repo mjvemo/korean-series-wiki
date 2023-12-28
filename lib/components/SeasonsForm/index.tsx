@@ -104,27 +104,11 @@ export function SeasonsForm(props: ComponentProps) {
   function handleOnChange(event: DropdownChangeEvent) {
     setSelectedCity(event.value);
   }
-  const seasons = [
-    { name: "Season 1" },
-    { name: "Season 2" },
-    { name: "Season 3" },
-    { name: "Season 4" },
-    { name: "Season 5" },
-  ];
 
   return (
     <div className="flex flex-column">
       <h1 className="p-2 m-4">Seasons</h1>
-      <div className="flex flex-column justify-content-start size-xl  gap-4 m-4">
-        <Dropdown
-          value={selectedCity}
-          onChange={onSelectOption}
-          options={seasons}
-          optionLabel="name"
-          placeholder="Select a Season"
-          className="w-full md:w-14rem"
-        />
-      </div>
+
       <form onSubmit={formik.handleSubmit}>
         {chapters.map((chapter, index) => (
           <ChapterForm

@@ -5,7 +5,13 @@ import { SyntheticEvent, useEffect, useState, useRef } from "react";
 import { ChangeEvent } from "react";
 import { Rating, RatingChangeEvent } from "primereact/rating";
 import { Calendar } from "primereact/calendar";
-import { useFormik, FormikValues, FormikHelpers, withFormik } from "formik";
+import {
+  useFormik,
+  FormikValues,
+  FormikHelpers,
+  withFormik,
+  FormikContext,
+} from "formik";
 import { object, string, number, date } from "yup";
 import { classNames } from "primereact/utils";
 import { Image } from "primereact/image";
@@ -30,6 +36,8 @@ import { InputTextarea } from "primereact/inputtextarea";
 import SeriesList from "../SeriesList";
 import SeriesListFormSelector from "../SeriesListFormSelector";
 import { SerieDTO } from "@/lib/api/dtos/serie.dto";
+import AwardsList from "../AwardsList";
+import AwardsListFormSelector from "../AwardsListFormSelector";
 
 const formSchema = object<ActorsFormPayload>({
   imageUrl: string().url("Invalid Format").required("Required"),
@@ -254,17 +262,25 @@ export function ActorsForm() {
       </div>
       <div>
         <div className="card justify-content-center">
-          <TabView>
-            <TabPanel header="News" className="m-0">
-              <NewsListSelector />
-            </TabPanel>
-            <TabPanel header="Series" className="m-0">
-              <Series />
-            </TabPanel>
-            <TabPanel header="Awards" className="m-0">
-              <Award />
-            </TabPanel>
-          </TabView>
+          <FormikContext.Provider value={formik}>
+            <TabView>
+              <TabPanel header="About" className="m-0">
+                <div>
+                  <h1>Biography</h1>
+                  {actor?.biography}
+                </div>
+              </TabPanel>
+              <TabPanel header="News" className="m-0">
+                <NewsListSelector />
+              </TabPanel>
+              <TabPanel header="Series" className="m-0">
+                <SeriesListFormSelector />
+              </TabPanel>
+              <TabPanel header="Awards" className="m-0">
+                <AwardsListFormSelector />
+              </TabPanel>
+            </TabView>
+          </FormikContext.Provider>
         </div>
       </div>
     </div>

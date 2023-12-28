@@ -34,7 +34,7 @@ export class ActorMapper {
       biography: entity.biography,
       series: (entity.series || []) as string[],
       news: entity.news || [],
-      awards: entity.awards || [],
+      awards: (entity.awards || []) as string[],
       nominations: entity.nominations || [],
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,

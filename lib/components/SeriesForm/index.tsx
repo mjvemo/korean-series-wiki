@@ -23,6 +23,7 @@ import { SerieFormPayload } from "@/lib/models/serie.model";
 import { Rating } from "primereact/rating";
 import ActorsListFormSelector from "../ActorsListFormSelector";
 import { InputTextarea } from "primereact/inputtextarea";
+import AwardsListFormSelector from "../AwardsListFormSelector";
 
 const formSchema = object({
   imageUrl: string().url("Invalid Format").required("Required"),
@@ -43,9 +44,9 @@ export function SerieForm() {
     pg: "",
     rate: 0,
     genre: "",
-    director: "",
+    directedBy: "",
     studio: "",
-    // add description in server
+    description: "",
     seasons: [],
     cast: [],
     news: [],
@@ -215,19 +216,19 @@ export function SerieForm() {
                   <div className="flex flex-column gap-2">
                     <label>Director</label>
                     <InputText
-                      name="director"
-                      id="director"
-                      value={formik.values.director}
+                      name="directedBy"
+                      id="directedBy"
+                      value={formik.values.directedBy}
                       onChange={formik.handleChange}
                       placeholder="director"
                       onBlur={formik.handleBlur}
                       className={classNames({
-                        "p-invalid": isFormFieldInvalid("director"),
+                        "p-invalid": isFormFieldInvalid("directedBy"),
                         "w-full": true,
                       })}
                     />
                   </div>
-                  {getFormErrorMessage("director")}
+                  {getFormErrorMessage("directedBy")}
                   <div className="flex flex-column gap-2">
                     <label>Studio</label>
                     <InputText
@@ -244,7 +245,7 @@ export function SerieForm() {
                     />
                   </div>
                   {getFormErrorMessage("studio")}
-                  {/* <div className="flex flex-column gap-2">
+                  <div className="flex flex-column gap-2">
                     <label>Description</label>
                     <InputTextarea
                       name="description"
@@ -259,7 +260,7 @@ export function SerieForm() {
                       })}
                     />
                   </div>
-                  {getFormErrorMessage("description")} */}
+                  {getFormErrorMessage("description")}
                 </div>
               </div>
             </div>
@@ -277,12 +278,11 @@ export function SerieForm() {
             <div className="card">
               <FormikContext.Provider value={formik}>
                 <TabView>
-                  <TabPanel header="Seasons" className="m-0"></TabPanel>
                   <TabPanel header="Cast" className="m-0">
                     <ActorsListFormSelector />
                   </TabPanel>
                   <TabPanel header="Awards" className="m-0">
-                    <Award />
+                    <AwardsListFormSelector />
                   </TabPanel>
                 </TabView>
               </FormikContext.Provider>

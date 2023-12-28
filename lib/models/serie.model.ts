@@ -19,8 +19,9 @@ export interface SerieFormPayload {
   year: null;
   rate: number;
   genre: string;
-  director: string;
+  directedBy: string;
   studio: string;
+  description: string;
   seasons: [];
   cast: ActorDTO[];
   news: NewsDTO[];

@@ -1,4 +1,4 @@
-import { NewsDTO } from "@/server/src/dtos/news.dto";
+import { NewsDTO } from "@/lib/api/dtos/news.dto";
 
 export interface NewsState {
   items: NewsDTO[];

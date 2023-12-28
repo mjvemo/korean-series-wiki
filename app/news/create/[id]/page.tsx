@@ -2,51 +2,39 @@
 
 import React, { useEffect } from "react";
 import { Button } from "primereact/button";
-
-import {
-  useDispatch,
-  getActorByIdAsync,
-  useSelector,
-  selectActiveActor,
-  getActorsBySerieIdAsync,
-  selectActors,
-  selectSeries,
-  getSeriesByActorId,
-  getAwardByIdAsync,
-  selectActiveAward,
-} from "@/lib/redux";
-import { TabPanel, TabView } from "primereact/tabview";
-import NewsListSelector from "@/lib/components/NewsListFormSelector";
-import { Award } from "@/lib/components/Award";
-import { Series } from "@/lib/components/Series";
+import { useDispatch, useSelector } from "@/lib/redux";
 import { Footer } from "@/lib/components/Footer";
 import { IfNotNil } from "@/lib/components/utils/IfNotNil";
-import SeriesList from "@/lib/components/SeriesList";
+import {
+  getNewsByIdAsync,
+  selectActiveNews,
+  selectNews,
+} from "@/lib/redux/slices/news";
 
 export interface ComponentProps {
   params: { id: string };
 }
 
-export default function (props: ComponentProps) {
+export default function NewsList(props: ComponentProps) {
   const { id } = props.params;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAwardByIdAsync(id));
+    dispatch(getNewsByIdAsync(id));
   }, []);
-
-  const activeAward = useSelector(selectActiveAward);
+  const news = useSelector(selectNews);
+  const activeNews = useSelector(selectActiveNews);
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
       <div className="flex flex-row justify-content-center">
         <div className="card justify-content-center"></div>
-        <IfNotNil data={activeAward}>
-          {({ data: award }) => {
+        <IfNotNil data={activeNews}>
+          {({ data: news }) => {
             return (
               <>
                 <div className="card justify-content-center">
-                  <div>{award.name}</div>
+                  <div>{news.name}</div>
                 </div>
               </>
             );

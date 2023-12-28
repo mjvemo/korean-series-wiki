@@ -1,28 +1,31 @@
 import { SeasonDTO } from "@/lib/api/dtos/season.dto";
+import { ChapterDTO } from "@/lib/api/dtos/chapter.dto";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 
 export interface ComponentProps {
-  data: SeasonDTO[];
+  data: ChapterDTO;
 }
-export function SeasonsChapters() {
-  const header = (
-    <img
-      className="m-4"
-      alt="Card"
-      src="https://m.media-amazon.com/images/I/61rxebTF-YL._UC256,256_CACC,256,256_.jpg"
-    />
+export function SeasonsChapters(props: ComponentProps) {
+  const header = <img className="m-4" alt="Card" src={props.data.image} />;
+
+  const footer = (
+    <div className="flex flex-row justify-content-center">
+      <Button icon="pi pi-pencil" text></Button>
+      <Button icon="pi pi-trash" text></Button>
+    </div>
   );
 
   return (
     <div className="flex flex-row justify-content-start m-4 ">
       <Card
-        title="Hello world"
-        subTitle="2020"
+        title={props.data.name}
+        subTitle={props.data.releaseAt}
         header={header}
+        footer={footer}
         className=" flex flex-row justify-content-center gap-4 md:w-25rem"
       >
-        <p>skdvjksmvajksmvajsdnvmajsdnva</p>
+        {props.data.description}
       </Card>
     </div>
   );

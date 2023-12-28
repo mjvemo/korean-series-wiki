@@ -12,6 +12,7 @@ export interface ISerie {
   directedBy: string;
   studio: string;
   image: string;
+  description: string;
   seasons: string[] | HydratedDocument<ISeason>[];
   cast: string[] | HydratedDocument<IActor>[];
   news: string[];
@@ -32,6 +33,7 @@ const schema = new Schema<ISerie>({
   studio: { type: String, required: true },
   genre: { type: String, required: true },
   image: { type: String, required: true },
+  description: { type: String, required: true },
   seasons: [{ type: Schema.Types.UUID, ref: "Season" }],
   cast: [{ type: Schema.Types.UUID, ref: "Actor" }],
   news: [{ type: Schema.Types.UUID, ref: "New" }],
