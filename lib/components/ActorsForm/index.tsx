@@ -38,6 +38,7 @@ import SeriesListFormSelector from "../SeriesListFormSelector";
 import { SerieDTO } from "@/lib/api/dtos/serie.dto";
 import AwardsList from "../AwardsList";
 import AwardsListFormSelector from "../AwardsListFormSelector";
+import NewsListFormSelector from "../NewsListFormSelector";
 
 const formSchema = object<ActorsFormPayload>({
   imageUrl: string().url("Invalid Format").required("Required"),
@@ -271,7 +272,7 @@ export function ActorsForm() {
                 </div>
               </TabPanel>
               <TabPanel header="News" className="m-0">
-                <NewsListSelector />
+                <NewsListFormSelector />
               </TabPanel>
               <TabPanel header="Series" className="m-0">
                 <SeriesListFormSelector />

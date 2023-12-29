@@ -1,5 +1,5 @@
 export interface UpdateNewsRequestDTO {
-  imageUrl?: string;
+  url?: string;
   name?: string;
   year?: number;
   description?: string;

@@ -3,7 +3,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { useSelector } from "react-redux";
 import { selectActors } from "@/lib/redux/slices/actors/selectors";
-import { useDispatch, getActorsAsync, selectActiveActor } from "@/lib/redux";
+import { useDispatch, getActorsAsync } from "@/lib/redux";
 import Link from "next/link";
 
 export default function ActorsListSelected() {

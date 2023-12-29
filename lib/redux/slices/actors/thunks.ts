@@ -1,6 +1,7 @@
 import client from "@/lib/api";
 import { createAppAsyncThunk } from "../../createAppAsyncThunk";
 import { CreateActorRequestDTO } from "@/lib/api/dtos/create-actor-request.dto";
+import { UpdateActorRequestDTO } from "@/lib/api/dtos/update-actor-request.dto";
 
 enum ActionType {
   GET_ACTORS = "actors/getActors",
@@ -9,6 +10,7 @@ enum ActionType {
   CREATE_ACTOR = "actors/createActor",
   CREATE_AWARD = "awards/createAward",
   GET_AWARDS_BY_ID = "awards/getAwardsById",
+  UPDATE_ACTOR_BY_ID = "actors/updateActorById",
 }
 
 // {
@@ -51,3 +53,10 @@ export const createActorAsync = createAppAsyncThunk(
     return client.createActor(data);
   }
 );
+
+// export const updateActorsAsync = createAppAsyncThunk(
+//   ActionType.UPDATE_ACTOR_BY_ID,
+//   (id: string, data: CreateActorRequestDTO) => {
+//     return client.updateActorById(id, data);
+//   }
+// );

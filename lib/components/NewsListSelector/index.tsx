@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   DataTable,
   DataTableSelectEvent,
@@ -8,23 +8,17 @@ import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
 import { Avatar } from "primereact/avatar";
 import { Toast } from "primereact/toast";
-import { AwardDTO } from "@/lib/api/dtos/award.dto";
-import { Button } from "primereact/button";
 import { useFormikContext } from "formik";
 import { Column } from "primereact/column";
 import { FilterMatchMode } from "primereact/api";
 import { useSelector } from "react-redux";
-import { selectAwards, useDispatch } from "@/lib/redux";
-import { getNewsAsync, selectNews } from "@/lib/redux/slices/news";
+import { selectNews } from "@/lib/redux/slices/news";
+import { NewsDTO } from "@/lib/models/news.model";
 
+interface NewsListSelectorFormPayload {
+  news: NewsDTO[];
+}
 export default function NewsListSelector() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getNewsAsync());
-  }, []);
-
-  const allNews = useSelector(selectNews);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -43,15 +37,32 @@ export default function NewsListSelector() {
     setGlobalFilterValue(value);
   };
 
+  const allNews = useSelector(selectNews);
+  const formik = useFormikContext<NewsListSelectorFormPayload>();
   const toast = useRef<Toast>(null);
 
   const onRowSelect = (event: DataTableSelectEvent) => {
-    toast.current?.show({
-      severity: "info",
-      summary: "News Selected",
-      detail: `Name: ${event.data.name}`,
-      life: 3000,
-    });
+    const { news } = formik.values;
+
+    const ids = news.map((news) => news.id);
+
+    if (!ids.includes(event.data.id)) {
+      formik.setFieldValue("news", [...news, event.data]);
+
+      toast.current?.show({
+        severity: "info",
+        summary: "News selected",
+        detail: `Name: ${event.data.name}`,
+        life: 3000,
+      });
+    } else {
+      toast.current?.show({
+        severity: "warn",
+        summary: "News already selected",
+        detail: `Name: ${event.data.name}`,
+        life: 3000,
+      });
+    }
   };
 
   const onRowUnselect = (event: DataTableUnselectEvent) => {
@@ -88,7 +99,6 @@ export default function NewsListSelector() {
         style={{ backgroundColor: "#2196F3", color: "#ffffff" }}
         shape="circle"
       />
-      // <Image src={allNews.url} alt={allNews.url} width="100" preview />
     );
   };
 
@@ -142,6 +152,7 @@ export default function NewsListSelector() {
           <Column
             field="year"
             header="Year"
+            body={activeBodyTemplate}
             style={{ width: "20%" }}
             sortable
           ></Column>
@@ -150,17 +161,6 @@ export default function NewsListSelector() {
             header="description"
             style={{ width: "20%" }}
             sortable
-          ></Column>
-
-          <Column
-            rowEditor
-            headerStyle={{ width: "10%", minWidth: "8rem" }}
-            bodyStyle={{ textAlign: "center" }}
-          ></Column>
-          <Column
-            rowEditor
-            headerStyle={{ width: "10%", minWidth: "8rem" }}
-            bodyStyle={{ textAlign: "center" }}
           ></Column>
         </DataTable>
       </div>

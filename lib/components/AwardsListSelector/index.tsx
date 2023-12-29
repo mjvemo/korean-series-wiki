@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   DataTable,
   DataTableSelectEvent,
@@ -9,7 +9,6 @@ import { classNames } from "primereact/utils";
 import { Avatar } from "primereact/avatar";
 import { Toast } from "primereact/toast";
 import { AwardDTO } from "@/lib/api/dtos/award.dto";
-import { Button } from "primereact/button";
 import { useFormikContext } from "formik";
 import { Column } from "primereact/column";
 import { FilterMatchMode } from "primereact/api";
@@ -184,16 +183,6 @@ export default function AwardslistSelector() {
             header="About"
             style={{ width: "20%" }}
             sortable
-          ></Column>
-          <Column
-            rowEditor
-            headerStyle={{ width: "10%", minWidth: "8rem" }}
-            bodyStyle={{ textAlign: "center" }}
-          ></Column>
-          <Column
-            rowEditor
-            headerStyle={{ width: "10%", minWidth: "8rem" }}
-            bodyStyle={{ textAlign: "center" }}
           ></Column>
         </DataTable>
       </div>

@@ -24,6 +24,7 @@ import { Rating } from "primereact/rating";
 import ActorsListFormSelector from "../ActorsListFormSelector";
 import { InputTextarea } from "primereact/inputtextarea";
 import AwardsListFormSelector from "../AwardsListFormSelector";
+import NewsListFormSelector from "../NewsListFormSelector";
 
 const formSchema = object({
   imageUrl: string().url("Invalid Format").required("Required"),
@@ -280,6 +281,9 @@ export function SerieForm() {
                 <TabView>
                   <TabPanel header="Cast" className="m-0">
                     <ActorsListFormSelector />
+                  </TabPanel>
+                  <TabPanel header="News" className="m-0">
+                    <NewsListFormSelector />
                   </TabPanel>
                   <TabPanel header="Awards" className="m-0">
                     <AwardsListFormSelector />

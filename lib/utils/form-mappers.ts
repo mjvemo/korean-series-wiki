@@ -6,6 +6,8 @@ import { CreateAwardsRequestDTO } from "@/lib/api/dtos/create-awards-request-dto
 import { AwardFormPayload } from "../models/award.model";
 import { SeasonFormPayload } from "../models/season.model";
 import { CreateSeasonRequestDTO } from "@/lib/api/dtos/create-seasons-request.dto";
+import { NewsFormPayload } from "../models/news.model";
+import { CreateNewsRequestDTO } from "../api/dtos/create-news-request.dto";
 
 export function actorFormToCreateActorRequest(
   values: ActorsFormPayload
@@ -19,7 +21,7 @@ export function actorFormToCreateActorRequest(
     yearsActive: values.yearsActive || "",
     biography: values.about,
     series: values.series.map(({ id }) => id),
-    news: [],
+    news: values.news.map(({ id }) => id),
     awards: values.awards.map(({ id }) => id),
     nominations: values.nominations,
   };
@@ -40,7 +42,7 @@ export function serieFormToCreateSerieRequest(
     seasons: values.seasons,
     cast: values.cast.map(({ id }) => id),
     releasedAt: values.year || "",
-    news: [], // values.news,
+    news: values.news.map(({ id }) => id), // values.news,
     awards: [], // values.awards,
     nominations: [], // values.nominations,
   };
@@ -67,5 +69,19 @@ export function seasonFromtoCreateSeasonRequest(
       description: chapter.description,
       releasedAt: chapter.releaseAt,
     })),
+  };
+}
+
+export function newsFormToCreateNewsRequest(
+  values: NewsFormPayload
+): CreateNewsRequestDTO {
+  return {
+    id: values.id,
+    name: values.name,
+    url: values.url,
+    description: values.description,
+    thumbnail: values.thumbnail,
+    publishedAt: values.publishedAt,
+    createdAt: values.createdAt,
   };
 }

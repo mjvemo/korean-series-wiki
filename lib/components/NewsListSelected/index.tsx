@@ -1,13 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { useDispatch, getAwardsAsync } from "@/lib/redux";
-import { AwardDTO } from "@/lib/api/dtos/award.dto";
+import { useDispatch } from "@/lib/redux";
 import { Button } from "primereact/button";
 import { Avatar } from "primereact/avatar";
 import { Toast } from "primereact/toast";
 import { useFormikContext } from "formik";
-import { NewsDTO } from "@/lib/models/news.model";
+import { NewsDTO } from "@/lib/api/dtos/news.dto";
 import { getNewsAsync, selectNews } from "@/lib/redux/slices/news";
 
 interface NewsListSelectorFormPayload {
@@ -33,7 +32,6 @@ export default function NewsListSelected() {
         style={{ backgroundColor: "#2196F3", color: "#ffffff" }}
         shape="circle"
       />
-      // <Image src={allAwards.url} alt={allAwards.url} width="100" preview />
     );
   };
 
@@ -76,11 +74,6 @@ export default function NewsListSelected() {
         ></Column>
         <Column field="name" header="Name" style={{ width: "20%" }}></Column>
         <Column field="age" header="Age" style={{ width: "20%" }}></Column>
-        <Column
-          field="tittle"
-          header="Tittle"
-          style={{ width: "20%" }}
-        ></Column>
         <Column
           field="description"
           header="Description"

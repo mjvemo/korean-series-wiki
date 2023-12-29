@@ -1,7 +1,10 @@
 export interface CreateNewsRequestDTO {
   id: string;
-  imageUrl: string;
   name: string;
-  year: number;
   description: string;
+  url: string;
+  thumbnail: string;
+  publishedAt: string;
+  createdAt: string;
+  updatedAt?: string;
 }

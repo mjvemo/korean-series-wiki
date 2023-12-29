@@ -1,30 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
-import { Rating } from "primereact/rating";
 import Link from "next/link";
-import { AwardDTO } from "@/lib/api/dtos/award.dto";
 import { useRouter } from "next/navigation";
+import { NewsDTO } from "@/lib/api/dtos/news.dto";
 
 export interface ComponentProps {
-  data: AwardDTO[];
+  data: NewsDTO[];
 }
 
-export default function SeriesList(props: ComponentProps) {
+export default function NewsList(props: ComponentProps) {
   const router = useRouter();
 
-  const nameBodyTemplate = (award: any) => {
-    return <Link href={`/awards/${award.id}`}>{award.name}</Link>;
+  const nameBodyTemplate = (news: any) => {
+    return <Link href={`/news/${news.id}`}>{news.name}</Link>;
   };
 
-  const onRowSelect = (award: any) => {
-    router.push(`/awards/${award.id}`);
+  const onRowSelect = ({ data }: any) => {
+    router.push(`/news/${data.id}`);
   };
 
   const header = (
     <div className="flex flex-wrap align-items-center justify-content-between gap-2">
-      <span className="text-xl text-900 font-bold">Awards</span>
+      <span className="text-xl text-900 font-bold">News</span>
       <Button icon="pi pi-refresh" rounded raised />
     </div>
   );
@@ -61,8 +60,8 @@ export default function SeriesList(props: ComponentProps) {
             sortable
           ></Column>
           <Column
-            field="category"
-            header="category"
+            field="description"
+            header="Description"
             style={{ width: "20%" }}
             sortable
           ></Column>

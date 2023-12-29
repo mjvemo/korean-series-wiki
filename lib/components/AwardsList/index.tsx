@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
-import { Rating } from "primereact/rating";
 import Link from "next/link";
 import { AwardDTO } from "@/lib/api/dtos/award.dto";
 import { useRouter } from "next/navigation";

@@ -4,6 +4,7 @@ import { Column } from "primereact/column";
 import Link from "next/link";
 import { ActorDTO } from "@/lib/api/dtos/actor.dto";
 import { useRouter } from "next/navigation";
+import { getActorsAsync, useDispatch } from "@/lib/redux";
 
 export interface ComponentProps {
   data: ActorDTO[];
@@ -11,13 +12,11 @@ export interface ComponentProps {
 
 export default function ActorsList(props: ComponentProps) {
   const router = useRouter();
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  //   useEffect(() => {
-  //     dispatch(getActorsAsync());
-  //   }, []);
-
-  //   const allActors = useSelector(selectActors); //selectActiveActor
+  useEffect(() => {
+    dispatch(getActorsAsync());
+  }, []);
 
   const nameBodyTemplate = (actor: any) => {
     return <Link href={`/actors/${actor.id}`}>{actor.name}</Link>;

@@ -22,6 +22,8 @@ import { SerieCard } from "@/lib/components/SerieCard";
 import { serie } from "@/lib/models/serie.model";
 import SeasonsList from "@/lib/components/SeasonsList";
 import AwardsList from "@/lib/components/AwardsList";
+import NewsList from "@/lib/components/NewsList";
+import { selectNews } from "@/lib/redux/slices/news";
 
 export interface ComponentProps {
   params: { id: string };
@@ -40,6 +42,7 @@ export default function SeriesList(props: ComponentProps) {
   const actors = useSelector(selectActors);
   const activeSerie = useSelector(selectActiveSerie);
   const awards = useSelector(selectAwards);
+  const news = useSelector(selectNews);
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
@@ -59,7 +62,7 @@ export default function SeriesList(props: ComponentProps) {
                 <SeasonsList serieId={serie.id} />
               </TabPanel>
               <TabPanel header="News" className="m-0">
-                <NewsListSelector />
+                <NewsList data={news} />
               </TabPanel>
               <TabPanel header="Cast" className="m-0">
                 <ActorsList data={actors} />

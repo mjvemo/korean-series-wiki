@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import { DataTable, DataTableUnselectEvent } from "primereact/datatable";
+import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { useSelector } from "react-redux";
-import { useDispatch, getAwardsAsync, selectAwards } from "@/lib/redux";
-import Link from "next/link";
+import { useDispatch, getAwardsAsync } from "@/lib/redux";
 import { AwardDTO } from "@/lib/api/dtos/award.dto";
 import { Button } from "primereact/button";
 import { Avatar } from "primereact/avatar";
@@ -33,7 +31,6 @@ export default function AwardsListSelected() {
         style={{ backgroundColor: "#2196F3", color: "#ffffff" }}
         shape="circle"
       />
-      // <Image src={allAwards.url} alt={allAwards.url} width="100" preview />
     );
   };
 

@@ -83,6 +83,10 @@ export class ApiClient {
     const url = "/actors";
     return this.request({ url });
   }
+  updateActorById(id: string, data: UpdateActorRequestDTO): Promise<ActorDTO> {
+    const url = `/actors/${id}`;
+    return this.request({ url, method: "PATCH", data });
+  }
 
   getActorsBySerieId(id: string): Promise<ActorDTO[]> {
     const url = `/series/${id}/actors`;

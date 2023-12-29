@@ -20,6 +20,8 @@ import { IfNotNil } from "@/lib/components/utils/IfNotNil";
 import SeriesList from "@/lib/components/SeriesList";
 import AwardsList from "@/lib/components/AwardsList";
 import NewsListFormSelector from "@/lib/components/NewsListFormSelector";
+import NewsList from "@/lib/components/NewsList";
+import { selectNews } from "@/lib/redux/slices/news";
 
 export interface ComponentProps {
   params: { id: string };
@@ -39,6 +41,7 @@ export default function ActorsList(props: ComponentProps) {
   const series = useSelector(selectSeries);
   const activeActor = useSelector(selectActiveActor);
   const awards = useSelector(selectAwards);
+  const news = useSelector(selectNews);
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
@@ -59,7 +62,7 @@ export default function ActorsList(props: ComponentProps) {
               </div>
             </TabPanel>
             <TabPanel header="News" className="m-0">
-              <NewsListFormSelector />
+              <NewsList data={news} />
             </TabPanel>
             <TabPanel header="Series" className="m-0">
               <SeriesList data={series} />
