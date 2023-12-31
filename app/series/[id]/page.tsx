@@ -26,11 +26,12 @@ import NewsList from "@/lib/components/NewsList";
 import { selectNews } from "@/lib/redux/slices/news";
 
 export interface ComponentProps {
-  params: { id: string };
+  params: { id: string; url: string };
 }
 
 export default function SeriesList(props: ComponentProps) {
   const { id } = props.params;
+  const { url } = props.params;
 
   const dispatch = useDispatch();
 
@@ -46,6 +47,10 @@ export default function SeriesList(props: ComponentProps) {
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
+      {/* <Image
+        width="1670"
+        src="https://the-post-assets.sgp1.digitaloceanspaces.com/2021/06/Gumihonew-1896x800.jpg"
+      ></Image> */}
       <div className="flex flex-row justify-content-start">
         <IfNotNil data={activeSerie}>
           {({ data: serie }) => (

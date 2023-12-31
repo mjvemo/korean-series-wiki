@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { useSelector } from "react-redux";
@@ -6,7 +6,14 @@ import { useDispatch, getSeriesAsync } from "@/lib/redux";
 import { selectSeries } from "@/lib/redux/slices/series/selectors";
 import Link from "next/link";
 import { Rating } from "primereact/rating";
-import router from "next/router";
+import { useFormikContext } from "formik";
+import { SerieDTO } from "@/lib/api/dtos/serie.dto";
+import { Toast } from "primereact/toast";
+import { Button } from "primereact/button";
+
+interface SerieListSelectorFormPayload {
+  series: SerieDTO[];
+}
 
 export default function SeriesListSelected() {
   const dispatch = useDispatch();
@@ -15,12 +22,8 @@ export default function SeriesListSelected() {
     dispatch(getSeriesAsync());
   }, []);
 
-  const allSeries = useSelector(selectSeries);
-
-  console.log(allSeries);
-  const nameBodyTemplate = (serie: any) => {
-    return <Link href={`/series/${serie.id}`}>{serie.name}</Link>;
-  };
+  const formik = useFormikContext<SerieListSelectorFormPayload>();
+  const toast = useRef<Toast>(null);
 
   const imageBodyTemplate = (serie: any) => {
     return (
@@ -32,18 +35,32 @@ export default function SeriesListSelected() {
     );
   };
 
-  const ratingBodyTemplate = (serie: any) => {
-    return <Rating value={serie.rating} readOnly cancel={false} />;
-  };
+  const actionTemplate = (data: SerieDTO) => {
+    return (
+      <Button
+        icon="pi pi-times"
+        outlined
+        onClick={() => {
+          const { series } = formik.values;
+          formik.setFieldValue(
+            "series",
+            series.filter((serie) => serie.id !== data.id)
+          );
 
-  const onRowSelect = (serie: any) => {
-    router.push(`/series/${serie.id}`);
+          toast.current?.show({
+            severity: "info",
+            summary: "Serie removed",
+            detail: `Name: ${data.name}`,
+            life: 3000,
+          });
+        }}
+      ></Button>
+    );
   };
-
   return (
     <div className="card justify-content-center p-4">
       <DataTable
-        value={allSeries}
+        value={formik.values.series}
         pageLinkSize={5}
         dataKey="id"
         stripedRows
@@ -61,7 +78,6 @@ export default function SeriesListSelected() {
           header="Name"
           style={{ width: "20%" }}
           sortable
-          body={nameBodyTemplate}
         ></Column>
         <Column
           field="releasedAt"
@@ -78,7 +94,6 @@ export default function SeriesListSelected() {
         <Column
           field="rating"
           header="Rating"
-          body={ratingBodyTemplate}
           style={{ width: "20%" }}
           sortable
         ></Column>
@@ -103,6 +118,13 @@ export default function SeriesListSelected() {
         <Column
           field="description"
           header="Description"
+          style={{ width: "20%" }}
+          sortable
+        ></Column>
+        <Column
+          field="action"
+          header="action"
+          body={actionTemplate}
           style={{ width: "20%" }}
           sortable
         ></Column>

@@ -53,7 +53,6 @@ export default function ComponentProps(props: ComponentProps) {
         {/* <SeriesList />
         <SeriesListFormSelector /> */}
         <SeriesList data={series} />
-        <SeriesListSelected />
       </div>
       <div>
         <div className="flex flex-row justify-content-between gap-6">
