@@ -39,29 +39,28 @@ export default function ComponentProps(props: ComponentProps) {
         width="1670"
         src="https://the-post-assets.sgp1.digitaloceanspaces.com/2021/06/Gumihonew-1896x800.jpg"
       ></Image>
-      <div className="flex flex-row gap-2">
-        <Link href="/series/create">
-          <Button
-            label="Añadir Nuevo"
-            icon="pi pi-plus"
-            size="small"
-            outlined
-          ></Button>
-        </Link>
-      </div>
-      <div>
-        {/* <SeriesList />
-        <SeriesListFormSelector /> */}
-        <SeriesList data={series} />
-      </div>
-      <div>
-        <div className="flex flex-row justify-content-between gap-6">
-          <h2>Romantic List</h2>
+      <div className="flex flex-column">
+        <div className="flex flex-row justify-content-between align-items-center size-xl  gap-4 m-4">
+          <h1 className="p-2 m-4">All Series</h1>
+          <div>
+            <Link href="/series/create">
+              <Button
+                label="Añadir Nuevo"
+                icon="pi pi-large"
+                outlined
+                className="mr-4"
+              ></Button>
+            </Link>
+            <Link href="/series/create">
+              <Button icon="pi pi-th-large" outlined></Button>
+            </Link>
+          </div>
         </div>
-        <div className="flex align-items-start justify-content-center gap-4">
-          {listOfCards.map((serie) => (
-            <SerieCard key={serie.id} serie={serie} />
-          ))}
+
+        <div>
+          {/* <SeriesList />
+        <SeriesListFormSelector /> */}
+          <SeriesList data={series} />
         </div>
       </div>
       <div>

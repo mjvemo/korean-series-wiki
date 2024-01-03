@@ -25,12 +25,23 @@ export default function (props: ComponentProps) {
         src="https://the-post-assets.sgp1.digitaloceanspaces.com/2021/05/Gumiho-1896x800.jpg"
       ></Image>
       <div className="flex flex-column">
-        <div className="flex flex-row justify-content-end size-xl  gap-4 m-4">
-          <Link href="actors/create">
-            <Button label="Añadir Nuevo" icon="pi pi-plus" outlined></Button>
-          </Link>
+        <div className="flex flex-row justify-content-between align-items-center size-xl  gap-4 m-4">
+          <h1 className="p-2 m-4">All Actors</h1>
+          <div>
+            <Link href="/series/create">
+              <Button
+                label="Añadir Nuevo"
+                icon="pi pi-large"
+                outlined
+                className="mr-4"
+              ></Button>
+            </Link>
+            <Link href="/series/create">
+              <Button icon="pi pi-th-large" outlined></Button>
+            </Link>
+          </div>
         </div>
-        <h1 className="p-2 m-4">All Actors</h1>
+
         <div>
           <ActorsList data={actors} />
         </div>

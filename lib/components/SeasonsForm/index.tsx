@@ -108,7 +108,6 @@ export function SeasonsForm(props: ComponentProps) {
   return (
     <div className="flex flex-column">
       <h1 className="p-2 m-4">Seasons</h1>
-
       <form onSubmit={formik.handleSubmit}>
         {chapters.map((chapter, index) => (
           <ChapterForm

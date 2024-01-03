@@ -6,6 +6,7 @@ import { Rating } from "primereact/rating";
 import Link from "next/link";
 import { SerieDTO } from "@/lib/api/dtos/serie.dto";
 import { useRouter } from "next/navigation";
+import { getSeriesAsync, useDispatch } from "@/lib/redux";
 
 export interface ComponentProps {
   data: SerieDTO[];
@@ -13,12 +14,12 @@ export interface ComponentProps {
 
 export default function SeriesList(props: ComponentProps) {
   const router = useRouter();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const series = useSelector(selectSeries);
 
-  // useEffect(() => {
-  //   dispatch(getSeriesAsync());
-  // }, []);
+  useEffect(() => {
+    dispatch(getSeriesAsync());
+  }, []);
 
   // const formatCurrency = (value: {
   //   toLocaleString: (
@@ -46,12 +47,8 @@ export default function SeriesList(props: ComponentProps) {
     return <Rating value={serie.rating} readOnly cancel={false} />;
   };
 
-  const nameBodyTemplate = (serie: any) => {
-    return <Link href={`/series/${serie.id}`}>{serie.name}</Link>;
-  };
-
-  const onRowSelect = (serie: any) => {
-    router.push(`/series/${serie.id}`);
+  const onRowSelect = ({ data }: any) => {
+    router.push(`/series/${data.id}`);
   };
 
   // const activeBodyTemplate = (allSeries: any) => {
@@ -74,21 +71,41 @@ export default function SeriesList(props: ComponentProps) {
     </div>
   );
 
+  const bodyTemplateEdit = (
+    <div>
+      <Button icon="pi pi-pencil" text></Button>
+    </div>
+  );
+
+  const bodyTemplateDelete = (
+    <div>
+      <Button icon="pi pi-trash" text></Button>
+    </div>
+  );
+
   return (
     <div>
       <div className="card">
         <DataTable
           value={props.data}
-          selectionMode="single"
           pageLinkSize={5}
           dataKey="id"
+          selectionMode="single"
           header={header}
           paginator
           stripedRows
           sortMode="multiple"
           removableSort
           rows={10}
-          globalFilterFields={["name", "age", "agency", "active"]}
+          globalFilterFields={[
+            "name",
+            "releaseAt",
+            "pg",
+            "rating",
+            "genre",
+            "directedBy",
+            "studio",
+          ]}
           tableStyle={{ minWidth: "50rem" }}
           metaKeySelection={false}
           onRowSelect={onRowSelect}
@@ -104,7 +121,6 @@ export default function SeriesList(props: ComponentProps) {
             header="Name"
             style={{ width: "20%" }}
             sortable
-            body={nameBodyTemplate}
           ></Column>
           <Column
             field="releasedAt"
@@ -148,6 +164,17 @@ export default function SeriesList(props: ComponentProps) {
             header="Description"
             style={{ width: "20%" }}
             sortable
+          ></Column>
+          <Column
+            sortable
+            body={bodyTemplateEdit}
+            style={{ width: "20%" }}
+          ></Column>
+          <Column
+            field=""
+            header=""
+            sortable
+            body={bodyTemplateDelete}
           ></Column>
         </DataTable>
       </div>

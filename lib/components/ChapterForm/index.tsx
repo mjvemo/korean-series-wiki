@@ -1,5 +1,6 @@
 "use client";
 import { FormikHelpers, useFormik } from "formik";
+import Link from "next/link";
 import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
 import { InputText } from "primereact/inputtext";
@@ -44,7 +45,6 @@ export function ChapterForm(props: ComponentProps) {
 
   return (
     <div>
-      <div className="flex flex-row align-items-center justify-content-start gap-4"></div>
       <div className="flex align-items-center justify-content-center">
         <div className="flex flex-column gap-3">
           <div className="flex flex-column"></div>
