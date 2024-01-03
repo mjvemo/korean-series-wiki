@@ -61,7 +61,6 @@ export function ActorsListFormEdit(props: ComponentProps) {
   const dispatch = useDispatch();
   const actor = useSelector(selectActiveActor);
   const status = useSelector(selectActorRequestStatus);
-  const series = useSelector(selectActiveSerie);
 
   useEffect(() => {
     if (actor) {
@@ -87,7 +86,7 @@ export function ActorsListFormEdit(props: ComponentProps) {
     values: ActorsFormPayload,
     actions: FormikHelpers<ActorsFormPayload>
   ) => {
-    // const updateActorRequest = actorFormToCreateActorRequest(values);
+    const updateActorRequest = actorFormToCreateActorRequest(values);
     // dispatch(updateActorsAsync(updateActorRequest));
 
     actions.setSubmitting(true);

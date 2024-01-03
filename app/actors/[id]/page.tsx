@@ -44,11 +44,13 @@ export default function ActorsList(props: ComponentProps) {
   const activeActor = useSelector(selectActiveActor);
   const awards = useSelector(selectAwards);
   const news = useSelector(selectNews);
+  const actor = useSelector(selectActiveActor);
 
+  //TODO: Fixed Link href to id/edit page
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
-      <div className="flex flex-row gap-4">
-        <Link href="/series">
+      <div className="flex flex-row gap-4 justify-content-end m-4">
+        <Link href={`/actors/${id}/edit`}>
           <Button label="Edit" icon="pi pi-plus" size="small" outlined></Button>
         </Link>
       </div>

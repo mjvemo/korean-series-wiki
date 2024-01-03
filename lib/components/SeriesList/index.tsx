@@ -7,6 +7,7 @@ import Link from "next/link";
 import { SerieDTO } from "@/lib/api/dtos/serie.dto";
 import { useRouter } from "next/navigation";
 import { getSeriesAsync, useDispatch } from "@/lib/redux";
+import { Dialog } from "primereact/dialog";
 
 export interface ComponentProps {
   data: SerieDTO[];
@@ -15,23 +16,12 @@ export interface ComponentProps {
 export default function SeriesList(props: ComponentProps) {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [visible, setVisible] = useState(false);
   // const series = useSelector(selectSeries);
 
   useEffect(() => {
     dispatch(getSeriesAsync());
   }, []);
-
-  // const formatCurrency = (value: {
-  //   toLocaleString: (
-  //     arg0: string,
-  //     arg1: { style: string; currency: string }
-  //   ) => any;
-  // }) => {
-  //   return value.toLocaleString("en-US", {
-  //     style: "currency",
-  //     currency: "USD",
-  //   });
-  // };
 
   const imageBodyTemplate = (serie: any) => {
     return (
@@ -51,19 +41,6 @@ export default function SeriesList(props: ComponentProps) {
     router.push(`/series/${data.id}`);
   };
 
-  // const activeBodyTemplate = (allSeries: any) => {
-  //   const stockClassName = classNames(
-  //     "border-circle w-2rem h-2rem inline-flex font-bold justify-content-center align-items-center text-sm",
-  //     {
-  //       "bg-red-100 text-red-900": allSeries.active === 0,
-  //       "bg-blue-100 text-blue-900":
-  //         allSeries.active > 0 && allSeries.active <= 10,
-  //       "bg-teal-100 text-teal-900": allSeries.acttive >= 10,
-  //     }
-  //   );
-  //   return <div className={stockClassName}>{allSeries.active}</div>;
-  // };
-
   const header = (
     <div className="flex flex-wrap align-items-center justify-content-between gap-2">
       <span className="text-xl text-900 font-bold">Series</span>
@@ -71,17 +48,34 @@ export default function SeriesList(props: ComponentProps) {
     </div>
   );
 
-  const bodyTemplateEdit = (
-    <div>
-      <Link href="/series/id/edit">
+  const bodyTemplateEdit = (serie: any) => {
+    return (
+      <Link href={`/series/${serie.id}/edit`}>
         <Button icon="pi pi-pencil" text></Button>
       </Link>
-    </div>
-  );
+    );
+  };
 
   const bodyTemplateDelete = (
     <div>
       <Button icon="pi pi-trash" text></Button>
+    </div>
+  );
+
+  const footerContent = (
+    <div className="flex flex-row gap-2 justify-content-end">
+      <Button
+        label="Delete"
+        icon="pi pi-check"
+        onClick={() => setVisible(false)}
+        autoFocus
+      />
+      <Button
+        label="Cancel"
+        icon="pi pi-times"
+        onClick={() => setVisible(false)}
+        className="p-button-text"
+      />
     </div>
   );
 
@@ -173,6 +167,18 @@ export default function SeriesList(props: ComponentProps) {
             body={bodyTemplateDelete}
           ></Column>
         </DataTable>
+        <div className="card flex justify-content-center">
+          <Dialog
+            header="Delete"
+            footer={footerContent}
+            visible={visible}
+            onHide={() => setVisible(false)}
+            style={{ width: "40vw" }}
+            breakpoints={{ "960px": "75vw", "641px": "100vw" }}
+          >
+            <p className="m-0">Are you sure you want to delete?</p>
+          </Dialog>
+        </div>
       </div>
     </div>
   );

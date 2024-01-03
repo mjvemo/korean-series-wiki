@@ -1,13 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import Link from "next/link";
 import { ActorDTO } from "@/lib/api/dtos/actor.dto";
 import { useRouter } from "next/navigation";
-import { getActorsAsync, useDispatch } from "@/lib/redux";
+import {
+  getActorsAsync,
+  selectActiveActor,
+  useDispatch,
+  useSelector,
+} from "@/lib/redux";
 import { Button } from "primereact/button";
 import { Avatar } from "primereact/avatar";
 import { all } from "axios";
+import { Dialog } from "primereact/dialog";
 
 export interface ComponentProps {
   data: ActorDTO[];
@@ -16,6 +22,8 @@ export interface ComponentProps {
 export default function ActorsList(props: ComponentProps) {
   const router = useRouter();
   const dispatch = useDispatch();
+  const actor = useSelector(selectActiveActor);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     dispatch(getActorsAsync());
@@ -44,17 +52,36 @@ export default function ActorsList(props: ComponentProps) {
     </div>
   );
 
-  const bodyTemplateEdit = (
-    <div>
-      <Link href="/actors/id/edit">
+  const bodyTemplateEdit = (actor: any) => {
+    return (
+      <Link href={`/actors/${actor.id}/edit`}>
         <Button icon="pi pi-pencil" text></Button>
       </Link>
-    </div>
-  );
+    );
+  };
 
-  const bodyTemplateDelete = (
-    <div>
-      <Button icon="pi pi-trash" text></Button>
+  const bodyTemplateDelete = () => {
+    return (
+      <Link href="">
+        <Button icon="pi pi-trash" text onClick={() => setVisible(true)} />
+      </Link>
+    );
+  };
+
+  const footerContent = (
+    <div className="flex flex-row gap-2 justify-content-end">
+      <Button
+        label="Delete"
+        icon="pi pi-check"
+        onClick={() => setVisible(false)}
+        autoFocus
+      />
+      <Button
+        label="Cancel"
+        icon="pi pi-times"
+        onClick={() => setVisible(false)}
+        className="p-button-text"
+      />
     </div>
   );
 
@@ -120,6 +147,18 @@ export default function ActorsList(props: ComponentProps) {
           style={{ width: "5%" }}
         ></Column>
       </DataTable>
+      <div className="card flex justify-content-center">
+        <Dialog
+          header="Delete"
+          footer={footerContent}
+          visible={visible}
+          onHide={() => setVisible(false)}
+          style={{ width: "40vw" }}
+          breakpoints={{ "960px": "75vw", "641px": "100vw" }}
+        >
+          <p className="m-0">Are you sure you want to delete?</p>
+        </Dialog>
+      </div>
     </div>
   );
 }
