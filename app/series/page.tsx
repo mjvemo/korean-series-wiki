@@ -58,19 +58,7 @@ export default function ComponentProps(props: ComponentProps) {
         </div>
 
         <div>
-          {/* <SeriesList />
-        <SeriesListFormSelector /> */}
           <SeriesList data={series} />
-        </div>
-      </div>
-      <div>
-        <div className="flex flex-row justify-content-between gap-6">
-          <h2>Latest Release</h2>
-        </div>
-        <div className="flex align-items-start justify-content-center gap-4">
-          {listOfCards.map((serie) => (
-            <SerieCard key={serie.id} serie={serie} />
-          ))}
         </div>
       </div>
       <footer className="flex flex-row justify-content-center gap-6 h-4rem font-bold">

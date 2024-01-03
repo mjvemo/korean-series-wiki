@@ -6,6 +6,8 @@ import { ActorDTO } from "@/lib/api/dtos/actor.dto";
 import { useRouter } from "next/navigation";
 import { getActorsAsync, useDispatch } from "@/lib/redux";
 import { Button } from "primereact/button";
+import { Avatar } from "primereact/avatar";
+import { all } from "axios";
 
 export interface ComponentProps {
   data: ActorDTO[];
@@ -19,13 +21,16 @@ export default function ActorsList(props: ComponentProps) {
     dispatch(getActorsAsync());
   }, []);
 
-  const imageBodyTemplate = (actor: any) => {
+  const imageBodyTemplate = (allActors: { url: string | undefined }) => {
     return (
-      <img
-        src={actor.image}
-        alt={actor.image}
-        className="w-6rem shadow-2 border-round"
+      <Avatar
+        image={allActors.url}
+        label="A"
+        size="xlarge"
+        style={{ backgroundColor: "#F66668", color: "#ffffff" }}
+        shape="circle"
       />
+      // <Image src={allActors.url} alt={allActors.url} width="100" preview />
     );
   };
 
@@ -52,7 +57,7 @@ export default function ActorsList(props: ComponentProps) {
   );
 
   return (
-    <div className="card justify-content-center p-4">
+    <div className="card justify-content-center m-4">
       <DataTable
         value={props.data}
         pageLinkSize={5}
@@ -73,44 +78,44 @@ export default function ActorsList(props: ComponentProps) {
           header="Image"
           body={imageBodyTemplate}
           sortable
-          style={{ width: "20%" }}
+          style={{ width: "5%", justifyContent: "center" }}
         ></Column>
         <Column
           field="name"
           header="Name"
           sortable
-          style={{ width: "20%" }}
+          style={{ width: "15%" }}
         ></Column>
-        <Column field="age" header="Age" style={{ width: "20%" }}></Column>
+        <Column field="age" header="Age" style={{ width: "10%" }}></Column>
         <Column
           field="agency"
           header="Agency"
           sortable
-          style={{ width: "20%" }}
+          style={{ width: "10%" }}
         ></Column>
         <Column
           field="education"
           header="Education"
           sortable
-          style={{ width: "20%" }}
+          style={{ width: "10%" }}
         ></Column>
         <Column
-          field="active"
+          field="yearsActive"
           header="Active"
           sortable
-          style={{ width: "20%" }}
+          style={{ width: "10%" }}
         ></Column>
         <Column
           sortable
           body={bodyTemplateEdit}
-          style={{ width: "20%" }}
+          style={{ width: "3%" }}
         ></Column>
         <Column
           field=""
           header=""
           sortable
           body={bodyTemplateDelete}
-          style={{ width: "20%" }}
+          style={{ width: "5%" }}
         ></Column>
       </DataTable>
     </div>

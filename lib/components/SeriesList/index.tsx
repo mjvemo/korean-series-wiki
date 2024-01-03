@@ -85,7 +85,7 @@ export default function SeriesList(props: ComponentProps) {
 
   return (
     <div>
-      <div className="card">
+      <div className="card m-4">
         <DataTable
           value={props.data}
           pageLinkSize={5}
@@ -114,61 +114,55 @@ export default function SeriesList(props: ComponentProps) {
             header="Image"
             body={imageBodyTemplate}
             sortable
-            style={{ width: "20%" }}
+            style={{ width: "10%" }}
           ></Column>
           <Column
             field="name"
             header="Name"
-            style={{ width: "20%" }}
+            style={{ width: "15%" }}
             sortable
           ></Column>
           <Column
             field="releasedAt"
             header="ReleasedAt"
-            style={{ width: "20%" }}
+            style={{ width: "15%" }}
             sortable
           ></Column>
           <Column
             field="pg"
             header="PG"
-            style={{ width: "20%" }}
+            style={{ width: "10%" }}
             sortable
           ></Column>
           <Column
             field="rating"
             header="Rating"
             body={ratingBodyTemplate}
-            style={{ width: "20%" }}
+            style={{ width: "15%" }}
             sortable
           ></Column>
           <Column
             field="genre"
             header="Genre"
-            style={{ width: "20%" }}
+            style={{ width: "12%" }}
             sortable
           ></Column>
           <Column
             field="directedBy"
             header="Director"
-            style={{ width: "20%" }}
+            style={{ width: "12%" }}
             sortable
           ></Column>
           <Column
             field="studio"
             header="Studio"
-            style={{ width: "20%" }}
-            sortable
-          ></Column>
-          <Column
-            field="description"
-            header="Description"
-            style={{ width: "20%" }}
+            style={{ width: "12%" }}
             sortable
           ></Column>
           <Column
             sortable
             body={bodyTemplateEdit}
-            style={{ width: "20%" }}
+            style={{ width: "3%" }}
           ></Column>
           <Column
             field=""

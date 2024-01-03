@@ -22,6 +22,8 @@ import AwardsList from "@/lib/components/AwardsList";
 import NewsListFormSelector from "@/lib/components/NewsListFormSelector";
 import NewsList from "@/lib/components/NewsList";
 import { selectNews } from "@/lib/redux/slices/news";
+import { Button } from "primereact/button";
+import Link from "next/link";
 
 export interface ComponentProps {
   params: { id: string };
@@ -45,6 +47,11 @@ export default function ActorsList(props: ComponentProps) {
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
+      <div className="flex flex-row gap-4">
+        <Link href="/series">
+          <Button label="Edit" icon="pi pi-plus" size="small" outlined></Button>
+        </Link>
+      </div>
       <div className="flex flex-row justify-content-center">
         <div className="card justify-content-center"></div>
         <div className="card justify-content-center">

@@ -23,6 +23,7 @@ import {
   selectActiveActor,
   selectActorRequestStatus,
   selectActiveSerie,
+  updateActorsAsync,
 } from "@/lib/redux";
 import { Cast } from "@/lib/components/Cast";
 import { Award } from "@/lib/components/Award";
@@ -40,6 +41,7 @@ import AwardsList from "../AwardsList";
 import AwardsListFormSelector from "../AwardsListFormSelector";
 import NewsListFormSelector from "../NewsListFormSelector";
 import { ActorDTO } from "@/lib/api/dtos/actor.dto";
+import { UpdateActorRequestDTO } from "@/server/src/use-cases/actors/update-actor/update-actor-request.dto";
 
 const formSchema = object<ActorsFormPayload>({
   imageUrl: string().url("Invalid Format").required("Required"),
@@ -69,7 +71,7 @@ export function ActorsListFormEdit(props: ComponentProps) {
   }, [status]);
 
   const initialValues: ActorsFormPayload = {
-    imageUrl: "imageUrl",
+    imageUrl: "imageUrl", // TODO: InitialValues should be values from ActorsForm inputs
     name: "name",
     age: null,
     education: "education",
@@ -86,8 +88,8 @@ export function ActorsListFormEdit(props: ComponentProps) {
     values: ActorsFormPayload,
     actions: FormikHelpers<ActorsFormPayload>
   ) => {
-    const createActorRequest = actorFormToCreateActorRequest(values);
-    dispatch(createActorAsync(createActorRequest));
+    const updateActorRequest = actorFormToCreateActorRequest(values);
+    dispatch(updateActorsAsync(updateActorRequest));
 
     actions.setSubmitting(true);
   };
@@ -112,19 +114,11 @@ export function ActorsListFormEdit(props: ComponentProps) {
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6 p-5">
       <div>
-        <h1>Add New Actor</h1>
+        <h1>Edit Actor: {formik.values.name}</h1>
       </div>
       <div className="flex flex-row align-items-center justify-content-center gap-6">
         <Image src={formik.values.imageUrl} alt="Image" width="650" preview />
         <form onSubmit={formik.handleSubmit}>
-          <>
-            --- Formik State <br></br>
-          </>
-          {JSON.stringify(formik, null, 2)}
-          <>
-            <br></br> --- Actor <br></br>
-          </>
-          {JSON.stringify(actor || {}, null, 2)}
           <div className="flex align-items-center">
             <div className="flex flex-row gap-3 align-items-center">
               <div className="flex flex-column">
@@ -257,36 +251,13 @@ export function ActorsListFormEdit(props: ComponentProps) {
           <div className="flex flex-row gap-4 justify-content-end p-6">
             <Button
               type="submit"
-              label="Save"
+              label="Save changes"
               icon="pi pi-check"
               size="large"
             ></Button>
             <Button label="Cancel" icon="pi pi-times" size="large"></Button>
           </div>
         </form>
-      </div>
-      <div>
-        <div className="card justify-content-center">
-          <FormikContext.Provider value={formik}>
-            <TabView>
-              <TabPanel header="About" className="m-0">
-                <div>
-                  <h1>Biography</h1>
-                  {actor?.biography}
-                </div>
-              </TabPanel>
-              <TabPanel header="News" className="m-0">
-                <NewsListFormSelector />
-              </TabPanel>
-              <TabPanel header="Series" className="m-0">
-                <SeriesListFormSelector />
-              </TabPanel>
-              <TabPanel header="Awards" className="m-0">
-                <AwardsListFormSelector />
-              </TabPanel>
-            </TabView>
-          </FormikContext.Provider>
-        </div>
       </div>
     </div>
   );
