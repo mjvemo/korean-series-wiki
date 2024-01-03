@@ -56,7 +56,7 @@ export const createActorAsync = createAppAsyncThunk(
 
 // export const updateActorsAsync = createAppAsyncThunk(
 //   ActionType.UPDATE_ACTOR_BY_ID,
-//   (id: string, data: CreateActorRequestDTO) => {
-//     return client.updateActorById(id, data);
+//   (id: string) => {
+//     return client.updateActorById(id);
 //   }
 // );

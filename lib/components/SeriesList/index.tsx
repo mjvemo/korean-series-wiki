@@ -73,7 +73,9 @@ export default function SeriesList(props: ComponentProps) {
 
   const bodyTemplateEdit = (
     <div>
-      <Button icon="pi pi-pencil" text></Button>
+      <Link href="/series/id/edit">
+        <Button icon="pi pi-pencil" text></Button>
+      </Link>
     </div>
   );
 

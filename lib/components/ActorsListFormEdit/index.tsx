@@ -23,7 +23,6 @@ import {
   selectActiveActor,
   selectActorRequestStatus,
   selectActiveSerie,
-  updateActorsAsync,
 } from "@/lib/redux";
 import { Cast } from "@/lib/components/Cast";
 import { Award } from "@/lib/components/Award";
@@ -88,8 +87,8 @@ export function ActorsListFormEdit(props: ComponentProps) {
     values: ActorsFormPayload,
     actions: FormikHelpers<ActorsFormPayload>
   ) => {
-    const updateActorRequest = actorFormToCreateActorRequest(values);
-    dispatch(updateActorsAsync(updateActorRequest));
+    // const updateActorRequest = actorFormToCreateActorRequest(values);
+    // dispatch(updateActorsAsync(updateActorRequest));
 
     actions.setSubmitting(true);
   };

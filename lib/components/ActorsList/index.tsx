@@ -46,7 +46,9 @@ export default function ActorsList(props: ComponentProps) {
 
   const bodyTemplateEdit = (
     <div>
-      <Button icon="pi pi-pencil" text></Button>
+      <Link href="/actors/id/edit">
+        <Button icon="pi pi-pencil" text></Button>
+      </Link>
     </div>
   );
 
