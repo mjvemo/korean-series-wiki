@@ -5,6 +5,7 @@ import {
   getNewsAsync,
   getNewsByIdAsync,
   getNewsByActorIdAsync,
+  createNewsAsync,
 } from "./thunks";
 import {
   getNewsFulfilledCaseReducer,
@@ -16,6 +17,9 @@ import {
   getNewsByActorIdPendingCaseReducer,
   getNewsByActorIdRejectedCaseReducer,
   getNewsByActorIdFulfilledCaseReducer,
+  createNewsPendingCaseReducer,
+  createNewsFulfilledCaseReducer,
+  createNewsRejectedCaseReducer,
 } from "./reducers";
 
 export const newsSlice = createSlice({
@@ -36,6 +40,12 @@ export const newsSlice = createSlice({
       .addCase(getNewsByIdAsync.pending, getNewsByIdPendingCaseReducer)
       .addCase(getNewsByIdAsync.fulfilled, getNewsByIdFulfilledCaseReducer)
       .addCase(getNewsByIdAsync.rejected, getNewsByIdRejectedCaseReducer)
+
+      // CreateNews
+
+      .addCase(createNewsAsync.pending, createNewsPendingCaseReducer)
+      .addCase(createNewsAsync.fulfilled, createNewsFulfilledCaseReducer)
+      .addCase(createNewsAsync.rejected, createNewsRejectedCaseReducer)
 
       // GetNewsByActorId
       .addCase(

@@ -10,8 +10,10 @@ import {
   selectActiveNews,
   selectNews,
 } from "@/lib/redux/slices/news";
+import { NewsDTO } from "@/lib/models/news.model";
 
 export interface ComponentProps {
+  data: NewsDTO[];
   params: { id: string };
 }
 
