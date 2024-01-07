@@ -30,7 +30,7 @@ export default function (props: ComponentProps) {
           <div>
             <Link href="/series/create">
               <Button
-                label="Añadir Nuevo"
+                label="Add New"
                 icon="pi pi-large"
                 outlined
                 className="mr-4"

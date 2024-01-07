@@ -45,7 +45,7 @@ export default function ComponentProps(props: ComponentProps) {
           <div>
             <Link href="/series/create">
               <Button
-                label="Añadir Nuevo"
+                label="Add new"
                 icon="pi pi-large"
                 outlined
                 className="mr-4"

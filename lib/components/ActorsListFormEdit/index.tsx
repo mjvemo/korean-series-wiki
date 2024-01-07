@@ -257,6 +257,21 @@ export function ActorsListFormEdit(props: ComponentProps) {
           </div>
         </form>
       </div>
+      <div className="card justify-content-center">
+        <FormikContext.Provider value={formik}>
+          <TabView>
+            <TabPanel header="News" className="m-0">
+              <NewsListFormSelector />
+            </TabPanel>
+            <TabPanel header="Series" className="m-0">
+              <SeriesListFormSelector />
+            </TabPanel>
+            <TabPanel header="Awards" className="m-0">
+              <AwardsListFormSelector />
+            </TabPanel>
+          </TabView>
+        </FormikContext.Provider>
+      </div>
     </div>
   );
 }

@@ -56,11 +56,13 @@ export default function SeriesList(props: ComponentProps) {
     );
   };
 
-  const bodyTemplateDelete = (
-    <div>
-      <Button icon="pi pi-trash" text></Button>
-    </div>
-  );
+  const bodyTemplateDelete = () => {
+    return (
+      <Link href="">
+        <Button icon="pi pi-trash" text onClick={() => setVisible(true)} />
+      </Link>
+    );
+  };
 
   const footerContent = (
     <div className="flex flex-row gap-2 justify-content-end">
@@ -173,7 +175,7 @@ export default function SeriesList(props: ComponentProps) {
             footer={footerContent}
             visible={visible}
             onHide={() => setVisible(false)}
-            style={{ width: "40vw" }}
+            style={{ width: "35vw" }}
             breakpoints={{ "960px": "75vw", "641px": "100vw" }}
           >
             <p className="m-0">Are you sure you want to delete?</p>
