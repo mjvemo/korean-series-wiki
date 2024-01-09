@@ -90,3 +90,11 @@ export const getAwardsByActorIdRejectedCaseReducer: CaseReducer<
 > = (state) => {
   state.status = "failed";
 };
+
+// export const deleteAwardReducer: CaseReducer<
+//   AwardState,
+//   PayloadAction<AwardDTO>
+// > = (state, action) => ({
+//   ...state,
+//   items: state.items.filter((item) => item !== action.payload),
+// });

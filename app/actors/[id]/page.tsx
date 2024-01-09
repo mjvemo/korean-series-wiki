@@ -74,7 +74,9 @@ export default function ActorsList(props: ComponentProps) {
               <NewsList data={news} />
             </TabPanel>
             <TabPanel header="Series" className="m-0">
-              <SeriesList data={series} />
+              {/* { series.map((serie)=> {
+ <SeriesList data={series} />
+              })} */}
             </TabPanel>
             <TabPanel header="Awards" className="m-0">
               <AwardsList data={awards} />

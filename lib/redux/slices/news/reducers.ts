@@ -104,3 +104,11 @@ export const getNewsByActorIdRejectedCaseReducer: CaseReducer<
 // > = (state) => {
 //   state.status = "failed";
 // };
+
+// export const deleteNewsReducer: CaseReducer<
+//   NewsState,
+//   PayloadAction<NewsDTO>
+// > = (state, action) => ({
+//   ...state,
+//   items: state.items.filter((item) => item !== action.payload),
+// });

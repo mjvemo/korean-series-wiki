@@ -11,6 +11,7 @@ enum ActionType {
   CREATE_AWARD = "awards/createAward",
   GET_AWARDS_BY_ID = "awards/getAwardsById",
   UPDATE_ACTOR_BY_ID = "actors/updateActorById",
+  DELETE_ACTOR_BY_ID = "actor/deleteActorById",
 }
 
 // {
@@ -54,6 +55,12 @@ export const createActorAsync = createAppAsyncThunk(
   }
 );
 
+export const deleteActorByIdAsync = createAppAsyncThunk(
+  ActionType.DELETE_ACTOR_BY_ID,
+  (id: string) => {
+    client.deleteActor(id);
+  }
+);
 // export const updateActorsAsync = createAppAsyncThunk(
 //   ActionType.UPDATE_ACTOR_BY_ID,
 //   (id: string) => {

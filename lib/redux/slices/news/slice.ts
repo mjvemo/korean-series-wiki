@@ -52,10 +52,10 @@ export const newsSlice = createSlice({
         getNewsByActorIdAsync.pending,
         getNewsByActorIdPendingCaseReducer
       )
-      //   .addCase(
-      //     getNewsByActorIdAsync.fulfilled,
-      //     getNewsByActorIdFulfilledCaseReducer
-      //   )
+      // .addCase(
+      //   getNewsByActorIdAsync.fulfilled,
+      //   getNewsByActorIdFulfilledCaseReducer
+      // )
       .addCase(
         getNewsByActorIdAsync.rejected,
         getNewsByActorIdRejectedCaseReducer

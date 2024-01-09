@@ -204,6 +204,11 @@ export class ApiClient {
   }
 }
 
+//  updateSeason(id: string, data: UpdateSeasonsRequestDTO): Promise<SeasonsDTO> {
+//     const url = `/seasons/${id}`;
+//     return this.request({ url, method: "PATCH", data });
+//   }
+
 const client = new ApiClient();
 
 export default client;

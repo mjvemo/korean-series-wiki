@@ -9,6 +9,11 @@ import { Carousel } from "primereact/carousel";
 import { Footer } from "@/lib/components/Footer";
 import { SerieCard } from "@/lib/components/SerieCard";
 import Link from "next/link";
+import SeriesList from "@/lib/components/SeriesList";
+import { useSelector } from "react-redux";
+import { selectSeries } from "@/lib/redux/slices/series/selectors";
+import { selectActors } from "@/lib/redux/slices/actors/selectors";
+import ActorsList from "@/lib/components/ActorsList";
 
 // import { ProductService } from "./service/ProductService";
 
@@ -35,7 +40,9 @@ export default function IndexPage() {
     return <Image src={indexImage.url} alt={indexImage.name} width="1670" />;
   };
 
-  const listOfCards = [serie, serie1, serie2];
+  const actors = useSelector(selectActors);
+  const series = useSelector(selectSeries);
+  const listOfCards = [actors, series];
 
   return (
     <div>
@@ -47,10 +54,11 @@ export default function IndexPage() {
           itemTemplate={imageTemplate}
           responsiveOptions={responsiveOptions}
           showNavigators={false}
+          autoplayInterval={3000}
         />
       </div>
 
-      <div className="flex flex-row justify-content-between gap-6">
+      <div className="flex flex-row justify-content-between gap-6 m-4">
         <h2>Top 10 Series</h2>
         <div className="flex flex-row gap-4">
           <Link href="/series/create">
@@ -64,11 +72,9 @@ export default function IndexPage() {
         </div>
       </div>
       <div className="flex align-items-start justify-content-center gap-4">
-        {listOfCards.map((serie) => (
-          <SerieCard key={serie.id} serie={serie} />
-        ))}
+        <SeriesList data={series} />
       </div>
-      <div className="flex flex-row justify-content-between gap-6">
+      <div className="flex flex-row justify-content-between gap-6 m-4">
         <h2>Top 10 Actors</h2>
         <div className="flex flex-row gap-4">
           <Link href="/series/create">
@@ -82,11 +88,9 @@ export default function IndexPage() {
         </div>
       </div>
       <div className="flex align-items-start justify-content-center gap-4">
-        {listOfCards.map((serie) => (
-          <SerieCard key={serie.id} serie={serie} />
-        ))}
+        <ActorsList data={actors} />
       </div>
-      <footer className="flex flex-row justify-content-center gap-6 h-4rem font-bold">
+      <footer className="flex flex-row justify-content-center gap-6 h-4rem font-bold mt-4">
         <Footer />
       </footer>
     </div>

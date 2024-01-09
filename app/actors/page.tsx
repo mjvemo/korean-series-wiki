@@ -28,7 +28,7 @@ export default function (props: ComponentProps) {
         <div className="flex flex-row justify-content-between align-items-center size-xl  gap-4 m-4">
           <h1 className="p-2 m-4">All Actors</h1>
           <div>
-            <Link href="/series/create">
+            <Link href="/actors/create">
               <Button
                 label="Add New"
                 icon="pi pi-large"

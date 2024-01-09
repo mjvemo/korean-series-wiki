@@ -89,3 +89,18 @@ export const createActorRejectedCaseReducer: CaseReducer<ActorState, any> = (
 ) => {
   state.status = "failed";
 };
+
+export const updateActorReducer: CaseReducer<
+  ActorState,
+  PayloadAction<ActorDTO>
+> = (state, action) => {
+  state.items.push(action.payload);
+};
+
+// export const deleteActorReducer: CaseReducer<
+//   ActorState,
+//   PayloadAction<ActorDTO>
+// > = (state, action) => ({
+//   ...state,
+//   items: state.items.filter((item) => item !== action.payload),
+// });

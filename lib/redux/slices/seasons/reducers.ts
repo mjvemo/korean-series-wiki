@@ -89,3 +89,11 @@ export const addSeasonReducer: CaseReducer<
 > = (state, action) => {
   state.items.push(action.payload);
 };
+
+// export const deleteSeasonsReducer: CaseReducer<
+//   SeasonState,
+//   PayloadAction<SeasonDTO>
+// > = (state, action) => ({
+//   ...state,
+//   items: state.items.filter((item) => item !== action.payload),
+// });
