@@ -4,9 +4,9 @@ import { initialState } from "./state";
 import {
   createAwardAsync,
   getAwardsAsync,
-  getAwardsByActorIdAsync,
   getAwardByIdAsync,
   getAwardsBySerieIdAsync,
+  deleteAwardByIdAsync,
 } from "./thunks";
 import {
   getAwardsFulfilledCaseReducer,
@@ -19,12 +19,12 @@ import {
   createAwardPendingCaseReducer,
   createAwardFulfilledCaseReducer,
   createAwardRejectedCaseReducer,
-  getAwardsByActorIdFullfieldCaseReducer,
-  getAwardsByActorIdPendingCaseReducer,
-  getAwardsByActorIdRejectedCaseReducer,
   getAwardsBySerieIdPendingCaseReducer,
   getAwardsBySerieIdFullfieldCaseReducer,
   getAwardsBySerieIdRejectedCaseReducer,
+  deleteAwardsByIdRejectedCaseReducer,
+  deleteAwardByIdPendingCaseReducer,
+  deleteAwardByIdFullfieldCaseReducer,
 } from "./reducers";
 
 export const awardsSlice = createSlice({
@@ -53,19 +53,20 @@ export const awardsSlice = createSlice({
       .addCase(createAwardAsync.fulfilled, createAwardFulfilledCaseReducer)
       .addCase(createAwardAsync.rejected, createAwardRejectedCaseReducer)
 
-      // GetAwardByActorId
-      .addCase(
-        getAwardsByActorIdAsync.pending,
-        getAwardsByActorIdPendingCaseReducer
-      )
-      .addCase(
-        getAwardsByActorIdAsync.fulfilled,
-        getAwardsByActorIdFullfieldCaseReducer
-      )
-      .addCase(
-        getAwardsByActorIdAsync.rejected,
-        getAwardsByActorIdRejectedCaseReducer
-      )
+      // GetAwardByAwardsId
+      // .addCase(
+      //   getAwardsByAwardsIdAsync.pending,
+      //   getAwardsByAwardsIdPendingCaseReducer
+      // )
+      // .addCase(
+      //   getAwardsByAwardsIdAsync.fulfilled,
+      //   getAwardsByAwardsIdFullfieldCaseReducer
+      // )
+      // .addCase(
+      //   getAwardsByAwardsIdAsync.rejected,
+      //   getAwardsByAwardsIdRejectedCaseReducer
+      // )
+
       // GetAwardBySerieId
       .addCase(
         getAwardsBySerieIdAsync.pending,
@@ -78,6 +79,16 @@ export const awardsSlice = createSlice({
       .addCase(
         getAwardsBySerieIdAsync.rejected,
         getAwardsBySerieIdRejectedCaseReducer
+      )
+      //DeleteAwardById
+      .addCase(deleteAwardByIdAsync.pending, deleteAwardByIdPendingCaseReducer)
+      .addCase(
+        deleteAwardByIdAsync.fulfilled,
+        deleteAwardByIdFullfieldCaseReducer
+      )
+      .addCase(
+        deleteAwardByIdAsync.rejected,
+        deleteAwardsByIdRejectedCaseReducer
       );
   },
 });

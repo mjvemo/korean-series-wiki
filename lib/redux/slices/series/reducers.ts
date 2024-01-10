@@ -84,3 +84,32 @@ export const getSeriesByActorIdRejectedCaseReducer: CaseReducer<
 > = (state) => {
   state.status = "failed";
 };
+
+export const updateSerieReducer: CaseReducer<
+  SerieState,
+  PayloadAction<SerieDTO>
+> = (state, action) => {
+  state.items.push(action.payload);
+};
+
+export const deleteSeriesByIdFullfieldCaseReducer: CaseReducer<
+  SerieState,
+  PayloadAction<SerieDTO>
+> = (state, action) => {
+  state.items = state.items.filter((item) => item.id !== action.payload.id);
+  state.status = "idle";
+};
+
+export const deleteSeriesByIdPendingCaseReducer: CaseReducer<
+  SerieState,
+  any
+> = (state) => {
+  state.status = "loading";
+};
+
+export const deleteSeriesByIdRejectedCaseReducer: CaseReducer<
+  SerieState,
+  any
+> = (state) => {
+  state.status = "failed";
+};

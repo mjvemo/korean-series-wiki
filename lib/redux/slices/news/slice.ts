@@ -4,9 +4,9 @@ import { initialState } from "./state";
 import {
   getNewsAsync,
   getNewsByIdAsync,
-  getNewsByActorIdAsync,
   createNewsAsync,
   getNewsBySerieIdAsync,
+  deleteNewsByIdAsync,
 } from "./thunks";
 import {
   getNewsFulfilledCaseReducer,
@@ -15,15 +15,15 @@ import {
   getNewsByIdPendingCaseReducer,
   getNewsByIdRejectedCaseReducer,
   addNewsReducer,
-  getNewsByActorIdPendingCaseReducer,
-  getNewsByActorIdRejectedCaseReducer,
-  getNewsByActorIdFulfilledCaseReducer,
   createNewsPendingCaseReducer,
   createNewsFulfilledCaseReducer,
   createNewsRejectedCaseReducer,
   getNewsBySerieIdPendingCaseReducer,
   getNewsBySerieIdRejectedCaseReducer,
   getNewsBySerieIdFullfieldCaseReducer,
+  deleteNewsByIdPendingCaseReducer,
+  deleteNewsByIdFullfieldCaseReducer,
+  deleteNewsByIdRejectedCaseReducer,
 } from "./reducers";
 
 export const newsSlice = createSlice({
@@ -51,19 +51,16 @@ export const newsSlice = createSlice({
       .addCase(createNewsAsync.fulfilled, createNewsFulfilledCaseReducer)
       .addCase(createNewsAsync.rejected, createNewsRejectedCaseReducer)
 
-      // GetNewsByActorId
-      .addCase(
-        getNewsByActorIdAsync.pending,
-        getNewsByActorIdPendingCaseReducer
-      )
-      .addCase(
-        getNewsByActorIdAsync.fulfilled,
-        getNewsByActorIdFulfilledCaseReducer
-      )
-      .addCase(
-        getNewsByActorIdAsync.rejected,
-        getNewsByActorIdRejectedCaseReducer
-      )
+      // // GetNewsByNewsId
+      // .addCase(getNewsByNewsIdAsync.pending, getNewsByNewsIdPendingCaseReducer)
+      // .addCase(
+      //   getNewsByNewsIdAsync.fulfilled,
+      //   getNewsByNewsIdFulfilledCaseReducer
+      // )
+      // .addCase(
+      //   getNewsByNewsIdAsync.rejected,
+      //   getNewsByNewsIdRejectedCaseReducer
+      // )
 
       //GetNewsBySerieId
       .addCase(
@@ -77,6 +74,14 @@ export const newsSlice = createSlice({
       .addCase(
         getNewsBySerieIdAsync.rejected,
         getNewsBySerieIdRejectedCaseReducer
-      );
+      )
+
+      //DeleteNewsById
+      .addCase(deleteNewsByIdAsync.pending, deleteNewsByIdPendingCaseReducer)
+      .addCase(
+        deleteNewsByIdAsync.fulfilled,
+        deleteNewsByIdFullfieldCaseReducer
+      )
+      .addCase(deleteNewsByIdAsync.rejected, deleteNewsByIdRejectedCaseReducer);
   },
 });

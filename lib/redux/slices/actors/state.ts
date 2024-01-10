@@ -11,12 +11,14 @@ import {
 
 export interface ActorState {
   items: ActorDTO[];
+  byEntityIdItems: ActorDTO[];
   active?: ActorDTO;
   status: "idle" | "loading" | "failed";
 }
 
 export const initialState: ActorState = {
   items: [],
+  byEntityIdItems: [],
   // items: [actor, actor1, actor2, actor3, actor4, actor5, actor6],
   status: "idle",
 };

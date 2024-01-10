@@ -1,4 +1,3 @@
-import { ActorDTO } from "@/lib/api/dtos/actor.dto";
 import { ActorsListFormEdit } from "@/lib/components/ActorsListFormEdit";
 export interface ComponentProps {
   params: {

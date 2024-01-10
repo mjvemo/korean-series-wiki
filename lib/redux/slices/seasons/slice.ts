@@ -1,6 +1,7 @@
 import { initialState } from "./state";
 import {
   createSeasonAsync,
+  deleteSeasonByIdAsync,
   getSeasonsAsync,
   getSeasonsBySerieId,
 } from "./thunks";
@@ -9,6 +10,9 @@ import {
   createSeasonFulfilledCaseReducer,
   createSeasonPendingCaseReducer,
   createSeasonRejectedCaseReducer,
+  deleteSeasonsByIdFullfieldCaseReducer,
+  deleteSeasonsByIdPendingCaseReducer,
+  deleteSeasonsByIdRejectedCaseReducer,
   getSasonsBySerieIdRejectedCaseReducer,
   getSeasonByIdFulfilledCaseReducer,
   getSeasonsBySerieIdFulfilledCaseReducer,
@@ -32,6 +36,7 @@ export const seasonsSlice = createSlice({
       .addCase(getSeasonsAsync.fulfilled, getSeasonsFulfilledCaseReducer)
       .addCase(getSeasonsAsync.rejected, getSeasonsRejectedCaseReducer)
 
+      // Get SeasonBySerieId
       .addCase(
         getSeasonsBySerieId.fulfilled,
         getSeasonsBySerieIdFulfilledCaseReducer
@@ -45,8 +50,24 @@ export const seasonsSlice = createSlice({
         getSasonsBySerieIdRejectedCaseReducer
       )
 
+      // Create Season
       .addCase(createSeasonAsync.fulfilled, createSeasonFulfilledCaseReducer)
       .addCase(createSeasonAsync.pending, createSeasonPendingCaseReducer)
-      .addCase(createSeasonAsync.rejected, createSeasonRejectedCaseReducer);
+      .addCase(createSeasonAsync.rejected, createSeasonRejectedCaseReducer)
+
+      // DeleteSeasonById
+
+      .addCase(
+        deleteSeasonByIdAsync.pending,
+        deleteSeasonsByIdPendingCaseReducer
+      )
+      .addCase(
+        deleteSeasonByIdAsync.fulfilled,
+        deleteSeasonsByIdPendingCaseReducer
+      )
+      .addCase(
+        deleteSeasonByIdAsync.rejected,
+        deleteSeasonsByIdRejectedCaseReducer
+      );
   },
 });

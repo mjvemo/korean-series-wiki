@@ -6,6 +6,7 @@ import {
   getSerieByIdAsync,
   createSerieAsync,
   getSeriesByActorIdAsync,
+  deleteSerieByIdAsync,
 } from "./thunks";
 import {
   getSeriesFulfilledCaseReducer,
@@ -20,6 +21,9 @@ import {
   getSeriesByActorIdFulfilledCaseReducer,
   getSeriesByActorIdPendingCaseReducer,
   getSeriesByActorIdRejectedCaseReducer,
+  deleteSeriesByIdFullfieldCaseReducer,
+  deleteSeriesByIdPendingCaseReducer,
+  deleteSeriesByIdRejectedCaseReducer,
 } from "./reducers";
 import { CreateSerieUseCase } from "@/server/src/use-cases/series/create-serie/create-serie.use-case";
 import { flushSync } from "react-dom";
@@ -60,6 +64,18 @@ export const seriesSlice = createSlice({
       .addCase(
         getSeriesByActorIdAsync.rejected,
         getSeriesByActorIdRejectedCaseReducer
+      )
+
+      //DeleteSerieById
+
+      .addCase(deleteSerieByIdAsync.pending, deleteSeriesByIdPendingCaseReducer)
+      .addCase(
+        deleteSerieByIdAsync.fulfilled,
+        deleteSeriesByIdFullfieldCaseReducer
+      )
+      .addCase(
+        deleteSerieByIdAsync.rejected,
+        deleteSeriesByIdRejectedCaseReducer
       );
   },
 });

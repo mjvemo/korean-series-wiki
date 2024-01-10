@@ -2,64 +2,69 @@
 import { FormikHelpers, useFormik } from "formik";
 import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
-import { string, object, number } from "yup";
+import { string, object } from "yup";
 import { Button } from "primereact/button";
 import {
+  getActorByIdAsync,
+  getAwardsByActorIdAsync,
+  getNewsByActorIdAsync,
+  getSeriesByActorIdAsync,
   selectActiveAward,
-  selectAwardsRequestStatus,
+  updateAwardsAsync,
   useDispatch,
   useSelector,
 } from "@/lib/redux";
 import { awardFormToCreateAwardRequest } from "@/lib/utils/form-mappers";
-import { createAwardAsync } from "@/lib/redux";
 import { Calendar } from "primereact/calendar";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { AwardFormPayload } from "@/lib/models/award.model";
-import { AwardDTO } from "@/lib/api/dtos/award.dto";
 
-const formSchema = object({
+const formSchema = object<AwardFormPayload>({
   name: string().required("name Required"),
   year: string().required("year Required"),
   category: string().required("category required"),
 });
 
 export interface ComponentProps {
-  data: AwardDTO[];
+  awardId: string;
 }
 
-export function AwardsListFormEdit() {
+export function AwardsListFormEdit(props: ComponentProps) {
+  const id = props.awardId;
   const dispatch = useDispatch();
   const router = useRouter();
   const award = useSelector(selectActiveAward);
-  const status = useSelector(selectAwardsRequestStatus);
+
   useEffect(() => {
-    if (award) {
-      router.push(`/awards/${award.id}`);
-    }
-  }, [status]);
+    dispatch(getActorByIdAsync(id));
+    dispatch(getNewsByActorIdAsync(id));
+    dispatch(getAwardsByActorIdAsync(id));
+    dispatch(getSeriesByActorIdAsync(id));
+  });
 
   const initialValues: AwardFormPayload = {
-    name: "name",
-    year: 0,
-    category: "some",
+    name: award?.name || "name",
+    year: award?.year || 0,
+    category: award?.category || "category",
   };
 
-  const onFormSubmit = (
+  const onFormSubmit = async (
     values: AwardFormPayload,
     actions: FormikHelpers<AwardFormPayload>
   ) => {
     const updateAwardsRequest = awardFormToCreateAwardRequest(values);
-    dispatch(createAwardAsync(updateAwardsRequest));
-
+    await dispatch(updateAwardsAsync({ id, data: updateAwardsRequest }));
     actions.setSubmitting(true);
-    actions.resetForm();
+
+    router.push(`/awards/${id}`);
   };
 
   const formik = useFormik({
     initialValues,
     onSubmit: onFormSubmit,
     validationSchema: formSchema,
+    enableReinitialize: true,
   });
   const isFormFieldInvalid = (name: keyof AwardFormPayload) =>
     !!(formik.touched[name] && formik.errors[name]);

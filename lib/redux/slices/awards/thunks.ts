@@ -1,6 +1,7 @@
 import client from "@/lib/api";
 import { CreateAwardsRequestDTO } from "@/lib/api/dtos/create-awards-request-dto";
 import { createAppAsyncThunk } from "../../createAppAsyncThunk";
+import { UpdateAwardsRequestDTO } from "@/lib/api/dtos/update-awards-request-dto";
 
 enum ActionType {
   CREATE_AWARD = "awards/createAward",
@@ -8,6 +9,8 @@ enum ActionType {
   GET_AWARDS_BY_ID = "awards/getAwardsById",
   GET_AWARDS_BY_ACTOR_ID = "awards/getAwardsByActorId",
   GET_AWARDS_BY_SERIE_ID = "awards/getAwardsBySerieId",
+  DELETE_AWARD_BY_ID = "awards/deleteAwardByIdAsync",
+  UPDATE_AWARD_BY_ID = "awards/updateAwardByIdAsync",
 }
 
 export const createAwardAsync = createAppAsyncThunk(
@@ -42,9 +45,16 @@ export const getAwardsBySerieIdAsync = createAppAsyncThunk(
   }
 );
 
-// export const updateAwardsAsync = createAppAsyncThunk(
-//   ActionType.UPDATE_AWARD_BY_ID,
-//   (id: string) => {
-//     return client.updateAwardById(id);
-//   }
-// );
+export const deleteAwardByIdAsync = createAppAsyncThunk(
+  ActionType.DELETE_AWARD_BY_ID,
+  (id: string) => {
+    return client.deleteAward(id);
+  }
+);
+
+export const updateAwardsAsync = createAppAsyncThunk(
+  ActionType.UPDATE_AWARD_BY_ID,
+  ({ id, data }: { id: string; data: UpdateAwardsRequestDTO }) => {
+    return client.updateAwardById(id, data);
+  }
+);

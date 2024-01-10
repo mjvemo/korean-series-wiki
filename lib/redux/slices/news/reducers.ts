@@ -105,10 +105,29 @@ export const getNewsBySerieIdRejectedCaseReducer: CaseReducer<
   state.status = "failed";
 };
 
-// export const deleteNewsReducer: CaseReducer<
-//   NewsState,
-//   PayloadAction<NewsDTO>
-// > = (state, action) => ({
-//   ...state,
-//   items: state.items.filter((item) => item !== action.payload),
-// });
+export const updateNewsReducer: CaseReducer<
+  NewsState,
+  PayloadAction<NewsDTO>
+> = (state, action) => {
+  state.items.push(action.payload);
+};
+
+export const deleteNewsByIdFullfieldCaseReducer: CaseReducer<
+  NewsState,
+  PayloadAction<NewsDTO>
+> = (state, action) => {
+  state.items = state.items.filter((item) => item.id !== action.payload.id);
+  state.status = "idle";
+};
+
+export const deleteNewsByIdPendingCaseReducer: CaseReducer<NewsState, any> = (
+  state
+) => {
+  state.status = "loading";
+};
+
+export const deleteNewsByIdRejectedCaseReducer: CaseReducer<NewsState, any> = (
+  state
+) => {
+  state.status = "failed";
+};

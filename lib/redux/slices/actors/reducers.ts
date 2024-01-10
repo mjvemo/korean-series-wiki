@@ -45,7 +45,7 @@ export const getActorsBySerieIdFullfieldCaseReducer: CaseReducer<
   ActorState,
   PayloadAction<ActorDTO[]>
 > = (state, action) => {
-  state.items = action.payload;
+  state.byEntityIdItems = action.payload;
   state.status = "idle";
 };
 

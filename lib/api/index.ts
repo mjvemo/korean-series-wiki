@@ -12,6 +12,8 @@ import { SeasonDTO } from "@/lib/api/dtos/season.dto";
 import { CreateSeasonRequestDTO } from "@/lib/api/dtos/create-seasons-request.dto";
 import { CreateNewsRequestDTO } from "@/lib/api/dtos/create-news-request.dto";
 import { UpdateNewsRequestDTO } from "@/lib/api/dtos/update-news-request.dto";
+import { UpdateAwardsRequestDTO } from "./dtos/update-awards-request-dto";
+import { UpdateSeasonRequestDTO } from "./dtos/update-seasons-request-dto";
 
 // import {
 //   getAwards,
@@ -39,6 +41,8 @@ export class ApiClient {
     }
   }
 
+  // =================== Series =======================
+
   getSeries(): Promise<SerieDTO[]> {
     const url = "/series";
     return this.request({ url });
@@ -54,7 +58,7 @@ export class ApiClient {
     return this.request({ url });
   }
 
-  updateSerie(id: string, data: UpdateSerieRequestDTO): Promise<SerieDTO> {
+  updateSerieById(id: string, data: UpdateSerieRequestDTO): Promise<SerieDTO> {
     const url = `/series/${id}`;
     return this.request({ url, method: "PATCH", data });
   }
@@ -63,6 +67,8 @@ export class ApiClient {
     const url = `/series/${id}`;
     return this.request({ url, method: "DELETE" });
   }
+
+  // ==================== Actor ====================
 
   getActors(): Promise<ActorDTO[]> {
     const url = "/actors";
@@ -127,15 +133,15 @@ export class ApiClient {
     return this.request({ url, method: "GET" });
   }
 
-  // updateAward(id: string, data: UpdateAwardsRequestDTO): Promise<NewsDTO> {
-  //     const url = `/awards/${id}`;
-  //     return this.request({ url, method: "PATCH", data });
-  //   }
+  updateAwardById(id: string, data: UpdateAwardsRequestDTO): Promise<NewsDTO> {
+    const url = `/awards/${id}`;
+    return this.request({ url, method: "PATCH", data });
+  }
 
-  // deleteAward(id: string): Promise<NewsDTO> {
-  //   const url = `/awards/${id}`;
-  //   return this.request({ url, method: "DELETE" });
-  // }
+  deleteAward(id: string): Promise<AwardDTO> {
+    const url = `/awards/${id}`;
+    return this.request({ url, method: "DELETE" });
+  }
 
   // ================== News ==================
 
@@ -162,7 +168,7 @@ export class ApiClient {
     return this.request({ url });
   }
 
-  updateNews(id: string, data: UpdateNewsRequestDTO): Promise<NewsDTO> {
+  updateNewsById(id: string, data: UpdateNewsRequestDTO): Promise<NewsDTO> {
     const url = `/news/${id}`;
     return this.request({ url, method: "PATCH", data });
   }
@@ -171,6 +177,8 @@ export class ApiClient {
     const url = `/news/${id}`;
     return this.request({ url, method: "DELETE" });
   }
+
+  // ==================== Seasons ===========================
 
   getSeasons(): Promise<SeasonDTO[]> {
     const url = "/seasons";
@@ -196,12 +204,18 @@ export class ApiClient {
     const url = `/series/${id}/seasons`;
     return this.request({ url });
   }
+  updateSeasonById(
+    id: string,
+    data: UpdateSeasonRequestDTO
+  ): Promise<SeasonDTO> {
+    const url = `/seasons/${id}`;
+    return this.request({ url, method: "PATCH", data });
+  }
+  deleteSeason(id: string): Promise<SeasonDTO> {
+    const url = `/seasons/${id}`;
+    return this.request({ url, method: "DELETE" });
+  }
 }
-
-//  updateSeason(id: string, data: UpdateSeasonsRequestDTO): Promise<SeasonsDTO> {
-//     const url = `/seasons/${id}`;
-//     return this.request({ url, method: "PATCH", data });
-//   }
 
 const client = new ApiClient();
 

@@ -73,7 +73,7 @@ export const getAwardsByActorIdFullfieldCaseReducer: CaseReducer<
   AwardState,
   PayloadAction<AwardDTO[]>
 > = (state, action) => {
-  state.items = action.payload;
+  state.byEntityIdItems = action.payload;
   state.status = "idle";
 };
 
@@ -95,7 +95,7 @@ export const getAwardsBySerieIdFullfieldCaseReducer: CaseReducer<
   AwardState,
   PayloadAction<AwardDTO[]>
 > = (state, action) => {
-  state.items = action.payload;
+  state.byEntityIdItems = action.payload;
   state.status = "idle";
 };
 
@@ -113,10 +113,30 @@ export const getAwardsBySerieIdRejectedCaseReducer: CaseReducer<
   state.status = "failed";
 };
 
-// export const deleteAwardReducer: CaseReducer<
-//   AwardState,
-//   PayloadAction<AwardDTO>
-// > = (state, action) => ({
-//   ...state,
-//   items: state.items.filter((item) => item !== action.payload),
-// });
+export const updateAwardReducer: CaseReducer<
+  AwardState,
+  PayloadAction<AwardDTO>
+> = (state, action) => {
+  state.items.push(action.payload);
+};
+
+export const deleteAwardByIdFullfieldCaseReducer: CaseReducer<
+  AwardState,
+  PayloadAction<AwardDTO>
+> = (state, action) => {
+  state.items = state.items.filter((item) => item.id !== action.payload.id);
+  state.status = "idle";
+};
+
+export const deleteAwardByIdPendingCaseReducer: CaseReducer<AwardState, any> = (
+  state
+) => {
+  state.status = "loading";
+};
+
+export const deleteAwardsByIdRejectedCaseReducer: CaseReducer<
+  AwardState,
+  any
+> = (state) => {
+  state.status = "failed";
+};

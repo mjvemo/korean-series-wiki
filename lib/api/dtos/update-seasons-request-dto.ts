@@ -1,4 +1,4 @@
-export interface SeasonDTO {
+export interface UpdateSeasonRequestDTO {
   id?: string;
   name?: string;
   releaseAt?: string;

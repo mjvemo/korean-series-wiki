@@ -1,6 +1,7 @@
 import client from "@/lib/api";
 import { createAppAsyncThunk } from "../../createAppAsyncThunk";
 import { CreateNewsRequestDTO } from "@/lib/api/dtos/create-news-request.dto";
+import { UpdateNewsRequestDTO } from "@/lib/api/dtos/update-news-request.dto";
 
 enum ActionType {
   GET_NEWS = "news/getNews",
@@ -8,6 +9,8 @@ enum ActionType {
   CREATE_NEWS = "news/createNews",
   GET_NEWS_BY_ACTOR_ID = "news/getNewsByActorId",
   GET_NEWS_BY_SERIE_ID = "news/getNewsBySerieId",
+  DELETE_NEWS_BY_ID = "news/deleteNewsById",
+  UPDATE_NEWS_BY_ID = "news/updateNews",
 }
 
 // {
@@ -55,5 +58,19 @@ export const getNewsBySerieIdAsync = createAppAsyncThunk(
   ActionType.GET_NEWS_BY_SERIE_ID,
   (id: string) => {
     return client.getNewsBySerieId(id);
+  }
+);
+
+export const deleteNewsByIdAsync = createAppAsyncThunk(
+  ActionType.DELETE_NEWS_BY_ID,
+  (id: string) => {
+    return client.deleteNews(id);
+  }
+);
+
+export const updateNewsAsync = createAppAsyncThunk(
+  ActionType.UPDATE_NEWS_BY_ID,
+  ({ id, data }: { id: string; data: UpdateNewsRequestDTO }) => {
+    return client.updateNewsById(id, data);
   }
 );

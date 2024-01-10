@@ -45,7 +45,7 @@ export const getSeasonsBySerieIdFulfilledCaseReducer: CaseReducer<
   SeasonState,
   PayloadAction<SeasonDTO[]>
 > = (state, action) => {
-  state.items = action.payload;
+  state.byEntityIdItems = action.payload;
   state.status = "idle";
 };
 
@@ -90,10 +90,31 @@ export const addSeasonReducer: CaseReducer<
   state.items.push(action.payload);
 };
 
-// export const deleteSeasonsReducer: CaseReducer<
-//   SeasonState,
-//   PayloadAction<SeasonDTO>
-// > = (state, action) => ({
-//   ...state,
-//   items: state.items.filter((item) => item !== action.payload),
-// });
+export const updateSeasonReducer: CaseReducer<
+  SeasonState,
+  PayloadAction<SeasonDTO>
+> = (state, action) => {
+  state.items.push(action.payload);
+};
+
+export const deleteSeasonsByIdFullfieldCaseReducer: CaseReducer<
+  SeasonState,
+  PayloadAction<SeasonDTO>
+> = (state, action) => {
+  state.items = state.items.filter((item) => item.id !== action.payload.id);
+  state.status = "idle";
+};
+
+export const deleteSeasonsByIdPendingCaseReducer: CaseReducer<
+  SeasonState,
+  any
+> = (state) => {
+  state.status = "loading";
+};
+
+export const deleteSeasonsByIdRejectedCaseReducer: CaseReducer<
+  SeasonState,
+  any
+> = (state) => {
+  state.status = "failed";
+};
