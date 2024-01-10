@@ -10,6 +10,9 @@ import {
   getActorsBySerieIdAsync,
   selectSeasons,
   selectAwards,
+  getNewsByActorIdAsync,
+  getNewsBySerieIdAsync,
+  getAwardsBySerieIdAsync,
 } from "@/lib/redux";
 import { TabPanel, TabView } from "primereact/tabview";
 import NewsListSelector from "@/lib/components/NewsListFormSelector";
@@ -38,6 +41,8 @@ export default function SeriesList(props: ComponentProps) {
   useEffect(() => {
     dispatch(getSerieByIdAsync(id));
     dispatch(getActorsBySerieIdAsync(id));
+    dispatch(getNewsBySerieIdAsync(id));
+    dispatch(getAwardsBySerieIdAsync(id));
   }, []);
 
   const actors = useSelector(selectActors);

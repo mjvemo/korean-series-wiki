@@ -7,6 +7,7 @@ enum ActionType {
   GET_NEWS_BY_ID = "news/getNewsById",
   CREATE_NEWS = "news/createNews",
   GET_NEWS_BY_ACTOR_ID = "news/getNewsByActorId",
+  GET_NEWS_BY_SERIE_ID = "news/getNewsBySerieId",
 }
 
 // {
@@ -46,6 +47,13 @@ export const createNewsAsync = createAppAsyncThunk(
 export const getNewsByActorIdAsync = createAppAsyncThunk(
   ActionType.GET_NEWS_BY_ACTOR_ID,
   (id: string) => {
-    return client.getAwardsByActorId(id);
+    return client.getNewsByActorId(id);
+  }
+);
+
+export const getNewsBySerieIdAsync = createAppAsyncThunk(
+  ActionType.GET_NEWS_BY_SERIE_ID,
+  (id: string) => {
+    return client.getNewsBySerieId(id);
   }
 );

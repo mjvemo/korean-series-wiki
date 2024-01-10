@@ -1,4 +1,4 @@
-import { AwardDTO } from "@/server/src/dtos/award.dto";
+import { AwardDTO } from "../api/dtos/award.dto";
 import { ActorDTO } from "../api/dtos/actor.dto";
 import { NewsDTO } from "../api/dtos/news.dto";
 import { SerieDTO } from "../api/dtos/serie.dto";

@@ -1,6 +1,8 @@
 import { HydratedDocument, Schema, model } from "mongoose";
 import { IActor } from "../../actor/entities/actor.entity";
+import { IAward } from "../../award/entities/award.entity";
 import { ISeason } from "../../season/entities/season.entity";
+import { INews } from "../../news/entities/news.entity";
 
 // 1. Create an interface representing a document in MongoDB.
 export interface ISerie {
@@ -15,8 +17,8 @@ export interface ISerie {
   description: string;
   seasons: string[] | HydratedDocument<ISeason>[];
   cast: string[] | HydratedDocument<IActor>[];
-  news: string[];
-  awards: string[];
+  news: string[] | HydratedDocument<INews>[];
+  awards: string[] | HydratedDocument<IAward>[];
   nominations: string[];
   releasedAt: string;
   createdAt: string;
@@ -36,7 +38,7 @@ const schema = new Schema<ISerie>({
   description: { type: String, required: true },
   seasons: [{ type: Schema.Types.UUID, ref: "Season" }],
   cast: [{ type: Schema.Types.UUID, ref: "Actor" }],
-  news: [{ type: Schema.Types.UUID, ref: "New" }],
+  news: [{ type: Schema.Types.UUID, ref: "News" }],
   awards: [{ type: Schema.Types.UUID, ref: "Award" }],
   nominations: [{ type: Schema.Types.UUID, ref: "Award" }],
   releasedAt: { type: String, required: true },

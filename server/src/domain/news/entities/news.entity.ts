@@ -5,7 +5,6 @@ export interface INews {
   _id: Schema.Types.UUID;
   name: string;
   description: string;
-  url: string;
   thumbnail: string;
   publishedAt: string;
   createdAt: string;
@@ -14,10 +13,9 @@ export interface INews {
 
 // 2. Create a Schema corresponding to the document interface.
 const schema = new Schema<INews>({
-  _id: {type: Schema.Types.UUID, required: true},
+  _id: { type: Schema.Types.UUID, required: true },
   name: { type: String, required: true },
   description: { type: String, required: true },
-  url: { type: String, required: true },
   thumbnail: { type: String, required: true },
   publishedAt: { type: String, required: true },
   createdAt: { type: String, required: true },

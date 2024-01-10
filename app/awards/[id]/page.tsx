@@ -11,7 +11,7 @@ import {
   getActorsBySerieIdAsync,
   selectActors,
   selectSeries,
-  getSeriesByActorId,
+  getSeriesByActorIdAsync,
   getAwardByIdAsync,
   selectActiveAward,
 } from "@/lib/redux";

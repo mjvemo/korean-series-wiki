@@ -6,3 +6,6 @@ export const selectActiveSerie = (state: ReduxState) => state.series.active;
 
 export const selectSerieRequestStatus = (state: ReduxState) =>
   state.series.status;
+
+export const selectByEntityIdSeries = (state: ReduxState) =>
+  state.series.byEntityIdItems;

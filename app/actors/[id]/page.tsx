@@ -8,9 +8,11 @@ import {
   useSelector,
   selectActiveActor,
   selectSeries,
-  getSeriesByActorId,
+  getSeriesByActorIdAsync,
   selectAwards,
   getAwardsByActorIdAsync,
+  getNewsByActorIdAsync,
+  selectByEntityIdNews,
 } from "@/lib/redux";
 import { TabPanel, TabView } from "primereact/tabview";
 import NewsListSelector from "@/lib/components/NewsListFormSelector";
@@ -24,6 +26,7 @@ import NewsList from "@/lib/components/NewsList";
 import { selectNews } from "@/lib/redux/slices/news";
 import { Button } from "primereact/button";
 import Link from "next/link";
+import { serie } from "@/lib/models/serie.model";
 
 export interface ComponentProps {
   params: { id: string };
@@ -36,14 +39,15 @@ export default function ActorsList(props: ComponentProps) {
 
   useEffect(() => {
     dispatch(getActorByIdAsync(id));
-    dispatch(getSeriesByActorId(id));
+    dispatch(getSeriesByActorIdAsync(id));
     dispatch(getAwardsByActorIdAsync(id));
+    dispatch(getNewsByActorIdAsync(id));
   }, []);
 
   const series = useSelector(selectSeries);
   const activeActor = useSelector(selectActiveActor);
   const awards = useSelector(selectAwards);
-  const news = useSelector(selectNews);
+  const news = useSelector(selectByEntityIdNews);
   const actor = useSelector(selectActiveActor);
 
   //TODO: Fixed Link href to id/edit page
@@ -74,9 +78,7 @@ export default function ActorsList(props: ComponentProps) {
               <NewsList data={news} />
             </TabPanel>
             <TabPanel header="Series" className="m-0">
-              {/* { series.map((serie)=> {
- <SeriesList data={series} />
-              })} */}
+              <SeriesList data={series} />
             </TabPanel>
             <TabPanel header="Awards" className="m-0">
               <AwardsList data={awards} />

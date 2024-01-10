@@ -17,12 +17,10 @@ import { useRouter } from "next/navigation";
 import { NewsFormPayload } from "@/lib/models/news.model";
 
 const formSchema = object({
-  url: string().required("image url Required"),
   name: string().required("name Required"),
   description: string().required("description required"),
   thumbnail: string().required("thumbnail Required"),
   publishedAt: string().required("publishedAt Required"),
-  createdAt: string().required("createdAt Required"),
 });
 
 export function NewsForm() {
@@ -37,13 +35,9 @@ export function NewsForm() {
   }, [status]);
 
   const initialValues: NewsFormPayload = {
-    id: "",
     name: "",
-    url: "",
     thumbnail: "",
     publishedAt: "",
-    createdAt: "",
-    // year: 0, // TODO: add year to server DTO's
     description: "",
   };
 
@@ -84,19 +78,19 @@ export function NewsForm() {
               <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
                 <label>Image Url</label>
                 <InputText
-                  name="url"
-                  id="url"
-                  value={formik.values.url}
+                  name="thumbnail"
+                  id="thumbnail"
+                  value={formik.values.thumbnail}
                   onChange={formik.handleChange}
-                  placeholder="image url"
+                  placeholder="thumbnail"
                   onBlur={formik.handleBlur}
                   className={classNames({
-                    "p-invalid": isFormFieldInvalid("url"),
+                    "p-invalid": isFormFieldInvalid("thumbnail"),
                     "w-full": true,
                     "md: w-14rem": true,
                   })}
                 />
-                {getFormErrorMessage("url")}
+                {getFormErrorMessage("thumbnail")}
               </div>
               <div className="flex flex-column gap-3 align-items-start justify-content-start pt-3 py-2 ">
                 <label>Name</label>
@@ -132,6 +126,23 @@ export function NewsForm() {
                     })}
                   />
                   {getFormErrorMessage("description")}
+                </div>
+                <div className="flex flex-column gap-3 align-items-start justify-content-start pt-3 py-2 ">
+                  <label>Published At</label>
+                  <InputText
+                    name="publishedAt"
+                    id="publishedAt"
+                    value={formik.values.publishedAt}
+                    onChange={formik.handleChange}
+                    placeholder="publishedAt"
+                    onBlur={formik.handleBlur}
+                    className={classNames({
+                      "p-invalid": isFormFieldInvalid("publishedAt"),
+                      "w-full": true,
+                      "md: w-14rem": true,
+                    })}
+                  />
+                  {getFormErrorMessage("publishedAt")}
                 </div>
               </div>
             </div>{" "}

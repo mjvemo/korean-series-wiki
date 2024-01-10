@@ -16,12 +16,16 @@ export enum Resource {
   award = "/awards/:id",
 
   awardsByActorId = "/actors/:actorId/awards",
+  awardsBySerieId = "/series/:serieId/awards",
 
   chapters = "/chapters",
   chapter = "/chapters/:id",
 
   news = "/news",
   new = "/news/:id",
+
+  newsByActorId = "/actors/:actorId/news",
+  newsBySerieId = "/series/:serieId/news",
 
   seasons = "/seasons",
   season = "/seasons/:id",

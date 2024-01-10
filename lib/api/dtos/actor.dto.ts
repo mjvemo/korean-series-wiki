@@ -1,6 +1,6 @@
 export interface ActorDTO {
   id: string;
-  image: string;
+  imageUrl: string;
   name: string;
   age: number;
   education: string;

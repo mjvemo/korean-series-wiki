@@ -1,33 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import Link from "next/link";
 import { ActorDTO } from "@/lib/api/dtos/actor.dto";
 import { useRouter } from "next/navigation";
-import {
-  getActorsAsync,
-  selectActiveActor,
-  useDispatch,
-  useSelector,
-} from "@/lib/redux";
 import { Button } from "primereact/button";
 import { Avatar } from "primereact/avatar";
-import { all } from "axios";
-import { Dialog } from "primereact/dialog";
+import DeleteConfirmDialog from "../DeleteConfirmDialog";
+import { deleteActorByIdAsync, useDispatch } from "@/lib/redux";
+import { Toast } from "primereact/toast";
 
 export interface ComponentProps {
   data: ActorDTO[];
 }
 
 export default function ActorsList(props: ComponentProps) {
-  const router = useRouter();
   const dispatch = useDispatch();
-  const actor = useSelector(selectActiveActor);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    dispatch(getActorsAsync());
-  }, []);
+  const router = useRouter();
+  const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
+  const [toDelete, setToDelete] = useState({ name: "", id: "" });
+  const toast = useRef<Toast>(null);
 
   const imageBodyTemplate = (allActors: { url: string | undefined }) => {
     return (
@@ -60,33 +52,36 @@ export default function ActorsList(props: ComponentProps) {
     );
   };
 
-  const bodyTemplateDelete = () => {
+  const bodyTemplateDelete = (data: ActorDTO) => {
     return (
       <Link href="">
-        <Button icon="pi pi-trash" text onClick={() => setVisible(true)} />
+        <Button
+          icon="pi pi-trash"
+          text
+          onClick={() => {
+            setToDelete({ id: data.id, name: data.name });
+            setDeleteDialogVisible(true);
+          }}
+        />
       </Link>
     );
   };
 
-  const footerContent = (
-    <div className="flex flex-row gap-2 justify-content-end">
-      <Button
-        label="Delete"
-        icon="pi pi-check"
-        onClick={() => setVisible(false)}
-        autoFocus
-      />
-      <Button
-        label="Cancel"
-        icon="pi pi-times"
-        onClick={() => setVisible(false)}
-        className="p-button-text"
-      />
-    </div>
-  );
+  async function handleDeleteConfirm() {
+    await dispatch(deleteActorByIdAsync(toDelete.id));
+    setDeleteDialogVisible(false);
+    toast.current?.show({
+      severity: "info",
+      summary: "Actor deleted",
+      detail: `Name: ${toDelete.name}`,
+      life: 3000,
+    });
+    setToDelete({ id: "", name: "" });
+  }
 
   return (
     <div className="card justify-content-center m-4">
+      <Toast ref={toast} />
       <DataTable
         value={props.data}
         pageLinkSize={5}
@@ -147,18 +142,13 @@ export default function ActorsList(props: ComponentProps) {
           style={{ width: "5%" }}
         ></Column>
       </DataTable>
-      <div className="card flex justify-content-center">
-        <Dialog
-          header="Delete"
-          footer={footerContent}
-          visible={visible}
-          onHide={() => setVisible(false)}
-          style={{ width: "35vw" }}
-          breakpoints={{ "960px": "75vw", "641px": "100vw" }}
-        >
-          <p className="m-0">Are you sure you want to delete?</p>
-        </Dialog>
-      </div>
+      <DeleteConfirmDialog
+        visible={deleteDialogVisible}
+        message={`Are you sure you want to delete actor ${toDelete.name}`}
+        onCancelDelete={() => setDeleteDialogVisible(false)}
+        onConfirmDelete={() => handleDeleteConfirm()}
+        onHide={() => setDeleteDialogVisible(false)}
+      />
     </div>
   );
 }

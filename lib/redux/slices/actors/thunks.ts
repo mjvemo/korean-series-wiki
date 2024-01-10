@@ -58,12 +58,13 @@ export const createActorAsync = createAppAsyncThunk(
 export const deleteActorByIdAsync = createAppAsyncThunk(
   ActionType.DELETE_ACTOR_BY_ID,
   (id: string) => {
-    client.deleteActor(id);
+    return client.deleteActor(id);
   }
 );
-// export const updateActorsAsync = createAppAsyncThunk(
-//   ActionType.UPDATE_ACTOR_BY_ID,
-//   (id: string) => {
-//     return client.updateActorById(id);
-//   }
-// );
+
+export const updateActorsAsync = createAppAsyncThunk(
+  ActionType.UPDATE_ACTOR_BY_ID,
+  ({ id, data }: { id: string; data: UpdateActorRequestDTO }) => {
+    return client.updateActorById(id, data);
+  }
+);

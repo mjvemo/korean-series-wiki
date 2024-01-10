@@ -16,6 +16,7 @@ import getAward from "./awards/get-award";
 import updateAward from "./awards/update-award";
 
 import getAwardsByActorId from "./awards/get-awards-by-actor-id";
+import getAwardsBySerieId from "./awards/get-awards-by-serie-id";
 
 import getChapters from "./chapters/get-chapter";
 import createChapter from "./chapters/create-chapter";
@@ -28,6 +29,9 @@ import createNews from "./news/create-news";
 import deleteNews from "./news/delete-news";
 import getNews from "./news/get-news";
 import updateNews from "./news/update-news";
+
+import getNewsByActorId from "./news/get-news-by-actor-id";
+import getNewsBySerieId from "./news/get-news-by-serie-id";
 
 import getSeasons from "./seasons/get-seasons";
 import createSeason from "./seasons/create-season";
@@ -60,7 +64,9 @@ export function register(app: Application) {
   app.delete(Resource.award, deleteAward);
   app.get(Resource.award, getAward);
   app.patch(Resource.award, updateAward);
+
   app.get(Resource.awardsByActorId, getAwardsByActorId);
+  app.get(Resource.awardsBySerieId, getAwardsBySerieId);
 
   // chapters
   app.get(Resource.chapters, getChapters);
@@ -75,6 +81,9 @@ export function register(app: Application) {
   app.delete(Resource.new, deleteNews);
   app.get(Resource.new, getNews);
   app.patch(Resource.new, updateNews);
+
+  app.get(Resource.newsByActorId, getNewsByActorId);
+  app.get(Resource.newsBySerieId, getNewsBySerieId);
 
   // seasons
   app.get(Resource.seasons, getSeasons);

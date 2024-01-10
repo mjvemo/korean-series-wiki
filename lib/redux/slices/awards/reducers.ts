@@ -91,6 +91,28 @@ export const getAwardsByActorIdRejectedCaseReducer: CaseReducer<
   state.status = "failed";
 };
 
+export const getAwardsBySerieIdFullfieldCaseReducer: CaseReducer<
+  AwardState,
+  PayloadAction<AwardDTO[]>
+> = (state, action) => {
+  state.items = action.payload;
+  state.status = "idle";
+};
+
+export const getAwardsBySerieIdPendingCaseReducer: CaseReducer<
+  AwardState,
+  any
+> = (state) => {
+  state.status = "loading";
+};
+
+export const getAwardsBySerieIdRejectedCaseReducer: CaseReducer<
+  AwardState,
+  any
+> = (state) => {
+  state.status = "failed";
+};
+
 // export const deleteAwardReducer: CaseReducer<
 //   AwardState,
 //   PayloadAction<AwardDTO>

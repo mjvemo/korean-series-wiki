@@ -39,21 +39,6 @@ export class ApiClient {
     }
   }
 
-  getAwards(): Promise<AwardDTO[]> {
-    const url = "/awards";
-    return this.request({ url });
-  }
-
-  getAwardById(id: string): Promise<AwardDTO> {
-    const url = `/awards/${id}`;
-    return this.request({ url });
-  }
-
-  createAward(data: CreateAwardsRequestDTO): Promise<AwardDTO> {
-    const url = "/awards";
-    return this.request({ url, data, method: "POST" });
-  }
-
   getSeries(): Promise<SerieDTO[]> {
     const url = "/series";
     return this.request({ url });
@@ -83,9 +68,9 @@ export class ApiClient {
     const url = "/actors";
     return this.request({ url });
   }
-  updateActorById(id: string): Promise<ActorDTO> {
+  updateActorById(id: string, data: UpdateActorRequestDTO): Promise<ActorDTO> {
     const url = `/actors/${id}`;
-    return this.request({ url, method: "PATCH" });
+    return this.request({ url, method: "PATCH", data });
   }
 
   getActorsBySerieId(id: string): Promise<ActorDTO[]> {
@@ -117,20 +102,30 @@ export class ApiClient {
   }
 
   // ================== Awards ==================
-  // createAward(data: CreateAwardRequestDTO): Promise<AwardDTO> {
-  //     const url = `/awards`;
-  //     return this.request({ url, data, method: "POST" });
-  //   }
 
-  //  getAwards(): Promise<NewsDTO[]> {
-  //     const url = "/awards";
-  //     return this.request({ url });
-  //   }
+  getAwards(): Promise<AwardDTO[]> {
+    const url = "/awards";
+    return this.request({ url });
+  }
 
-  // getAwardsById(id: string): Promise<NewsDTO> {
-  //     const url = `/awards/${id}`;
-  //     return this.request({ url });
-  //   }
+  getAwardById(id: string): Promise<AwardDTO> {
+    const url = `/awards/${id}`;
+    return this.request({ url });
+  }
+
+  createAward(data: CreateAwardsRequestDTO): Promise<AwardDTO> {
+    const url = "/awards";
+    return this.request({ url, data, method: "POST" });
+  }
+
+  getAwardsByActorId(id: string): Promise<AwardDTO[]> {
+    const url = `/actors/${id}/awards`;
+    return this.request({ url, method: "GET" });
+  }
+  getAwardsBySerieIdAsync(id: string): Promise<AwardDTO[]> {
+    const url = `/series/${id}/awards`;
+    return this.request({ url, method: "GET" });
+  }
 
   // updateAward(id: string, data: UpdateAwardsRequestDTO): Promise<NewsDTO> {
   //     const url = `/awards/${id}`;
@@ -141,11 +136,6 @@ export class ApiClient {
   //   const url = `/awards/${id}`;
   //   return this.request({ url, method: "DELETE" });
   // }
-
-  getAwardsByActorId(id: string): Promise<AwardDTO[]> {
-    const url = `/actors/${id}/awards`;
-    return this.request({ url, method: "GET" });
-  }
 
   // ================== News ==================
 
@@ -163,8 +153,12 @@ export class ApiClient {
     const url = `/news/${id}`;
     return this.request({ url });
   }
-  getNewsByActorId(id: string): Promise<SeasonDTO[]> {
+  getNewsByActorId(id: string): Promise<NewsDTO[]> {
     const url = `/actors/${id}/news`;
+    return this.request({ url });
+  }
+  getNewsBySerieId(id: string): Promise<NewsDTO[]> {
+    const url = `/series/${id}/news`;
     return this.request({ url });
   }
 

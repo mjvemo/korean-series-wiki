@@ -1,8 +1,11 @@
 export interface UpdateActorRequestDTO {
+  imageUrl?: string;
   name?: string;
   age?: number;
-  image?: string;
-  biography: string;
+  education?: string;
+  agency?: string;
+  yearsActive?: string;
+  biography?: string;
   series?: string[];
   news?: string[];
   awards?: string[];

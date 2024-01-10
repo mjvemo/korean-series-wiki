@@ -4,7 +4,6 @@ import { SchemaValidationError } from "../../../errors/schema-validation.error";
 export interface UpdateNewsRequestProps {
   name?: string;
   description?: string;
-  url?: string;
   thumbnail?: string;
   publishedAt?: string;
 }
@@ -14,7 +13,6 @@ const schema: JSONSchemaType<UpdateNewsRequestProps> = {
   properties: {
     name: { type: "string", nullable: true },
     description: { type: "string", nullable: true },
-    url: { type: "string", nullable: true },
     thumbnail: { type: "string", nullable: true },
     publishedAt: { type: "string", nullable: true },
   },
@@ -25,7 +23,6 @@ const schema: JSONSchemaType<UpdateNewsRequestProps> = {
 export class UpdateNewsRequestDTO implements UpdateNewsRequestProps {
   readonly name?: string;
   readonly description?: string;
-  readonly url?: string;
   readonly thumbnail?: string;
   readonly publishedAt?: string;
 
@@ -44,7 +41,6 @@ export class UpdateNewsRequestDTO implements UpdateNewsRequestProps {
 
     this.name = props.name;
     this.description = props.description;
-    this.url = props.url;
     this.thumbnail = props.thumbnail;
     this.publishedAt = props.publishedAt;
   }

@@ -97,10 +97,24 @@ export const updateActorReducer: CaseReducer<
   state.items.push(action.payload);
 };
 
-// export const deleteActorReducer: CaseReducer<
-//   ActorState,
-//   PayloadAction<ActorDTO>
-// > = (state, action) => ({
-//   ...state,
-//   items: state.items.filter((item) => item !== action.payload),
-// });
+export const deleteActorsByIdFullfieldCaseReducer: CaseReducer<
+  ActorState,
+  PayloadAction<ActorDTO>
+> = (state, action) => {
+  state.items = state.items.filter((item) => item.id !== action.payload.id);
+  state.status = "idle";
+};
+
+export const deleteActorsByIdPendingCaseReducer: CaseReducer<
+  ActorState,
+  any
+> = (state) => {
+  state.status = "loading";
+};
+
+export const deleteActorsByIdRejectedCaseReducer: CaseReducer<
+  ActorState,
+  any
+> = (state) => {
+  state.status = "failed";
+};

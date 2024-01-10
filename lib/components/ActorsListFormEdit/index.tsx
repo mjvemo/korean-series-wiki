@@ -2,8 +2,6 @@
 import { InputNumber, InputNumberChangeEvent } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
 import { SyntheticEvent, useEffect, useState, useRef } from "react";
-import { ChangeEvent } from "react";
-import { Rating, RatingChangeEvent } from "primereact/rating";
 import { Calendar } from "primereact/calendar";
 import {
   useFormik,
@@ -17,30 +15,30 @@ import { classNames } from "primereact/utils";
 import { Image } from "primereact/image";
 import { Button } from "primereact/button";
 import {
-  createActorAsync,
   useDispatch,
   useSelector,
   selectActiveActor,
   selectActorRequestStatus,
-  selectActiveSerie,
+  getActorByIdAsync,
+  getNewsByActorIdAsync,
+  updateActorsAsync,
+  selectNews,
+  getAwardsByActorIdAsync,
+  getSeriesByActorIdAsync,
+  selectAwards,
+  selectSeries,
+  selectByEntityIdNews,
 } from "@/lib/redux";
-import { Cast } from "@/lib/components/Cast";
-import { Award } from "@/lib/components/Award";
+
 import { TabView, TabPanel } from "primereact/tabview";
-import { Series } from "@/lib/components/Series";
 import { ActorsFormPayload } from "@/lib/models/actor.model";
-import { actorFormToCreateActorRequest } from "@/lib/utils/form-mappers";
+import { actorFormToUpdateActorRequest } from "@/lib/utils/form-mappers";
 import { useRouter } from "next/navigation";
-import NewsListSelector from "../NewsListFormSelector";
 import { InputTextarea } from "primereact/inputtextarea";
-import SeriesList from "../SeriesList";
 import SeriesListFormSelector from "../SeriesListFormSelector";
 import { SerieDTO } from "@/lib/api/dtos/serie.dto";
-import AwardsList from "../AwardsList";
 import AwardsListFormSelector from "../AwardsListFormSelector";
 import NewsListFormSelector from "../NewsListFormSelector";
-import { ActorDTO } from "@/lib/api/dtos/actor.dto";
-import { UpdateActorRequestDTO } from "@/server/src/use-cases/actors/update-actor/update-actor-request.dto";
 
 const formSchema = object<ActorsFormPayload>({
   imageUrl: string().url("Invalid Format").required("Required"),
@@ -52,50 +50,59 @@ const formSchema = object<ActorsFormPayload>({
   about: string().required("About Required"),
 });
 export interface ComponentProps {
-  data: ActorDTO[];
+  actorId: string;
 }
 
 export function ActorsListFormEdit(props: ComponentProps) {
+  const id = props.actorId;
   const router = useRouter();
   // dispatch
   const dispatch = useDispatch();
   const actor = useSelector(selectActiveActor);
   const status = useSelector(selectActorRequestStatus);
+  const news = useSelector(selectByEntityIdNews);
+  const awards = useSelector(selectAwards);
+  const series = useSelector(selectSeries);
 
   useEffect(() => {
-    if (actor) {
-      router.push(`/actors/${actor.id}`);
-    }
-  }, [status]);
+    dispatch(getActorByIdAsync(id));
+    dispatch(getNewsByActorIdAsync(id));
+    dispatch(getAwardsByActorIdAsync(id));
+    dispatch(getSeriesByActorIdAsync(id));
+  }, []);
 
   const initialValues: ActorsFormPayload = {
-    imageUrl: "imageUrl", // TODO: InitialValues should be values from ActorsForm inputs
-    name: "name",
-    age: null,
-    education: "education",
-    agency: "",
-    yearsActive: null,
-    about: "",
-    series: [],
-    news: [],
-    awards: [],
+    // TODO: InitialValues should be values from ActorsForm inputs
+    imageUrl: actor?.imageUrl || "",
+    name: actor?.name || "",
+    age: actor?.age || null,
+    education: actor?.education || "",
+    agency: actor?.agency || "",
+    yearsActive: actor?.yearsActive || null,
+    about: actor?.biography || "",
+    series,
+    news,
+    awards,
     nominations: [],
   };
 
-  const onFormSubmit = (
+  const onFormSubmit = async (
     values: ActorsFormPayload,
     actions: FormikHelpers<ActorsFormPayload>
   ) => {
-    const updateActorRequest = actorFormToCreateActorRequest(values);
-    // dispatch(updateActorsAsync(updateActorRequest));
-
+    const updateActorRequest = actorFormToUpdateActorRequest(values);
     actions.setSubmitting(true);
+    await dispatch(updateActorsAsync({ id, data: updateActorRequest }));
+    actions.setSubmitting(false);
+
+    router.push(`/actors/${id}`);
   };
 
   const formik = useFormik({
     initialValues,
     onSubmit: onFormSubmit,
     validationSchema: formSchema,
+    enableReinitialize: true,
   });
 
   const isFormFieldInvalid = (name: keyof ActorsFormPayload) =>
@@ -114,6 +121,7 @@ export function ActorsListFormEdit(props: ComponentProps) {
       <div>
         <h1>Edit Actor: {formik.values.name}</h1>
       </div>
+      <div>{JSON.stringify(formik.values)}</div>
       <div className="flex flex-row align-items-center justify-content-center gap-6">
         <Image src={formik.values.imageUrl} alt="Image" width="650" preview />
         <form onSubmit={formik.handleSubmit}>

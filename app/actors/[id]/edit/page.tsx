@@ -1,13 +1,15 @@
 import { ActorDTO } from "@/lib/api/dtos/actor.dto";
 import { ActorsListFormEdit } from "@/lib/components/ActorsListFormEdit";
 export interface ComponentProps {
-  data: ActorDTO[];
+  params: {
+    id: string;
+  };
 }
 
 export default function Page(props: ComponentProps) {
   return (
     <div>
-      <ActorsListFormEdit data={props.data} />
+      <ActorsListFormEdit actorId={props.params.id} />
     </div>
   );
 }

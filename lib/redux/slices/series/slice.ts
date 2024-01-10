@@ -5,7 +5,7 @@ import {
   getSeriesAsync,
   getSerieByIdAsync,
   createSerieAsync,
-  getSeriesByActorId,
+  getSeriesByActorIdAsync,
 } from "./thunks";
 import {
   getSeriesFulfilledCaseReducer,
@@ -50,12 +50,15 @@ export const seriesSlice = createSlice({
       //GetSeriesByActorId
 
       .addCase(
-        getSeriesByActorId.fulfilled,
+        getSeriesByActorIdAsync.fulfilled,
         getSeriesByActorIdFulfilledCaseReducer
       )
-      .addCase(getSeriesByActorId.pending, getSeriesByActorIdPendingCaseReducer)
       .addCase(
-        getSeriesByActorId.rejected,
+        getSeriesByActorIdAsync.pending,
+        getSeriesByActorIdPendingCaseReducer
+      )
+      .addCase(
+        getSeriesByActorIdAsync.rejected,
         getSeriesByActorIdRejectedCaseReducer
       );
   },

@@ -6,6 +6,7 @@ import {
   getActorsAsync,
   getActorByIdAsync,
   getActorsBySerieIdAsync,
+  deleteActorByIdAsync,
 } from "./thunks";
 import {
   getActorsFulfilledCaseReducer,
@@ -21,6 +22,9 @@ import {
   getActorsBySerieIdPendingCaseReducer,
   getActorsBySerieIdFullfieldCaseReducer,
   getActorsBySerieIdRejectedCaseReducer,
+  deleteActorsByIdFullfieldCaseReducer,
+  deleteActorsByIdPendingCaseReducer,
+  deleteActorsByIdRejectedCaseReducer,
 } from "./reducers";
 
 export const actorsSlice = createSlice({
@@ -62,6 +66,17 @@ export const actorsSlice = createSlice({
       .addCase(
         getActorsBySerieIdAsync.rejected,
         getActorsBySerieIdRejectedCaseReducer
+      )
+
+      //DeleteActorById
+      .addCase(deleteActorByIdAsync.pending, deleteActorsByIdPendingCaseReducer)
+      .addCase(
+        deleteActorByIdAsync.fulfilled,
+        deleteActorsByIdFullfieldCaseReducer
+      )
+      .addCase(
+        deleteActorByIdAsync.rejected,
+        deleteActorsByIdRejectedCaseReducer
       );
   },
 });

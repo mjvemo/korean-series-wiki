@@ -72,11 +72,12 @@ export default function SeasonsList(props: ComponentProps) {
           className="w-full md:w-14rem"
         />
       </div>
-      <div />
-      {season &&
-        season.chapters.map((chapter, index) => {
-          return <SeasonsChapters key={index} data={chapter} />;
-        })}
+      <div className="flex flex-row">
+        {season &&
+          season.chapters.map((chapter, index) => {
+            return <SeasonsChapters key={index} data={chapter} />;
+          })}
+      </div>
     </div>
   );
 }

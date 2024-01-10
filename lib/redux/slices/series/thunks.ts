@@ -43,7 +43,7 @@ export const createSerieAsync = createAppAsyncThunk(
   }
 );
 
-export const getSeriesByActorId = createAppAsyncThunk(
+export const getSeriesByActorIdAsync = createAppAsyncThunk(
   ActionType.GET_SERIES_BY_ACTOR_ID,
   (id: string) => {
     return client.getSeriesByActorId(id);

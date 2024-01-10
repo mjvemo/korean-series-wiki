@@ -6,6 +6,7 @@ import {
   getNewsByIdAsync,
   getNewsByActorIdAsync,
   createNewsAsync,
+  getNewsBySerieIdAsync,
 } from "./thunks";
 import {
   getNewsFulfilledCaseReducer,
@@ -20,6 +21,9 @@ import {
   createNewsPendingCaseReducer,
   createNewsFulfilledCaseReducer,
   createNewsRejectedCaseReducer,
+  getNewsBySerieIdPendingCaseReducer,
+  getNewsBySerieIdRejectedCaseReducer,
+  getNewsBySerieIdFullfieldCaseReducer,
 } from "./reducers";
 
 export const newsSlice = createSlice({
@@ -52,13 +56,27 @@ export const newsSlice = createSlice({
         getNewsByActorIdAsync.pending,
         getNewsByActorIdPendingCaseReducer
       )
-      // .addCase(
-      //   getNewsByActorIdAsync.fulfilled,
-      //   getNewsByActorIdFulfilledCaseReducer
-      // )
+      .addCase(
+        getNewsByActorIdAsync.fulfilled,
+        getNewsByActorIdFulfilledCaseReducer
+      )
       .addCase(
         getNewsByActorIdAsync.rejected,
         getNewsByActorIdRejectedCaseReducer
+      )
+
+      //GetNewsBySerieId
+      .addCase(
+        getNewsBySerieIdAsync.pending,
+        getNewsBySerieIdPendingCaseReducer
+      )
+      .addCase(
+        getNewsBySerieIdAsync.fulfilled,
+        getNewsBySerieIdFullfieldCaseReducer
+      )
+      .addCase(
+        getNewsBySerieIdAsync.rejected,
+        getNewsBySerieIdRejectedCaseReducer
       );
   },
 });

@@ -1,7 +1,12 @@
 import { isNil } from "lodash";
-import NewsEntity from "../entities/news.entity";
+import NewsEntity, { INews } from "../entities/news.entity";
 import { NewsMapper } from "../mappers/news.mapper";
 import { News } from "../news";
+import { Actor } from "../../actor/actor";
+import { ActorMapper } from "../../actor/mappers/actor.mapper";
+import { Serie } from "../../serie/serie";
+import { SerieMapper } from "../../serie/mappers/serie.mapper";
+import { isHydrated } from "../../../utils/mongoose";
 
 export class NewsRepository {
   async save(news: News) {
@@ -32,6 +37,30 @@ export class NewsRepository {
   async findAll(): Promise<News[]> {
     const response = await NewsEntity.find();
     return response.map((entity) => NewsMapper.toDomain(entity));
+  }
+
+  async findByActor(actor: Actor): Promise<News[]> {
+    const actorEntity = ActorMapper.toEntity(actor);
+
+    await actorEntity.populate(["news"]);
+
+    if (isHydrated<INews>(actorEntity.news)) {
+      return actorEntity.news.map((news) => NewsMapper.toDomain(news));
+    }
+
+    return [];
+  }
+
+  async findBySerie(serie: Serie): Promise<News[]> {
+    const serieEntity = SerieMapper.toEntity(serie);
+
+    await serieEntity.populate(["news"]);
+
+    if (isHydrated<INews>(serieEntity.news)) {
+      return serieEntity.news.map((news) => NewsMapper.toDomain(news));
+    }
+
+    return [];
   }
 }
 

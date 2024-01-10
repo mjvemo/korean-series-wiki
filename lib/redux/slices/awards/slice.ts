@@ -6,6 +6,7 @@ import {
   getAwardsAsync,
   getAwardsByActorIdAsync,
   getAwardByIdAsync,
+  getAwardsBySerieIdAsync,
 } from "./thunks";
 import {
   getAwardsFulfilledCaseReducer,
@@ -21,6 +22,9 @@ import {
   getAwardsByActorIdFullfieldCaseReducer,
   getAwardsByActorIdPendingCaseReducer,
   getAwardsByActorIdRejectedCaseReducer,
+  getAwardsBySerieIdPendingCaseReducer,
+  getAwardsBySerieIdFullfieldCaseReducer,
+  getAwardsBySerieIdRejectedCaseReducer,
 } from "./reducers";
 
 export const awardsSlice = createSlice({
@@ -61,6 +65,19 @@ export const awardsSlice = createSlice({
       .addCase(
         getAwardsByActorIdAsync.rejected,
         getAwardsByActorIdRejectedCaseReducer
+      )
+      // GetAwardBySerieId
+      .addCase(
+        getAwardsBySerieIdAsync.pending,
+        getAwardsBySerieIdPendingCaseReducer
+      )
+      .addCase(
+        getAwardsBySerieIdAsync.fulfilled,
+        getAwardsBySerieIdFullfieldCaseReducer
+      )
+      .addCase(
+        getAwardsBySerieIdAsync.rejected,
+        getAwardsBySerieIdRejectedCaseReducer
       );
   },
 });

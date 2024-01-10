@@ -6,7 +6,11 @@ import { Rating } from "primereact/rating";
 import Link from "next/link";
 import { SerieDTO } from "@/lib/api/dtos/serie.dto";
 import { useRouter } from "next/navigation";
-import { getSeriesAsync, useDispatch } from "@/lib/redux";
+import {
+  getActorsBySerieIdAsync,
+  getSeriesAsync,
+  useDispatch,
+} from "@/lib/redux";
 import { Dialog } from "primereact/dialog";
 
 export interface ComponentProps {
@@ -15,13 +19,7 @@ export interface ComponentProps {
 
 export default function SeriesList(props: ComponentProps) {
   const router = useRouter();
-  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
-  // const series = useSelector(selectSeries);
-
-  useEffect(() => {
-    dispatch(getSeriesAsync());
-  }, []);
 
   const imageBodyTemplate = (serie: any) => {
     return (

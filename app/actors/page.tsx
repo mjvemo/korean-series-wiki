@@ -3,11 +3,12 @@ import ActorsList from "@/lib/components/ActorsList";
 import ActorsListSelected from "@/lib/components/ActorsListSelected";
 import { Footer } from "@/lib/components/Footer";
 import { actor, actor1, actor2, actor3 } from "@/lib/models/actor.model";
-import { selectActors } from "@/lib/redux";
+import { getActorsAsync, selectActors } from "@/lib/redux";
 import Link from "next/link";
 import { Button } from "primereact/button";
 import { Image } from "primereact/image";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "@/lib/redux";
 
 export interface ComponentProps {
   params: { id: string };
@@ -16,7 +17,12 @@ export interface ComponentProps {
 export default function (props: ComponentProps) {
   const { id } = props.params;
 
+  const dispatch = useDispatch();
   const actors = useSelector(selectActors);
+
+  useEffect(() => {
+    dispatch(getActorsAsync());
+  }, []);
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">

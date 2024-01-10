@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import Link from "next/link";
 import { AwardDTO } from "@/lib/api/dtos/award.dto";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { getAwardsAsync } from "@/lib/redux";
 
 export interface ComponentProps {
   data: AwardDTO[];

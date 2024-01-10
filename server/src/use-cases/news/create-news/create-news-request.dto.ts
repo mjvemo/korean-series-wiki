@@ -4,7 +4,6 @@ import { SchemaValidationError } from "../../../errors/schema-validation.error";
 export interface CreateNewsRequestProps {
   name: string;
   description: string;
-  url: string;
   thumbnail: string;
   publishedAt: string;
 }
@@ -14,18 +13,16 @@ const schema: JSONSchemaType<CreateNewsRequestProps> = {
   properties: {
     name: { type: "string" },
     description: { type: "string" },
-    url: { type: "string" },
     thumbnail: { type: "string" },
     publishedAt: { type: "string" },
   },
-  required: ["name", "description", "url", "thumbnail", "publishedAt"],
+  required: ["name", "description", "thumbnail", "publishedAt"],
   additionalProperties: false,
 };
 
 export class CreateNewsRequestDTO implements CreateNewsRequestProps {
   readonly name: string;
   readonly description: string;
-  readonly url: string;
   readonly thumbnail: string;
   readonly publishedAt: string;
 
@@ -44,7 +41,6 @@ export class CreateNewsRequestDTO implements CreateNewsRequestProps {
 
     this.name = props.name;
     this.description = props.description;
-    this.url = props.url;
     this.thumbnail = props.thumbnail;
     this.publishedAt = props.publishedAt;
   }

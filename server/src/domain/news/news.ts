@@ -6,7 +6,6 @@ export interface NewsProps {
   id: string;
   name: string;
   description: string;
-  url: string;
   thumbnail: string;
   publishedAt: string;
   createdAt: string;
@@ -17,7 +16,6 @@ export interface CreateNewsProps {
   id?: string;
   name: string;
   description: string;
-  url: string;
   thumbnail: string;
   publishedAt: string;
   createdAt?: string;
@@ -27,7 +25,6 @@ export interface CreateNewsProps {
 export interface UpdateNewsProps {
   name?: string;
   description?: string;
-  url?: string;
   thumbnail?: string;
   publishedAt?: string;
 }
@@ -36,7 +33,6 @@ export class News {
   private _id: string;
   private _name: string;
   private _description: string;
-  private _url: string;
   private _thumbnail: string;
   private _publishedAt: string;
   private _createdAt: string;
@@ -52,10 +48,6 @@ export class News {
 
   get description() {
     return this._description;
-  }
-
-  get url() {
-    return this._url;
   }
 
   get thumbnail() {
@@ -78,7 +70,6 @@ export class News {
     this._id = props.id;
     this._name = props.name;
     this._description = props.description;
-    this._url = props.url;
     this._thumbnail = props.thumbnail;
     this._publishedAt = props.publishedAt;
     this._createdAt = props.createdAt;
@@ -92,7 +83,6 @@ export class News {
       id: props.id || randomUUID(),
       name: props.name,
       description: props.description,
-      url: props.url,
       thumbnail: props.thumbnail,
       publishedAt: props.publishedAt,
       createdAt: props.createdAt || timestamp,
@@ -105,7 +95,6 @@ export class News {
     this._description = isNil(props.description)
       ? this._description
       : props.description;
-    this._url = isNil(props.url) ? this._url : props.url;
     this._thumbnail = isNil(props.thumbnail)
       ? this._thumbnail
       : props.thumbnail;
@@ -120,7 +109,6 @@ export class News {
       id: this.id,
       name: this.name,
       description: this.description,
-      url: this.url,
       thumbnail: this.thumbnail,
       publishedAt: this.publishedAt,
       createdAt: this.createdAt,

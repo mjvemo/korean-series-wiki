@@ -4,6 +4,8 @@ import { AwardMapper } from "../mappers/award.mapper";
 import { Award } from "../award";
 import { Actor } from "../../actor/actor";
 import { ActorMapper } from "../../actor/mappers/actor.mapper";
+import { Serie } from "../../serie/serie";
+import { SerieMapper } from "../../serie/mappers/serie.mapper";
 import { isHydrated } from "../../../utils/mongoose";
 
 export class AwardRepository {
@@ -39,6 +41,18 @@ export class AwardRepository {
 
     if (isHydrated<IAward>(actorEntity.awards)) {
       return actorEntity.awards.map((award) => AwardMapper.toDomain(award));
+    }
+
+    return [];
+  }
+
+  async findBySerie(serie: Serie): Promise<Award[]> {
+    const serieEntity = SerieMapper.toEntity(serie);
+
+    await serieEntity.populate(["awards"]);
+
+    if (isHydrated<IAward>(serieEntity.awards)) {
+      return serieEntity.awards.map((award) => AwardMapper.toDomain(award));
     }
 
     return [];

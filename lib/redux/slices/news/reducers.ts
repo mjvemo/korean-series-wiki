@@ -67,7 +67,7 @@ export const getNewsByActorIdFulfilledCaseReducer: CaseReducer<
   NewsState,
   PayloadAction<NewsDTO[]>
 > = (state, action) => {
-  state.items = action.payload;
+  state.byEntityIdItems = action.payload;
   state.status = "idle";
 };
 
@@ -84,26 +84,26 @@ export const getNewsByActorIdRejectedCaseReducer: CaseReducer<
   state.status = "failed";
 };
 
-// export const getNewsBySerieIdFullfieldCaseReducer: CaseReducer<
-//   NewsState,
-//   PayloadAction<NewsDTO[]>
-// > = (state, action) => {
-//   state.items = action.payload;
-//   state.status = "idle";
-// };
+export const getNewsBySerieIdFullfieldCaseReducer: CaseReducer<
+  NewsState,
+  PayloadAction<NewsDTO[]>
+> = (state, action) => {
+  state.byEntityIdItems = action.payload;
+  state.status = "idle";
+};
 
-// export const getNewsBySerieIdPendingCaseReducer: CaseReducer<NewsState, any> = (
-//   state
-// ) => {
-//   state.status = "loading";
-// };
+export const getNewsBySerieIdPendingCaseReducer: CaseReducer<NewsState, any> = (
+  state
+) => {
+  state.status = "loading";
+};
 
-// export const getNewsBySerieIdRejectedCaseReducer: CaseReducer<
-//   NewsState,
-//   any
-// > = (state) => {
-//   state.status = "failed";
-// };
+export const getNewsBySerieIdRejectedCaseReducer: CaseReducer<
+  NewsState,
+  any
+> = (state) => {
+  state.status = "failed";
+};
 
 // export const deleteNewsReducer: CaseReducer<
 //   NewsState,
