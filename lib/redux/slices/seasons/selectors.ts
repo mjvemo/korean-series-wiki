@@ -8,4 +8,4 @@ export const selectSeasonRequestStatus = (state: ReduxState) =>
   state.seasons.status;
 
 export const selectByEntityIdSeasons = (state: ReduxState) =>
-  state.news.byEntityIdItems;
+  state.seasons.byEntityIdItems;

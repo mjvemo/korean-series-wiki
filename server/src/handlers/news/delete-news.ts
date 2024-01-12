@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import useCase from "../../use-cases/series/delete-serie/delete-serie.use-case";
+import useCase from "../../use-cases/news/delete-news/delete-news.use-case";
 
 export default async function handler(req: Request, res: Response) {
   try {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
@@ -7,19 +7,26 @@ import Link from "next/link";
 import { SerieDTO } from "@/lib/api/dtos/serie.dto";
 import { useRouter } from "next/navigation";
 import {
+  deleteSerieByIdAsync,
   getActorsBySerieIdAsync,
   getSeriesAsync,
   useDispatch,
 } from "@/lib/redux";
 import { Dialog } from "primereact/dialog";
+import DeleteConfirmDialog from "../DeleteConfirmDialog";
+import { Toast } from "primereact/toast";
 
 export interface ComponentProps {
   data: SerieDTO[];
 }
 
 export default function SeriesList(props: ComponentProps) {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [visible, setVisible] = useState(false);
+  const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
+  const [toDelete, setToDelete] = useState({ name: "", id: "" });
+  const toast = useRef<Toast>(null);
 
   const imageBodyTemplate = (serie: any) => {
     return (
@@ -54,10 +61,17 @@ export default function SeriesList(props: ComponentProps) {
     );
   };
 
-  const bodyTemplateDelete = () => {
+  const bodyTemplateDelete = (data: SerieDTO) => {
     return (
       <Link href="">
-        <Button icon="pi pi-trash" text onClick={() => setVisible(true)} />
+        <Button
+          icon="pi pi-trash"
+          text
+          onClick={() => {
+            setToDelete({ id: data.id, name: data.name });
+            setDeleteDialogVisible(true);
+          }}
+        />
       </Link>
     );
   };
@@ -79,9 +93,22 @@ export default function SeriesList(props: ComponentProps) {
     </div>
   );
 
+  async function handleDeleteConfirm() {
+    await dispatch(deleteSerieByIdAsync(toDelete.id));
+    setDeleteDialogVisible(false);
+    toast.current?.show({
+      severity: "info",
+      summary: "Serie deleted",
+      detail: `Name: ${toDelete.name}`,
+      life: 3000,
+    });
+    setToDelete({ id: "", name: "" });
+  }
+
   return (
     <div>
       <div className="card m-4">
+        <Toast ref={toast} />
         <DataTable
           value={props.data}
           pageLinkSize={5}
@@ -168,16 +195,13 @@ export default function SeriesList(props: ComponentProps) {
           ></Column>
         </DataTable>
         <div className="card flex justify-content-center">
-          <Dialog
-            header="Delete"
-            footer={footerContent}
-            visible={visible}
-            onHide={() => setVisible(false)}
-            style={{ width: "35vw" }}
-            breakpoints={{ "960px": "75vw", "641px": "100vw" }}
-          >
-            <p className="m-0">Are you sure you want to delete?</p>
-          </Dialog>
+          <DeleteConfirmDialog
+            visible={deleteDialogVisible}
+            message={`Are you sure you want to delete actor ${toDelete.name}`}
+            onCancelDelete={() => setDeleteDialogVisible(false)}
+            onConfirmDelete={() => handleDeleteConfirm()}
+            onHide={() => setDeleteDialogVisible(false)}
+          />
         </div>
       </div>
     </div>

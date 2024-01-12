@@ -13,6 +13,9 @@ import {
   getNewsByActorIdAsync,
   getNewsBySerieIdAsync,
   getAwardsBySerieIdAsync,
+  selectByEntityIdAwards,
+  selectByEntityIdNews,
+  selectByEntityIdActors,
 } from "@/lib/redux";
 import { TabPanel, TabView } from "primereact/tabview";
 import NewsListSelector from "@/lib/components/NewsListFormSelector";
@@ -45,10 +48,10 @@ export default function SeriesList(props: ComponentProps) {
     dispatch(getAwardsBySerieIdAsync(id));
   }, []);
 
-  const actors = useSelector(selectActors);
+  const actors = useSelector(selectByEntityIdActors);
   const activeSerie = useSelector(selectActiveSerie);
-  const awards = useSelector(selectAwards);
-  const news = useSelector(selectNews);
+  const awards = useSelector(selectByEntityIdAwards);
+  const news = useSelector(selectByEntityIdNews);
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">

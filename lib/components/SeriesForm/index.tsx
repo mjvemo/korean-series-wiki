@@ -26,7 +26,7 @@ import { InputTextarea } from "primereact/inputtextarea";
 import AwardsListFormSelector from "../AwardsListFormSelector";
 import NewsListFormSelector from "../NewsListFormSelector";
 
-const formSchema = object({
+const formSchema = object<SerieFormPayload>({
   imageUrl: string().url("Invalid Format").required("Required"),
   name: string().required("Name Required"),
   year: date().required("Year Required"),
@@ -38,6 +38,17 @@ const formSchema = object({
 });
 
 export function SerieForm() {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const serie = useSelector(selectActiveSerie);
+  const status = useSelector(selectSerieRequestStatus);
+
+  useEffect(() => {
+    if (serie) {
+      router.push(`/series/${serie.id}`);
+    }
+  }, [status]);
+
   const initialValues: SerieFormPayload = {
     imageUrl: "",
     name: "",
@@ -54,7 +65,6 @@ export function SerieForm() {
     awards: [],
     nominations: [],
   };
-
   const onFormSubmit = (
     values: SerieFormPayload,
     actions: FormikHelpers<SerieFormPayload>
@@ -82,17 +92,6 @@ export function SerieForm() {
       <small className="p-error">&nbsp;</small>
     );
   };
-
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const serie = useSelector(selectActiveSerie);
-  const status = useSelector(selectSerieRequestStatus);
-
-  useEffect(() => {
-    if (serie) {
-      router.push(`/series/${serie.id}`);
-    }
-  }, [status]);
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6 p-5">

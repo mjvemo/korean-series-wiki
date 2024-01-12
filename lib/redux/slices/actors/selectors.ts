@@ -8,4 +8,4 @@ export const selectActorRequestStatus = (state: ReduxState) =>
   state.actors.status;
 
 export const selectByEntityIdActors = (state: ReduxState) =>
-  state.news.byEntityIdItems;
+  state.actors.byEntityIdItems;

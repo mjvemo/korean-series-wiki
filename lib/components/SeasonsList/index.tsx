@@ -61,6 +61,12 @@ export default function SeasonsList(props: ComponentProps) {
         <Link href={`${props.serieId}/seasons/create`}>
           <Button label="Add Season" icon="pi pi-plus" outlined></Button>
         </Link>
+        <Link href={`${props.serieId}/seasons/create`}>
+          <Button icon="pi pi-pencil" outlined></Button>
+        </Link>
+        <Link href={`${props.serieId}/seasons/create`}>
+          <Button icon="pi pi-trash" outlined></Button>
+        </Link>
       </div>
       <div className="flex flex-column justify-content-start size-xl gap-4 m-4">
         <Dropdown
