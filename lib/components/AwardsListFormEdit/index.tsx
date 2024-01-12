@@ -6,7 +6,9 @@ import { string, object } from "yup";
 import { Button } from "primereact/button";
 import {
   getActorByIdAsync,
+  getAwardByIdAsync,
   getAwardsByActorIdAsync,
+  getAwardsBySerieIdAsync,
   getNewsByActorIdAsync,
   getSeriesByActorIdAsync,
   selectActiveAward,
@@ -32,15 +34,14 @@ export interface ComponentProps {
 
 export function AwardsListFormEdit(props: ComponentProps) {
   const id = props.awardId;
-  const dispatch = useDispatch();
   const router = useRouter();
+  const dispatch = useDispatch();
   const award = useSelector(selectActiveAward);
 
   useEffect(() => {
-    dispatch(getActorByIdAsync(id));
-    dispatch(getNewsByActorIdAsync(id));
+    dispatch(getAwardByIdAsync(id));
     dispatch(getAwardsByActorIdAsync(id));
-    dispatch(getSeriesByActorIdAsync(id));
+    dispatch(getAwardsBySerieIdAsync(id));
   });
 
   const initialValues: AwardFormPayload = {
@@ -54,8 +55,8 @@ export function AwardsListFormEdit(props: ComponentProps) {
     actions: FormikHelpers<AwardFormPayload>
   ) => {
     const updateAwardsRequest = awardFormToCreateAwardRequest(values);
-    await dispatch(updateAwardsAsync({ id, data: updateAwardsRequest }));
     actions.setSubmitting(true);
+    await dispatch(updateAwardsAsync({ id, data: updateAwardsRequest }));
 
     router.push(`/awards/${id}`);
   };

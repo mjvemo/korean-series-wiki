@@ -72,20 +72,10 @@ export default function AwardsListSelected() {
           style={{ width: "20%" }}
         ></Column>
         <Column field="name" header="Name" style={{ width: "20%" }}></Column>
-        <Column field="age" header="Age" style={{ width: "20%" }}></Column>
+        <Column field="year" header="Year" style={{ width: "20%" }}></Column>
         <Column
-          field="agency"
-          header="Agency"
-          style={{ width: "20%" }}
-        ></Column>
-        <Column
-          field="education"
-          header="Education"
-          style={{ width: "20%" }}
-        ></Column>
-        <Column
-          field="yearsActive"
-          header="Active"
+          field="category"
+          header="category"
           style={{ width: "20%" }}
         ></Column>
         <Column

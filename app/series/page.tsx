@@ -5,7 +5,6 @@ import { Button } from "primereact/button";
 import Link from "next/link";
 import { Footer } from "@/lib/components/Footer";
 import { SerieCard } from "@/lib/components/SerieCard";
-import { serie, serie1, serie2, serie3 } from "@/lib/models/serie.model";
 
 import { useEffect, useRef } from "react";
 
@@ -24,7 +23,6 @@ export interface ComponentProps {
 
 export default function ComponentProps(props: ComponentProps) {
   const { id } = props.params;
-  const listOfCards = [serie, serie1, serie2, serie3];
   const dispatch = useDispatch();
   const series = useSelector(selectSeries);
 

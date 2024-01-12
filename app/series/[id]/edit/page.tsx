@@ -1,13 +1,15 @@
 import { SerieDTO } from "@/lib/api/dtos/serie.dto";
 import { SeriesListFormEdit } from "@/lib/components/SeriesListFormEdit";
 export interface ComponentProps {
-  data: SerieDTO[];
+  params: {
+    id: string;
+  };
 }
 
 export default function Page(props: ComponentProps) {
   return (
     <div>
-      <SeriesListFormEdit data={props.data} />
+      <SeriesListFormEdit serieId={props.params.id} />
     </div>
   );
 }

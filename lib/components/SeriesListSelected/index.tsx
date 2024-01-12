@@ -116,12 +116,6 @@ export default function SeriesListSelected() {
           sortable
         ></Column>
         <Column
-          field="description"
-          header="Description"
-          style={{ width: "20%" }}
-          sortable
-        ></Column>
-        <Column
           field="action"
           header="action"
           body={actionTemplate}

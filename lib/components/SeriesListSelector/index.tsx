@@ -19,6 +19,7 @@ import {
 } from "@/lib/redux";
 
 import { ActorsFormPayload } from "@/lib/models/actor.model";
+import { Rating } from "primereact/rating";
 
 export default function SeriesListSelector() {
   const dispatch = useDispatch();
@@ -99,30 +100,18 @@ export default function SeriesListSelector() {
       </div>
     );
   };
-  const imageBodyTemplate = (allSeries: { url: string | undefined }) => {
+  const imageBodyTemplate = (serie: any) => {
     return (
-      <Avatar
-        image={allSeries.url}
-        label="V"
-        size="xlarge"
-        style={{ backgroundColor: "#2196F3", color: "#ffffff" }}
-        shape="circle"
+      <img
+        src={serie.image}
+        alt={serie.image}
+        className="w-6rem shadow-2 border-round"
       />
-      // <Image src={allSeries.url} alt={allSeries.url} width="100" preview />
     );
   };
 
-  const activeBodyTemplate = (allSeries: any) => {
-    const stockClassName = classNames(
-      "border-circle w-2rem h-2rem inline-flex font-bold justify-content-center align-items-center text-sm",
-      {
-        "bg-red-100 text-red-900": allSeries.active === 0,
-        "bg-blue-100 text-blue-900":
-          allSeries.active > 0 && allSeries.active <= 10,
-        "bg-teal-100 text-teal-900": allSeries.acttive >= 10,
-      }
-    );
-    return <div className={stockClassName}>{allSeries.active}</div>;
+  const ratingBodyTemplate = (serie: any) => {
+    return <Rating value={serie.rating} readOnly cancel={false} />;
   };
 
   const header = renderHeader();
@@ -153,54 +142,50 @@ export default function SeriesListSelector() {
             header="Image"
             body={imageBodyTemplate}
             sortable
-            style={{ width: "20%" }}
+            style={{ width: "10%" }}
           ></Column>
           <Column
             field="name"
             header="Name"
-            style={{ width: "20%" }}
+            style={{ width: "15%" }}
             sortable
           ></Column>
           <Column
-            field="age"
-            header="Age"
-            style={{ width: "20%" }}
+            field="releasedAt"
+            header="ReleasedAt"
+            style={{ width: "15%" }}
             sortable
           ></Column>
           <Column
-            field="education"
-            header="Education"
-            style={{ width: "20%" }}
+            field="pg"
+            header="PG"
+            style={{ width: "10%" }}
             sortable
           ></Column>
           <Column
-            field="agency"
-            header="Agency"
-            style={{ width: "20%" }}
+            field="rating"
+            header="Rating"
+            body={ratingBodyTemplate}
+            style={{ width: "15%" }}
             sortable
           ></Column>
           <Column
-            field="yearsActive"
-            header="Active Since"
-            body={activeBodyTemplate}
-            style={{ width: "20%" }}
+            field="genre"
+            header="Genre"
+            style={{ width: "12%" }}
             sortable
           ></Column>
           <Column
-            field="about"
-            header="About"
-            style={{ width: "20%" }}
+            field="directedBy"
+            header="Director"
+            style={{ width: "12%" }}
             sortable
           ></Column>
           <Column
-            rowEditor
-            headerStyle={{ width: "10%", minWidth: "8rem" }}
-            bodyStyle={{ textAlign: "center" }}
-          ></Column>
-          <Column
-            rowEditor
-            headerStyle={{ width: "10%", minWidth: "8rem" }}
-            bodyStyle={{ textAlign: "center" }}
+            field="studio"
+            header="Studio"
+            style={{ width: "12%" }}
+            sortable
           ></Column>
         </DataTable>
       </div>

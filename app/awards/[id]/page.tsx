@@ -53,6 +53,8 @@ export default function (props: ComponentProps) {
               <>
                 <div className="card justify-content-center">
                   <div>{award.name}</div>
+                  <div>{award.year}</div>
+                  <div>{award.category}</div>
                 </div>
               </>
             );

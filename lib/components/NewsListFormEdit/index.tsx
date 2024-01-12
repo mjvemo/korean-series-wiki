@@ -5,66 +5,64 @@ import { classNames } from "primereact/utils";
 import { string, object } from "yup";
 import { Button } from "primereact/button";
 import {
-  createNewsAsync,
+  getNewsByActorIdAsync,
+  getNewsByIdAsync,
+  getNewsBySerieIdAsync,
   selectActiveNews,
-  selectNewsRequestStatus,
+  updateNewsAsync,
   useDispatch,
   useSelector,
 } from "@/lib/redux";
 import { newsFormToCreateNewsRequest } from "@/lib/utils/form-mappers";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { NewsDTO, NewsFormPayload } from "@/lib/models/news.model";
+import { NewsFormPayload } from "@/lib/models/news.model";
 
 const formSchema = object({
-  url: string().required("image url Required"),
   name: string().required("name Required"),
   description: string().required("description required"),
   thumbnail: string().required("thumbnail Required"),
   publishedAt: string().required("publishedAt Required"),
-  createdAt: string().required("createdAt Required"),
 });
 export interface ComponentProps {
-  data: NewsDTO[];
+  newsId: string;
 }
 
 export function NewsListFormEdit(props: ComponentProps) {
+  const id = props.newsId;
   const dispatch = useDispatch();
   const router = useRouter();
   const news = useSelector(selectActiveNews);
-  const status = useSelector(selectNewsRequestStatus);
+
   useEffect(() => {
-    if (news) {
-      router.push(`/news/${news.id}`);
-    }
-  }, [status]);
+    dispatch(getNewsByIdAsync(id));
+    dispatch(getNewsByActorIdAsync(id));
+    dispatch(getNewsBySerieIdAsync(id));
+  });
 
   const initialValues: NewsFormPayload = {
-    id: "some id",
-    name: "name",
-    url: "",
-    thumbnail: "",
-    publishedAt: "2020",
-    createdAt: "2019",
-    // year: 0, // TODO: add year to server DTO's
-    description: "some description",
+    name: news?.name || "name",
+    thumbnail: news?.thumbnail || "thumbnail",
+    publishedAt: news?.publishedAt || "publishedAt",
+    description: news?.description || "description",
   };
 
-  const onFormSubmit = (
+  const onFormSubmit = async (
     values: NewsFormPayload,
     actions: FormikHelpers<NewsFormPayload>
   ) => {
     const updateNewsRequest = newsFormToCreateNewsRequest(values);
-    dispatch(createNewsAsync(updateNewsRequest));
-
     actions.setSubmitting(true);
-    actions.resetForm();
+    await dispatch(updateNewsAsync({ id, data: updateNewsRequest }));
+
+    router.push(`/news/${id}`);
   };
 
   const formik = useFormik({
     initialValues,
     onSubmit: onFormSubmit,
     validationSchema: formSchema,
+    enableReinitialize: true,
   });
   const isFormFieldInvalid = (name: keyof NewsFormPayload) =>
     !!(formik.touched[name] && formik.errors[name]);
@@ -85,23 +83,6 @@ export function NewsListFormEdit(props: ComponentProps) {
           <h1>Update News</h1>
           <div className="flex flex-column">
             <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
-              <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
-                <label>Image Url</label>
-                <InputText
-                  name="url"
-                  id="url"
-                  value={formik.values.url}
-                  onChange={formik.handleChange}
-                  placeholder="image url"
-                  onBlur={formik.handleBlur}
-                  className={classNames({
-                    "p-invalid": isFormFieldInvalid("url"),
-                    "w-full": true,
-                    "md: w-14rem": true,
-                  })}
-                />
-                {getFormErrorMessage("url")}
-              </div>
               <div className="flex flex-column gap-3 align-items-start justify-content-start pt-3 py-2 ">
                 <label>Name</label>
                 <InputText
@@ -118,6 +99,26 @@ export function NewsListFormEdit(props: ComponentProps) {
                   })}
                 />
                 {getFormErrorMessage("name")}
+              </div>
+
+              <div className="flex flex-row gap-4">
+                <div className="flex flex-column gap-3 align-items-start justify-content-start pt-3 py-2 ">
+                  <label>Published At</label>
+                  <InputText
+                    name="publishedAt"
+                    id="publishedAt"
+                    value={formik.values.publishedAt}
+                    onChange={formik.handleChange}
+                    placeholder="publishedAt"
+                    onBlur={formik.handleBlur}
+                    className={classNames({
+                      "p-invalid": isFormFieldInvalid("publishedAt"),
+                      "w-full": true,
+                      "md: w-14rem": true,
+                    })}
+                  />
+                  {getFormErrorMessage("publishedAt")}
+                </div>
               </div>
               <div className="flex flex-row gap-4">
                 <div className="flex flex-column gap-3 align-items-start justify-content-start pt-3 py-2 ">

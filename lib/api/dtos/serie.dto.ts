@@ -13,7 +13,7 @@ export interface SerieDTO {
   news: string[];
   awards: string[];
   nominations: string[];
-  releasedAt: string;
+  releasedAt: number;
   createdAt: string;
   updatedAt: string;
 }

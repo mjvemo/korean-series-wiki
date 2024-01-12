@@ -12,5 +12,5 @@ export interface CreateSerieRequestDTO {
   news: string[];
   awards: string[];
   nominations: string[];
-  releasedAt: string;
+  releasedAt: number;
 }

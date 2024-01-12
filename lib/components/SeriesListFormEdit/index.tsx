@@ -12,8 +12,16 @@ import { Divider } from "primereact/divider";
 import { useRouter } from "next/navigation";
 import {
   createSerieAsync,
+  getActorsBySerieIdAsync,
+  getAwardsBySerieIdAsync,
+  getNewsBySerieIdAsync,
+  getSerieByIdAsync,
   selectActiveSerie,
+  selectActors,
+  selectAwards,
+  selectByEntityIdNews,
   selectSerieRequestStatus,
+  updateSerieAsync,
   useDispatch,
   useSelector,
 } from "@/lib/redux";
@@ -25,7 +33,6 @@ import ActorsListFormSelector from "../ActorsListFormSelector";
 import { InputTextarea } from "primereact/inputtextarea";
 import AwardsListFormSelector from "../AwardsListFormSelector";
 import NewsListFormSelector from "../NewsListFormSelector";
-import { SerieDTO } from "@/lib/api/dtos/serie.dto";
 
 const formSchema = object({
   imageUrl: string().url("Invalid Format").required("Required"),
@@ -39,43 +46,58 @@ const formSchema = object({
 });
 
 export interface ComponentProps {
-  data: SerieDTO[];
+  serieId: string;
 }
 
 export function SeriesListFormEdit(props: ComponentProps) {
+  const id = props.serieId;
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const serie = useSelector(selectActiveSerie);
+  const news = useSelector(selectByEntityIdNews);
+  const awards = useSelector(selectAwards);
+  const cast = useSelector(selectActors);
+
+  useEffect(() => {
+    dispatch(getSerieByIdAsync(id));
+    dispatch(getNewsBySerieIdAsync(id));
+    dispatch(getAwardsBySerieIdAsync(id));
+    dispatch(getActorsBySerieIdAsync(id));
+  });
   const initialValues: SerieFormPayload = {
-    imageUrl: "imageUrl",
-    name: "name",
-    year: null,
-    pg: "number",
-    rate: 0,
-    genre: "",
-    directedBy: "",
-    studio: "",
-    description: "",
+    imageUrl: serie?.image || "imageUrl",
+    name: serie?.name || "name",
+    releasedAt: serie?.releasedAt || 0,
+    pg: serie?.pg || "number",
+    rate: serie?.rate || 0,
+    genre: serie?.genre || "",
+    directedBy: serie?.directedBy || "",
+    studio: serie?.studio || "",
+    description: serie?.description || "",
     seasons: [],
-    cast: [],
-    news: [],
-    awards: [],
+    cast,
+    news,
+    awards,
     nominations: [],
   };
 
-  const onFormSubmit = (
+  const onFormSubmit = async (
     values: SerieFormPayload,
     actions: FormikHelpers<SerieFormPayload>
   ) => {
     const updateSerieRequest = serieFormToCreateSerieRequest(values);
-    dispatch(createSerieAsync(updateSerieRequest));
+    await dispatch(updateSerieAsync({ id, data: updateSerieRequest }));
 
     actions.setSubmitting(true);
 
-    // actions.resetForm();
+    router.push(`/series/${id}`);
   };
 
   const formik = useFormik({
     initialValues,
     onSubmit: onFormSubmit,
     validationSchema: formSchema,
+    enableReinitialize: true,
   });
   const isFormFieldInvalid = (name: keyof SerieFormPayload) =>
     !!(formik.touched[name] && formik.errors[name]);
@@ -87,17 +109,6 @@ export function SeriesListFormEdit(props: ComponentProps) {
       <small className="p-error">&nbsp;</small>
     );
   };
-
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const serie = useSelector(selectActiveSerie);
-  const status = useSelector(selectSerieRequestStatus);
-
-  useEffect(() => {
-    if (serie) {
-      router.push(`/series/${serie.id}`);
-    }
-  }, [status]);
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6 p-5">
@@ -149,24 +160,26 @@ export function SeriesListFormEdit(props: ComponentProps) {
                     })}
                   />
                   {getFormErrorMessage("name")}
-                  <label>Year</label>
+                  <label>Released At</label>
                   <Calendar
-                    name="year"
-                    id="year"
+                    name="releasedAt"
+                    id="releasedAt"
                     value={
-                      formik.values.year ? new Date(formik.values.year) : null
+                      formik.values.releasedAt
+                        ? new Date(formik.values.releasedAt)
+                        : null
                     }
                     onChange={formik.handleChange}
                     view="year"
                     dateFormat="yy"
                     onBlur={formik.handleBlur}
                     className={classNames({
-                      "p-invalid": isFormFieldInvalid("year"),
+                      "p-invalid": isFormFieldInvalid("releasedAt"),
                       "w-full": true,
                     })}
                   />
                 </div>
-                {getFormErrorMessage("year")}
+                {getFormErrorMessage("releasedAt")}
                 <div className="flex flex-row flex-wrap pt-2 gap-2">
                   <div className="flex flex-column gap-2">
                     <label>PG</label>

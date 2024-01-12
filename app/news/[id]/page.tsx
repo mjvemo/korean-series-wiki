@@ -11,6 +11,7 @@ import {
   selectNews,
 } from "@/lib/redux/slices/news";
 import { NewsDTO } from "@/lib/models/news.model";
+import Link from "next/link";
 
 export interface ComponentProps {
   data: NewsDTO[];
@@ -30,6 +31,11 @@ export default function NewsList(props: ComponentProps) {
   const activeNews = useSelector(selectActiveNews);
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
+      <div className="flex flex-row gap-4 justify-content-end m-4">
+        <Link href={`/news/${id}/edit`}>
+          <Button label="Edit" icon="pi pi-plus" size="small" outlined></Button>
+        </Link>
+      </div>
       <div className="flex flex-row justify-content-center">
         <div className="card justify-content-center"></div>
         <IfNotNil data={activeNews}>
@@ -38,6 +44,8 @@ export default function NewsList(props: ComponentProps) {
               <>
                 <div className="card justify-content-center">
                   <div>{news.name}</div>
+                  <div>{news.publishedAt}</div>
+                  <div>{news.description}</div>
                 </div>
               </>
             );

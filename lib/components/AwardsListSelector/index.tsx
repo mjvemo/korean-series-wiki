@@ -144,45 +144,14 @@ export default function AwardslistSelector() {
           <Column
             header="Image"
             body={imageBodyTemplate}
-            sortable
             style={{ width: "20%" }}
           ></Column>
+          <Column field="name" header="Name" style={{ width: "20%" }}></Column>
+          <Column field="year" header="Year" style={{ width: "20%" }}></Column>
           <Column
-            field="name"
-            header="Name"
+            field="category"
+            header="category"
             style={{ width: "20%" }}
-            sortable
-          ></Column>
-          <Column
-            field="age"
-            header="Age"
-            style={{ width: "20%" }}
-            sortable
-          ></Column>
-          <Column
-            field="education"
-            header="Education"
-            style={{ width: "20%" }}
-            sortable
-          ></Column>
-          <Column
-            field="agency"
-            header="Agency"
-            style={{ width: "20%" }}
-            sortable
-          ></Column>
-          <Column
-            field="yearsActive"
-            header="Active Since"
-            body={activeBodyTemplate}
-            style={{ width: "20%" }}
-            sortable
-          ></Column>
-          <Column
-            field="about"
-            header="About"
-            style={{ width: "20%" }}
-            sortable
           ></Column>
         </DataTable>
       </div>

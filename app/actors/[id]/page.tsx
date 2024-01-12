@@ -15,18 +15,15 @@ import {
   selectByEntityIdNews,
 } from "@/lib/redux";
 import { TabPanel, TabView } from "primereact/tabview";
-import NewsListSelector from "@/lib/components/NewsListFormSelector";
-import { Award } from "@/lib/components/Award";
 import { Footer } from "@/lib/components/Footer";
 import { IfNotNil } from "@/lib/components/utils/IfNotNil";
 import SeriesList from "@/lib/components/SeriesList";
 import AwardsList from "@/lib/components/AwardsList";
-import NewsListFormSelector from "@/lib/components/NewsListFormSelector";
+
 import NewsList from "@/lib/components/NewsList";
-import { selectNews } from "@/lib/redux/slices/news";
+
 import { Button } from "primereact/button";
 import Link from "next/link";
-import { serie } from "@/lib/models/serie.model";
 
 export interface ComponentProps {
   params: { id: string };
@@ -48,7 +45,6 @@ export default function ActorsList(props: ComponentProps) {
   const activeActor = useSelector(selectActiveActor);
   const awards = useSelector(selectAwards);
   const news = useSelector(selectByEntityIdNews);
-  const actor = useSelector(selectActiveActor);
 
   //TODO: Fixed Link href to id/edit page
   return (

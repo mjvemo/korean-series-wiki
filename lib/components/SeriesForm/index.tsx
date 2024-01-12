@@ -41,7 +41,7 @@ export function SerieForm() {
   const initialValues: SerieFormPayload = {
     imageUrl: "",
     name: "",
-    year: null,
+    releasedAt: 0,
     pg: "",
     rate: 0,
     genre: "",
@@ -144,24 +144,26 @@ export function SerieForm() {
                     })}
                   />
                   {getFormErrorMessage("name")}
-                  <label>Year</label>
+                  <label>Released At</label>
                   <Calendar
-                    name="year"
-                    id="year"
+                    name="releasedAt"
+                    id="releasedAt"
                     value={
-                      formik.values.year ? new Date(formik.values.year) : null
+                      formik.values.releasedAt
+                        ? new Date(formik.values.releasedAt)
+                        : null
                     }
                     onChange={formik.handleChange}
                     view="year"
                     dateFormat="yy"
                     onBlur={formik.handleBlur}
                     className={classNames({
-                      "p-invalid": isFormFieldInvalid("year"),
+                      "p-invalid": isFormFieldInvalid("releasedAt"),
                       "w-full": true,
                     })}
                   />
                 </div>
-                {getFormErrorMessage("year")}
+                {getFormErrorMessage("releasedAt")}
                 <div className="flex flex-row flex-wrap pt-2 gap-2">
                   <div className="flex flex-column gap-2">
                     <label>PG</label>

@@ -54,8 +54,8 @@ export default function NewsList(props: ComponentProps) {
             style={{ width: "20%" }}
           ></Column>
           <Column
-            field="year"
-            header="year"
+            field="publishedAt"
+            header="publishedAt"
             style={{ width: "20%" }}
             sortable
           ></Column>

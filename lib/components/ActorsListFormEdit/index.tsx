@@ -59,7 +59,6 @@ export function ActorsListFormEdit(props: ComponentProps) {
   // dispatch
   const dispatch = useDispatch();
   const actor = useSelector(selectActiveActor);
-  const status = useSelector(selectActorRequestStatus);
   const news = useSelector(selectByEntityIdNews);
   const awards = useSelector(selectAwards);
   const series = useSelector(selectSeries);
@@ -93,7 +92,6 @@ export function ActorsListFormEdit(props: ComponentProps) {
     const updateActorRequest = actorFormToUpdateActorRequest(values);
     actions.setSubmitting(true);
     await dispatch(updateActorsAsync({ id, data: updateActorRequest }));
-    actions.setSubmitting(false);
 
     router.push(`/actors/${id}`);
   };

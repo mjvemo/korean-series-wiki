@@ -22,7 +22,7 @@ import { IfNotNil } from "@/lib/components/utils/IfNotNil";
 import ActorsList from "@/lib/components/ActorsList";
 import { getSeasonsBySerieId } from "@/lib/redux/slices/seasons";
 import { SerieCard } from "@/lib/components/SerieCard";
-import { serie } from "@/lib/models/serie.model";
+
 import SeasonsList from "@/lib/components/SeasonsList";
 import AwardsList from "@/lib/components/AwardsList";
 import NewsList from "@/lib/components/NewsList";
