@@ -10,6 +10,7 @@ import { CreateSeasonRequestDTO } from "@/lib/api/dtos/create-seasons-request.dt
 import { NewsFormPayload } from "../models/news.model";
 import { CreateNewsRequestDTO } from "../api/dtos/create-news-request.dto";
 import { UpdateSerieRequestDTO } from "../api/dtos/update-serie-request.dto";
+import { UpdateSeasonRequestDTO } from "../api/dtos/update-seasons-request-dto";
 
 export function actorFormToCreateActorRequest(
   values: ActorsFormPayload
@@ -98,10 +99,24 @@ export function awardFormToCreateAwardRequest(
   };
 }
 
-export function seasonFromtoCreateSeasonRequest(
+export function seasonFormtoCreateSeasonRequest(
   serieId: string,
   values: SeasonFormPayload
 ): CreateSeasonRequestDTO {
+  return {
+    serie: serieId,
+    chapters: values.chapters.map((chapter) => ({
+      name: chapter.name,
+      description: chapter.description,
+      releasedAt: chapter.releaseAt,
+    })),
+  };
+}
+
+export function seasonFormtoUpdateSeasonRequest(
+  serieId: string,
+  values: SeasonFormPayload
+): UpdateSeasonRequestDTO {
   return {
     serie: serieId,
     chapters: values.chapters.map((chapter) => ({

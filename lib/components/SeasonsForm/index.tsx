@@ -15,7 +15,7 @@ import {
   selectSeasonRequestStatus,
 } from "@/lib/redux/slices/seasons";
 import { useEffect, useState } from "react";
-import { seasonFromtoCreateSeasonRequest } from "@/lib/utils/form-mappers";
+import { seasonFormtoCreateSeasonRequest } from "@/lib/utils/form-mappers";
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import Link from "next/link";
 
@@ -61,7 +61,7 @@ export function SeasonsForm(props: ComponentProps) {
     actions: FormikHelpers<SeasonFormPayload>
   ) => {
     console.log(values);
-    const mapped = seasonFromtoCreateSeasonRequest(props.id, values);
+    const mapped = seasonFormtoCreateSeasonRequest(props.id, values);
     dispatch(createSeasonAsync(mapped));
     actions.resetForm();
   };

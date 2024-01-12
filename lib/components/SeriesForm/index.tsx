@@ -26,7 +26,7 @@ import { InputTextarea } from "primereact/inputtextarea";
 import AwardsListFormSelector from "../AwardsListFormSelector";
 import NewsListFormSelector from "../NewsListFormSelector";
 
-const formSchema = object<SerieFormPayload>({
+const formSchema = object({
   imageUrl: string().url("Invalid Format").required("Required"),
   name: string().required("Name Required"),
   year: date().required("Year Required"),

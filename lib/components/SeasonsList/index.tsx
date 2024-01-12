@@ -61,7 +61,7 @@ export default function SeasonsList(props: ComponentProps) {
         <Link href={`${props.serieId}/seasons/create`}>
           <Button label="Add Season" icon="pi pi-plus" outlined></Button>
         </Link>
-        <Link href={`${props.serieId}/seasons/create`}>
+        <Link href={`${props.serieId}/seasons/edit`}>
           <Button icon="pi pi-pencil" outlined></Button>
         </Link>
         <Link href={`${props.serieId}/seasons/create`}>

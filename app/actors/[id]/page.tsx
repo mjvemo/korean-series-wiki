@@ -13,6 +13,9 @@ import {
   getAwardsByActorIdAsync,
   getNewsByActorIdAsync,
   selectByEntityIdNews,
+  selectByEntityIdSeries,
+  selectByEntityIdAwards,
+  selectNews,
 } from "@/lib/redux";
 import { TabPanel, TabView } from "primereact/tabview";
 import { Footer } from "@/lib/components/Footer";
@@ -41,9 +44,9 @@ export default function ActorsList(props: ComponentProps) {
     dispatch(getNewsByActorIdAsync(id));
   }, []);
 
-  const series = useSelector(selectSeries);
+  const series = useSelector(selectByEntityIdSeries);
   const activeActor = useSelector(selectActiveActor);
-  const awards = useSelector(selectAwards);
+  const awards = useSelector(selectByEntityIdAwards);
   const news = useSelector(selectByEntityIdNews);
 
   //TODO: Fixed Link href to id/edit page

@@ -1,6 +1,8 @@
 export interface UpdateSeasonRequestDTO {
-  id?: string;
-  name?: string;
-  releaseAt?: string;
-  description?: string;
+  serie: string;
+  chapters: {
+    name: string;
+    releasedAt: string;
+    description: string;
+  }[];
 }

@@ -28,6 +28,9 @@ import {
   selectAwards,
   selectSeries,
   selectByEntityIdNews,
+  selectByEntityIdActors,
+  selectByEntityIdSeries,
+  selectByEntityIdAwards,
 } from "@/lib/redux";
 
 import { TabView, TabPanel } from "primereact/tabview";
@@ -60,8 +63,8 @@ export function ActorsListFormEdit(props: ComponentProps) {
   const dispatch = useDispatch();
   const actor = useSelector(selectActiveActor);
   const news = useSelector(selectByEntityIdNews);
-  const awards = useSelector(selectAwards);
-  const series = useSelector(selectSeries);
+  const awards = useSelector(selectByEntityIdAwards);
+  const series = useSelector(selectByEntityIdSeries);
 
   useEffect(() => {
     dispatch(getActorByIdAsync(id));
