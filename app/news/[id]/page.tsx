@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { Button } from "primereact/button";
-import { useDispatch, useSelector } from "@/lib/redux";
+import { selectByEntityIdNews, useDispatch, useSelector } from "@/lib/redux";
 import { Footer } from "@/lib/components/Footer";
 import { IfNotNil } from "@/lib/components/utils/IfNotNil";
 import {
@@ -27,7 +27,7 @@ export default function NewsList(props: ComponentProps) {
     dispatch(getNewsByIdAsync(id));
   }, []);
 
-  const news = useSelector(selectNews);
+  const news = useSelector(selectByEntityIdNews);
   const activeNews = useSelector(selectActiveNews);
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
