@@ -5,7 +5,7 @@ import { Button } from "primereact/button";
 import Link from "next/link";
 import { AwardDTO } from "@/lib/api/dtos/award.dto";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "@/lib/redux";
 import { deleteAwardByIdAsync, getAwardsAsync } from "@/lib/redux";
 import { Toast } from "primereact/toast";
 import DeleteConfirmDialog from "../DeleteConfirmDialog";
@@ -58,8 +58,16 @@ export default function AwardsList(props: ComponentProps) {
     );
   };
 
-  function handleDeleteConfirm(): void {
-    throw new Error("Function not implemented.");
+  async function handleDeleteConfirm() {
+    await dispatch(deleteAwardByIdAsync(toDelete.id));
+    setDeleteDialogVisible(false);
+    toast.current?.show({
+      severity: "info",
+      summary: "Actor deleted",
+      detail: `Name: ${toDelete.name}`,
+      life: 3000,
+    });
+    setToDelete({ id: "", name: "" });
   }
 
   return (

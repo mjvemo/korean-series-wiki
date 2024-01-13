@@ -30,6 +30,8 @@ import SeasonsList from "@/lib/components/SeasonsList";
 import AwardsList from "@/lib/components/AwardsList";
 import NewsList from "@/lib/components/NewsList";
 import { selectNews } from "@/lib/redux/slices/news";
+import Link from "next/link";
+import { Button } from "primereact/button";
 
 export interface ComponentProps {
   params: { id: string; url: string };
@@ -60,6 +62,16 @@ export default function SeriesList(props: ComponentProps) {
         src="https://the-post-assets.sgp1.digitaloceanspaces.com/2021/06/Gumihonew-1896x800.jpg"
       ></Image> */}
       <div className="flex flex-row justify-content-start">
+        <div className="flex flex-row gap-4 justify-content-end m-4">
+          <Link href={`/series/${id}/edit`}>
+            <Button
+              label="Edit"
+              icon="pi pi-plus"
+              size="small"
+              outlined
+            ></Button>
+          </Link>
+        </div>
         <IfNotNil data={activeSerie}>
           {({ data: serie }) => (
             <TabView>

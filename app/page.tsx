@@ -1,18 +1,21 @@
 "use client";
-import { Card } from "primereact/card";
+
 import { Button } from "primereact/button";
 import { Image } from "primereact/image";
-import { serie, serie1, serie2 } from "@/lib/models/serie.model";
-import { actor, actor1, actor2 } from "@/lib/models/actor.model";
 import { IndexImage, indexImages } from "@/lib/models/images.model";
 import { Carousel } from "primereact/carousel";
 import { Footer } from "@/lib/components/Footer";
-import { SerieCard } from "@/lib/components/SerieCard";
 import Link from "next/link";
 import SeriesList from "@/lib/components/SeriesList";
 import { useSelector } from "react-redux";
-import { selectSeries } from "@/lib/redux/slices/series/selectors";
-import { selectActors } from "@/lib/redux/slices/actors/selectors";
+import {
+  selectByEntityIdSeries,
+  selectSeries,
+} from "@/lib/redux/slices/series/selectors";
+import {
+  selectActors,
+  selectByEntityIdActors,
+} from "@/lib/redux/slices/actors/selectors";
 import ActorsList from "@/lib/components/ActorsList";
 
 // import { ProductService } from "./service/ProductService";
@@ -40,9 +43,8 @@ export default function IndexPage() {
     return <Image src={indexImage.url} alt={indexImage.name} width="1670" />;
   };
 
-  const actors = useSelector(selectActors);
-  const series = useSelector(selectSeries);
-  const listOfCards = [actors, series];
+  const actors = useSelector(selectByEntityIdActors);
+  const series = useSelector(selectByEntityIdSeries);
 
   return (
     <div>

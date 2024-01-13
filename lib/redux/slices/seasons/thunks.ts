@@ -5,7 +5,7 @@ import { UpdateSeasonRequestDTO } from "@/lib/api/dtos/update-seasons-request-dt
 
 enum ActionType {
   GET_SEASONS = "seasons/getSeasons",
-  GET_SEASON_BY_ID = "seasons/getSeasonsById",
+  GET_SEASON_BY_ID = "seasons/getSeasonById",
   CREATE_SEASON = "season/createSeason",
   GET_SEASONS_BY_SERIE_ID = "seasons/getSeasonsBySerieId",
   DELETE_SEASON_BY_ID = "seasons/deleteSeasonById",
@@ -43,7 +43,7 @@ export const getSeasonsBySerieId = createAppAsyncThunk(
 export const deleteSeasonByIdAsync = createAppAsyncThunk(
   ActionType.DELETE_SEASON_BY_ID,
   (id: string) => {
-    return client.deleteNews(id);
+    return client.deleteSeason(id);
   }
 );
 

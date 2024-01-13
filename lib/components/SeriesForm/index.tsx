@@ -29,7 +29,6 @@ import NewsListFormSelector from "../NewsListFormSelector";
 const formSchema = object({
   imageUrl: string().url("Invalid Format").required("Required"),
   name: string().required("Name Required"),
-  year: date().required("Year Required"),
   pg: string().required("Required"),
   rate: number().required("Required"),
   genre: string().required("Required"),

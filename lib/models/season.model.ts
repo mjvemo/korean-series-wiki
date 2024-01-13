@@ -5,5 +5,5 @@ export interface SeasonFormPayload {
 export interface ChapterFormPayload {
   name: string;
   description: string;
-  releaseAt: string;
+  releasedAt: string;
 }

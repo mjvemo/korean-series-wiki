@@ -16,20 +16,12 @@ export function SeasonsChapters(props: ComponentProps) {
     />
   );
 
-  const footer = (
-    <div className="flex flex-row justify-content-center">
-      <Button icon="pi pi-pencil" text></Button>
-      <Button icon="pi pi-trash" text></Button>
-    </div>
-  );
-
   return (
-    <div className="flex flex-row justify-content-start m-4 ">
+    <div className="flex flex-row justify-content-start m-6 ">
       <Card
         title={props.data.name}
-        subTitle={props.data.releaseAt}
+        subTitle={props.data.releasedAt}
         header={header}
-        footer={footer}
         className=" flex flex-row justify-content-center align-items-center gap-4 md:w-25rem"
       >
         {props.data.description}

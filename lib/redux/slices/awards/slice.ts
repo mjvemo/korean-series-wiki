@@ -7,6 +7,7 @@ import {
   getAwardByIdAsync,
   getAwardsBySerieIdAsync,
   deleteAwardByIdAsync,
+  getAwardsByActorIdAsync,
 } from "./thunks";
 import {
   getAwardsFulfilledCaseReducer,
@@ -25,6 +26,9 @@ import {
   deleteAwardsByIdRejectedCaseReducer,
   deleteAwardByIdPendingCaseReducer,
   deleteAwardByIdFullfieldCaseReducer,
+  getAwardsByActorIdPendingCaseReducer,
+  getAwardsByActorIdFullfieldCaseReducer,
+  getAwardsByActorIdRejectedCaseReducer,
 } from "./reducers";
 
 export const awardsSlice = createSlice({
@@ -53,19 +57,19 @@ export const awardsSlice = createSlice({
       .addCase(createAwardAsync.fulfilled, createAwardFulfilledCaseReducer)
       .addCase(createAwardAsync.rejected, createAwardRejectedCaseReducer)
 
-      // GetAwardByAwardsId
-      // .addCase(
-      //   getAwardsByAwardsIdAsync.pending,
-      //   getAwardsByAwardsIdPendingCaseReducer
-      // )
-      // .addCase(
-      //   getAwardsByAwardsIdAsync.fulfilled,
-      //   getAwardsByAwardsIdFullfieldCaseReducer
-      // )
-      // .addCase(
-      //   getAwardsByAwardsIdAsync.rejected,
-      //   getAwardsByAwardsIdRejectedCaseReducer
-      // )
+      // GetAwardByActorId
+      .addCase(
+        getAwardsByActorIdAsync.pending,
+        getAwardsByActorIdPendingCaseReducer
+      )
+      .addCase(
+        getAwardsByActorIdAsync.fulfilled,
+        getAwardsByActorIdFullfieldCaseReducer
+      )
+      .addCase(
+        getAwardsByActorIdAsync.rejected,
+        getAwardsByActorIdRejectedCaseReducer
+      )
 
       // GetAwardBySerieId
       .addCase(
@@ -80,6 +84,7 @@ export const awardsSlice = createSlice({
         getAwardsBySerieIdAsync.rejected,
         getAwardsBySerieIdRejectedCaseReducer
       )
+
       //DeleteAwardById
       .addCase(deleteAwardByIdAsync.pending, deleteAwardByIdPendingCaseReducer)
       .addCase(

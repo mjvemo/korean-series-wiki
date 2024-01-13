@@ -58,6 +58,16 @@ export default function NewsList(props: ComponentProps) {
     );
   };
 
+  const imageBodyTemplate = (news: NewsDTO) => {
+    return (
+      <img
+        src={news.thumbnail}
+        alt={news.thumbnail}
+        className="w-6rem shadow-2 border-round"
+      />
+    );
+  };
+
   async function handleDeleteConfirm() {
     await dispatch(deleteNewsByIdAsync(toDelete.id));
     setDeleteDialogVisible(false);
@@ -90,6 +100,12 @@ export default function NewsList(props: ComponentProps) {
           metaKeySelection={false}
           onRowSelect={onRowSelect}
         >
+          <Column
+            header="image"
+            body={imageBodyTemplate}
+            sortable
+            style={{ width: "20%" }}
+          ></Column>
           <Column
             header="name"
             body={nameBodyTemplate}

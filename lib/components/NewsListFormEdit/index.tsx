@@ -84,6 +84,23 @@ export function NewsListFormEdit(props: ComponentProps) {
           <div className="flex flex-column">
             <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
               <div className="flex flex-column gap-3 align-items-start justify-content-start pt-3 py-2 ">
+                <label>thumbnail</label>
+                <InputText
+                  name="thumbnail"
+                  id="thumbnail"
+                  value={formik.values.thumbnail}
+                  onChange={formik.handleChange}
+                  placeholder="thumbnail"
+                  onBlur={formik.handleBlur}
+                  className={classNames({
+                    "p-invalid": isFormFieldInvalid("thumbnail"),
+                    "w-full": true,
+                    "md: w-14rem": true,
+                  })}
+                />
+                {getFormErrorMessage("thumbnail")}
+              </div>
+              <div className="flex flex-column gap-3 align-items-start justify-content-start pt-3 py-2 ">
                 <label>Name</label>
                 <InputText
                   name="name"

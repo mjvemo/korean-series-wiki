@@ -30,7 +30,7 @@ const formSchema = object({
     object({
       name: string().required("chapter name Required"),
       description: string().required("Description Required"),
-      releaseAt: string().required("Required"),
+      releasedAt: string().required("Required"),
     })
   ),
 });
@@ -43,17 +43,10 @@ export default function SeasonsListFormEdit(props: ComponentProps) {
 
   useEffect(() => {
     dispatch(getSeasonByIdAsync(id));
-    dispatch(getSeasonsBySerieId(id));
   }, []);
 
   const initialValues: SeasonFormPayload = {
-    chapters: [
-      {
-        name: "",
-        description: "",
-        releaseAt: "",
-      },
-    ],
+    chapters: season?.chapters || [],
   };
 
   const onFormSubmit = async (
@@ -67,7 +60,9 @@ export default function SeasonsListFormEdit(props: ComponentProps) {
     actions.setSubmitting(true);
     await dispatch(updateSeasonAsync({ id, data: updateActorRequest }));
 
-    router.push(`/seasons/${id}`);
+    if (season) {
+      router.push(`/series/${season.serie}`);
+    }
   };
 
   const formik = useFormik({
@@ -107,7 +102,7 @@ export default function SeasonsListFormEdit(props: ComponentProps) {
       },
     ]);
   }
-  console.log({ chapters, props });
+  console.log({ chapters, props, season, errors });
 
   const [selectedCity, setSelectedCity] = useState(null);
 

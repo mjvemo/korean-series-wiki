@@ -11,7 +11,7 @@ import { string, object } from "yup";
 interface ChapterFormPayload {
   name: string;
   description: string;
-  releaseAt: string;
+  releasedAt: string;
 }
 
 interface ComponentProps {
@@ -67,23 +67,23 @@ export function ChapterForm(props: ComponentProps) {
           </div>
 
           <div className="flex flex-column gap-3 align-items-start justify-content-start py-2 ">
-            <label>Release Date</label>
+            <label>Released At</label>
             <Calendar
-              name={`chapters.${index}.releaseAt`}
-              id={`chapters.${index}.releaseAt`}
-              value={value.releaseAt ? new Date(value.releaseAt) : null}
+              name={`chapters.${index}.releasedAt`}
+              id={`chapters.${index}.releasedAt`}
+              value={value.releasedAt ? new Date(value.releasedAt) : null}
               onChange={props.onChange}
               view="year"
               dateFormat="yy"
               placeholder="year"
               onBlur={props.onChange}
               className={classNames({
-                "p-invalid": isFormFieldInvalid("releaseAt"),
+                "p-invalid": isFormFieldInvalid("releasedAt"),
                 "w-full": true,
                 "md: w-14rem": true,
               })}
             />
-            {getFormErrorMessage("releaseAt")}
+            {getFormErrorMessage("releasedAt")}
           </div>
 
           <div className="flex flex-column gap-3 align-items-start justify-content-start py-2">

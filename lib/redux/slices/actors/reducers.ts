@@ -23,7 +23,7 @@ export const getActorsByIdFulfilledCaseReducer: CaseReducer<
   state.active = action.payload;
   state.status = "idle";
 };
-export const getActorRejectedCaseReducer: CaseReducer<ActorState, any> = (
+export const getActorsRejectedCaseReducer: CaseReducer<ActorState, any> = (
   state
 ) => {
   state.status = "failed";

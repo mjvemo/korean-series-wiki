@@ -97,11 +97,13 @@ export const updateSeasonReducer: CaseReducer<
   state.items.push(action.payload);
 };
 
-export const deleteSeasonsByIdFullfieldCaseReducer: CaseReducer<
+export const deleteSeasonsByIdFulfilledCaseReducer: CaseReducer<
   SeasonState,
   PayloadAction<SeasonDTO>
 > = (state, action) => {
-  state.items = state.items.filter((item) => item.id !== action.payload.id);
+  state.byEntityIdItems = state.byEntityIdItems.filter(
+    (item) => item.id !== action.payload.id
+  );
   state.status = "idle";
 };
 

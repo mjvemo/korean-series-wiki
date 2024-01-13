@@ -27,7 +27,7 @@ export const getAwardsAsync = createAppAsyncThunk(ActionType.GET_AWARDS, () => {
 export const getAwardByIdAsync = createAppAsyncThunk(
   ActionType.GET_AWARDS_BY_ID,
   (id: string) => {
-    return client.getAwardById(id);
+    return client.getAward(id);
   }
 );
 

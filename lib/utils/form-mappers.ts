@@ -108,7 +108,7 @@ export function seasonFormtoCreateSeasonRequest(
     chapters: values.chapters.map((chapter) => ({
       name: chapter.name,
       description: chapter.description,
-      releasedAt: chapter.releaseAt,
+      releasedAt: chapter.releasedAt,
     })),
   };
 }
@@ -122,7 +122,7 @@ export function seasonFormtoUpdateSeasonRequest(
     chapters: values.chapters.map((chapter) => ({
       name: chapter.name,
       description: chapter.description,
-      releasedAt: chapter.releaseAt,
+      releasedAt: chapter.releasedAt,
     })),
   };
 }

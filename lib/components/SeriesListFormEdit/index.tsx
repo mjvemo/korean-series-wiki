@@ -26,7 +26,10 @@ import {
   useSelector,
 } from "@/lib/redux";
 import { useEffect } from "react";
-import { serieFormToCreateSerieRequest } from "@/lib/utils/form-mappers";
+import {
+  serieFormToCreateSerieRequest,
+  serieFormToUpdateSerieRequest,
+} from "@/lib/utils/form-mappers";
 import { SerieFormPayload } from "@/lib/models/serie.model";
 import { Rating } from "primereact/rating";
 import ActorsListFormSelector from "../ActorsListFormSelector";
@@ -63,7 +66,8 @@ export function SeriesListFormEdit(props: ComponentProps) {
     dispatch(getNewsBySerieIdAsync(id));
     dispatch(getAwardsBySerieIdAsync(id));
     dispatch(getActorsBySerieIdAsync(id));
-  });
+  }, []);
+
   const initialValues: SerieFormPayload = {
     imageUrl: serie?.image || "imageUrl",
     name: serie?.name || "name",
@@ -85,7 +89,7 @@ export function SeriesListFormEdit(props: ComponentProps) {
     values: SerieFormPayload,
     actions: FormikHelpers<SerieFormPayload>
   ) => {
-    const updateSerieRequest = serieFormToCreateSerieRequest(values);
+    const updateSerieRequest = serieFormToUpdateSerieRequest(values);
     await dispatch(updateSerieAsync({ id, data: updateSerieRequest }));
 
     actions.setSubmitting(true);

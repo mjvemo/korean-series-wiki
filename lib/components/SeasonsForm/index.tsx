@@ -28,7 +28,7 @@ const formSchema = object({
     object({
       name: string().required("chapter name Required"),
       description: string().required("Description Required"),
-      releaseAt: string().required("Required"),
+      releasedAt: string().required("Required"),
     })
   ),
 });
@@ -40,29 +40,23 @@ export function SeasonsForm(props: ComponentProps) {
   const season = useSelector(selectActiveSeason);
   const status = useSelector(selectSeasonRequestStatus);
 
-  useEffect(() => {
-    if (season) {
-      router.push(`/series/${props.id}`);
-    }
-  }, [status]);
-
   const initialValues: SeasonFormPayload = {
     chapters: [
       {
         name: "",
         description: "",
-        releaseAt: "",
+        releasedAt: "",
       },
     ],
   };
 
-  const onFormSubmit = (
+  const onFormSubmit = async (
     values: SeasonFormPayload,
     actions: FormikHelpers<SeasonFormPayload>
   ) => {
-    console.log(values);
     const mapped = seasonFormtoCreateSeasonRequest(props.id, values);
-    dispatch(createSeasonAsync(mapped));
+    await dispatch(createSeasonAsync(mapped));
+    router.push(`/series/${props.id}`);
     actions.resetForm();
   };
 

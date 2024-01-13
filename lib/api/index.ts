@@ -114,7 +114,7 @@ export class ApiClient {
     return this.request({ url });
   }
 
-  getAwardById(id: string): Promise<AwardDTO> {
+  getAward(id: string): Promise<AwardDTO> {
     const url = `/awards/${id}`;
     return this.request({ url });
   }
@@ -133,7 +133,7 @@ export class ApiClient {
     return this.request({ url, method: "GET" });
   }
 
-  updateAwardById(id: string, data: UpdateAwardsRequestDTO): Promise<NewsDTO> {
+  updateAwardById(id: string, data: UpdateAwardsRequestDTO): Promise<AwardDTO> {
     const url = `/awards/${id}`;
     return this.request({ url, method: "PATCH", data });
   }
@@ -185,12 +185,7 @@ export class ApiClient {
     return this.request({ url });
   }
 
-  getSeason(id: string): Promise<SerieDTO> {
-    const url = `/seasons/${id}`;
-    return this.request({ url });
-  }
-
-  getSeasonById(id: string): Promise<SeasonDTO> {
+  getSeason(id: string): Promise<SeasonDTO> {
     const url = `/seasons/${id}`;
     return this.request({ url });
   }

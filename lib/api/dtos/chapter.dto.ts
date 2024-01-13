@@ -1,5 +1,5 @@
 export interface ChapterDTO {
   name: string;
-  releaseAt: string;
+  releasedAt: string;
   description: string;
 }

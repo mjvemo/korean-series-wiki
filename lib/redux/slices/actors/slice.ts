@@ -11,7 +11,7 @@ import {
 import {
   getActorsFulfilledCaseReducer,
   getActorsPendingCaseReducer,
-  getActorRejectedCaseReducer,
+  getActorsRejectedCaseReducer,
   getActorsByIdFulfilledCaseReducer,
   getActorsByIdPendingCaseReducer,
   getActorsByIdRejectedCaseReducer,
@@ -41,7 +41,7 @@ export const actorsSlice = createSlice({
       // GetActors
       .addCase(getActorsAsync.pending, getActorsPendingCaseReducer)
       .addCase(getActorsAsync.fulfilled, getActorsFulfilledCaseReducer)
-      .addCase(getActorsAsync.rejected, getActorRejectedCaseReducer)
+      .addCase(getActorsAsync.rejected, getActorsRejectedCaseReducer)
 
       // GetActorById
       .addCase(getActorByIdAsync.pending, getActorsByIdPendingCaseReducer)
