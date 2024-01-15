@@ -27,6 +27,9 @@ import NewsList from "@/lib/components/NewsList";
 
 import { Button } from "primereact/button";
 import Link from "next/link";
+import { BreadCrumb } from "primereact/breadcrumb";
+import HeroIdPage from "@/lib/components/ActorsHero";
+import ActorsHero from "@/lib/components/ActorsHero";
 
 export interface ComponentProps {
   params: { id: string };
@@ -49,14 +52,14 @@ export default function ActorsList(props: ComponentProps) {
   const awards = useSelector(selectByEntityIdAwards);
   const news = useSelector(selectByEntityIdNews);
 
-  //TODO: Fixed Link href to id/edit page
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
-      <div className="flex flex-row gap-4 justify-content-end m-4">
-        <Link href={`/actors/${id}/edit`}>
-          <Button label="Edit" icon="pi pi-plus" size="small" outlined></Button>
-        </Link>
-      </div>
+      <ActorsHero
+        params={{
+          id: "",
+        }}
+      />
+
       <div className="flex flex-row justify-content-center">
         <div className="card justify-content-center"></div>
         <div className="card justify-content-center">
