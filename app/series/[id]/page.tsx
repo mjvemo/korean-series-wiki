@@ -58,11 +58,7 @@ export default function SeriesList(props: ComponentProps) {
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
-      <SeriesHero
-        params={{
-          id: "",
-        }}
-      />
+      <SeriesHero id={id} />
       <div className="flex flex-row justify-content-start">
         <IfNotNil data={activeSerie}>
           {({ data: serie }) => (

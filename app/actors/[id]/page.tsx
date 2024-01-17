@@ -50,11 +50,7 @@ export default function ActorsList(props: ComponentProps) {
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
-      <ActorsHero
-        params={{
-          id: "",
-        }}
-      />
+      <ActorsHero id={id} />
 
       <div className="flex flex-row justify-content-center">
         <div className="card justify-content-center"></div>

@@ -41,11 +41,7 @@ export default function (props: ComponentProps) {
   const activeAward = useSelector(selectActiveAward);
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
-      <AwardsHero
-        params={{
-          id: "",
-        }}
-      />
+      <AwardsHero id={id} />
 
       <div className="flex flex-row gap-4 justify-content-end m-4">
         <Link href={`/awards/${id}/edit`}>

@@ -4,10 +4,10 @@ import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from "primereact/button";
 
 export interface ComponentProps {
-  params: { id: string };
+  id: string;
 }
 export default function AwardsHero(props: ComponentProps) {
-  const { id } = props.params;
+  const { id } = props;
   const items = [
     { label: "Awards", url: "/awards" },
     { label: id, url: `/awards/${id}` },
