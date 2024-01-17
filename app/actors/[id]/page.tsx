@@ -25,10 +25,6 @@ import AwardsList from "@/lib/components/AwardsList";
 
 import NewsList from "@/lib/components/NewsList";
 
-import { Button } from "primereact/button";
-import Link from "next/link";
-import { BreadCrumb } from "primereact/breadcrumb";
-import HeroIdPage from "@/lib/components/ActorsHero";
 import ActorsHero from "@/lib/components/ActorsHero";
 
 export interface ComponentProps {

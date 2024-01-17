@@ -23,6 +23,7 @@ import { Footer } from "@/lib/components/Footer";
 import { IfNotNil } from "@/lib/components/utils/IfNotNil";
 import SeriesList from "@/lib/components/SeriesList";
 import Link from "next/link";
+import AwardsHero from "@/lib/components/AwardHero";
 
 export interface ComponentProps {
   params: { id: string };
@@ -40,27 +41,18 @@ export default function (props: ComponentProps) {
   const activeAward = useSelector(selectActiveAward);
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
+      <AwardsHero
+        params={{
+          id: "",
+        }}
+      />
+
       <div className="flex flex-row gap-4 justify-content-end m-4">
         <Link href={`/awards/${id}/edit`}>
           <Button label="Edit" icon="pi pi-plus" size="small" outlined></Button>
         </Link>
       </div>
-      <div className="flex flex-row justify-content-center">
-        <div className="card justify-content-center"></div>
-        <IfNotNil data={activeAward}>
-          {({ data: award }) => {
-            return (
-              <>
-                <div className="card justify-content-center">
-                  <div>{award.name}</div>
-                  <div>{award.year}</div>
-                  <div>{award.category}</div>
-                </div>
-              </>
-            );
-          }}
-        </IfNotNil>
-      </div>
+
       <Footer />
     </div>
   );

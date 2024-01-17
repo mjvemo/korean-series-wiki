@@ -12,6 +12,7 @@ import {
 } from "@/lib/redux/slices/news";
 import { NewsDTO } from "@/lib/models/news.model";
 import Link from "next/link";
+import NewsHero from "@/lib/components/NewsHero";
 
 export interface ComponentProps {
   data: NewsDTO[];
@@ -21,22 +22,15 @@ export interface ComponentProps {
 export default function NewsList(props: ComponentProps) {
   const { id } = props.params;
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getNewsByIdAsync(id));
-  }, []);
-
-  const news = useSelector(selectByEntityIdNews);
-  const activeNews = useSelector(selectActiveNews);
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
-      <div className="flex flex-row gap-4 justify-content-end m-4">
-        <Link href={`/news/${id}/edit`}>
-          <Button label="Edit" icon="pi pi-plus" size="small" outlined></Button>
-        </Link>
-      </div>
-      <div className="flex flex-row justify-content-center">
+      <NewsHero
+        params={{
+          id: "",
+        }}
+      />
+
+      {/* <div className="flex flex-row justify-content-center">
         <div className="card justify-content-center"></div>
         <IfNotNil data={activeNews}>
           {({ data: news }) => {
@@ -51,7 +45,7 @@ export default function NewsList(props: ComponentProps) {
             );
           }}
         </IfNotNil>
-      </div>
+      </div> */}
       <Footer />
     </div>
   );
