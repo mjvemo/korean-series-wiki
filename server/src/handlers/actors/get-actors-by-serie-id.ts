@@ -10,7 +10,6 @@ export default async function handler(req: Request, res: Response) {
     }
 
     const response = await useCase.getActorsBySerieId(serieId);
-
     return res.json(response);
   } catch (error: any) {
 
