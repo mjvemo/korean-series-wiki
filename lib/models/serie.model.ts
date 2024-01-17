@@ -15,7 +15,7 @@ export interface SerieFormPayload {
   name: string;
   pg: string;
   releasedAt: number;
-  rate: number;
+  rating: number;
   genre: string;
   directedBy: string;
   studio: string;

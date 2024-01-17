@@ -54,7 +54,7 @@ export function serieFormToCreateSerieRequest(
   return {
     image: values.imageUrl,
     name: values.name,
-    rating: values.rate || 0,
+    rating: values.rating || 0,
     pg: values.pg,
     genre: values.genre,
     studio: values.studio,
@@ -74,7 +74,7 @@ export function serieFormToUpdateSerieRequest(
   return {
     image: values.imageUrl,
     name: values.name,
-    rate: values.rate || 0,
+    rating: values.rating || 0,
     pg: values.pg,
     genre: values.genre,
     studio: values.studio,

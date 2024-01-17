@@ -24,7 +24,7 @@ export default function SeriesHero(props: ComponentProps) {
           </div>
           <div className="text-md mt-4 mb-4">
             <span className="block text-4xl font-bold mb-4 mt-6">
-              {serie?.name} <br /> Rate: {serie?.rate}
+              {serie?.name} <br /> Rate: {serie?.rating}
             </span>
             <div>
               {serie?.createdAt} <br />

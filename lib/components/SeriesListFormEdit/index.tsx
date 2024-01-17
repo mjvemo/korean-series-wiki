@@ -43,7 +43,7 @@ const formSchema = object({
   imageUrl: string().required("Invalid Format"),
   name: string().required("Name Required"),
   pg: string().required("Required"),
-  rate: number().required("Required"),
+  rating: number().required("Required"),
   genre: string().required("Required"),
   directedBy: string().required("Required"),
   description: string().required("Description Required"),
@@ -74,7 +74,7 @@ export function SeriesListFormEdit(props: ComponentProps) {
     name: serie?.name || "name",
     releasedAt: serie?.releasedAt || 0,
     pg: serie?.pg || "number",
-    rate: serie?.rate || 0,
+    rating: serie?.rating || 0,
     genre: serie?.genre || "",
     directedBy: serie?.directedBy || "",
     studio: serie?.studio || "",
@@ -202,22 +202,22 @@ export function SeriesListFormEdit(props: ComponentProps) {
                   </div>
                   {getFormErrorMessage("pg")}
                   <div className="flex flex-column gap-2">
-                    <label>Rate</label>
+                    <label>rating</label>
                     <Rating
-                      name="rate"
-                      id="rate"
-                      value={formik.values.rate}
+                      name="rating"
+                      id="rating"
+                      value={formik.values.rating}
                       onChange={formik.handleChange}
-                      placeholder="rate"
+                      placeholder="rating"
                       onBlur={formik.handleBlur}
                       className={classNames({
-                        "p-invalid": isFormFieldInvalid("rate"),
+                        "p-invalid": isFormFieldInvalid("rating"),
                         "w-full": true,
                       })}
                     />
                   </div>
                 </div>
-                {getFormErrorMessage("rate")}
+                {getFormErrorMessage("rating")}
                 <div>
                   <Divider className="p-4" />
                   <h3>Production</h3>
