@@ -24,13 +24,15 @@ export default function SeriesHero(props: ComponentProps) {
           </div>
           <div className="text-md mt-4 mb-4">
             <span className="block text-4xl font-bold mb-4 mt-6">
-              {serie?.name} <br /> {serie?.rate}
+              {serie?.name} <br /> Rate: {serie?.rate}
             </span>
             <div>
               {serie?.createdAt} <br />
-              {serie?.pg}
+              {serie?.pg} <br />
+              Genre: {serie?.genre} <br />
+              Director: {serie?.directedBy} <br />
+              Studio: {serie?.studio}
             </div>
-            <div className="text-md mt-4 mb-4">Genre:{serie?.genre}</div>
           </div>
           <div className="flex flex-row gap-4 justify-content-start mt-6">
             <Link href={`/series/${serie?.id}/edit`}>

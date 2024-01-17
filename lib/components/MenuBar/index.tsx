@@ -82,6 +82,7 @@ const start = (
       width="100"
       height="100"
       className="mr-2"
+      priority={true}
     ></Image>
   </Link>
 );

@@ -19,6 +19,8 @@ import {
   selectActiveSerie,
   selectActors,
   selectAwards,
+  selectByEntityIdActors,
+  selectByEntityIdAwards,
   selectByEntityIdNews,
   selectSerieRequestStatus,
   updateSerieAsync,
@@ -38,9 +40,8 @@ import AwardsListFormSelector from "../AwardsListFormSelector";
 import NewsListFormSelector from "../NewsListFormSelector";
 
 const formSchema = object({
-  imageUrl: string().url("Invalid Format").required("Required"),
+  imageUrl: string().required("Invalid Format"),
   name: string().required("Name Required"),
-  year: date().required("Year Required"),
   pg: string().required("Required"),
   rate: number().required("Required"),
   genre: string().required("Required"),
@@ -58,8 +59,8 @@ export function SeriesListFormEdit(props: ComponentProps) {
   const dispatch = useDispatch();
   const serie = useSelector(selectActiveSerie);
   const news = useSelector(selectByEntityIdNews);
-  const awards = useSelector(selectAwards);
-  const cast = useSelector(selectActors);
+  const awards = useSelector(selectByEntityIdAwards);
+  const cast = useSelector(selectByEntityIdActors);
 
   useEffect(() => {
     dispatch(getSerieByIdAsync(id));
