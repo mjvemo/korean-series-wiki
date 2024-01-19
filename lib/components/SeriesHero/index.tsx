@@ -1,7 +1,15 @@
-import { selectActiveSerie, useSelector } from "@/lib/redux";
+import {
+  deleteSerieByIdAsync,
+  selectActiveSerie,
+  useDispatch,
+  useSelector,
+} from "@/lib/redux";
 import Link from "next/link";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from "primereact/button";
+import { Toast } from "primereact/toast";
+import { useRef, useState } from "react";
+import DeleteConfirmDialog from "../DeleteConfirmDialog";
 
 export interface ComponentProps {
   id: string;
@@ -14,6 +22,22 @@ export default function SeriesHero(props: ComponentProps) {
   ];
   const home = { icon: "pi pi-home", url: "/" };
   const serie = useSelector(selectActiveSerie);
+  const dispatch = useDispatch();
+  const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
+  const [toDelete, setToDelete] = useState({ name: "", id: "" });
+  const toast = useRef<Toast>(null);
+
+  async function handleDeleteConfirm() {
+    await dispatch(deleteSerieByIdAsync(toDelete.id));
+    setDeleteDialogVisible(false);
+    toast.current?.show({
+      severity: "info",
+      summary: "Actor deleted",
+      detail: `Name: ${toDelete.name}`,
+      life: 3000,
+    });
+    setToDelete({ id: "", name: "" });
+  }
 
   return (
     <div className="grid grid-nogutter surface-50 text-800 overflow-hidden">
@@ -43,6 +67,9 @@ export default function SeriesHero(props: ComponentProps) {
               label="Delete"
               type="button"
               className="p-button-outlined"
+              onClick={() => {
+                setDeleteDialogVisible(true);
+              }}
             />
           </div>
         </section>
@@ -58,6 +85,13 @@ export default function SeriesHero(props: ComponentProps) {
           }}
         />
       </div>
+      <DeleteConfirmDialog
+        visible={deleteDialogVisible}
+        message={`Are you sure you want to delete actor ${toDelete.name}`}
+        onCancelDelete={() => setDeleteDialogVisible(false)}
+        onConfirmDelete={() => handleDeleteConfirm()}
+        onHide={() => setDeleteDialogVisible(false)}
+      />
     </div>
   );
 }

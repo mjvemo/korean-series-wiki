@@ -1,7 +1,15 @@
-import { selectActiveNews, useSelector } from "@/lib/redux";
+import {
+  deleteNewsByIdAsync,
+  selectActiveNews,
+  useDispatch,
+  useSelector,
+} from "@/lib/redux";
 import Link from "next/link";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from "primereact/button";
+import { Toast } from "primereact/toast";
+import { useRef, useState } from "react";
+import DeleteConfirmDialog from "../DeleteConfirmDialog";
 
 export interface ComponentProps {
   id: string;
@@ -14,6 +22,22 @@ export default function NewsHero(props: ComponentProps) {
   ];
   const home = { icon: "pi pi-home", url: "/" };
   const news = useSelector(selectActiveNews);
+  const dispatch = useDispatch();
+  const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
+  const [toDelete, setToDelete] = useState({ name: "", id: "" });
+  const toast = useRef<Toast>(null);
+
+  async function handleDeleteConfirm() {
+    await dispatch(deleteNewsByIdAsync(toDelete.id));
+    setDeleteDialogVisible(false);
+    toast.current?.show({
+      severity: "info",
+      summary: "Actor deleted",
+      detail: `Name: ${toDelete.name}`,
+      life: 3000,
+    });
+    setToDelete({ id: "", name: "" });
+  }
 
   return (
     <div className="grid grid-nogutter surface-50 text-800 overflow-hidden">
@@ -24,11 +48,11 @@ export default function NewsHero(props: ComponentProps) {
           </div>
           <div className="text-md mt-4 mb-4">
             Name ~ {news?.name} <br />
-            Age ~ {news?.publishedAt} <br />
-            Agency ~ {news?.description}
+            Published At ~ {news?.publishedAt} <br />
+            Description ~ {news?.description}
           </div>
           <div className="flex flex-row gap-4 justify-content-start mt-6">
-            <Link href={`/news/${id}/edit`}>
+            <Link href={`/news/${news?.id}/edit`}>
               <Button label="Edit" icon="pi pi-plus" outlined></Button>
             </Link>
             <Button
@@ -36,6 +60,9 @@ export default function NewsHero(props: ComponentProps) {
               label="Delete"
               type="button"
               className="p-button-outlined"
+              onClick={() => {
+                setDeleteDialogVisible(true);
+              }}
             />
           </div>
         </section>
@@ -51,6 +78,13 @@ export default function NewsHero(props: ComponentProps) {
           }}
         />
       </div>
+      <DeleteConfirmDialog
+        visible={deleteDialogVisible}
+        message={`Are you sure you want to delete actor ${toDelete.name}`}
+        onCancelDelete={() => setDeleteDialogVisible(false)}
+        onConfirmDelete={() => handleDeleteConfirm()}
+        onHide={() => setDeleteDialogVisible(false)}
+      />
     </div>
   );
 }

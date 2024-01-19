@@ -1,7 +1,15 @@
-import { selectActiveActor, useSelector } from "@/lib/redux";
+import {
+  deleteActorByIdAsync,
+  selectActiveActor,
+  useDispatch,
+  useSelector,
+} from "@/lib/redux";
 import Link from "next/link";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from "primereact/button";
+import { Toast } from "primereact/toast";
+import { useRef, useState } from "react";
+import DeleteConfirmDialog from "../DeleteConfirmDialog";
 
 export interface ComponentProps {
   id: string;
@@ -13,7 +21,28 @@ export default function ActorsHero(props: ComponentProps) {
     { label: id, url: `/actors/${id}` },
   ];
   const home = { icon: "pi pi-home", url: "/" };
+  const dispatch = useDispatch();
   const actor = useSelector(selectActiveActor);
+  const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
+  const [toDelete, setToDelete] = useState({ name: "", id: "" });
+  const toast = useRef<Toast>(null);
+
+  async function handleDeleteConfirm() {
+    await dispatch(deleteActorByIdAsync(toDelete.id));
+    setDeleteDialogVisible(false);
+    toast.current?.show({
+      severity: "info",
+      summary: "Actor deleted",
+      detail: `Name: ${toDelete.name}`,
+      life: 3000,
+    });
+    setToDelete({ id: "", name: "" });
+  }
+
+  // async function handleOnDeleteClick(actorId: string) {
+  //   await dispatch(deleteActorByIdAsync(actorId));
+  //   setSelected(0);
+  // }
 
   return (
     <div className="grid grid-nogutter surface-50 text-800 overflow-hidden">
@@ -39,11 +68,15 @@ export default function ActorsHero(props: ComponentProps) {
             <Link href={`/actors/${actor?.id}/edit`}>
               <Button label="Edit" icon="pi pi-plus" outlined></Button>
             </Link>
+
             <Button
               icon={"pi pi-trash"}
               label="Delete"
               type="button"
               className="p-button-outlined"
+              onClick={() => {
+                setDeleteDialogVisible(true);
+              }}
             />
           </div>
         </section>
@@ -59,6 +92,13 @@ export default function ActorsHero(props: ComponentProps) {
           }}
         />
       </div>
+      <DeleteConfirmDialog
+        visible={deleteDialogVisible}
+        message={`Are you sure you want to delete actor ${toDelete.name}`}
+        onCancelDelete={() => setDeleteDialogVisible(false)}
+        onConfirmDelete={() => handleDeleteConfirm()}
+        onHide={() => setDeleteDialogVisible(false)}
+      />
     </div>
   );
 }

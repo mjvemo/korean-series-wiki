@@ -29,7 +29,16 @@ export default function NewsList(props: ComponentProps) {
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
-      <NewsHero id={id} />
+      <div className="flex flex-row gap-4 justify-content-end m-4">
+        <Link href={`/news/${id}/edit`}>
+          <Button label="Edit" icon="pi pi-plus" size="small" outlined></Button>
+        </Link>
+      </div>
+      <div className="flex flex-row justify-content-center">
+        <div className="card justify-content-center">
+          <NewsHero id={id} />
+        </div>
+      </div>
       <Footer />
     </div>
   );
