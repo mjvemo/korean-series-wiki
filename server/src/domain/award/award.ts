@@ -5,6 +5,7 @@ import { AwardDTO } from "../../dtos/award.dto";
 export interface AwardProps {
   id: string;
   name: string;
+  image?: string;
   year: string;
   category: string;
   createdAt: string;
@@ -14,6 +15,7 @@ export interface AwardProps {
 export interface CreateAwardProps {
   id?: string;
   name: string;
+  image?: string;
   year: string;
   category: string;
   createdAt?: string;
@@ -22,6 +24,7 @@ export interface CreateAwardProps {
 
 export interface UpdateAwardProps {
   name?: string;
+  image?: string;
   year?: string;
   category?: string;
 }
@@ -29,6 +32,7 @@ export interface UpdateAwardProps {
 export class Award {
   private _id: string;
   private _name: string;
+  private _image?: string;
 
   private _year: string;
   private _category: string;
@@ -42,6 +46,10 @@ export class Award {
 
   get name() {
     return this._name;
+  }
+
+  get image() {
+    return this._image;
   }
 
   get year() {
@@ -74,6 +82,7 @@ export class Award {
 
     return new Award({
       id: props.id || randomUUID(),
+      image: props.image,
       name: props.name,
       year: props.year,
       category: props.category,
@@ -84,6 +93,7 @@ export class Award {
 
   update(props: UpdateAwardProps) {
     this._name = isNil(props.name) ? this._name : props.name;
+    this._image = isNil(props.image) ? this._image : props.image;
     this._year = isNil(props.year) ? this._year : props.year;
     this._category = isNil(props.category) ? this._category : props.category;
     this._updatedAt = new Date().toISOString();
@@ -93,6 +103,7 @@ export class Award {
     return {
       id: this.id,
       name: this.name,
+      image: this.image,
       year: this.year,
       category: this.category,
       createdAt: this.createdAt,

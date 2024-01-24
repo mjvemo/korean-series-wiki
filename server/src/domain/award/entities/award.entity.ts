@@ -5,6 +5,7 @@ export interface IAward {
   _id: Schema.Types.UUID;
   name: string;
   year: string;
+  image: string;
   category: string;
   createdAt: string;
   updatedAt?: string;
@@ -15,6 +16,7 @@ const schema = new Schema<IAward>({
   _id: { type: Schema.Types.UUID, required: true },
   name: { type: String, required: true },
   year: { type: String, required: true },
+  image: { type: String },
   category: { type: String, required: true },
   createdAt: { type: String, required: true },
   updatedAt: { type: String, required: false },
