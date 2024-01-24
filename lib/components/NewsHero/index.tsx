@@ -28,7 +28,7 @@ export default function NewsHero(props: ComponentProps) {
             Agency ~ {news?.description}
           </div>
           <div className="flex flex-row gap-4 justify-content-start mt-6">
-            <Link href={`/news/${news?.id}/edit`}>
+            <Link href={`/news/${id}/edit`}>
               <Button label="Edit" icon="pi pi-plus" outlined></Button>
             </Link>
             <Button

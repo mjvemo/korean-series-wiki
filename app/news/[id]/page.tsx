@@ -21,27 +21,15 @@ export interface ComponentProps {
 
 export default function NewsList(props: ComponentProps) {
   const { id } = props.params;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getNewsByIdAsync(id));
+  }, []);
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
       <NewsHero id={id} />
-
-      {/* <div className="flex flex-row justify-content-center">
-        <div className="card justify-content-center"></div>
-        <IfNotNil data={activeNews}>
-          {({ data: news }) => {
-            return (
-              <>
-                <div className="card justify-content-center">
-                  <div>{news.name}</div>
-                  <div>{news.publishedAt}</div>
-                  <div>{news.description}</div>
-                </div>
-              </>
-            );
-          }}
-        </IfNotNil>
-      </div> */}
       <Footer />
     </div>
   );

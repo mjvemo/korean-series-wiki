@@ -46,13 +46,13 @@ export function AwardsListFormEdit(props: ComponentProps) {
     dispatch(getAwardByIdAsync(id));
     dispatch(getAwardsByActorIdAsync(id));
     dispatch(getAwardsBySerieIdAsync(id));
-  });
+  }, []);
 
   const initialValues: AwardFormPayload = {
-    name: award?.name || "name",
+    name: award?.name || "",
     year: award?.year || 0,
-    category: award?.category || "category",
-    image: award?.image || "image",
+    category: award?.category || "",
+    image: award?.image || "",
   };
 
   const onFormSubmit = async (

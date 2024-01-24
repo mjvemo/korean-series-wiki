@@ -41,7 +41,7 @@ export function NewsListFormEdit(props: ComponentProps) {
     dispatch(getNewsByIdAsync(id));
     dispatch(getNewsByActorIdAsync(id));
     dispatch(getNewsBySerieIdAsync(id));
-  });
+  }, []);
 
   const initialValues: NewsFormPayload = {
     name: news?.name || "name",

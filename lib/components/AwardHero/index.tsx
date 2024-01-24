@@ -42,7 +42,7 @@ export default function AwardsHero(props: ComponentProps) {
       </div>
       <div className="col-12 md:col-8 overflow-hidden">
         <img
-          src=""
+          src={award?.image}
           alt="hero-1"
           className="sm:ml-auto block max-w-full"
           style={{
