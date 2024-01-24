@@ -20,6 +20,7 @@ import { AwardFormPayload } from "@/lib/models/award.model";
 const formSchema = object({
   name: string().required("name Required"),
   year: string().required("year Required"),
+  image: string().required("image Required"),
   category: string().required("category required"),
 });
 export function AwardsForm() {
@@ -36,6 +37,7 @@ export function AwardsForm() {
   const initialValues: AwardFormPayload = {
     name: "",
     year: 0,
+    image: "",
     category: "",
   };
 
@@ -73,6 +75,23 @@ export function AwardsForm() {
           {JSON.stringify(formik, null, 2)}
           <div className="flex flex-column">
             <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
+              <div className="flex flex-column gap-3 align-items-start justify-content-start pt-3 py-2 ">
+                <label>Image Name</label>
+                <InputText
+                  name="image"
+                  id="image"
+                  value={formik.values.image}
+                  onChange={formik.handleChange}
+                  placeholder="image"
+                  onBlur={formik.handleBlur}
+                  className={classNames({
+                    "p-invalid": isFormFieldInvalid("image"),
+                    "w-full": true,
+                    "md: w-14rem": true,
+                  })}
+                />
+                {getFormErrorMessage("image")}
+              </div>
               <div className="flex flex-column gap-3 align-items-start justify-content-start pt-3 py-2 ">
                 <label>Prize Name</label>
                 <InputText

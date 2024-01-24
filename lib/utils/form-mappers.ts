@@ -11,6 +11,8 @@ import { NewsFormPayload } from "../models/news.model";
 import { CreateNewsRequestDTO } from "../api/dtos/create-news-request.dto";
 import { UpdateSerieRequestDTO } from "../api/dtos/update-serie-request.dto";
 import { UpdateSeasonRequestDTO } from "../api/dtos/update-seasons-request-dto";
+import { UpdateAwardsRequestDTO } from "../api/dtos/update-awards-request-dto";
+import { UpdateNewsRequestDTO } from "../api/dtos/update-news-request.dto";
 
 export function actorFormToCreateActorRequest(
   values: ActorsFormPayload
@@ -96,6 +98,17 @@ export function awardFormToCreateAwardRequest(
     year: values.year || 0,
     category: values.category,
     name: values.name,
+    image: values.image,
+  };
+}
+export function awardFormToUpdateAwardRequest(
+  values: AwardFormPayload
+): UpdateAwardsRequestDTO {
+  return {
+    year: values.year || 0,
+    category: values.category,
+    name: values.name,
+    image: values.image,
   };
 }
 
@@ -130,6 +143,17 @@ export function seasonFormtoUpdateSeasonRequest(
 export function newsFormToCreateNewsRequest(
   values: NewsFormPayload
 ): CreateNewsRequestDTO {
+  return {
+    name: values.name,
+    description: values.description,
+    thumbnail: values.thumbnail,
+    publishedAt: values.publishedAt,
+  };
+}
+
+export function newsFormToUpdateNewsRequest(
+  values: NewsFormPayload
+): UpdateNewsRequestDTO {
   return {
     name: values.name,
     description: values.description,

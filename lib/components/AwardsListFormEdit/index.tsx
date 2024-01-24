@@ -16,7 +16,10 @@ import {
   useDispatch,
   useSelector,
 } from "@/lib/redux";
-import { awardFormToCreateAwardRequest } from "@/lib/utils/form-mappers";
+import {
+  awardFormToCreateAwardRequest,
+  awardFormToUpdateAwardRequest,
+} from "@/lib/utils/form-mappers";
 import { Calendar } from "primereact/calendar";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -26,6 +29,7 @@ const formSchema = object<AwardFormPayload>({
   name: string().required("name Required"),
   year: string().required("year Required"),
   category: string().required("category required"),
+  image: string().required("image Required"),
 });
 
 export interface ComponentProps {
@@ -48,13 +52,14 @@ export function AwardsListFormEdit(props: ComponentProps) {
     name: award?.name || "name",
     year: award?.year || 0,
     category: award?.category || "category",
+    image: award?.image || "image",
   };
 
   const onFormSubmit = async (
     values: AwardFormPayload,
     actions: FormikHelpers<AwardFormPayload>
   ) => {
-    const updateAwardsRequest = awardFormToCreateAwardRequest(values);
+    const updateAwardsRequest = awardFormToUpdateAwardRequest(values);
     actions.setSubmitting(true);
     await dispatch(updateAwardsAsync({ id, data: updateAwardsRequest }));
 
@@ -86,6 +91,23 @@ export function AwardsListFormEdit(props: ComponentProps) {
           <h1>Update Award</h1>
           <div className="flex flex-column">
             <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
+              <div className="flex flex-column gap-3 align-items-start justify-content-start pt-3 py-2 ">
+                <label>Image</label>
+                <InputText
+                  name="image"
+                  id="image"
+                  value={formik.values.image}
+                  onChange={formik.handleChange}
+                  placeholder="image"
+                  onBlur={formik.handleBlur}
+                  className={classNames({
+                    "p-invalid": isFormFieldInvalid("image"),
+                    "w-full": true,
+                    "md: w-14rem": true,
+                  })}
+                />
+                {getFormErrorMessage("image")}
+              </div>
               <div className="flex flex-column gap-3 align-items-start justify-content-start pt-3 py-2 ">
                 <label>Prize Name</label>
                 <InputText

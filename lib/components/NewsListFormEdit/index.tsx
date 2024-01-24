@@ -13,7 +13,10 @@ import {
   useDispatch,
   useSelector,
 } from "@/lib/redux";
-import { newsFormToCreateNewsRequest } from "@/lib/utils/form-mappers";
+import {
+  newsFormToCreateNewsRequest,
+  newsFormToUpdateNewsRequest,
+} from "@/lib/utils/form-mappers";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { NewsFormPayload } from "@/lib/models/news.model";
@@ -51,7 +54,7 @@ export function NewsListFormEdit(props: ComponentProps) {
     values: NewsFormPayload,
     actions: FormikHelpers<NewsFormPayload>
   ) => {
-    const updateNewsRequest = newsFormToCreateNewsRequest(values);
+    const updateNewsRequest = newsFormToUpdateNewsRequest(values);
     actions.setSubmitting(true);
     await dispatch(updateNewsAsync({ id, data: updateNewsRequest }));
 

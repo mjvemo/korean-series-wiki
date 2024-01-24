@@ -1,6 +1,7 @@
 export interface UpdateAwardsRequestDTO {
-  prizeName?: string;
+  name?: string;
   year?: number;
   category?: string;
+  image?: string;
   result?: string;
 }

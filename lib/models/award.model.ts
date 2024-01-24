@@ -10,6 +10,7 @@ export interface AwardFormPayload {
   year: number;
   category: string;
   name: string;
+  image: string;
 }
 
 export const award: Award = {
