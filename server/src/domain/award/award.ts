@@ -71,6 +71,7 @@ export class Award {
   private constructor(props: AwardProps) {
     this._id = props.id;
     this._name = props.name;
+    this._image = props.image;
     this._year = props.year;
     this._category = props.category;
     this._createdAt = props.createdAt;
