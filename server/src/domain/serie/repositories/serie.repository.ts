@@ -1,12 +1,14 @@
-import { isNil } from "lodash";
-import SerieEntity from "../entities/serie.entity";
+import isNil from "lodash/isNil";
+import { isHydrated } from "../../../utils/mongoose";
+import { Actor } from "../../actor/actor";
+import { ActorMapper } from "../../actor/mappers/actor.mapper";
+import SerieEntity, { ISerie } from "../entities/serie.entity";
 import { SerieMapper } from "../mappers/serie.mapper";
 import { Serie } from "../serie";
-import { Actor } from "../../actor/actor";
-import { IActor } from "../../actor/entities/actor.entity";
-import { ActorMapper } from "../../actor/mappers/actor.mapper";
-import { isHydrated } from "../../../utils/mongoose";
-import { ISerie } from "../entities/serie.entity";
+
+export interface FindAllParams {
+  genre?: string;
+}
 
 export class SerieRepository {
   async save(serie: Serie) {
@@ -34,8 +36,12 @@ export class SerieRepository {
     return SerieMapper.toDomain(entity);
   }
 
-  async findAll(): Promise<Serie[]> {
-    const response = await SerieEntity.find();
+  async findAll(params?: FindAllParams): Promise<Serie[]> {
+    const response = await SerieEntity.find(
+      isNil(params?.genre)
+        ? {}
+        : { genre: { $regex: new RegExp(params!.genre, "i") } }
+    );
     return response.map((entity) => SerieMapper.toDomain(entity));
   }
 

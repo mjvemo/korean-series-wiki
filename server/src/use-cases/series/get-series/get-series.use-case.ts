@@ -1,13 +1,17 @@
 import defaultRepo, { SerieRepository } from "../../../domain/serie/repositories/serie.repository";
 import { SerieDTO } from "../../../dtos/serie.dto";
 
+export interface GetSeriesFilters {
+  genre?: string;
+}
+
 export class GetSeriesUseCase {
   constructor(
     private repo: SerieRepository = defaultRepo,
   ) {}
 
-  async getSeries(): Promise<SerieDTO[]> {
-    const response = await this.repo.findAll();
+  async getSeries(filters: GetSeriesFilters): Promise<SerieDTO[]> {
+    const response = await this.repo.findAll(filters);
 
     return response.map(serie => serie.serialize());
   }
