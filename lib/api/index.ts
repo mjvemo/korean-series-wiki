@@ -22,6 +22,10 @@ import { UpdateSeasonRequestDTO } from "./dtos/update-seasons-request-dto";
 // } from "../redux/slices/awards";
 // import { NewsDTO } from "./dtos/awards.dto";
 
+interface GetSeriesParams extends Record<string, any> {
+  genre?: string;
+}
+
 const API_BASE_URL = process.env.API_BASE_URL || "http://127.0.0.1:3002";
 export class ApiClient {
   private instance = axios.create({
@@ -43,8 +47,9 @@ export class ApiClient {
 
   // =================== Series =======================
 
-  getSeries(): Promise<SerieDTO[]> {
-    const url = "/series";
+  getSeries(params: GetSeriesParams = {}): Promise<SerieDTO[]> {
+    const searchParams = new URLSearchParams(params);
+    const url = `/series?${searchParams}`;
     return this.request({ url });
   }
 

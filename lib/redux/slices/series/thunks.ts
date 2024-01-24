@@ -17,9 +17,16 @@ enum ActionType {
 //   payload: [{}]
 // }
 
-export const getSeriesAsync = createAppAsyncThunk(ActionType.GET_SERIES, () => {
-  return client.getSeries();
-});
+interface GetSeriesAsyncParams {
+  genre?: string;
+}
+
+export const getSeriesAsync = createAppAsyncThunk(
+  ActionType.GET_SERIES,
+  (params: GetSeriesAsyncParams) => {
+    return client.getSeries(params);
+  }
+);
 
 // {
 //   type: 'series/getSerieById/[pending | rejected | fulfilled]',

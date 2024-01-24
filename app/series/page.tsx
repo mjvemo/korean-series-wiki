@@ -18,17 +18,17 @@ import SeriesListSelected from "@/lib/components/SeriesListSelected";
 import SeriesList from "@/lib/components/SeriesList";
 
 export interface ComponentProps {
-  params: { id: string };
+  searchParams: { genre?: string };
 }
 
-export default function ComponentProps(props: ComponentProps) {
-  const { id } = props.params;
+export default function Page(props: ComponentProps) {
+  const { genre } = props.searchParams;
   const dispatch = useDispatch();
   const series = useSelector(selectSeries);
 
   // LifeCycle - OnMount - First Time the component is rendered in the html/ui
   useEffect(() => {
-    dispatch(getSeriesAsync());
+    dispatch(getSeriesAsync({ genre }));
   }, []);
 
   return (
