@@ -10,6 +10,7 @@ import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { useRef, useState } from "react";
 import DeleteConfirmDialog from "../DeleteConfirmDialog";
+import { useRouter } from "next/navigation";
 
 export interface ComponentProps {
   id: string;
@@ -24,19 +25,12 @@ export default function SeriesHero(props: ComponentProps) {
   const serie = useSelector(selectActiveSerie);
   const dispatch = useDispatch();
   const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
-  const [toDelete, setToDelete] = useState({ name: "", id: "" });
-  const toast = useRef<Toast>(null);
+  const router = useRouter();
 
   async function handleDeleteConfirm() {
-    await dispatch(deleteSerieByIdAsync(toDelete.id));
+    await dispatch(deleteSerieByIdAsync(id));
     setDeleteDialogVisible(false);
-    toast.current?.show({
-      severity: "info",
-      summary: "Actor deleted",
-      detail: `Name: ${toDelete.name}`,
-      life: 3000,
-    });
-    setToDelete({ id: "", name: "" });
+    router.push("/series");
   }
 
   return (
@@ -87,7 +81,7 @@ export default function SeriesHero(props: ComponentProps) {
       </div>
       <DeleteConfirmDialog
         visible={deleteDialogVisible}
-        message={`Are you sure you want to delete actor ${toDelete.name}`}
+        message={`Are you sure you want to delete actor ${serie?.name}`}
         onCancelDelete={() => setDeleteDialogVisible(false)}
         onConfirmDelete={() => handleDeleteConfirm()}
         onHide={() => setDeleteDialogVisible(false)}
