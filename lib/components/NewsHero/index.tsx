@@ -8,12 +8,12 @@ export interface ComponentProps {
 }
 export default function NewsHero(props: ComponentProps) {
   const { id } = props;
+  const news = useSelector(selectActiveNews);
   const items = [
     { label: "News", url: "/news" },
-    { label: id, url: `/news/${id}` },
+    { label: `${news?.name}`, url: `/news/${id}` },
   ];
   const home = { icon: "pi pi-home", url: "/" };
-  const news = useSelector(selectActiveNews);
 
   return (
     <div className="grid grid-nogutter surface-50 text-800 overflow-hidden">

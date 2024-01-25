@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { DataTable } from "primereact/datatable";
+import { DataTable, DataTableFilterMeta } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import Link from "next/link";
@@ -8,6 +8,8 @@ import { NewsDTO } from "@/lib/api/dtos/news.dto";
 import { Toast } from "primereact/toast";
 import { deleteNewsByIdAsync, useDispatch } from "@/lib/redux";
 import DeleteConfirmDialog from "../DeleteConfirmDialog";
+import { FilterMatchMode } from "primereact/api";
+import { InputText } from "primereact/inputtext";
 
 export interface ComponentProps {
   data: NewsDTO[];
@@ -20,6 +22,12 @@ export default function NewsList(props: ComponentProps) {
   const [toDelete, setToDelete] = useState({ name: "", id: "" });
   const toast = useRef<Toast>(null);
 
+  const [globalFilterValue, setGlobalFilterValue] = useState("");
+  const [filters, setFilters] = useState<DataTableFilterMeta>({
+    global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  });
+
   const nameBodyTemplate = (news: any) => {
     return <Link href={`/news/${news.id}`}>{news.name}</Link>;
   };
@@ -27,13 +35,6 @@ export default function NewsList(props: ComponentProps) {
   const onRowSelect = ({ data }: any) => {
     router.push(`/news/${data.id}`);
   };
-
-  const header = (
-    <div className="flex flex-wrap align-items-center justify-content-between gap-2">
-      <span className="text-xl text-900 font-bold">News</span>
-      <Button icon="pi pi-refresh" rounded raised />
-    </div>
-  );
 
   const bodyTemplateEdit = (news: any) => {
     return (
@@ -68,6 +69,17 @@ export default function NewsList(props: ComponentProps) {
     );
   };
 
+  const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    let _filters = { ...filters };
+
+    // @ts-ignore
+    _filters["global"].value = value;
+
+    setFilters(_filters);
+    setGlobalFilterValue(value);
+  };
+
   async function handleDeleteConfirm() {
     await dispatch(deleteNewsByIdAsync(toDelete.id));
     setDeleteDialogVisible(false);
@@ -79,6 +91,23 @@ export default function NewsList(props: ComponentProps) {
     });
     setToDelete({ id: "", name: "" });
   }
+
+  const header = (
+    <div className="flex flex-wrap align-items-center justify-content-between gap-2">
+      <span className="text-xl text-900 font-bold">News</span>
+      <div className="flex justify-content-end gap-4">
+        <span className="p-input-icon-left">
+          <i className="pi pi-search" />
+          <InputText
+            value={globalFilterValue}
+            onChange={onGlobalFilterChange}
+            placeholder="Keyword Search"
+          />
+        </span>
+        <Button icon="pi pi-refresh" rounded raised />
+      </div>
+    </div>
+  );
 
   return (
     <div>
@@ -95,10 +124,12 @@ export default function NewsList(props: ComponentProps) {
           sortMode="multiple"
           removableSort
           rows={10}
-          globalFilterFields={["name", "age", "agency", "active"]}
+          globalFilterFields={["name", "publishedAt", "description"]}
           tableStyle={{ minWidth: "50rem" }}
           metaKeySelection={false}
           onRowSelect={onRowSelect}
+          filters={filters}
+          filterDisplay="row"
         >
           <Column
             header="image"
@@ -111,17 +142,20 @@ export default function NewsList(props: ComponentProps) {
             body={nameBodyTemplate}
             sortable
             style={{ width: "20%" }}
+            filterField="name"
           ></Column>
           <Column
             field="publishedAt"
             header="publishedAt"
             style={{ width: "20%" }}
+            filterField="publishedAt"
             sortable
           ></Column>
           <Column
             field="description"
             header="Description"
             style={{ width: "20%" }}
+            filterField="description"
             sortable
           ></Column>
           <Column

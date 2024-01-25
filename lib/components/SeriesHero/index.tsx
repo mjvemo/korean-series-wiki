@@ -8,12 +8,12 @@ export interface ComponentProps {
 }
 export default function SeriesHero(props: ComponentProps) {
   const { id } = props;
+  const serie = useSelector(selectActiveSerie);
   const items = [
     { label: "Series", url: "/series" },
-    { label: id, url: `/series/${id}` },
+    { label: `${serie?.name}`, url: `/series/${id}` },
   ];
   const home = { icon: "pi pi-home", url: "/" };
-  const serie = useSelector(selectActiveSerie);
 
   return (
     <div className="grid grid-nogutter surface-50 text-800 overflow-hidden">

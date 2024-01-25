@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { DataTable } from "primereact/datatable";
+import { DataTable, DataTableFilterMeta } from "primereact/datatable";
 import { Column } from "primereact/column";
 import Link from "next/link";
 import { ActorDTO } from "@/lib/api/dtos/actor.dto";
@@ -9,6 +9,8 @@ import { Avatar } from "primereact/avatar";
 import DeleteConfirmDialog from "../DeleteConfirmDialog";
 import { deleteActorByIdAsync, useDispatch } from "@/lib/redux";
 import { Toast } from "primereact/toast";
+import { FilterMatchMode } from "primereact/api";
+import { InputText } from "primereact/inputtext";
 
 export interface ComponentProps {
   data: ActorDTO[];
@@ -20,6 +22,11 @@ export default function ActorsList(props: ComponentProps) {
   const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
   const [toDelete, setToDelete] = useState({ name: "", id: "" });
   const toast = useRef<Toast>(null);
+  const [globalFilterValue, setGlobalFilterValue] = useState("");
+  const [filters, setFilters] = useState<DataTableFilterMeta>({
+    global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  });
 
   const imageBodyTemplate = (allActors: { url: string | undefined }) => {
     return (
@@ -37,12 +44,6 @@ export default function ActorsList(props: ComponentProps) {
   const onRowSelect = ({ data }: any) => {
     router.push(`/actors/${data.id}`);
   };
-  const header = (
-    <div className="flex flex-wrap align-items-center justify-content-between gap-2">
-      <span className="text-xl text-900 font-bold">Actors</span>
-      <Button icon="pi pi-refresh" rounded raised />
-    </div>
-  );
 
   const bodyTemplateEdit = (actor: any) => {
     return (
@@ -67,6 +68,17 @@ export default function ActorsList(props: ComponentProps) {
     );
   };
 
+  const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    let _filters = { ...filters };
+
+    // @ts-ignore
+    _filters["global"].value = value;
+
+    setFilters(_filters);
+    setGlobalFilterValue(value);
+  };
+
   async function handleDeleteConfirm() {
     await dispatch(deleteActorByIdAsync(toDelete.id));
     setDeleteDialogVisible(false);
@@ -78,6 +90,23 @@ export default function ActorsList(props: ComponentProps) {
     });
     setToDelete({ id: "", name: "" });
   }
+
+  const header = (
+    <div className="flex flex-wrap align-items-center justify-content-between gap-2">
+      <span className="text-xl text-900 font-bold">Actors</span>
+      <div className="flex justify-content-end gap-4">
+        <span className="p-input-icon-left">
+          <i className="pi pi-search" />
+          <InputText
+            value={globalFilterValue}
+            onChange={onGlobalFilterChange}
+            placeholder="Keyword Search"
+          />
+        </span>
+        <Button icon="pi pi-refresh" rounded raised />
+      </div>
+    </div>
+  );
 
   return (
     <div className="card justify-content-center m-4">
@@ -93,10 +122,13 @@ export default function ActorsList(props: ComponentProps) {
         sortMode="multiple"
         removableSort
         rows={10}
-        globalFilterFields={["name", "age", "agency", "active"]}
+        globalFilterFields={["name", "age", "agency", "education", "active"]}
         tableStyle={{ minWidth: "50rem" }}
         metaKeySelection={false}
         onRowSelect={onRowSelect}
+        emptyMessage="No actors found."
+        filters={filters}
+        filterDisplay="row"
       >
         <Column
           header="Image"
@@ -109,25 +141,34 @@ export default function ActorsList(props: ComponentProps) {
           header="Name"
           sortable
           style={{ width: "15%" }}
+          filterField="name"
         ></Column>
-        <Column field="age" header="Age" style={{ width: "10%" }}></Column>
+        <Column
+          field="age"
+          header="Age"
+          style={{ width: "10%" }}
+          filterField="age"
+        ></Column>
         <Column
           field="agency"
           header="Agency"
           sortable
           style={{ width: "10%" }}
+          filterField="agency"
         ></Column>
         <Column
           field="education"
           header="Education"
           sortable
           style={{ width: "10%" }}
+          filterField="education"
         ></Column>
         <Column
           field="yearsActive"
           header="Active"
           sortable
           style={{ width: "10%" }}
+          filterField="active"
         ></Column>
         <Column
           sortable

@@ -8,12 +8,12 @@ export interface ComponentProps {
 }
 export default function ActorsHero(props: ComponentProps) {
   const { id } = props;
+  const actor = useSelector(selectActiveActor);
   const items = [
     { label: "Actors", url: "/actors" },
-    { label: id, url: `/actors/${id}` },
+    { label: `${actor?.name}`, url: `/actors/${id}` },
   ];
   const home = { icon: "pi pi-home", url: "/" };
-  const actor = useSelector(selectActiveActor);
 
   return (
     <div className="grid grid-nogutter surface-50 text-800 overflow-hidden">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { DataTable } from "primereact/datatable";
+import { DataTable, DataTableFilterMeta } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { Rating } from "primereact/rating";
@@ -15,6 +15,8 @@ import {
 import { Dialog } from "primereact/dialog";
 import DeleteConfirmDialog from "../DeleteConfirmDialog";
 import { Toast } from "primereact/toast";
+import { InputText } from "primereact/inputtext";
+import { FilterMatchMode } from "primereact/api";
 
 export interface ComponentProps {
   data: SerieDTO[];
@@ -23,10 +25,15 @@ export interface ComponentProps {
 export default function SeriesList(props: ComponentProps) {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [visible, setVisible] = useState(false);
   const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
   const [toDelete, setToDelete] = useState({ name: "", id: "" });
   const toast = useRef<Toast>(null);
+  const [globalFilterValue, setGlobalFilterValue] = useState("");
+
+  const [filters, setFilters] = useState<DataTableFilterMeta>({
+    global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  });
 
   const imageBodyTemplate = (serie: any) => {
     return (
@@ -45,13 +52,6 @@ export default function SeriesList(props: ComponentProps) {
   const onRowSelect = ({ data }: any) => {
     router.push(`/series/${data.id}`);
   };
-
-  const header = (
-    <div className="flex flex-wrap align-items-center justify-content-between gap-2">
-      <span className="text-xl text-900 font-bold">Series</span>
-      <Button icon="pi pi-refresh" rounded raised />
-    </div>
-  );
 
   const bodyTemplateEdit = (serie: any) => {
     return (
@@ -76,22 +76,16 @@ export default function SeriesList(props: ComponentProps) {
     );
   };
 
-  const footerContent = (
-    <div className="flex flex-row gap-2 justify-content-end">
-      <Button
-        label="Delete"
-        icon="pi pi-check"
-        onClick={() => setVisible(false)}
-        autoFocus
-      />
-      <Button
-        label="Cancel"
-        icon="pi pi-times"
-        onClick={() => setVisible(false)}
-        className="p-button-text"
-      />
-    </div>
-  );
+  const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    let _filters = { ...filters };
+
+    // @ts-ignore
+    _filters["global"].value = value;
+
+    setFilters(_filters);
+    setGlobalFilterValue(value);
+  };
 
   async function handleDeleteConfirm() {
     await dispatch(deleteSerieByIdAsync(toDelete.id));
@@ -104,6 +98,22 @@ export default function SeriesList(props: ComponentProps) {
     });
     setToDelete({ id: "", name: "" });
   }
+  const header = (
+    <div className="flex flex-wrap align-items-center justify-content-between gap-2">
+      <span className="text-xl text-900 font-bold">Series</span>
+      <div className="flex justify-content-end gap-4">
+        <span className="p-input-icon-left">
+          <i className="pi pi-search" />
+          <InputText
+            value={globalFilterValue}
+            onChange={onGlobalFilterChange}
+            placeholder="Keyword Search"
+          />
+        </span>
+        <Button icon="pi pi-refresh" rounded raised />
+      </div>
+    </div>
+  );
 
   return (
     <div>
@@ -132,6 +142,9 @@ export default function SeriesList(props: ComponentProps) {
           tableStyle={{ minWidth: "50rem" }}
           metaKeySelection={false}
           onRowSelect={onRowSelect}
+          filters={filters}
+          filterDisplay="row"
+          emptyMessage="No series found."
         >
           <Column
             header="Image"

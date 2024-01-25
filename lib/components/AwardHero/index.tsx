@@ -8,13 +8,12 @@ export interface ComponentProps {
 }
 export default function AwardsHero(props: ComponentProps) {
   const { id } = props;
+  const award = useSelector(selectActiveAward);
   const items = [
     { label: "Awards", url: "/awards" },
-    { label: id, url: `/awards/${id}` },
+    { label: `${award?.name}`, url: `/awards/${id}` },
   ];
   const home = { icon: "pi pi-home", url: "/" };
-  const award = useSelector(selectActiveAward);
-
   return (
     <div className="grid grid-nogutter surface-50 text-800 overflow-hidden">
       <div className="col-12 md:col-4 p-6 text-center md:text-left flex align-items-center ">

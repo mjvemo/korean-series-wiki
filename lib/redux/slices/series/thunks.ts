@@ -23,7 +23,7 @@ interface GetSeriesAsyncParams {
 
 export const getSeriesAsync = createAppAsyncThunk(
   ActionType.GET_SERIES,
-  (params: GetSeriesAsyncParams) => {
+  (params?: GetSeriesAsyncParams) => {
     return client.getSeries(params);
   }
 );

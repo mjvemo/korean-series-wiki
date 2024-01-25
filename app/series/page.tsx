@@ -28,7 +28,7 @@ export default function Page(props: ComponentProps) {
 
   // LifeCycle - OnMount - First Time the component is rendered in the html/ui
   useEffect(() => {
-    dispatch(getSeriesAsync({ genre }));
+    dispatch(getSeriesAsync(genre ? { genre } : undefined));
   }, []);
 
   return (
