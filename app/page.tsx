@@ -10,9 +10,7 @@ import { getActorsAsync, getSeriesAsync, useDispatch } from "@/lib/redux";
 import { useEffect } from "react";
 import SeriesCarouselCards from "@/lib/components/SeriesCarouselCards";
 import ActorsCarouselCards from "@/lib/components/ActorsCarouselCards";
-import React from "react";
 import { Button } from "primereact/button";
-import { Divider } from "primereact/divider";
 
 // import { ProductService } from "./service/ProductService";
 
