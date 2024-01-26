@@ -2,9 +2,10 @@ import { Card } from "primereact/card";
 import { Serie } from "@/lib/models/serie.model";
 import { Button } from "primereact/button";
 import { Image } from "primereact/image";
+import { SerieDTO } from "@/lib/api/dtos/serie.dto";
 
 export interface CardProps {
-  serie: Serie;
+  serie: SerieDTO;
 }
 
 export function SerieCard({ serie }: CardProps) {
@@ -22,9 +23,9 @@ export function SerieCard({ serie }: CardProps) {
       <div className="card flex-auto flex-order-0">
         <Card
           title={serie.name}
-          subTitle={serie.releaseDate}
+          subTitle={serie.releasedAt}
           footer={footer}
-          header={header(serie.url)}
+          header={header(serie.name)}
           className="md:w-25rem"
         >
           <p className="m-0">{serie.description}</p>

@@ -17,10 +17,23 @@ import {
   selectByEntityIdActors,
 } from "@/lib/redux/slices/actors/selectors";
 import ActorsList from "@/lib/components/ActorsList";
+import { getActorsAsync, getSeriesAsync, useDispatch } from "@/lib/redux";
+import { useEffect } from "react";
+import { SerieCard } from "@/lib/components/SerieCard";
+import CarouselCards from "@/lib/components/CarouselCards";
 
 // import { ProductService } from "./service/ProductService";
 
 export default function IndexPage() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getActorsAsync());
+    dispatch(getSeriesAsync());
+  }, []);
+
+  const actors = useSelector(selectActors);
+  const series = useSelector(selectSeries);
   const responsiveOptions = [
     {
       breakpoint: "1199px",
@@ -42,9 +55,6 @@ export default function IndexPage() {
   const imageTemplate = (indexImage: IndexImage) => {
     return <Image src={indexImage.url} alt={indexImage.name} width="1670" />;
   };
-
-  const actors = useSelector(selectByEntityIdActors);
-  const series = useSelector(selectByEntityIdSeries);
 
   return (
     <div>
@@ -73,6 +83,7 @@ export default function IndexPage() {
           </Link>
         </div>
       </div>
+      <CarouselCards />
       <div className="flex align-items-start justify-content-center gap-4">
         <SeriesList data={series} />
       </div>
@@ -92,9 +103,6 @@ export default function IndexPage() {
       <div className="flex align-items-start justify-content-center gap-4">
         <ActorsList data={actors} />
       </div>
-      <footer className="flex flex-row justify-content-center gap-6 h-4rem font-bold mt-4">
-        <Footer />
-      </footer>
     </div>
   );
 }
