@@ -30,7 +30,6 @@ export default function NewsList(props: ComponentProps) {
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
       <NewsHero id={id} />
-      <Footer />
     </div>
   );
 }

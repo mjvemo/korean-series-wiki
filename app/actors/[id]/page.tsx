@@ -81,7 +81,6 @@ export default function ActorsList(props: ComponentProps) {
         </div>
         <div className="card justify-content-center"></div>
       </div>
-      <Footer />
     </div>
   );
 }

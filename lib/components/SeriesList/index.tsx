@@ -6,18 +6,12 @@ import { Rating } from "primereact/rating";
 import Link from "next/link";
 import { SerieDTO } from "@/lib/api/dtos/serie.dto";
 import { useRouter } from "next/navigation";
-import {
-  deleteSerieByIdAsync,
-  getActorsBySerieIdAsync,
-  getSeriesAsync,
-  useDispatch,
-} from "@/lib/redux";
+import { deleteSerieByIdAsync, useDispatch } from "@/lib/redux";
 import { Dialog } from "primereact/dialog";
 import DeleteConfirmDialog from "../DeleteConfirmDialog";
 import { Toast } from "primereact/toast";
 import { InputText } from "primereact/inputtext";
 import { FilterMatchMode } from "primereact/api";
-import { Tag } from "primereact/tag";
 import { Chip } from "primereact/chip";
 
 export interface ComponentProps {

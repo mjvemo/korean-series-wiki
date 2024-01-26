@@ -99,11 +99,17 @@ export const items = [
   },
 ];
 
+const linkStyle = {
+  textDecoration: "none",
+  color: "#7254F2",
+};
+
 const start = (
   <div>
     <Link
       href="/"
       className="flex flex-row justify-content-center align-items-center"
+      style={linkStyle}
     >
       <Image
         alt="logo"
@@ -170,9 +176,13 @@ export function MenuBar() {
   );
 
   return (
-    <div>
-      <Menubar model={items} start={start} end={end} />
-      <div className="flex flex-row justify-content-center gap-4"></div>
+    <div className="card">
+      <Menubar
+        model={items}
+        start={start}
+        end={end}
+        className="justify-content-evenly"
+      />
     </div>
   );
 }

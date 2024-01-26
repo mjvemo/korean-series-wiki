@@ -1,26 +1,15 @@
 "use client";
 
-import { Button } from "primereact/button";
 import { Image } from "primereact/image";
 import { IndexImage, indexImages } from "@/lib/models/images.model";
 import { Carousel } from "primereact/carousel";
-import { Footer } from "@/lib/components/Footer";
-import Link from "next/link";
-import SeriesList from "@/lib/components/SeriesList";
 import { useSelector } from "react-redux";
-import {
-  selectByEntityIdSeries,
-  selectSeries,
-} from "@/lib/redux/slices/series/selectors";
-import {
-  selectActors,
-  selectByEntityIdActors,
-} from "@/lib/redux/slices/actors/selectors";
-import ActorsList from "@/lib/components/ActorsList";
+import { selectSeries } from "@/lib/redux/slices/series/selectors";
+import { selectActors } from "@/lib/redux/slices/actors/selectors";
 import { getActorsAsync, getSeriesAsync, useDispatch } from "@/lib/redux";
 import { useEffect } from "react";
-import { SerieCard } from "@/lib/components/SerieCard";
-import CarouselCards from "@/lib/components/CarouselCards";
+import SeriesCarouselCards from "@/lib/components/SeriesCarouselCards";
+import ActorsCarouselCards from "@/lib/components/ActorsCarouselCards";
 
 // import { ProductService } from "./service/ProductService";
 
@@ -70,38 +59,18 @@ export default function IndexPage() {
         />
       </div>
 
-      <div className="flex flex-row justify-content-between gap-6 m-4">
-        <h2>Top 10 Series</h2>
-        <div className="flex flex-row gap-4">
-          <Link href="/series/create">
-            <Button
-              label="Añadir Nuevo"
-              icon="pi pi-plus"
-              size="small"
-              outlined
-            ></Button>
-          </Link>
-        </div>
+      <div className="flex flex-row justify-content-between gap-6 m-6 ml-6 ">
+        <h2>Top Korean Series</h2>
       </div>
-      <CarouselCards />
-      <div className="flex align-items-start justify-content-center gap-4">
-        <SeriesList data={series} />
+      <div className="align-items-start justify-content-center">
+        <SeriesCarouselCards data={series} />
       </div>
-      <div className="flex flex-row justify-content-between gap-6 m-4">
-        <h2>Top 10 Actors</h2>
-        <div className="flex flex-row gap-4">
-          <Link href="/series/create">
-            <Button
-              label="Añadir Nuevo"
-              icon="pi pi-plus"
-              size="small"
-              outlined
-            ></Button>
-          </Link>
-        </div>
+      <div className="flex align-items-start justify-content-center gap-4"></div>
+      <div className="flex flex-row justify-content-between gap-6 m-6 ml-6">
+        <h2>Top Korean Actors</h2>
       </div>
-      <div className="flex align-items-start justify-content-center gap-4">
-        <ActorsList data={actors} />
+      <div className="flex align-items-start justify-content-center mb-8 gap-4">
+        <ActorsCarouselCards data={actors} />
       </div>
     </div>
   );

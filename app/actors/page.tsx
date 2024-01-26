@@ -36,7 +36,7 @@ export default function (props: ComponentProps) {
           <div>
             <Link href="/actors/create">
               <Button
-                label="Add New"
+                label="Add New Actor"
                 icon="pi pi-large"
                 outlined
                 className="mr-4"
@@ -52,9 +52,6 @@ export default function (props: ComponentProps) {
           <ActorsList data={actors} />
         </div>
       </div>
-      <footer className="flex flex-row justify-content-center gap-6 h-4rem font-bold">
-        <Footer />
-      </footer>
     </div>
   );
 }

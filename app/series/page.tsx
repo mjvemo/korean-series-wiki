@@ -43,7 +43,7 @@ export default function Page(props: ComponentProps) {
           <div>
             <Link href="/series/create">
               <Button
-                label="Add new"
+                label="Add New Serie"
                 icon="pi pi-large"
                 outlined
                 className="mr-4"
@@ -59,9 +59,6 @@ export default function Page(props: ComponentProps) {
           <SeriesList data={series} />
         </div>
       </div>
-      <footer className="flex flex-row justify-content-center gap-6 h-4rem font-bold">
-        <Footer />
-      </footer>
     </div>
   );
 }
