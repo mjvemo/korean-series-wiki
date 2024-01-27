@@ -8,6 +8,7 @@ import { Serie } from "../serie";
 
 export interface FindAllParams {
   genre?: string;
+  name?: string;
 }
 
 export class SerieRepository {
@@ -37,11 +38,14 @@ export class SerieRepository {
   }
 
   async findAll(params?: FindAllParams): Promise<Serie[]> {
-    const response = await SerieEntity.find(
-      isNil(params?.genre)
+    const response = await SerieEntity.find({
+      ...(isNil(params?.genre)
         ? {}
-        : { genre: { $regex: new RegExp(params!.genre, "i") } }
-    );
+        : { genre: { $regex: new RegExp(params!.genre, "i") } }),
+      ...(isNil(params?.name)
+        ? {}
+        : { name: { $regex: new RegExp(params!.name, "i") } }),
+    });
     return response.map((entity) => SerieMapper.toDomain(entity));
   }
 

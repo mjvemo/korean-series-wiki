@@ -3,6 +3,7 @@ import { SerieDTO } from "../../../dtos/serie.dto";
 
 export interface GetSeriesFilters {
   genre?: string;
+  name?: string;
 }
 
 export class GetSeriesUseCase {

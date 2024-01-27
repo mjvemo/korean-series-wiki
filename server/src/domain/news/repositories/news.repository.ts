@@ -8,6 +8,10 @@ import { Serie } from "../../serie/serie";
 import { SerieMapper } from "../../serie/mappers/serie.mapper";
 import { isHydrated } from "../../../utils/mongoose";
 
+export interface FindAllParams {
+  name?: string;
+}
+
 export class NewsRepository {
   async save(news: News) {
     const entity = NewsMapper.toEntity(news);
@@ -34,8 +38,12 @@ export class NewsRepository {
     return NewsMapper.toDomain(entity);
   }
 
-  async findAll(): Promise<News[]> {
-    const response = await NewsEntity.find();
+  async findAll(params: FindAllParams): Promise<News[]> {
+    const response = await NewsEntity.find({
+      ...(isNil(params?.name)
+        ? {}
+        : { name: { $regex: new RegExp(params!.name, "i") } }),
+    });
     return response.map((entity) => NewsMapper.toDomain(entity));
   }
 

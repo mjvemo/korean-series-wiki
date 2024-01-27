@@ -8,6 +8,10 @@ import { Serie } from "../../serie/serie";
 import { SerieMapper } from "../../serie/mappers/serie.mapper";
 import { isHydrated } from "../../../utils/mongoose";
 
+export interface FindAllParams {
+  name?: string;
+}
+
 export class AwardRepository {
   async save(award: Award) {
     const entity = AwardMapper.toEntity(award);
@@ -58,8 +62,12 @@ export class AwardRepository {
     return [];
   }
 
-  async findAll(): Promise<Award[]> {
-    const response = await AwardEntity.find();
+  async findAll(params: FindAllParams): Promise<Award[]> {
+    const response = await AwardEntity.find({
+      ...(isNil(params?.name)
+        ? {}
+        : { name: { $regex: new RegExp(params!.name, "i") } }),
+    });
     return response.map((entity) => AwardMapper.toDomain(entity));
   }
 }

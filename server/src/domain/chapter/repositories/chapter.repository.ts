@@ -3,6 +3,10 @@ import ChapterEntity from "../entities/chapter.entity";
 import { ChapterMapper } from "../mappers/chapter.mapper";
 import { Chapter } from "../chapter";
 
+export interface FindAllParams {
+  name?: string;
+}
+
 export class ChapterRepository {
   async save(chapter: Chapter) {
     const entity = ChapterMapper.toEntity(chapter);
@@ -29,8 +33,12 @@ export class ChapterRepository {
     return ChapterMapper.toDomain(entity);
   }
 
-  async findAll(): Promise<Chapter[]> {
-    const response = await ChapterEntity.find();
+  async findAll(params: FindAllParams): Promise<Chapter[]> {
+    const response = await ChapterEntity.find({
+      ...(isNil(params?.name)
+        ? {}
+        : { name: { $regex: new RegExp(params!.name, "i") } }),
+    });
     return response.map((entity) => ChapterMapper.toDomain(entity));
   }
 }

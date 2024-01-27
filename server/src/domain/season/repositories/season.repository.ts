@@ -6,6 +6,10 @@ import { Serie } from "../../serie/serie";
 import { SerieMapper } from "../../serie/mappers/serie.mapper";
 import { isHydrated } from "../../../utils/mongoose";
 
+export interface FindAllParams {
+  name?: string;
+}
+
 export class SeasonRepository {
   async save(season: Season) {
     const entity = SeasonMapper.toEntity(season);
@@ -32,8 +36,13 @@ export class SeasonRepository {
     return SeasonMapper.toDomain(entity);
   }
 
-  async findAll(): Promise<Season[]> {
-    const response = await SeasonEntity.find();
+  async findAll(params: FindAllParams): Promise<Season[]> {
+    const response = await SeasonEntity.find({
+      ...(isNil(params?.name)
+        ? {}
+        : { name: { $regex: new RegExp(params!.name, "i") } }),
+    });
+
     return response.map((entity) => SeasonMapper.toDomain(entity));
   }
 

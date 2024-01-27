@@ -6,6 +6,10 @@ import { Actor } from "../actor";
 import ActorEntity, { IActor } from "../entities/actor.entity";
 import { ActorMapper } from "../mappers/actor.mapper";
 
+export interface FindAllParams {
+  name?: string;
+}
+
 export class ActorRepository {
   async save(actor: Actor) {
     const entity = ActorMapper.toEntity(actor);
@@ -32,8 +36,12 @@ export class ActorRepository {
     return ActorMapper.toDomain(entity);
   }
 
-  async findAll(): Promise<Actor[]> {
-    const response = await ActorEntity.find();
+  async findAll(params: FindAllParams): Promise<Actor[]> {
+    const response = await ActorEntity.find({
+      ...(isNil(params?.name)
+        ? {}
+        : { name: { $regex: new RegExp(params!.name, "i") } }),
+    });
     return response.map((entity) => ActorMapper.toDomain(entity));
   }
 
