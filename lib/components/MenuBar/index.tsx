@@ -3,7 +3,32 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import Link from "next/link";
 import Image from "next/image";
+import {
+  AutoComplete,
+  AutoCompleteChangeEvent,
+  AutoCompleteCompleteEvent,
+  AutoCompleteSelectEvent,
+} from "primereact/autocomplete";
+import { useState } from "react";
+import {
+  getEntitySuggestions,
+  selectSuggestions,
+  useDispatch,
+  useSelector,
+} from "@/lib/redux";
+import { SuggestionsDTO } from "@/lib/redux/slices/autocomplete/reducers";
+import {
+  AutoCompleteItem,
+  AutoCompleteState,
+} from "@/lib/redux/slices/autocomplete/state";
+import { compact, isEmpty } from "lodash";
+interface AutoCompleteGroup {
+  name: string;
+  icon: string;
+}
+import { useRouter } from "next/navigation";
 
+type ThunkPromise = (Promise<any> & { abort: () => void }) | undefined;
 export const items = [
   {
     label: "Series",
@@ -75,36 +100,100 @@ export const items = [
 ];
 
 const start = (
-  <Link href="/">
-    <Image
-      alt="logo"
-      src="/appLogo.png"
-      width="100"
-      height="100"
-      className="mr-2"
-      priority={true}
-    ></Image>
-  </Link>
-);
-const end = (
-  <div className="flex">
-    <div className="p-inputgroup flex-1">
-      <InputText
-        placeholder="Search"
-        type="text"
-        className="w-full p-inputtext-sm"
-        keyfilter="int"
-      />{" "}
-      <Button icon="pi pi-search" />
-    </div>
+  <div>
+    <Link
+      href="/"
+      className="flex flex-row justify-content-center align-items-center"
+    >
+      <Image
+        alt="logo"
+        src="/appLogo.png"
+        width="100"
+        height="100"
+        className="mr-2"
+        priority={true}
+      ></Image>
+      <h1>Kwiki</h1>
+    </Link>
   </div>
 );
 
 export function MenuBar() {
+  const dispatch = useDispatch();
+  const suggestions = useSelector(selectSuggestions);
+  const [selectedCity, setSelectedCity] = useState<AutoCompleteItem | null>(
+    null
+  );
+  const router = useRouter();
+  let promise: ThunkPromise;
+
+  const groupedItemTemplate = (item: AutoCompleteGroup) => {
+    return (
+      <div className="flex align-items-center">
+        <i className={`${item.icon} mr-2`}></i> <span>{item.name}</span>
+      </div>
+    );
+  };
+
+  const search = async (event: AutoCompleteCompleteEvent) => {
+    let query = event.query;
+    if (promise) {
+      promise.abort();
+    }
+    promise = dispatch(getEntitySuggestions(query));
+    await promise;
+    promise = undefined;
+  };
+
+  function handleOnSelect(event: AutoCompleteSelectEvent) {
+    router.push(event.value.url);
+  }
+
+  const end = (
+    <div className="flex">
+      <div className="p-inputgroup flex-1">
+        <AutoComplete
+          value={selectedCity}
+          onChange={(e: AutoCompleteChangeEvent) => setSelectedCity(e.value)}
+          suggestions={buildSuggestions(suggestions)}
+          completeMethod={search}
+          field="name"
+          optionGroupLabel="name"
+          optionGroupChildren="items"
+          optionGroupTemplate={groupedItemTemplate}
+          minLength={3}
+          onSelect={handleOnSelect}
+        />
+        <Button icon="pi pi-search" />
+      </div>
+    </div>
+  );
+
   return (
     <div>
       <Menubar model={items} start={start} end={end} />
       <div className="flex flex-row justify-content-center gap-4"></div>
     </div>
   );
+}
+
+function buildSuggestions(suggestions: AutoCompleteState) {
+  return compact([
+    isEmpty(suggestions.actors)
+      ? undefined
+      : { name: "actors", icon: "pi pi-user", items: suggestions.actors },
+    isEmpty(suggestions.series)
+      ? undefined
+      : {
+          name: "series",
+          icon: "pi pi-desktop",
+          items: suggestions.series,
+        },
+    isEmpty(suggestions.awards)
+      ? undefined
+      : { name: "awards", icon: "pi pi-gift", items: suggestions.awards },
+    isEmpty(suggestions.news)
+      ? undefined
+      : { name: "news", icon: "pi pi-book", items: suggestions.news },
+  ]);
 }

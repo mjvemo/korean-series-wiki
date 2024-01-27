@@ -14,6 +14,7 @@ import { CreateNewsRequestDTO } from "@/lib/api/dtos/create-news-request.dto";
 import { UpdateNewsRequestDTO } from "@/lib/api/dtos/update-news-request.dto";
 import { UpdateAwardsRequestDTO } from "./dtos/update-awards-request-dto";
 import { UpdateSeasonRequestDTO } from "./dtos/update-seasons-request-dto";
+import { ChapterDTO } from "./dtos/chapter.dto";
 
 // import {
 //   getAwards,
@@ -22,7 +23,10 @@ import { UpdateSeasonRequestDTO } from "./dtos/update-seasons-request-dto";
 // } from "../redux/slices/awards";
 // import { NewsDTO } from "./dtos/awards.dto";
 
-interface GetSeriesParams extends Record<string, any> {
+interface BaseSearchParams extends Record<string, any> {
+  name?: string;
+}
+interface GetSeriesParams extends BaseSearchParams {
   genre?: string;
 }
 
@@ -75,8 +79,9 @@ export class ApiClient {
 
   // ==================== Actor ====================
 
-  getActors(): Promise<ActorDTO[]> {
-    const url = "/actors";
+  getActors(params: BaseSearchParams = {}): Promise<ActorDTO[]> {
+    const searchParams = new URLSearchParams(params);
+    const url = `/actors?${searchParams}`;
     return this.request({ url });
   }
   updateActorById(id: string, data: UpdateActorRequestDTO): Promise<ActorDTO> {
@@ -114,8 +119,10 @@ export class ApiClient {
 
   // ================== Awards ==================
 
-  getAwards(): Promise<AwardDTO[]> {
-    const url = "/awards";
+  getAwards(params: BaseSearchParams = {}): Promise<AwardDTO[]> {
+    const searchParams = new URLSearchParams(params);
+    const url = `/awards?${searchParams}`;
+
     return this.request({ url });
   }
 
@@ -155,8 +162,10 @@ export class ApiClient {
     return this.request({ url, data, method: "POST" });
   }
 
-  getNews(): Promise<NewsDTO[]> {
-    const url = "/news";
+  getNews(params: BaseSearchParams = {}): Promise<NewsDTO[]> {
+    const searchParams = new URLSearchParams(params);
+    const url = `/news?${searchParams}`;
+
     return this.request({ url });
   }
 
@@ -215,7 +224,17 @@ export class ApiClient {
     const url = `/seasons/${id}`;
     return this.request({ url, method: "DELETE" });
   }
+
+  // Get Chapters
+  getChapters(params: BaseSearchParams = {}): Promise<ChapterDTO[]> {
+    const searchParams = new URLSearchParams(params);
+    const url = `/chapters?${searchParams}`;
+
+    return this.request({ url });
+  }
 }
+
+// ================= autoComplete =================
 
 const client = new ApiClient();
 

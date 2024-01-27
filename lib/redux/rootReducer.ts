@@ -1,5 +1,5 @@
 /* Instruments */
-import { counterSlice, seriesSlice } from "./slices";
+import { autoCompleteSlice, counterSlice, seriesSlice } from "./slices";
 import { actorsSlice } from "./slices/actors/slice";
 import { awardsSlice } from "./slices/awards";
 import { newsSlice } from "./slices/news";
@@ -12,4 +12,5 @@ export const reducer = {
   awards: awardsSlice.reducer,
   seasons: seasonsSlice.reducer,
   news: newsSlice.reducer,
+  autocomplete: autoCompleteSlice.reducer,
 };
