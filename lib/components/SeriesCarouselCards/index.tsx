@@ -6,6 +6,7 @@ import { Carousel, CarouselResponsiveOption } from "primereact/carousel";
 import { SerieDTO } from "@/lib/api/dtos/serie.dto";
 import { Chip } from "primereact/chip";
 import Link from "next/link";
+import { Rating } from "primereact/rating";
 
 export interface ComponentProps {
   data: SerieDTO[];
@@ -48,8 +49,13 @@ export default function SeriesCarouselCards(props: ComponentProps) {
         </div>
 
         <div>
-          {serie.rating}
-          <h4 className="mb-1">{serie.name}</h4>
+          <Rating
+            value={serie.rating}
+            readOnly
+            cancel={false}
+            className="justify-content-center m-4"
+          />
+          <h3 className="mb-1">{serie.name}</h3>
           <h4 className="mt-0 mb-3">{serie.releasedAt}</h4>
           <Chip label={serie.genre} />
         </div>

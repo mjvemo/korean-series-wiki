@@ -52,7 +52,8 @@ export default function ActorsHero(props: ComponentProps) {
         <img
           src={actor?.imageUrl}
           alt="hero-1"
-          className="sm:ml-auto block max-w-full"
+          width="1000"
+          className="sm:ml-auto block max-w-full "
           style={{
             clipPath: "polygon(8% 0, 100% 0%, 100% 100%, 0 100%)",
             maxWidth: "100",

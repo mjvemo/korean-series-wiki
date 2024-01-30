@@ -176,7 +176,7 @@ export function MenuBar() {
   );
 
   return (
-    <div className="card">
+    <div className="card shadow-6">
       <Menubar
         model={items}
         start={start}

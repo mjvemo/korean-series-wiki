@@ -11,7 +11,6 @@ export interface ComponentProps {
   data: ActorDTO[];
 }
 export default function actorsCarouselCards(props: ComponentProps) {
-  const [products, setProducts] = useState<ActorDTO[]>([]);
   const responsiveOptions: CarouselResponsiveOption[] = [
     {
       breakpoint: "1400px",
@@ -37,7 +36,7 @@ export default function actorsCarouselCards(props: ComponentProps) {
 
   const productTemplate = (actor: ActorDTO) => {
     return (
-      <div className="border-1 surface-border border-round m-2 text-center pb-5 shadow-2 ">
+      <div className="border-1 surface-border border-round m-2 text-center pb-5 shadow-2">
         <Link href={`/actors/${actor.id}`}>
           <div className="mb-3">
             <img
@@ -48,8 +47,7 @@ export default function actorsCarouselCards(props: ComponentProps) {
           </div>
         </Link>
         <div>
-          {actor.age}
-          <h4 className="mb-1">{actor.name}</h4>
+          <h3 className="mb-1">{actor.name}</h3>
           <h4 className="mt-0 mb-3">{actor.agency}</h4>
           <Chip label={actor.education} />
         </div>
@@ -58,7 +56,7 @@ export default function actorsCarouselCards(props: ComponentProps) {
   };
 
   return (
-    <div className="card">
+    <div className="card flex justify-content-center align-content-center ">
       <Carousel
         value={props.data}
         numVisible={4}

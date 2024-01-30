@@ -39,11 +39,7 @@ export default function (props: ComponentProps) {
                 label="Add New Actor"
                 icon="pi pi-large"
                 outlined
-                className="mr-4"
               ></Button>
-            </Link>
-            <Link href="/series/create">
-              <Button icon="pi pi-th-large" outlined></Button>
             </Link>
           </div>
         </div>

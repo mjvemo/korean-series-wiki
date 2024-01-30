@@ -51,6 +51,7 @@ export default function SeriesHero(props: ComponentProps) {
         <img
           src={serie?.image}
           alt="hero-1"
+          width="1000"
           className="sm:ml-auto block max-w-full"
           style={{
             clipPath: "polygon(8% 0, 100% 0%, 100% 100%, 0 100%)",
