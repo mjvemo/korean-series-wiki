@@ -13,6 +13,7 @@ import { PrimeReactProvider } from "primereact/api";
 
 import { MenuBar } from "../lib/components/MenuBar";
 import Link from "next/link";
+import { Footer } from "@/lib/components/Footer";
 
 export default function RootLayout(props: React.PropsWithChildren) {
   return (
@@ -26,10 +27,10 @@ export default function RootLayout(props: React.PropsWithChildren) {
                   <MenuBar />
                 </div>
               </header>
-
               <main>{props.children}</main>
-
-              <footer></footer>
+              <footer>
+                <Footer />
+              </footer>
             </section>
           </body>
         </html>

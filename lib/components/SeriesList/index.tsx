@@ -6,17 +6,13 @@ import { Rating } from "primereact/rating";
 import Link from "next/link";
 import { SerieDTO } from "@/lib/api/dtos/serie.dto";
 import { useRouter } from "next/navigation";
-import {
-  deleteSerieByIdAsync,
-  getActorsBySerieIdAsync,
-  getSeriesAsync,
-  useDispatch,
-} from "@/lib/redux";
+import { deleteSerieByIdAsync, useDispatch } from "@/lib/redux";
 import { Dialog } from "primereact/dialog";
 import DeleteConfirmDialog from "../DeleteConfirmDialog";
 import { Toast } from "primereact/toast";
 import { InputText } from "primereact/inputtext";
 import { FilterMatchMode } from "primereact/api";
+import { Chip } from "primereact/chip";
 
 export interface ComponentProps {
   data: SerieDTO[];
@@ -34,6 +30,10 @@ export default function SeriesList(props: ComponentProps) {
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
   });
+
+  const genreBodyTemplate = (serie: any) => {
+    return <Chip label={serie.genre} />;
+  };
 
   const imageBodyTemplate = (serie: any) => {
     return (
@@ -182,6 +182,7 @@ export default function SeriesList(props: ComponentProps) {
             header="Genre"
             style={{ width: "12%" }}
             sortable
+            body={genreBodyTemplate}
           ></Column>
           <Column
             field="directedBy"
@@ -195,17 +196,8 @@ export default function SeriesList(props: ComponentProps) {
             style={{ width: "12%" }}
             sortable
           ></Column>
-          <Column
-            sortable
-            body={bodyTemplateEdit}
-            style={{ width: "3%" }}
-          ></Column>
-          <Column
-            field=""
-            header=""
-            sortable
-            body={bodyTemplateDelete}
-          ></Column>
+          <Column body={bodyTemplateEdit} style={{ width: "3%" }}></Column>
+          <Column field="" header="" body={bodyTemplateDelete}></Column>
         </DataTable>
         <div className="card flex justify-content-center">
           <DeleteConfirmDialog

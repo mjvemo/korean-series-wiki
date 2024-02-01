@@ -42,14 +42,6 @@ export default function (props: ComponentProps) {
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6">
       <AwardsHero id={id} />
-
-      <div className="flex flex-row gap-4 justify-content-end m-4">
-        <Link href={`/awards/${id}/edit`}>
-          <Button label="Edit" icon="pi pi-plus" size="small" outlined></Button>
-        </Link>
-      </div>
-
-      <Footer />
     </div>
   );
 }

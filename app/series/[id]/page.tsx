@@ -87,8 +87,6 @@ export default function SeriesList(props: ComponentProps) {
           )}
         </IfNotNil>
       </div>
-
-      <Footer />
     </div>
   );
 }
