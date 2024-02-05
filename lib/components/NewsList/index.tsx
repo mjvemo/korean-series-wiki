@@ -28,10 +28,6 @@ export default function NewsList(props: ComponentProps) {
     name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
   });
 
-  const nameBodyTemplate = (news: any) => {
-    return <Link href={`/news/${news.id}`}>{news.name}</Link>;
-  };
-
   const onRowSelect = ({ data }: any) => {
     router.push(`/news/${data.id}`);
   };
@@ -104,7 +100,6 @@ export default function NewsList(props: ComponentProps) {
             placeholder="Keyword Search"
           />
         </span>
-        <Button icon="pi pi-refresh" rounded raised />
       </div>
     </div>
   );
@@ -138,8 +133,8 @@ export default function NewsList(props: ComponentProps) {
             style={{ width: "20%" }}
           ></Column>
           <Column
+            field="name"
             header="name"
-            body={nameBodyTemplate}
             sortable
             style={{ width: "20%" }}
             filterField="name"
@@ -168,6 +163,7 @@ export default function NewsList(props: ComponentProps) {
             header=""
             sortable
             body={bodyTemplateDelete}
+            style={{ width: "3%" }}
           ></Column>
         </DataTable>
         <div className="card flex justify-content-center">

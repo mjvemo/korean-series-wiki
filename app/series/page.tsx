@@ -43,7 +43,7 @@ export default function Page(props: ComponentProps) {
           <div>
             <Link href="/series/create">
               <Button
-                label="Add New Serie"
+                label="Add new Serie"
                 icon="pi pi-large"
                 outlined
               ></Button>

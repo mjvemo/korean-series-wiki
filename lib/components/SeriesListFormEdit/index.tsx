@@ -38,6 +38,7 @@ import ActorsListFormSelector from "../ActorsListFormSelector";
 import { InputTextarea } from "primereact/inputtextarea";
 import AwardsListFormSelector from "../AwardsListFormSelector";
 import NewsListFormSelector from "../NewsListFormSelector";
+import { Card } from "primereact/card";
 
 const formSchema = object({
   imageUrl: string().required("Invalid Format"),
@@ -73,7 +74,7 @@ export function SeriesListFormEdit(props: ComponentProps) {
     imageUrl: serie?.image || "imageUrl",
     name: serie?.name || "name",
     releasedAt: serie?.releasedAt || 0,
-    pg: serie?.pg || "number",
+    pg: serie?.pg || "PG-",
     rating: serie?.rating || 0,
     genre: serie?.genre || "",
     directedBy: serie?.directedBy || "",
@@ -114,6 +115,32 @@ export function SeriesListFormEdit(props: ComponentProps) {
       <small className="p-error">&nbsp;</small>
     );
   };
+  const header = (
+    <div>
+      <img className="border-round" alt="Card" src={formik.values.imageUrl} />
+    </div>
+  );
+
+  const subtitle = (
+    <div className="flex flex-column p-2 gap-2">
+      <h4 className="m-2">{formik.values.releasedAt}</h4>
+      <h4 className="m-2">{formik.values.rating}</h4>
+      <h4 className="m-2">{formik.values.genre}</h4>
+      <h4 className="m-2">{formik.values.directedBy}</h4>
+    </div>
+  );
+
+  const tittle = (
+    <div>
+      <div className="flex flex-row gap-4 justify-content-between p-2">
+        <h4 className="m-2">{formik.values.name}</h4>
+        <div className="flex flex-row gap-2 justidy-content-center align-items-center">
+          <div>{formik.values.pg}</div>
+        </div>
+      </div>
+      <Divider className="m-0" />
+    </div>
+  );
 
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6 p-5">
@@ -121,20 +148,31 @@ export function SeriesListFormEdit(props: ComponentProps) {
         <h1>Edit Serie</h1>
       </div>
       <div className="flex flex-column align-items-center justify-content-center gap-6">
-        <Image src={formik.values.imageUrl} alt="Image" width="750" preview />
         <form onSubmit={formik.handleSubmit}>
-          <>
+          {/* <>
             --- Formik State <br></br>
           </>
           {JSON.stringify(formik, null, 2)}
           <>
             <br></br> --- Serie <br></br>
           </>
-          {JSON.stringify(serie || {}, null, 2)}
-          <div className="flex align-items-center">
-            <div className="flex flex-row gap-3 align-items-center">
-              <div className="flex flex-column">
-                <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
+          {JSON.stringify(serie || {}, null, 2)} */}
+          <div className="flex flex-row align-items-center justify-content-center">
+            <div className="flex flex-row xl:gap-8 align-items-center">
+              <div className="flex flex-row flex-wrap">
+                <div className="flex align-items-center justify-content-center w-30rem font-bold border-round m-2">
+                  <Card
+                    title={tittle}
+                    subTitle={subtitle}
+                    header={header}
+                    className="md: w-25rem shadow-4"
+                  ></Card>
+                </div>
+              </div>
+              <div className="flex flex-column gap-2 mx-4">
+                <h3>Information</h3>
+                <Divider className="pt-5" />
+                <div className="flex flex-column gap-2 align-items-start justify-content-center  py-3">
                   <label>Image Url</label>
                   <InputText
                     name="imageUrl"
@@ -146,11 +184,12 @@ export function SeriesListFormEdit(props: ComponentProps) {
                     className={classNames({
                       "p-invalid": isFormFieldInvalid("imageUrl"),
                       "w-full": true,
+                      "lg: w-26rem": true,
                     })}
                   />
                 </div>
                 {getFormErrorMessage("imageUrl")}
-                <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3 w-full">
+                <div className="flex flex-column gap-2 align-items-start justify-content-start w-full">
                   <label>Name</label>
                   <InputText
                     name="name"
@@ -185,7 +224,7 @@ export function SeriesListFormEdit(props: ComponentProps) {
                   />
                 </div>
                 {getFormErrorMessage("releasedAt")}
-                <div className="flex flex-row flex-wrap pt-2 gap-2">
+                <div className="flex flex-row flex-wrap pt-2 gap-4">
                   <div className="flex flex-column gap-2">
                     <label>PG</label>
                     <InputText
@@ -218,78 +257,80 @@ export function SeriesListFormEdit(props: ComponentProps) {
                   </div>
                 </div>
                 {getFormErrorMessage("rating")}
-                <div>
-                  <Divider className="p-4" />
-                  <h3>Production</h3>
-                  <div className="flex flex-column gap-2">
-                    <label>Genre</label>
-                    <InputText
-                      name="genre"
-                      id="genre"
-                      value={formik.values.genre}
-                      onChange={formik.handleChange}
-                      placeholder="genre"
-                      onBlur={formik.handleBlur}
-                      className={classNames({
-                        "p-invalid": isFormFieldInvalid("genre"),
-                        "w-full": true,
-                      })}
-                    />
-                  </div>
-                  {getFormErrorMessage("genre")}
-                  <div className="flex flex-column gap-2">
-                    <label>Director</label>
-                    <InputText
-                      name="directedBy"
-                      id="directedBy"
-                      value={formik.values.directedBy}
-                      onChange={formik.handleChange}
-                      placeholder="director"
-                      onBlur={formik.handleBlur}
-                      className={classNames({
-                        "p-invalid": isFormFieldInvalid("directedBy"),
-                        "w-full": true,
-                      })}
-                    />
-                  </div>
-                  {getFormErrorMessage("directedBy")}
-                  <div className="flex flex-column gap-2">
-                    <label>Studio</label>
-                    <InputText
-                      name="studio"
-                      id="studio"
-                      value={formik.values.studio}
-                      onChange={formik.handleChange}
-                      placeholder="directed By"
-                      onBlur={formik.handleBlur}
-                      className={classNames({
-                        "p-invalid": isFormFieldInvalid("studio"),
-                        "w-full": true,
-                      })}
-                    />
-                  </div>
-                  {getFormErrorMessage("studio")}
-                  <div className="flex flex-column gap-2">
-                    <label>Description</label>
-                    <InputTextarea
-                      name="description"
-                      id="description"
-                      value={formik.values.description} // description
-                      onChange={formik.handleChange}
-                      placeholder="description"
-                      onBlur={formik.handleBlur}
-                      className={classNames({
-                        "p-invalid": isFormFieldInvalid("description"),
-                        "w-full": true,
-                      })}
-                    />
-                  </div>
-                  {getFormErrorMessage("description")}
+              </div>
+
+              <div className="flex flex-column gap-2 mx-4">
+                <h3>Production</h3>
+                <Divider className="p-4" />
+                <div className="flex flex-column gap-2">
+                  <label>Genre</label>
+                  <InputText
+                    name="genre"
+                    id="genre"
+                    value={formik.values.genre}
+                    onChange={formik.handleChange}
+                    placeholder="genre"
+                    onBlur={formik.handleBlur}
+                    className={classNames({
+                      "p-invalid": isFormFieldInvalid("genre"),
+                      "w-full": true,
+                      "md: w-25rem": true,
+                    })}
+                  />
                 </div>
+                {getFormErrorMessage("genre")}
+                <div className="flex flex-column gap-2">
+                  <label>Director</label>
+                  <InputText
+                    name="directedBy"
+                    id="directedBy"
+                    value={formik.values.directedBy}
+                    onChange={formik.handleChange}
+                    placeholder="director"
+                    onBlur={formik.handleBlur}
+                    className={classNames({
+                      "p-invalid": isFormFieldInvalid("directedBy"),
+                      "w-full": true,
+                    })}
+                  />
+                </div>
+                {getFormErrorMessage("directedBy")}
+                <div className="flex flex-column gap-2">
+                  <label>Studio</label>
+                  <InputText
+                    name="studio"
+                    id="studio"
+                    value={formik.values.studio}
+                    onChange={formik.handleChange}
+                    placeholder="directed By"
+                    onBlur={formik.handleBlur}
+                    className={classNames({
+                      "p-invalid": isFormFieldInvalid("studio"),
+                      "w-full": true,
+                    })}
+                  />
+                </div>
+                {getFormErrorMessage("studio")}
+                <div className="flex flex-column gap-2">
+                  <label>Description</label>
+                  <InputTextarea
+                    name="description"
+                    id="description"
+                    value={formik.values.description} // description
+                    onChange={formik.handleChange}
+                    placeholder="description"
+                    onBlur={formik.handleBlur}
+                    className={classNames({
+                      "p-invalid": isFormFieldInvalid("description"),
+                      "w-full": true,
+                    })}
+                  />
+                </div>
+                {getFormErrorMessage("description")}
               </div>
             </div>
           </div>
-          <div className="flex flex-row gap-4 justify-content-end p-6">
+          <div className="flex flex-row gap-4 justify-content-end p-6 mr-8">
             <Button
               type="submit"
               label="Save"

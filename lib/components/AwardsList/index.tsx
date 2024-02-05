@@ -5,8 +5,7 @@ import { Button } from "primereact/button";
 import Link from "next/link";
 import { AwardDTO } from "@/lib/api/dtos/award.dto";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "@/lib/redux";
-import { deleteAwardByIdAsync, getAwardsAsync } from "@/lib/redux";
+import { deleteAwardByIdAsync, useDispatch } from "@/lib/redux";
 import { Toast } from "primereact/toast";
 import DeleteConfirmDialog from "../DeleteConfirmDialog";
 import { FilterMatchMode } from "primereact/api";
@@ -20,6 +19,7 @@ export default function AwardsList(props: ComponentProps) {
   const dispatch = useDispatch();
   const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
   const [toDelete, setToDelete] = useState({ name: "", id: "" });
+
   const router = useRouter();
   const toast = useRef<Toast>(null);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
@@ -28,8 +28,21 @@ export default function AwardsList(props: ComponentProps) {
     name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
   });
 
-  const nameBodyTemplate = (award: any) => {
-    return <Link href={`/awards/${award.id}`}>{award.name}</Link>;
+  // const nameBodyTemplate = (award: any) => {
+  //   return (
+  //     <Link style={{ textDecoration: "none" }} href={`/awards/${award.id}`}>
+  //       {award.name}
+  //     </Link>
+  //   );
+  // };
+  const imageBodyTemplate = (award: any) => {
+    return (
+      <img
+        src={award.image}
+        alt={award.image}
+        className="w-6rem shadow-2 border-round"
+      />
+    );
   };
 
   const onRowSelect = ({ data }: any) => {
@@ -93,7 +106,6 @@ export default function AwardsList(props: ComponentProps) {
             placeholder="Keyword Search"
           />
         </span>
-        <Button icon="pi pi-refresh" rounded raised />
       </div>
     </div>
   );
@@ -122,8 +134,16 @@ export default function AwardsList(props: ComponentProps) {
           filterDisplay="row"
         >
           <Column
+            field="image"
+            header="image"
+            sortable
+            style={{ width: "20%" }}
+            filterField="image"
+            body={imageBodyTemplate}
+          ></Column>
+          <Column
+            field="name"
             header="name"
-            body={nameBodyTemplate}
             sortable
             style={{ width: "20%" }}
             filterField="name"
@@ -152,6 +172,7 @@ export default function AwardsList(props: ComponentProps) {
           <Column
             field=""
             header=""
+            style={{ width: "3%" }}
             sortable
             body={bodyTemplateDelete}
           ></Column>

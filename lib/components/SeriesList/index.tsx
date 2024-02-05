@@ -110,7 +110,6 @@ export default function SeriesList(props: ComponentProps) {
             placeholder="Keyword Search"
           />
         </span>
-        <Button icon="pi pi-refresh" rounded raised />
       </div>
     </div>
   );

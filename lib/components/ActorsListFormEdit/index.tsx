@@ -42,6 +42,8 @@ import SeriesListFormSelector from "../SeriesListFormSelector";
 import { SerieDTO } from "@/lib/api/dtos/serie.dto";
 import AwardsListFormSelector from "../AwardsListFormSelector";
 import NewsListFormSelector from "../NewsListFormSelector";
+import { Card } from "primereact/card";
+import { Divider } from "primereact/divider";
 
 const formSchema = object<ActorsFormPayload>({
   imageUrl: string().url("Invalid Format").required("Required"),
@@ -117,19 +119,57 @@ export function ActorsListFormEdit(props: ComponentProps) {
     );
   };
 
+  const header = (
+    <div>
+      <img className="border-round" alt="Card" src={formik.values.imageUrl} />
+    </div>
+  );
+
+  const subtitle = (
+    <div className="flex flex-column p-2 gap-2">
+      <h4 className="m-2">{formik.values.education}</h4>
+      <h4 className="m-2">{formik.values.agency}</h4>
+      <h4 className="m-2">{formik.values.yearsActive}</h4>
+    </div>
+  );
+
+  const tittle = (
+    <div>
+      <div className="flex flex-row gap-4 justify-content-between p-2">
+        <h4 className="m-2">{formik.values.name}</h4>
+        <div className="flex flex-row gap-2 justidy-content-center align-items-center">
+          <i className="pi pi-calendar" style={{ fontSize: "1.3rem" }} />
+          <h4 className="m-2">{formik.values.age}</h4>
+        </div>
+      </div>
+      <Divider className="m-0" />
+    </div>
+  );
+
   return (
     <div className="flex flex-column justify-content-center flex-wrap row-gap-6 p-5">
       <div>
         <h1>Edit Actor: {formik.values.name}</h1>
       </div>
-      <div>{JSON.stringify(formik.values)}</div>
-      <div className="flex flex-row align-items-center justify-content-center gap-6">
-        <Image src={formik.values.imageUrl} alt="Image" width="650" preview />
+      {/* <div>{JSON.stringify(formik.values)}</div> */}
+
+      <div className="flex flex-row align-items-center justify-content-center gap-8">
+        {/* <Image src={formik.values.imageUrl} alt="Image" width="650" preview /> */}
+        <div className="flex flex-row flex-wrap">
+          <div className="flex align-items-center justify-content-center w-30rem font-bold border-round m-2">
+            <Card
+              title={tittle}
+              subTitle={subtitle}
+              header={header}
+              className="md: w-25rem shadow-4"
+            ></Card>
+          </div>
+        </div>
         <form onSubmit={formik.handleSubmit}>
           <div className="flex align-items-center">
             <div className="flex flex-row gap-3 align-items-center">
               <div className="flex flex-column">
-                <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
+                <div className="flex flex-column gap-2 align-items-start justify-content-start ">
                   <label>Image Url</label>
                   <InputText
                     name="imageUrl"
@@ -145,7 +185,7 @@ export function ActorsListFormEdit(props: ComponentProps) {
                   />
                   {getFormErrorMessage("imageUrl")}
                 </div>
-                <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3 w-full">
+                <div className="flex flex-column gap-2 align-items-start justify-content-start  w-full">
                   <label>Name</label>
                   <InputText
                     name="name"
@@ -162,7 +202,7 @@ export function ActorsListFormEdit(props: ComponentProps) {
                   {getFormErrorMessage("name")}
                 </div>
                 <div className="flex flex-row gap-4">
-                  <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
+                  <div className="flex flex-column gap-2 align-items-start justify-content-start ">
                     <label>Age</label>
                     <InputNumber
                       name="age"
@@ -178,7 +218,7 @@ export function ActorsListFormEdit(props: ComponentProps) {
                     />
                     {getFormErrorMessage("age")}
                   </div>
-                  <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
+                  <div className="flex flex-column gap-2 align-items-start justify-content-start ">
                     <label>Education</label>
                     <InputText
                       name="education"
@@ -196,7 +236,7 @@ export function ActorsListFormEdit(props: ComponentProps) {
                   </div>
                 </div>
                 <div className="flex flex-row gap-4">
-                  <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
+                  <div className="flex flex-column gap-2 align-items-start justify-content-start ">
                     <label>Agency</label>
                     <InputText
                       name="agency"
@@ -213,7 +253,7 @@ export function ActorsListFormEdit(props: ComponentProps) {
                     {getFormErrorMessage("agency")}
                   </div>
 
-                  <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
+                  <div className="flex flex-column gap-2 align-items-start justify-content-start ">
                     <label>Active Since</label>
                     <Calendar
                       name="yearsActive"
@@ -236,7 +276,7 @@ export function ActorsListFormEdit(props: ComponentProps) {
                     {getFormErrorMessage("yearsActive")}
                   </div>
                 </div>
-                <div className="flex flex-column gap-2 align-items-start justify-content-start pt-3 py-3">
+                <div className="flex flex-column gap-2 align-items-start justify-content-start ">
                   <label>About</label>
                   <InputTextarea
                     name="about"

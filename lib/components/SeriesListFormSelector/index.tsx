@@ -4,7 +4,7 @@ import SeriesListSelector from "../SeriesListSelector";
 export default function SeriesListFormSelector() {
   return (
     <div className="flex flex-row justify-content-start">
-      <div className="card justify-content-center p-4">
+      <div className="flex flex-row justify-content-center">
         <SeriesListSelector />
         <SeriesListSelected />
       </div>

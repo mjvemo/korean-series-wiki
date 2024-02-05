@@ -202,7 +202,6 @@ export default function ActorsListSelector() {
           <Column
             field="yearsActive"
             header="Active"
-            body={activeBodyTemplate}
             style={{ width: "20%" }}
             sortable
           ></Column>

@@ -93,28 +93,11 @@ export default function SeriesListSelected() {
         ></Column>
         <Column
           field="rating"
-          header="Rating"
+          header="rating"
           style={{ width: "20%" }}
           sortable
         ></Column>
-        <Column
-          field="genre"
-          header="Genre"
-          style={{ width: "20%" }}
-          sortable
-        ></Column>
-        <Column
-          field="directedBy"
-          header="Director"
-          style={{ width: "20%" }}
-          sortable
-        ></Column>
-        <Column
-          field="studio"
-          header="Studio"
-          style={{ width: "20%" }}
-          sortable
-        ></Column>
+
         <Column
           field="action"
           header="action"
